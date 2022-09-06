@@ -1,8 +1,18 @@
-<script>
-	import { onMount } from 'svelte';
+<script lang="ts">
+import { onMount } from 'svelte';
+import type { PageData } from './$types';
+import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
+import { personRolesStore, currentUserRoleStore } from '$lib/store/person.roles.store';
+import { genderTypesStore } from '$lib/store/gender.types.store';
 
-	let showSplash = true;
+export let data: PageData;
+personRolesStore.set(data.roles);
+genderTypesStore.set(data.genderTypes);
+LocalStorageUtils.setItem('personRoles', JSON.stringify(data.roles));
+LocalStorageUtils.setItem('genderTypes', JSON.stringify(data.genderTypes));
 
+
+let showSplash = true;
 	onMount(() => {
 		setTimeout(() => {
 			showSplash = false;
