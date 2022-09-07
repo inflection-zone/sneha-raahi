@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+   let Phone = '';
 </script>
 
 <div class="flex items-center justify-center mt-16">
@@ -17,17 +18,21 @@
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec lacus nec est
 				condimentum consectetur quis eget nisi..
 			</p>
+			<form action="/api/user/user" method="post">
 			<input
 				placeholder="Phone Number"
 				type="number"
 				class=" h-[52px] w-[340px] py-2 px-3 border rounded-lg bg-[#fde2e4] mt-5 text-lg "
+				bind:value={Phone}
+				
 			/>
-			<a href="/sign-in-otp">
+			<!-- <a href="/sign-in-otp"> -->
 				<button
 					class=" h-[52px] w-[340px]  mt-8 mb-[180px] text-[#fff] text-xl font-bold rounded-lg bg-[#d05591] "
 					>SEND OTP</button
 				>
-			</a>
+			<!-- </a> -->
+		</form>
 			<div class="flex justify-center">
 				<a href="/"> <span class=" text-xl tracking-widest  font-bold"> BACK TO HOME </span></a>
 			</div>

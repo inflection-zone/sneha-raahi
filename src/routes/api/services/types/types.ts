@@ -30,13 +30,13 @@ export const getPersonRoles = async (): Promise<PersonRole[]> => {
     }
 }
 
-// export const getPersonRoleById = (PersonRoles: PersonRole[], roleId) => {
-//     console.log(`Person roles = ${JSON.stringify(PersonRoles, null, 2)}`);
-//     console.log(`Person roles = ${JSON.stringify(PersonRoles, null, 2)}`);
-//     const role = PersonRoles.find(x => x.id === roleId);
-//     console.log(`role: ${JSON.stringify(role, null, 2)}`);
-//     return role.RoleName;
-// }
+export const getPersonRoleById = (PersonRoles: PersonRole[], roleId) => {
+    console.log(`Person roles = ${JSON.stringify(PersonRoles, null, 2)}`);
+    console.log(`Person roles = ${JSON.stringify(PersonRoles, null, 2)}`);
+    const role = PersonRoles.find(x => x.id === roleId);
+    console.log(`role: ${JSON.stringify(role, null, 2)}`);
+    return role.RoleName;
+}
 
 export const getGenderTypes = async () : Promise<string[]> => {
 
