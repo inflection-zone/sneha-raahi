@@ -17,20 +17,22 @@
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec lacus nec est
 				condimentum consectetur quis eget nisi..
 			</p>
+			<form action="" method = 'post'>
 			<div class="flex flex-row mt-5">
-				<input class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]" />
+				<input class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]"/>
 				<input class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]" />
 				<input class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]" />
 				<input class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]" />
 				<input class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]" />
 				<input class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]" />
 			</div>
-			<a href="/choose-profile">
+			<!-- <a href="/choose-profile"> -->
 				<button
 					class=" h-[52px] w-[340px]  mt-8 mb-[180px] text-[#fff] text-xl font-bold rounded-lg bg-[#d05591] "
 					>SIGN IN</button
-				></a
-			>
+				>
+			</form>
+			<!-- </a> -->
 			<div class="flex justify-center">
 				<a href="/"> <span class=" text-xl tracking-widest  font-bold"> BACK TO HOME </span></a>
 			</div>

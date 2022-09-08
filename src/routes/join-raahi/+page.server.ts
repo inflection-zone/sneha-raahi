@@ -1,7 +1,8 @@
 import { API_CLIENT_INTERNAL_KEY, BACKEND_API_URL } from '$env/static/private';
-import type { UserModel } from '$lib/types/domain.models';
+import type { PersonRole, UserModel } from '$lib/types/domain.models';
 import { Helper } from '$lib/utils/helper';
-import { error, type Action } from '@sveltejs/kit';
+import type { PageServerLoad } from '.svelte-kit/types/src/routes/$types';
+import { error, redirect, type Action } from '@sveltejs/kit';
 import { getPersonRoleById, getPersonRoles } from '../api/services/types/types';
 
 export const POST: Action = async ({ request }) => {
@@ -9,7 +10,6 @@ export const POST: Action = async ({ request }) => {
 	console.log(Object.fromEntries(data));
 
 	const countryCode = '+91';
-	// const FirstName = data.has('firstName') ? data.get('firstName') : null;
 	const firstName = data.has('firstName') ? data.get('firstName') : null;
 	const lastName = data.has('lastName') ? data.get('lastName') : null;
 	const age = data.has('age') ? data.get('age') : null;
@@ -44,18 +44,10 @@ export const POST: Action = async ({ request }) => {
 			headers
 		});
 		const response = await res.json();
-		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			throw error(response.HttpCode, response.Message);
-		}
-
-		// const user = response.Data.User;
-		// const personRoles = await getPersonRoles();
-		// const currentUserRoleName = getPersonRoleById(personRoles, user.CurrentRoleId);
-
-		// if(currentUserRoleName === 'paitent')
 		return {
-			location: `/sign-in-otp`,
-			message: response.Message
+			location: `/sign-in`,
+			message: response.Message,
+			user: response.Paitent,
 		};
 	} catch (err) {
 		console.error(`Error registering user in: ${err.message}`);
@@ -70,8 +62,6 @@ const getUserModel = (
 	phone: string,
 	location: string
 ): UserModel => {
-	// console.log(`phone = ${phone}`);
-
 	const userModel: UserModel = {};
 	userModel.FirstName = firstName;
 	userModel.LastName = lastName;
@@ -82,3 +72,4 @@ const getUserModel = (
 	}
 	return userModel;
 };
+

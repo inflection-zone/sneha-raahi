@@ -18,3 +18,16 @@ export interface ResponseData {
     Data  ?: unknown;
 };
 
+export interface OtpModel {
+    Phone?     : string;
+    RoleId?    : number;
+    Prupose?   : string;
+};
+export interface LoginModel {
+    UserName    ?: string;
+    Email       ?: string;
+    CountryCode ?: string;
+    Phone       ?: string;
+    Password    ?: string;
+    Otp         ?: string;
+};

@@ -33,7 +33,6 @@ export const POST = async (event ) => {
                 }
             }
         }
-
         return {
             status : response.HttpCode,
             body : {
@@ -50,10 +49,7 @@ export const POST = async (event ) => {
 };
 
 const getUserModel = (firstName:string, lastName:string, age:string, phone:string ,location:string): UserRegistrationModel => {
-
-    // console.log(`phone = ${phone}`);
-
-    const userModel: UserRegistrationModel = {} ;
+   const userModel: UserRegistrationModel = {} ;
     userModel.FirstName = firstName;
     userModel.LastName = lastName;
     userModel.Age= age;
