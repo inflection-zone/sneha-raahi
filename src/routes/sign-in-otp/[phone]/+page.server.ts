@@ -24,22 +24,8 @@ export const POST: Action = async ({ request, setHeaders }) => {
     const data = await request.formData(); // or .json(), or .text(), etc
     console.log(Object.fromEntries(data));
 
-    // const otp1 = data.has('otp1') ? data.get('otp1') : null;
-    // const otp2 = data.has('otp2') ? data.get('otp2') : null;
-    // const otp3 = data.has('otp3') ? data.get('otp3') : null;
-    // const otp4 = data.has('otp4') ? data.get('otp4') : null;
-    // const otp5 = data.has('otp5') ? data.get('otp5') : null;
-    // const otp6 = data.has('otp6') ? data.get('otp6') : null;
-
     const phone_ = data.has('phone') ? data.get('phone') : null;
     const otp_ = data.has('otp') ? data.get('otp') : null;
-
-    // const otp = otp1 ? otp1.valueOf() as string : '' +
-    //     otp2 ? otp2.valueOf() as string : '' +
-    //         otp3 ? otp3.valueOf() as string : '' +
-    //             otp4 ? otp4.valueOf() as string : '' +
-    //                 otp5 ? otp5.valueOf() as string : '' +
-    //                     otp6 ? otp6.valueOf() as string : '';
 
     if (!phone_ || !otp_) {
         throw error(400, `Phone or OTP values are ill-formatted!`);
@@ -75,6 +61,9 @@ export const POST: Action = async ({ request, setHeaders }) => {
             console.log(response.Message);
             throw error(response.HttpCode, response.Message);
         }
+        // console.log(response.Message);
+        // console.log('Access-token: ' + response.Data.AccessToken);
+        // console.log('User: ' + JSON.stringify(response.Data.User, null, 2));
 
         const user = response.Data.User;
         const accessToken = response.Data.AccessToken;
@@ -102,7 +91,7 @@ export const POST: Action = async ({ request, setHeaders }) => {
                 location: '/home',
                 message: response.Message,
                 user: response.Data.Patient,
-                currentUserRoleName,
+                //currentUserRoleName,
             }
         }
         else {
