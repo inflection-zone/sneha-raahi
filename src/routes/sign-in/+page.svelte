@@ -1,4 +1,5 @@
 <script lang="ts">
+
 </script>
 
 <div class="flex items-center justify-center mt-16">
@@ -17,7 +18,7 @@
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec lacus nec est
 				condimentum consectetur quis eget nisi..
 			</p>
-			<form action="" method="post">
+			<form method="post">
 			<input
 				placeholder="Phone Number"
 				type="number"

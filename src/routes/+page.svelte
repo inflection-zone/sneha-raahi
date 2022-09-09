@@ -11,7 +11,6 @@ genderTypesStore.set(data.genderTypes);
 LocalStorageUtils.setItem('personRoles', JSON.stringify(data.roles));
 LocalStorageUtils.setItem('genderTypes', JSON.stringify(data.genderTypes));
 
-
 let showSplash = true;
 	onMount(() => {
 		setTimeout(() => {

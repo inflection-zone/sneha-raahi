@@ -1,9 +1,9 @@
 import { API_CLIENT_INTERNAL_KEY, BACKEND_API_URL } from '$env/static/private';
 import type { PersonRole, UserModel } from '$lib/types/domain.models';
+import { CookieUtils } from '$lib/utils/cookie.utils';
 import { Helper } from '$lib/utils/helper';
 import type { PageServerLoad } from '.svelte-kit/types/src/routes/$types';
 import { error, redirect, type Action } from '@sveltejs/kit';
-import { getPersonRoleById, getPersonRoles } from '../api/services/types/types';
 
 export const POST: Action = async ({ request }) => {
 	const data = await request.formData(); // or .json(), or .text(), etc
@@ -68,8 +68,9 @@ const getUserModel = (
 	userModel.Age = age;
 	// userModel.Location= location;
 	if (Helper.isPhone(phone)) {
-		userModel.Phone = phone;
+		userModel.Phone = '+91-' + phone;
 	}
 	return userModel;
 };
+
 

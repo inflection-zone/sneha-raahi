@@ -5,7 +5,7 @@ export interface UserModel{
     Age?          : string;
     Phone?        : string;
     Location?     : string;
-    
+
 };
 export interface PersonRole {
     id          : number,
@@ -30,4 +30,5 @@ export interface LoginModel {
     Phone       ?: string;
     Password    ?: string;
     Otp         ?: string;
+    LoginRoleId ?: number;
 };

@@ -22,7 +22,13 @@ export const POST: Action = async ({ request }) => {
 	headers['Content-Type'] = 'application/json';
 	headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
 	const body = JSON.stringify(model);
-	const url = BACKEND_API_URL + '/generate-otp';
+	const url = BACKEND_API_URL + '/users/generate-otp';
+
+	// console.log(body);
+	// console.log(url);
+	// console.log(JSON.stringify(headers, null, 2));
+
+	const phoneWithCountryCode = '+91-' + phone;
 
 	try {
 		const res = await fetch(url, {
@@ -32,9 +38,9 @@ export const POST: Action = async ({ request }) => {
 		});
 		const response = await res.json();
 		return {
-			location: `/sign-in-otp`,
+			location: `/sign-in-otp/${phoneWithCountryCode}`,
 			message: response.Message,
-			user: response.User,
+			phone: phoneWithCountryCode,
 		};
 	} catch (err) {
 		console.error(`Error generating otp: ${err.message}`);
@@ -48,7 +54,7 @@ function generateOtpModel(phone: string): OtpModel {
         Prupose : 'Login'
     };
     if (Helper.isPhone(phone)) {
-        OtpModel.Phone = phone;
+        OtpModel.Phone = '+91-' + phone;
     }
     return OtpModel;
 }
