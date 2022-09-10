@@ -47,7 +47,6 @@ export const POST: Action = async ({ request }) => {
 		return {
 			location: `/sign-in`,
 			message: response.Message,
-			user: response.Paitent,
 		};
 	} catch (err) {
 		console.error(`Error registering user in: ${err.message}`);

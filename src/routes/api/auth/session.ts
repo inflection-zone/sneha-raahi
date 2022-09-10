@@ -4,6 +4,7 @@ export interface Session {
     accessToken?    : string;
     userId?         : string;
     email?          : string;
+    phone?          : string;
     username?       : string;
     profileImageUrl?: string
     fullName?       : string;
@@ -33,8 +34,12 @@ export class SessionHelper {
 
     static getSession = (sessionId): Promise<Session|null> => {
         const session = SessionHelper._sessions.find((x) => x.sessionId === sessionId);
-        if (!session) return Promise.resolve(null);
-        //console.log(`Retrieving existing session: ${JSON.stringify(session, null, 2)}`);
+        if (!session) {
+            console.log(`Missing session for : sessionId`);
+            return Promise.resolve(null);
+        }
+        console.log(SessionHelper._sessions.length);
+        console.log(`Retrieving existing session: ${JSON.stringify(session, null, 2)}`);
         return Promise.resolve(session);
     };
 
@@ -65,9 +70,9 @@ export class SessionHelper {
     static constructSession = async (user, token: string, expiryDate: Date): Promise<Session> => {
 
         console.log(`Constructing session!`);
-        // console.log(`User: ${JSON.stringify(user, null, 2)}`);
-        // console.log(`Token: ${token}`);
-        // console.log(`Expiry date: ${expiryDate.toISOString()}`);
+        console.log(`User: ${user.id}`);
+        console.log(`Token: ${token}`);
+        console.log(`Expiry date: ${expiryDate.toISOString()}`);
 
         if(!user || !token || !expiryDate) {
             return null;
@@ -75,13 +80,15 @@ export class SessionHelper {
         const session: Session = {
             accessToken    : token,
             sessionId      : user.SessionId,
-            userId         : user.UserId,
-            email          : user.Email,
+            userId         : user.id,
+            email          : user.Person.Email,
+            phone          : user.Person.Phone,
             username       : user.UserName,
             profileImageUrl: user.profileImageUrl?? null,
-            fullName       : user.fullName ?? null,
-            firstName      : user.firstName ?? null,
-            roleId         : user.CurrentRoleId,
+            fullName       : user.Person.FirstName && user.Person.LastName ?
+                (user.Person.FirstName + ' ' +  user.Person.LastName) : null,
+            firstName      : user.Person.FirstName ?? null,
+            roleId         : user.RoleId,
             expiryDate     : expiryDate
         };
         return Promise.resolve(session);

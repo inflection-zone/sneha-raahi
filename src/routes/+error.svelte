@@ -1,7 +1,5 @@
   <script>
     import { page } from '$app/stores';
-    export let message;
-    export let statusCode;
   </script>
 <div class="flex items-center justify-center mt-16">
   <div

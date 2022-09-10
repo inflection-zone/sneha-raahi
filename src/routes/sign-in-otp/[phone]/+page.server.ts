@@ -68,34 +68,35 @@ export const POST: Action = async ({ request, setHeaders }) => {
         const user = response.Data.User;
         const accessToken = response.Data.AccessToken;
         const expiryDate = new Date(response.Data.SessionValidTill);
-        const sessionId = response.Data.User.SessionId;
+        const sessionId = response.Data.SessionId;
+        user.SessionId = sessionId;
 
         const session = await SessionHelper.constructSession(user, accessToken, expiryDate);
         if (session) {
+            console.log('Session - ' + JSON.stringify(session, null, 2));
             const userSession = await SessionHelper.addSession(session.sessionId, session);
             console.log(JSON.stringify(userSession, null, 2));
         }
         else {
             console.log(`Session cannot be constructed!`);
-            throw new Error(`Use login session cannot be created!`);
+            throw error(500, `Use login session cannot be created!`);
         }
 
         const personRoles = await getPersonRoles();
-        const currentUserRoleName = getPersonRoleById(personRoles, user.CurrentRoleId);
+        const currentUserRoleName = getPersonRoleById(personRoles, user.RoleId);
 
-        if (currentUserRoleName === 'Paitent') {
-            setHeaders({
-                'Set-Cookie': CookieUtils.setCookieHeader('sessionId', sessionId, 24 * 7),
-            });
-            return {
-                location: '/home',
-                message: response.Message,
-                user: response.Data.Patient,
-                //currentUserRoleName,
-            }
-        }
-        else {
+        if (currentUserRoleName !== 'Patient') {
             throw error(400, 'Unsupported user role!');
+        }
+
+        const userId: string = response.Data.User.id;
+
+        setHeaders({
+            'Set-Cookie': CookieUtils.setCookieHeader('sessionId', sessionId, 24 * 7),
+        });
+        return {
+            location: `/users/${userId}/home`,
+            message: response.Message,
         }
     }
     catch (err) {
