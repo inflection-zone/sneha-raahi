@@ -1,33 +1,29 @@
 <script lang="ts">
 	import { Helper } from '$lib/utils/helper';
 	import type { PageServerData } from './$types';
-	import { onMount } from 'svelte';
-	import { browser } from '$app/environment';
+	import { onDestroy, onMount } from 'svelte';
 	import {selectTextOnFocus, blurOnEscape} from '$lib/utils/input.directives';
+	import { personRolesStore } from '$lib/store/person.roles.store';
+	import type { Unsubscriber } from 'svelte/store';
 
 	export let data: PageServerData;
 	console.log('Page data received - ' + JSON.stringify(data, null, 2));
 
-	// let otp1Value = '';
-	// let otp2Value = '';
-	// let otp3Value = '';
-	// let otp4Value = '';
-	// let otp5Value = '';
-	// let otp6Value = '';
-
-	let otp1;
-	let otp2;
-	let otp3;
-	let otp4;
-	let otp5;
-	let otp6;
-	let loginButton;
-
+	let otp1, otp2, otp3, otp4, otp5, otp6, loginButton, loginRoleId = 2;
 	let otp = '';
-
+	let personRoles;
+	let roleUnsubscribe: Unsubscriber = personRolesStore.subscribe(value => {
+			personRoles = value;
+		});
+	const patientRole = personRoles?.find(x => x.RoleName === 'Patient');
+	if (patientRole) {
+		loginRoleId = patientRole.id;
+	}
 	onMount(()=>{
 		otp1.focus();
 	});
+
+	onDestroy(roleUnsubscribe);
 
 	function getOtp() {
 		otp = otp1.value + otp2.value + otp3.value + otp4.value + otp5.value + otp6.value;
@@ -147,13 +143,16 @@
 				<div class="hidden">
 					<input name="otp" class="hidden" value="{otp}">
 				</div>
+				<div class="hidden">
+					<input name="loginRoleId" class="hidden" value="{loginRoleId}">
+				</div>
 			<div class="flex flex-row mt-5">
-				<input name="otp1" on:input={onOtpDigitEntered} bind:this={otp1} use:selectTextOnFocus use:blurOnEscape class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg"/>
-				<input name="otp2" on:input={onOtpDigitEntered} bind:this={otp2} use:selectTextOnFocus use:blurOnEscape class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg" />
-				<input name="otp3" on:input={onOtpDigitEntered} bind:this={otp3} use:selectTextOnFocus use:blurOnEscape class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg" />
-				<input name="otp4" on:input={onOtpDigitEntered} bind:this={otp4} use:selectTextOnFocus use:blurOnEscape class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg" />
-				<input name="otp5" on:input={onOtpDigitEntered} bind:this={otp5} use:selectTextOnFocus use:blurOnEscape class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg" />
-				<input name="otp6" on:input={onOtpDigitEntered} bind:this={otp6} use:selectTextOnFocus use:blurOnEscape class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg" />
+				<input name="otp1" required on:input={onOtpDigitEntered} bind:this={otp1} use:selectTextOnFocus use:blurOnEscape class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg"/>
+				<input name="otp2" required on:input={onOtpDigitEntered} bind:this={otp2} use:selectTextOnFocus use:blurOnEscape class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg" />
+				<input name="otp3" required on:input={onOtpDigitEntered} bind:this={otp3} use:selectTextOnFocus use:blurOnEscape class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg" />
+				<input name="otp4" required on:input={onOtpDigitEntered} bind:this={otp4} use:selectTextOnFocus use:blurOnEscape class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg" />
+				<input name="otp5" required on:input={onOtpDigitEntered} bind:this={otp5} use:selectTextOnFocus use:blurOnEscape class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg" />
+				<input name="otp6" required on:input={onOtpDigitEntered} bind:this={otp6} use:selectTextOnFocus use:blurOnEscape class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg" />
 			</div>
 			<!-- <a href="/choose-profile"> -->
 				<button

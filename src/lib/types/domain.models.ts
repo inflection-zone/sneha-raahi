@@ -21,7 +21,7 @@ export interface ResponseData {
 export interface OtpModel {
     Phone?     : string;
     RoleId?    : number;
-    Prupose?   : string;
+    Purpose?   : string;
 };
 export interface LoginModel {
     UserName    ?: string;

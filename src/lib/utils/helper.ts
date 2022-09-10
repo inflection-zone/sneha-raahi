@@ -79,6 +79,16 @@ export class Helper {
         }
         return true;
     }
+    static sanitizePhone = (phone: string): string => {
+        if (!phone) {
+            return phone;
+        }
+        const prefix = '+91-';
+        if (!phone.startsWith(prefix)) {
+           return prefix + phone
+        }
+        return phone;
+    }
 
     static isAlpha = (c) => {
         const alphas = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

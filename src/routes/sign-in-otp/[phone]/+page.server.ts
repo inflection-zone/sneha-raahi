@@ -1,11 +1,10 @@
-import { API_CLIENT_INTERNAL_KEY, BACKEND_API_URL } from "$env/static/private";
-import type { LoginModel } from "$lib/types/domain.models";
 import { CookieUtils } from "$lib/utils/cookie.utils";
-import { Helper } from "$lib/utils/helper";
-import type { PageServerLoad } from "../../../../.svelte-kit/types/src/routes/sign-in-otp/[phone]/$types";
+import type { PageServerLoad } from "./$types";
 import { error, type Action } from "@sveltejs/kit";
 import { SessionHelper } from "../../api/auth/session";
-import { getPersonRoleById, getPersonRoles } from "../../api/services/types/types";
+import { loginWithOtp } from "../../api/auth/login.with.otp";
+
+////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async ({ params }) => {
     try {
@@ -22,54 +21,39 @@ export const load: PageServerLoad = async ({ params }) => {
 export const POST: Action = async ({ request, setHeaders }) => {
 
     const data = await request.formData(); // or .json(), or .text(), etc
-    console.log(Object.fromEntries(data));
+    //console.log(Object.fromEntries(data));
 
     const phone_ = data.has('phone') ? data.get('phone') : null;
     const otp_ = data.has('otp') ? data.get('otp') : null;
+    const loginRoleId_ = data.has('loginRoleId') ? data.get('loginRoleId') : null;
 
     if (!phone_ || !otp_) {
         throw error(400, `Phone or OTP values are ill-formatted!`);
     }
     const otp = otp_.valueOf() as string;
-    const phone = phone_.valueOf() as string;
-
     if (otp.length < 6) {
         throw error(400, `Otp is not valid!`);
     }
-
-    const model: LoginModel = getLoginModel(otp, phone);
-    console.log(JSON.stringify(model, null, 2));
-
-    const headers = {};
-    headers['Content-Type'] = 'application/json';
-    headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
-    const body = JSON.stringify(model);
-    const url = BACKEND_API_URL + '/users/login-with-otp';
-
-	console.log(body);
-	console.log(url);
-	console.log(JSON.stringify(headers, null, 2));
+    const phone = phone_.valueOf() as string;
+    const loginRoleId = loginRoleId_.valueOf() as number;
 
     try {
-        const res = await fetch(url, {
-            method: 'POST',
-            body,
-            headers
-        });
-        const response = await res.json();
+        const response = await loginWithOtp(otp, phone, loginRoleId);
         if (response.Status === 'failure' || response.HttpCode !== 200) {
             console.log(response.Message);
             throw error(response.HttpCode, response.Message);
         }
-        // console.log(response.Message);
-        // console.log('Access-token: ' + response.Data.AccessToken);
-        // console.log('User: ' + JSON.stringify(response.Data.User, null, 2));
 
         const user = response.Data.User;
+        user.SessionId = response.Data.SessionId;
         const accessToken = response.Data.AccessToken;
         const expiryDate = new Date(response.Data.SessionValidTill);
         const sessionId = response.Data.SessionId;
-        user.SessionId = sessionId;
+        const userId: string = response.Data.User.id;
+
+        if (user.Role.RoleName !== 'Patient') {
+            throw error(400, 'Unsupported user role!');
+        }
 
         const session = await SessionHelper.constructSession(user, accessToken, expiryDate);
         if (session) {
@@ -81,16 +65,6 @@ export const POST: Action = async ({ request, setHeaders }) => {
             console.log(`Session cannot be constructed!`);
             throw error(500, `Use login session cannot be created!`);
         }
-
-        const personRoles = await getPersonRoles();
-        const currentUserRoleName = getPersonRoleById(personRoles, user.RoleId);
-
-        if (currentUserRoleName !== 'Patient') {
-            throw error(400, 'Unsupported user role!');
-        }
-
-        const userId: string = response.Data.User.id;
-
         setHeaders({
             'Set-Cookie': CookieUtils.setCookieHeader('sessionId', sessionId, 24 * 7),
         });
@@ -103,15 +77,4 @@ export const POST: Action = async ({ request, setHeaders }) => {
         console.error(`Error logging in: ${err.message}`);
         throw error(400, err.message);
     }
-}
-
-const getLoginModel = (otp: string, phone: string): LoginModel => {
-    const loginModel: LoginModel = {
-        Phone: phone,
-        LoginRoleId: 2,
-    };
-    if (Helper.isOtp(otp)) {
-        loginModel.Otp = otp;
-    }
-    return loginModel;
 }
