@@ -1,4 +1,16 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
+	let personRoles = [], loginRoleId = 2;
+
+	if (browser) {
+		const tmp = LocalStorageUtils.getItem('personRoles');
+		personRoles = JSON.parse(tmp);
+		const patientRole = personRoles?.find(x => x.RoleName === 'Patient');
+		if (patientRole) {
+			loginRoleId = patientRole.id;
+		}
+	}
 </script>
 
 <div class="flex items-center justify-center mt-16">
@@ -16,13 +28,15 @@
 			<p class=" leading-tight text-base text-center">
 				The number you enter will be linked to your Raahi App account. Make sure you are able to access the OTP sent on this number.
 			</p>
-			<form action="" method="post">
+			<form method="post">
 			<input
 				placeholder="Phone Number"
 				type="number"
 				name="phone"
 				class=" h-[52px] w-[340px] py-2 px-3 border rounded-lg bg-[#fde2e4] mt-5 text-lg "
 			/>
+			<input name="loginRoleId" class="hidden" value="{loginRoleId}">
+
 			<!-- <a href="/sign-in-otp"> -->
 				<button
 					class=" h-[52px] w-[340px]  mt-8 mb-[180px] text-[#fff] text-xl font-bold rounded-lg bg-[#d05591] "
