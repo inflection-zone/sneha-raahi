@@ -11,11 +11,10 @@
 		</div>
 		<div class="card-body ">
 			<h2 class="mt-40 text-center text-[#d05591] text-xl font-bold">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				Enter the 6-digit OTP
 			</h2>
 			<p class="  text-center leading-tight text-base ">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec lacus nec est
-				condimentum consectetur quis eget nisi..
+				Check your messages for OTP.
 			</p>
 			<form action="" method = 'post'>
 			<div class="flex flex-row mt-5">

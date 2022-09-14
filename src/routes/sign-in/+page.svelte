@@ -11,11 +11,10 @@
 		</div>
 		<div class="card-body ">
 			<h2 class="mt-40 text-center text-[#d05591] text-xl font-bold">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				Enter a phone number 
 			</h2>
 			<p class=" leading-tight text-base text-center">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec lacus nec est
-				condimentum consectetur quis eget nisi..
+				The number you enter will be linked to your Raahi App account. Make sure you are able to access the OTP sent on this number.
 			</p>
 			<form action="" method="post">
 			<input

@@ -7,9 +7,9 @@
 					alt=""
 					class="w-[110px] h-[50px] mt-[10px] object-contain  "
 				/>
-				<img src="/assets/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px]" />
 			</div>
-			<div class="flex flex-col text-center justify-center">
+			<!-- <div class="flex flex-col text-center justify-center">
+				<img src="/assets/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px]" />
 				<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] leading-[23px]">
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 				</h2>
@@ -17,13 +17,65 @@
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec lacus nec est
 					condimentum consectetur quis eget nisi. Sed
 				</p>
-			</div>
-			<div class="flex flex-row items-center justify-center gap-1">
+			</div> -->
+			<div class="carousel">
+				<div id="item1" class="carousel-item ">
+					<div class="flex flex-col text-center justify-center">
+						<img src="/assets/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px]" />
+					<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
+						Your Learning Journey
+					</h2>
+					<p class="w-[335px] mt- h-[64px]  font-normal  text-[#000]">
+						Learn about your physical, mental, sexual and reproductive health.
+					</p>
+					</div> 	
+				</div> 
+				<div id="item2" class="carousel-item ">
+					<div class="flex flex-col text-center justify-center">
+						<img src="/assets/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px]" />
+					<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
+						Linkages
+					</h2>
+					<p class="w-[335px] mt- h-[64px]  font-normal  text-[#000]">
+						Explore career and job opportunities
+					</p>
+					</div> 	
+				</div> 
+				<div id="item3" class="carousel-item ">
+					<div class="flex flex-col text-center justify-center">
+						<img src="/assets/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px]" />
+					<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
+						Newsfeed
+					</h2>
+					<p class="w-[335px] mt- h-[64px]  font-normal  text-[#000]">
+						Stay connected with SNEHA and your peers
+					</p>
+					</div> 	
+				</div> 
+				<div id="item4" class="carousel-item ">
+					<div class="flex flex-col text-center justify-center">
+						<img src="/assets/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px]" />
+					<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
+						Ask SNEHA
+					</h2>
+					<p class="w-[335px] mt- h-[64px]  font-normal  text-[#000]">
+						Talk to a SNEHA representative
+					</p>
+					</div> 	
+				</div> 
+			  </div> 
+			  <div class="flex justify-center w-full py-2 gap-2">
+				<a href="#item1"class="w-[10px] h-[10px] bg-[#dfe7fd]"> </a> 
+				<a href="#item2" class=" w-[10px] h-[10px] bg-[#dfe7fd]"> </a> 
+				<a href="#item3" class=" w-[10px] h-[10px] bg-[#dfe7fd]"> </a> 
+				<a href="#item4" class=" w-[10px] h-[10px] bg-[#dfe7fd]"> </a>
+			  </div>
+			<!-- <div class="flex flex-row items-center justify-center gap-1">
 				<div class="w-[10px] h-[10px] bg-[#5b7aa3]" />
 				<div class="w-[10px] h-[10px] bg-[#dfe7fd]" />
 				<div class="w-[10px] h-[10px] bg-[#dfe7fd]" />
 				<div class="w-[10px] h-[10px] bg-[#dfe7fd]" />
-			</div>
+			</div> -->
 			<div class="flex flex-col text-center- justify-center mt-[80px]">
 				<a href="/join-raahi">
 					<button
