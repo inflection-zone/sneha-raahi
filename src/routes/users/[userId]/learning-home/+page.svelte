@@ -1,4 +1,13 @@
-<script>
+<script lang="ts">
+
+	import { onMount } from "svelte";
+	import type { PageServerData } from "./$types";
+
+	export let data: PageServerData;
+	onMount(()=>{
+		console.log(JSON.stringify(data));
+	});
+
 </script>
 
 <div class="flex items-center justify-center m-16">
