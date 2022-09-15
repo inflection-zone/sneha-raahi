@@ -156,10 +156,9 @@ import { onMount } from "svelte";
 							</button>
 							<img class="absolute right-0 " src="/assets/home/png/profile-settings.png" alt="" />
 						</div>
-						<h1 class="card-title text-base-100 text-3xl">Greetings!</h1>
+						<h1 class="card-title text-base-100 text-3xl">Hi {data.firstName}!</h1>
 						<p class=" text-base-100">
-							Lorem ipsum dolor sit amet, consectetur adipis cing elit. Quisque nec lacus nec est
-							condimentum consectetur quis eget nisi.
+							Welcome to Raahi, your friend, companion and guide as you navigate your journey into adulthood. 
 						</p>
 					</div>
 					<div class="flex flex-row  justify-center relative">

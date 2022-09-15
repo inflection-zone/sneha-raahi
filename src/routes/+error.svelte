@@ -1,10 +1,5 @@
   <script>
     import { page } from '$app/stores';
-<<<<<<< HEAD
-    // export let message;
-    // export let statusCode;
-=======
->>>>>>> origin/stabilization
   </script>
 <div class="flex items-center justify-center mt-16">
   <div
