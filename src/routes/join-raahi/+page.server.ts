@@ -4,7 +4,7 @@ import { registerUser } from '../api/auth/register.user';
 ///////////////////////////////////////////////////////////////////////////////////
 
 export const POST: Action = async ({ request }) => {
-	const data = await request.formData(); // or .json(), or .text(), etc
+	const data = await request.formData();
 	//console.log(Object.fromEntries(data));
 
 	const countryCode = '+91';
@@ -28,6 +28,11 @@ export const POST: Action = async ({ request }) => {
 
 		console.log(JSON.stringify(response, null, 2));
 
+		if (response.Status === 'failure' && response.HttpCode === 409) {
+			return {
+				location: `/sign-in`,
+			};
+		}
 		if (response.Status === 'failure' || response.HttpCode !== 201) {
 			console.log(response.Message);
 			throw error(response.HttpCode, response.Message);
