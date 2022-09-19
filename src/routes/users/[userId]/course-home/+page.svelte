@@ -1,4 +1,13 @@
-<script>
+<script lang="ts">
+	import type { PageServerData } from './$types';
+
+	let data: PageServerData;
+
+	console.log(JSON.stringify(data, null, 2));
+
+	// console.log(data?.userId);
+	// console.log(data?.userEnrolledCourses);
+
 </script>
 
 <div class="flex items-center justify-center m-16">

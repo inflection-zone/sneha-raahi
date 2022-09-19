@@ -4,7 +4,7 @@ import { getAvailableCourses, getEnrolledCoursesForUser } from "../../../api/ser
 
 ////////////////////////////////////////////////////////////////////////
 
-export const load: PageServerLoad = async ({ request, params }) => {
+export const load: PageServerLoad = async ({ request, params, setHeaders }) => {
     try {
 
     const cookies = cookie.parse(request.headers.get('cookie') || '');
@@ -21,7 +21,6 @@ export const load: PageServerLoad = async ({ request, params }) => {
         };
     }
     catch (error) {
-        console.log(error.stack)
         console.error(`Error retrieving data related to user's courses: ${error.message}`);
     }
 };

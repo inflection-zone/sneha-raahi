@@ -83,7 +83,7 @@ export const getEnrolledCoursesForUser = async (sessionId: string, userId: strin
     headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
     headers['Authorization'] = `Bearer ${accessToken}`;
 
-    const url = BACKEND_API_URL + `/educational/course-enrollments/search?moduleId=${userId}`;
+    const url = BACKEND_API_URL + `/educational/course-enrollments/search?userId=${userId}`;
 
 	// console.log(url);
 	// console.log(JSON.stringify(headers, null, 2));
