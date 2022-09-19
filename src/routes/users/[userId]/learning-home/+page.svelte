@@ -1,0 +1,123 @@
+<script lang="ts">
+
+	import { onMount } from "svelte";
+	import type { PageServerData } from "./$types";
+
+	export let data: PageServerData;
+	onMount(()=>{
+		console.log(JSON.stringify(data));
+	});
+
+</script>
+
+<div class="flex items-center justify-center m-16">
+	<div
+		class="card  rounded-none card-bordered bg-[#5b7aa3] border-slate-400 w-[375px]
+	h-[1159px]   shadow-none"
+	>
+		<div class="card w-[375px] h-[130px] bg-[#5b7aa3] shadow-none rounded-none border-none">
+			<div class="card-body">
+				<div class=" flex flex-row h-16 w-16">
+					<img src="/assets/home/svg/menu.svg" alt="" />
+					<img class="absolute right-0 " src="/assets/home/png/profile-settings.png" alt="" />
+				</div>
+				<div class="flex flex-row  justify-center relative">
+					<img src="/assets/home/png/ask.png" alt="" />
+					<img src="/assets/home/svg/message.svg" alt="" />
+					<img src="/assets/home/png/notification.png" alt="" />
+				</div>
+			</div>
+		</div>
+		<div
+			class="card card-compact w-[375px]
+		h-[1029px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm  "
+		>
+			<div class="card-body ">
+				<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 rounded" />
+				<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
+					MY LEARNING
+				</h2>
+				<div class="flex flex-row">
+					<img class="mb-2 " src="/assets/learning-home/svg/about-anaemia.svg" alt="" />
+					<div class="mx-2">
+						<h3 class="mb-3 mt-1">All about Anaemia</h3>
+						<div class=" bg-[#c5e8c5] rounded-full h-[10px] w-[230px]">
+							<div class="bg-[#70ae6e] rounded-full h-[10px]" style="width:45%" />
+						</div>
+					</div>
+					<div class="mt-6 font-bold">45%</div>
+				</div>
+				<div class="flex flex-row">
+					<img class="mb-2 " src="/assets/learning-home/svg/about-female-health.svg" alt="" />
+					<div class="mx-2">
+						<h3 class="mb-3 mt-1">Female reproductive health</h3>
+						<div class=" bg-[#c5e8c5] rounded-full h-[10px] w-[230px]">
+							<div class="bg-[#70ae6e] rounded-full h-[10px]" style="width:15%" />
+						</div>
+					</div>
+					<div class="mt-6 font-bold">15%</div>
+				</div>
+				<div>
+					<div class="flex mb-4 relative">
+						<h2 class="text-xl ">Learning Journeys</h2>
+						<a href="/learning-journeys">
+							<button class=" text-[#d05591] text-base absolute right-0 pr-3">VIEW ALL</button>
+						</a>
+					</div>
+					<div class="overflow-auto scrollbar-medium w-[365px]">
+						<div class="grid grid-flow-col auto-cols-max  ">
+							<div class=" flex-col justify-center  mb-4 ">
+								<img class="mb-3 mr-4" src="/assets/learning-home/svg/substance-abuse.svg" alt="" />
+								<h3>Substance Abuse</h3>
+							</div>
+							<div class="grid grid-row-2 justify-center  mb-4">
+								<img class=" mb-2 mr-4" src="/assets/learning-home/svg/growing-up.svg" alt="" />
+								<h3>Growing Up:I’m all <br /> grown up!</h3>
+							</div>
+							<div class=" flex-col justify-center  mb-4">
+								<img class=" mb-2 mr-4" src="/assets/learning-home/svg/child-abuse.svg" alt="" />
+								<h3 class="text-center">Child Sexual Abuse</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mt-1">
+					<div class="flex mb-4 relative">
+						<h2 class="text-xl ">Courses</h2>
+
+						<button class=" text-[#d05591] text-base absolute right-0 pr-3">VIEW ALL</button>
+					</div>
+					<div class="columns-2 ">
+						<a href="/course-home">
+							<div class=" flex-col justify-center mb-6 ">
+								<img
+									class="mb-4 w-[162px] h-[162px] "
+									src="/assets/learning-home/svg/growing-up-affect.svg"
+									alt=""
+								/>
+								<h3 class="text-center">How does growing up affect me?</h3>
+							</div>
+						</a>
+						<!-- <a href="/course-home"></a> -->
+						<div class=" flex-col justify-center mb-6">
+							<img class=" mb-4 " src="/assets/learning-home/svg/anaemia.svg" alt="" />
+							<h3 class="text-center">All about Anaemia</h3>
+						</div>
+						<div class=" flex-col justify-center mb-6">
+							<img class=" mb-4 " src="/assets/learning-home/svg/emotions.svg" alt="" />
+							<h3 class="text-center">Understanding my Emotions</h3>
+						</div>
+						<div class=" flex-col justify-center mb-6">
+							<img
+								class=" mb-4 "
+								src="/assets/learning-home/svg/female-reproductive-health.svg"
+								alt=""
+							/>
+							<h3 class="text-center">Female reproductive health</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
