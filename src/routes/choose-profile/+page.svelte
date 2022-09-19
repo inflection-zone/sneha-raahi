@@ -16,13 +16,12 @@
 					<p
 						class="w-[335px] h-[44px] text-center mt-[25px] mx-5 mb-[6px] font-bold not-italic leading-[1.05] tracking-normal text-[#D05591] text-[18px]"
 					>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Log in to your account
 					</p>
 					<p
 						class="w-[335px] h-[64px] text-center mt-[6px] mx-5 mb-[17px] font-normal not-italic leading-[1.25] tracking-normal text-[#000]  text-[15px]"
 					>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec lacus nec est
-						condimentum consectetur quis eget nisi. Sed
+					SInce this is a shared phone, you will see the accounts of other users. Please click on your profile to access your account and enter the password you have set. 
 					</p>
 				</div>
 				<div class=" mt-[20px]">

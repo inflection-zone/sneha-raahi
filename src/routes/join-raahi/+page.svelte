@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+
 </script>
 
 <body>
@@ -23,43 +24,53 @@
 						condimentum consectetur quis eget nisi. Sed
 					</p>
 				</div>
-				<form>
+				<form method="post">
 					<input
 						placeholder="First Name"
+						name="firstName"
+						required
 						type="text"
 						class=" h-[52px] w-[340px] py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 					/>
 					<input
 						placeholder="Last Name"
 						type="text"
+						name="lastName"
+						required
 						class=" h-[52px] w-[340px] py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 					/>
 					<input
 						placeholder="Age"
 						type="number"
+						name="age"
 						class=" h-[52px] w-[340px] py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 					/>
 					<input
 						placeholder="Phone Number"
 						type="number"
+						name="phone"
+						required
 						class=" h-[52px] w-[340px] py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
+
 					/>
 					<input
 						placeholder="Location"
+						name="location"
 						class=" h-[52px] w-[340px] py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 					/>
-				</form>
+				
 				<div
 					class="w-[340px] h-[52px] mt-[16px] mr-[17px] mb-4 ml-[10px] pt-[15px] px-[106px] pb-15px  rounded-[10px] bg-[#5B7AA3]"
 				>
-					<a href="/choose-profile">
-						<span
+					<!-- <a href="/choose-profile"> -->
+						<button
 							class="w-[128px] h-[25px] text-[16px] not-italic text-center text-[#fff] tracking-[3px] font-bold"
 						>
 							JOIN RAAHI
-						</span></a
-					>
+						</button>
+						<!-- </a> -->
 				</div>
+			</form>
 				<div class="flex justify-center">
 					<a href="/"> <span class=" text-xl tracking-widest  font-bold"> BACK TO HOME </span></a>
 				</div>
