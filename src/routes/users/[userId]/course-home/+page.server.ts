@@ -1,6 +1,6 @@
 import * as cookie from 'cookie';
 import type { PageServerLoad } from "./$types";
-import { getAvailableCourses, getEnrolledCoursesForUser } from "../../../api/services/courses";
+import { getAvailableCourses, getEnrolledCoursesForUser } from "../../../api/services/learning";
 
 ////////////////////////////////////////////////////////////////////////
 

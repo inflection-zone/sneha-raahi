@@ -1,97 +1,83 @@
-import { API_CLIENT_INTERNAL_KEY, BACKEND_API_URL } from "$env/static/private";
-import { SessionHelper } from "../../auth/session";
+import { API_CLIENT_INTERNAL_KEY } from "$env/static/private";
+import { error } from "@sveltejs/kit";
+import { SessionHelper } from "../auth/session";
 
-////////////////////////////////////////////////////////////////
-
-export const getAvailableCourses = async (sessionId: string) => {
-
-    const session = await SessionHelper.getSession(sessionId);
-    const accessToken = session.accessToken;
-    console.log(`accessToken = ${accessToken}`);
-
-    const headers = {};
-    headers['Content-Type'] = 'application/json';
-    headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
-    headers['Authorization'] = `Bearer ${accessToken}`;
-
-    const url = BACKEND_API_URL + '/educational/course/courses/search';
-
-	console.log(url);
-	console.log(JSON.stringify(headers, null, 2));
-
-    const res = await fetch(url, {
-        method: 'GET',
-        headers
-    });
-    const response = await res.json();
-    return response;
-};
-
-export const getAvailableModulesForCourse = async (sessionId: string, courseId: string) => {
-
+export const get_ = async (sessionId: string, url: string) => {
     const accessToken = await SessionHelper.getSession(sessionId);
     console.log(`accessToken = ${accessToken}`);
-
     const headers = {};
     headers['Content-Type'] = 'application/json';
     headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
     headers['Authorization'] = `Bearer ${accessToken}`;
-
-    const url = BACKEND_API_URL + `/educational/course-modules/search?courseId=${courseId}`;
-
-	// console.log(url);
-	// console.log(JSON.stringify(headers, null, 2));
-
     const res = await fetch(url, {
         method: 'GET',
         headers
     });
     const response = await res.json();
-    return response;
-};
+    if (response.Status === 'failure' || response.HttpCode !== 200) {
+        console.log(response.Message);
+        throw error(response.HttpCode, response.Message);
+    }
+    return response.Data;
+}
 
-export const getAvailableContentForModule = async (sessionId: string, moduleId: string) => {
-
+export const post_ = async (sessionId: string, url: string, bodyObj: unknown) => {
     const accessToken = await SessionHelper.getSession(sessionId);
     console.log(`accessToken = ${accessToken}`);
-
     const headers = {};
     headers['Content-Type'] = 'application/json';
     headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
     headers['Authorization'] = `Bearer ${accessToken}`;
-
-    const url = BACKEND_API_URL + `/educational/course-contents/search?moduleId=${moduleId}`;
-
-	// console.log(url);
-	// console.log(JSON.stringify(headers, null, 2));
-
+    const body = JSON.stringify(bodyObj)
     const res = await fetch(url, {
-        method: 'GET',
+        method: 'POST',
+        body,
         headers
     });
     const response = await res.json();
-    return response;
-};
+    if (response.Status === 'failure' || response.HttpCode !== 201) {
+        console.log(response.Message);
+        throw error(response.HttpCode, response.Message);
+    }
+    return response.Data;
+}
 
-export const getEnrolledCoursesForUser = async (sessionId: string, userId: string) => {
-
+export const put_ = async (sessionId: string, url: string, bodyObj: unknown) => {
     const accessToken = await SessionHelper.getSession(sessionId);
     console.log(`accessToken = ${accessToken}`);
-
     const headers = {};
     headers['Content-Type'] = 'application/json';
     headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
     headers['Authorization'] = `Bearer ${accessToken}`;
-
-    const url = BACKEND_API_URL + `/educational/course-enrollments/search?userId=${userId}`;
-
-	// console.log(url);
-	// console.log(JSON.stringify(headers, null, 2));
-
+    const body = JSON.stringify(bodyObj)
     const res = await fetch(url, {
-        method: 'GET',
+        method: 'PUT',
+        body,
         headers
     });
     const response = await res.json();
-    return response;
-};
+    if (response.Status === 'failure' || response.HttpCode !== 200) {
+        console.log(response.Message);
+        throw error(response.HttpCode, response.Message);
+    }
+    return response.Data;
+}
+
+export const delete_ = async (sessionId: string, url: string) => {
+    const accessToken = await SessionHelper.getSession(sessionId);
+    console.log(`accessToken = ${accessToken}`);
+    const headers = {};
+    headers['Content-Type'] = 'application/json';
+    headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
+    headers['Authorization'] = `Bearer ${accessToken}`;
+    const res = await fetch(url, {
+        method: 'DELETE',
+        headers
+    });
+    const response = await res.json();
+    console.log(response.Message);
+    if (response.Status === 'failure' || response.HttpCode !== 200) {
+        throw error(response.HttpCode, response.Message);
+    }
+    return response.Data;
+}

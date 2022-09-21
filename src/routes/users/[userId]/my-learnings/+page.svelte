@@ -1,9 +1,12 @@
 <script lang="ts">
-
 	import { onMount } from "svelte";
 	import type { PageServerData } from "./$types";
 
 	export let data: PageServerData;
+	let myLearningJourneys = data.userLearningPaths;
+	let allLearningPaths = data.allLearningPaths;
+	let allCourseContents = data.allCourseContents;
+
 	onMount(()=>{
 		console.log(JSON.stringify(data));
 	});
@@ -37,26 +40,31 @@
 				<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 					MY LEARNING
 				</h2>
-				<div class="flex flex-row">
-					<img class="mb-2 " src="/assets/learning-home/svg/about-anaemia.svg" alt="" />
-					<div class="mx-2">
-						<h3 class="mb-3 mt-1">All about Anaemia</h3>
-						<div class=" bg-[#c5e8c5] rounded-full h-[10px] w-[230px]">
-							<div class="bg-[#70ae6e] rounded-full h-[10px]" style="width:45%" />
+
+				{#if myLearningJourneys.length == 0}
+					<h3 class="mb-3 mt-1">You have not yet started your learning journey yet!</h3>
+				{:else}
+					<div class="flex flex-row">
+						<img class="mb-2 " src="/assets/learning-home/svg/about-anaemia.svg" alt="" />
+						<div class="mx-2">
+							<h3 class="mb-3 mt-1">All about Anaemia</h3>
+							<div class=" bg-[#c5e8c5] rounded-full h-[10px] w-[230px]">
+								<div class="bg-[#70ae6e] rounded-full h-[10px]" style="width:45%" />
+							</div>
 						</div>
+						<div class="mt-6 font-bold">45%</div>
 					</div>
-					<div class="mt-6 font-bold">45%</div>
-				</div>
-				<div class="flex flex-row">
-					<img class="mb-2 " src="/assets/learning-home/svg/about-female-health.svg" alt="" />
-					<div class="mx-2">
-						<h3 class="mb-3 mt-1">Female reproductive health</h3>
-						<div class=" bg-[#c5e8c5] rounded-full h-[10px] w-[230px]">
-							<div class="bg-[#70ae6e] rounded-full h-[10px]" style="width:15%" />
+					<div class="flex flex-row">
+						<img class="mb-2 " src="/assets/learning-home/svg/about-female-health.svg" alt="" />
+						<div class="mx-2">
+							<h3 class="mb-3 mt-1">Female reproductive health</h3>
+							<div class=" bg-[#c5e8c5] rounded-full h-[10px] w-[230px]">
+								<div class="bg-[#70ae6e] rounded-full h-[10px]" style="width:15%" />
+							</div>
 						</div>
+						<div class="mt-6 font-bold">15%</div>
 					</div>
-					<div class="mt-6 font-bold">15%</div>
-				</div>
+				{/if}
 				<div>
 					<div class="flex mb-4 relative">
 						<h2 class="text-xl ">Learning Journeys</h2>
