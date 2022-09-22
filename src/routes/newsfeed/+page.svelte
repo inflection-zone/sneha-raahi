@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PageServerLoad } from "./$types";
+	import type { PageServerData } from "./$types";
 
 	export let data: PageServerData;
 
