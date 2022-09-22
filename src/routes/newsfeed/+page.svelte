@@ -1,4 +1,10 @@
 <script lang="ts">
+	import type { PageServerLoad } from "./$types";
+
+	export let data: PageServerData;
+
+	console.log(data.newsItems);
+
 </script>
 
 <div class="flex items-center justify-center mt-16">
