@@ -1,15 +1,21 @@
 <script lang="ts">
+	import Image from "$lib/components/image.svelte";
 	import { onMount } from "svelte";
 	import type { PageServerData } from "./$types";
+	import { useLazyImage as lazyImage } from 'svelte-lazy-image'
 
 	export let data: PageServerData;
-	let myLearningJourneys = data.userLearningPaths;
-	let allLearningPaths = data.allLearningPaths;
-	let allCourseContents = data.allCourseContents;
+	let myLearningJourneys = data.userLearningPaths.UserLearningPaths;
+	let allLearningJourneys = data.allLearningPaths.LearningPaths.Items;
+	let allCourses = data.allCourseContents.CourseContents.Items;
 
-	onMount(()=>{
-		console.log(JSON.stringify(data));
-	});
+	console.log(`\nMy learning journeys = ${JSON.stringify(allLearningJourneys)}`)
+	console.log(`\nAll paths = ${JSON.stringify(allLearningJourneys)}`)
+	console.log(`\nAll course contents = ${JSON.stringify(allCourses)}`)
+
+	// onMount(()=>{
+	// 	console.log(JSON.stringify(data));
+	// });
 
 </script>
 
@@ -42,7 +48,7 @@
 				</h2>
 
 				{#if myLearningJourneys.length == 0}
-					<h3 class="mb-3 mt-1">You have not yet started your learning journey yet!</h3>
+					<h3 class="mb-3 mt-1 font-semibold text-center">You have not yet started learning journey!</h3>
 				{:else}
 					<div class="flex flex-row">
 						<img class="mb-2 " src="/assets/learning-home/svg/about-anaemia.svg" alt="" />
@@ -73,8 +79,8 @@
 						</a>
 					</div>
 					<div class="overflow-auto scrollbar-medium w-[365px]">
-						<div class="grid grid-flow-col auto-cols-max  ">
-							<div class=" flex-col justify-center  mb-4 ">
+						<div class="grid grid-flow-col auto-cols-max">
+							<!-- <div class=" flex-col justify-center  mb-4 ">
 								<img class="mb-3 mr-4" src="/assets/learning-home/svg/substance-abuse.svg" alt="" />
 								<h3>Substance Abuse</h3>
 							</div>
@@ -85,7 +91,15 @@
 							<div class=" flex-col justify-center  mb-4">
 								<img class=" mb-2 mr-4" src="/assets/learning-home/svg/child-abuse.svg" alt="" />
 								<h3 class="text-center">Child Sexual Abuse</h3>
-							</div>
+							</div> -->
+							{#each allLearningJourneys as learningJourney}
+								<div id={learningJourney.id} class="flex-col justify-center  mb-4 mr-4">
+									<a href={`/users/${data.userId}/learning-journeys/${learningJourney.id}`}>
+										<Image cls="mb-3 mr-1" source={learningJourney.ImageUrl + "?disposition=inline"} w=140 h=174 />
+										<p class="font-semibold text-center overflow-hidden text-ellipsis">{learningJourney.Name.length > 15 ? learningJourney.Name.substring(0, 13) + '...': learningJourney.Name}</p>
+									</a>
+								</div>
+							{/each}
 						</div>
 					</div>
 				</div>

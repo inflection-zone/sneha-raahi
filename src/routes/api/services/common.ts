@@ -3,7 +3,8 @@ import { error } from "@sveltejs/kit";
 import { SessionHelper } from "../auth/session";
 
 export const get_ = async (sessionId: string, url: string) => {
-    const accessToken = await SessionHelper.getSession(sessionId);
+    const session = await SessionHelper.getSession(sessionId);
+    const accessToken = session.accessToken;
     console.log(`accessToken = ${accessToken}`);
     const headers = {};
     headers['Content-Type'] = 'application/json';
@@ -22,7 +23,8 @@ export const get_ = async (sessionId: string, url: string) => {
 }
 
 export const post_ = async (sessionId: string, url: string, bodyObj: unknown) => {
-    const accessToken = await SessionHelper.getSession(sessionId);
+    const session = await SessionHelper.getSession(sessionId);
+    const accessToken = session.accessToken;
     console.log(`accessToken = ${accessToken}`);
     const headers = {};
     headers['Content-Type'] = 'application/json';
@@ -43,7 +45,8 @@ export const post_ = async (sessionId: string, url: string, bodyObj: unknown) =>
 }
 
 export const put_ = async (sessionId: string, url: string, bodyObj: unknown) => {
-    const accessToken = await SessionHelper.getSession(sessionId);
+    const session = await SessionHelper.getSession(sessionId);
+    const accessToken = session.accessToken;
     console.log(`accessToken = ${accessToken}`);
     const headers = {};
     headers['Content-Type'] = 'application/json';
@@ -64,7 +67,8 @@ export const put_ = async (sessionId: string, url: string, bodyObj: unknown) => 
 }
 
 export const delete_ = async (sessionId: string, url: string) => {
-    const accessToken = await SessionHelper.getSession(sessionId);
+    const session = await SessionHelper.getSession(sessionId);
+    const accessToken = session.accessToken;
     console.log(`accessToken = ${accessToken}`);
     const headers = {};
     headers['Content-Type'] = 'application/json';
