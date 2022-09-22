@@ -1,24 +1,26 @@
 import * as cookie from 'cookie';
 import type { PageServerLoad } from "./$types";
-import { getAllCourseContents, getAllLearningPaths, getUserLearningPaths } from "../../../api/services/learning";
+import { getCourseContentsForLearningPath, getLearningPath } from "../../../../api/services/learning";
 
 ////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async ({ request, params }) => {
     try {
-
         const cookies = cookie.parse(request.headers.get('cookie') || '');
         const sessionId = cookies['sessionId'];
         const userId = params.userId;
-        const allLearningPaths = await getAllLearningPaths(sessionId);
-        const userLearningPaths = await getUserLearningPaths(sessionId, userId);
-        const allCourseContents = await getAllCourseContents(sessionId);
+        const learningPathId = params.learningJourneyId;
+        const _learningPath = await getLearningPath(sessionId, learningPathId);
+        const _courseContents = await getCourseContentsForLearningPath(sessionId, learningPathId);
+
+        console.log(_learningPath);
+        const learningPath = _learningPath.LearningPath;
+        const courseContents = _courseContents.CourseContents;
         return {
             sessionId,
             userId,
-            allLearningPaths,
-            allCourseContents,
-            userLearningPaths
+            learningPath,
+            courseContents,
         };
     }
     catch (error) {

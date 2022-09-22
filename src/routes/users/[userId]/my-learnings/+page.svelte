@@ -1,21 +1,39 @@
 <script lang="ts">
 	import Image from "$lib/components/image.svelte";
-	import { onMount } from "svelte";
 	import type { PageServerData } from "./$types";
-	import { useLazyImage as lazyImage } from 'svelte-lazy-image'
 
 	export let data: PageServerData;
-	let myLearningJourneys = data.userLearningPaths.UserLearningPaths;
-	let allLearningJourneys = data.allLearningPaths.LearningPaths.Items;
-	let allCourses = data.allCourseContents.CourseContents.Items;
+	let myLearningJourneys = data.userLearningPaths?.UserLearningPaths;
+	let allLearningJourneys = data.allLearningPaths?.LearningPaths.Items;
+	// allLearningJourneys = allLearningJourneys.sort((a, b) => { return a.Name - b.Name; });
+	let allCourses = data.allCourseContents?.CourseContents?.Items;
+	allCourses = allCourses.sort((a, b) => { return a.Sequence - b.Sequence; });
 
-	console.log(`\nMy learning journeys = ${JSON.stringify(allLearningJourneys)}`)
-	console.log(`\nAll paths = ${JSON.stringify(allLearningJourneys)}`)
-	console.log(`\nAll course contents = ${JSON.stringify(allCourses)}`)
+	console.log(`\nMy learning journeys = ${JSON.stringify(myLearningJourneys)}`)
+	console.log(`\nAll learning paths = ${JSON.stringify(allLearningJourneys)}`)
+	//console.log(`\nAll course contents = ${JSON.stringify(allCourses)}`)
 
-	// onMount(()=>{
-	// 	console.log(JSON.stringify(data));
-	// });
+	const handleCourseClick = async (e, resourceLink) => {
+		console.log(e.currentTarget);
+		const contentId = e.currentTarget.id;
+		console.log(`contentId = ${contentId}`)
+		await update({
+			sessionId: data.sessionId,
+			userId: data.userId,
+			contentId
+		});
+		window.location.href = resourceLink;
+	}
+
+	async function update(model) {
+    const response = await fetch(`/api/server/learning`, {
+      method: 'POST',
+      body: JSON.stringify(model),
+      headers: {
+        'content-type': 'application/json'
+      }
+    });
+  }
 
 </script>
 
@@ -50,17 +68,19 @@
 				{#if myLearningJourneys.length == 0}
 					<h3 class="mb-3 mt-1 font-semibold text-center">You have not yet started learning journey!</h3>
 				{:else}
+					{#each myLearningJourneys as journey}
 					<div class="flex flex-row">
-						<img class="mb-2 " src="/assets/learning-home/svg/about-anaemia.svg" alt="" />
+						<Image cls="mb-2 rounded-md" source={journey.ImageUrl + "?disposition=inline"} w=52 h=52></Image>
+						<!-- <img class="mb-2 " src="/assets/learning-home/svg/about-anaemia.svg" alt="" /> -->
 						<div class="mx-2">
-							<h3 class="mb-3 mt-1">All about Anaemia</h3>
+							<h3 class="mb-3 mt-1">{journey.Name}</h3>
 							<div class=" bg-[#c5e8c5] rounded-full h-[10px] w-[230px]">
-								<div class="bg-[#70ae6e] rounded-full h-[10px]" style="width:45%" />
+								<div class="bg-[#70ae6e] rounded-full h-[10px]" style={"width:" + (journey.PercentageCompletion * 100).toString() + "%"} />
 							</div>
 						</div>
-						<div class="mt-6 font-bold">45%</div>
+						<div class="mt-6 font-bold">{(journey.PercentageCompletion * 100).toString()}%</div>
 					</div>
-					<div class="flex flex-row">
+					<!-- <div class="flex flex-row">
 						<img class="mb-2 " src="/assets/learning-home/svg/about-female-health.svg" alt="" />
 						<div class="mx-2">
 							<h3 class="mb-3 mt-1">Female reproductive health</h3>
@@ -69,13 +89,14 @@
 							</div>
 						</div>
 						<div class="mt-6 font-bold">15%</div>
-					</div>
+					</div> -->
+					{/each}
 				{/if}
 				<div>
 					<div class="flex mb-4 relative">
 						<h2 class="text-xl ">Learning Journeys</h2>
-						<a href="/learning-journeys">
-							<button class=" text-[#d05591] text-base absolute right-0 pr-3">VIEW ALL</button>
+						<a href={`/users/${data.userId}/learning-journeys`}>
+							<button class="text-[#d05591] text-base absolute right-0 pr-3">VIEW ALL</button>
 						</a>
 					</div>
 					<div class="overflow-auto scrollbar-medium w-[365px]">
@@ -106,11 +127,28 @@
 				<div class="mt-1">
 					<div class="flex mb-4 relative">
 						<h2 class="text-xl ">Courses</h2>
-
-						<button class=" text-[#d05591] text-base absolute right-0 pr-3">VIEW ALL</button>
+						<a href={`/users/${data.userId}/learning-journeys`}>
+							<button class=" text-[#d05591] text-base absolute right-0 pr-3">VIEW ALL</button>
+						</a>
 					</div>
-					<div class="columns-2 ">
-						<a href="/course-home">
+					<div class="columns-2 flex-wrap overflow-auto scrollbar-medium scroll-auto hover:scroll-auto">
+						{#each allCourses as course}
+							<button on:click|capture={(e)=>handleCourseClick(e, course.ResourceLink)} id={course.id} name={course.id}>
+								<div class=" flex-col justify-center mb-6 ">
+									{#if course.ImageUrl == null}
+										<img
+											class="mb-4 w-[162px] h-[162px] "
+											src="/assets/learning-home/svg/growing-up-affect.svg"
+											alt=""
+										/>
+									{:else}
+										<Image cls="mt-2 mb-3 mr-1 rounded" source={course.ImageUrl + "?disposition=inline"} w=162 h=162 />
+									{/if}
+									<h3 class="mt-2 mb-3 text-center">{course.Title}</h3>
+								</div>
+							</button>
+						{/each}
+						<!-- <a href="/course-home">
 							<div class=" flex-col justify-center mb-6 ">
 								<img
 									class="mb-4 w-[162px] h-[162px] "
@@ -120,7 +158,6 @@
 								<h3 class="text-center">How does growing up affect me?</h3>
 							</div>
 						</a>
-						<!-- <a href="/course-home"></a> -->
 						<div class=" flex-col justify-center mb-6">
 							<img class=" mb-4 " src="/assets/learning-home/svg/anaemia.svg" alt="" />
 							<h3 class="text-center">All about Anaemia</h3>
@@ -136,7 +173,7 @@
 								alt=""
 							/>
 							<h3 class="text-center">Female reproductive health</h3>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>

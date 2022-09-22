@@ -9,7 +9,7 @@
         const res = await fetch(source)
         const blb = await res.blob();
         src=URL.createObjectURL(blb);
-        console.log(src)
+        //console.log(src)
     }
     (async () => {
         await loadImage();

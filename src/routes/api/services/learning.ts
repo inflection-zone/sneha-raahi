@@ -23,6 +23,11 @@ export const getCourseContentsForLearningPath = async (sessionId: string, learni
     return await get_(sessionId, url);
 };
 
+export const getLearningPath = async (sessionId: string, learningPathId: string) => {
+    const url = BACKEND_API_URL + `/educational/learning-paths/${learningPathId}`;
+    return await get_(sessionId, url);
+};
+
 export const getCourseContentsForCourse = async (sessionId: string, courseId: string) => {
     const url = BACKEND_API_URL + `/educational/course-contents//by-course/${courseId}`;
     return await get_(sessionId, url);

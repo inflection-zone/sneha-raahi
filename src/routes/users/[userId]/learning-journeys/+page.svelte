@@ -1,4 +1,11 @@
-<script>
+<script lang="ts">
+
+	import Image from "$lib/components/image.svelte";
+	import type { PageServerData } from "./$types";
+
+	export let data: PageServerData;
+	let allLearningJourneys = data.allLearningPaths.LearningPaths.Items;
+
 </script>
 
 <div class="flex items-center justify-center m-16">
@@ -28,15 +35,18 @@
 				<h2 class=" text-[#5b7aa3] flex  justify-center font-bold text-base tracking-widest ">
 					LEARNING JOURNEYS
 				</h2>
-				<h2 class="flex   text-xl font-bold ">Choose your pathway of learning</h2>
+				<h2 class="flex text-xl font-semibold text-center mb-2">Choose your pathway of learning</h2>
 				<div class="columns-2">
-					<a href="/learning-journeys-details">
-						<div class="flex flex-col justify-center mb-4">
-							<img class="mb-2 " src="/assets/learning-journeys/svg/growing-up.svg" alt="" />
-							<h3 class="text-center">Growing Up: I’m all grown up!</h3>
-						</div>
-					</a>
-					<div class="flex flex-col justify-center mb-4">
+					{#each allLearningJourneys as learningJourney}
+						<a href="/learning-journeys-details">
+							<div class="flex flex-col justify-center mb-4">
+								<!-- <img class="mb-2 " src="/assets/learning-journeys/svg/growing-up.svg" alt="" /> -->
+								<Image cls="mt-2 mb-3 mr-1 rounded" source={learningJourney.ImageUrl + "?disposition=inline"} w=160 h=200 />
+								<h3 class="mt-2 mb-1 text-center font-semibold">{learningJourney.Name}</h3>
+							</div>
+						</a>
+					{/each}
+					<!-- <div class="flex flex-col justify-center mb-4">
 						<img class=" mb-2 " src="/assets/learning-journeys/svg/child-abuse.svg" alt="" />
 						<h3 class="text-center">Child Sexual Abuse</h3>
 					</div>
@@ -57,16 +67,14 @@
 						<img class=" mb-2 " src="/assets/learning-journeys/svg/domestic-violence.svg" alt="" />
 						<h3 class="text-center">Domestic Violence</h3>
 					</div>
-
 					<div class="flex flex-col justify-center mb-4">
 						<img class=" mb-2 " src="/assets/learning-journeys/svg/gender-identity.svg" alt="" />
 						<h3 class="text-center">Sex, Gender & Identity</h3>
 					</div>
-
 					<div class="flex flex-col justify-center mb-4">
 						<img class=" mb-2 " src="/assets/learning-journeys/svg/feeling.svg" alt="" />
 						<h3 class="text-center">Why do I feel the way I feel?</h3>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>

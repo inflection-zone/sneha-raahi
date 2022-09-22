@@ -1,16 +1,17 @@
 import type { PageServerLoad } from "./$types";
 import Parser from 'rss-parser';
-import { NEWSFEED_RSS_LINK } from "$env/static/private";
+import { RAAHI_UPDATES_NEWSFEED_RSS_LINK, COMMUNITY_UPDATES_NEWSFEED_RSS_LINK } from "$env/static/private";
 import hrt from 'human-readable-time';
 
-////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const load: PageServerLoad = async (event) => {
     try {
         const newsItems = [];
+        const newsFeeds = [];
         const parser = new Parser();
-          const feed = await parser.parseURL(NEWSFEED_RSS_LINK);
+          const feed = await parser.parseURL(RAAHI_UPDATES_NEWSFEED_RSS_LINK);
           console.log(feed.title);
           feed.items.forEach(item => {
             newsItems.push({
@@ -21,8 +22,19 @@ export const load: PageServerLoad = async (event) => {
               source: item.source
             });
           });
+
+          const newsfeed = await parser.parseURL(COMMUNITY_UPDATES_NEWSFEED_RSS_LINK);
+          console.log(newsfeed .title);
+          newsfeed .items.forEach(item => {
+            newsFeeds.push({
+              title: item.title,
+              link: item.link,
+              pubDate: hrt(new Date(item.pubDate), '%relative% ago')
+            });
+          });
           return {
-            newsItems
+            newsItems,
+            newsFeeds
         };
     }
     catch (error) {
