@@ -12,6 +12,7 @@
 	let newsFeedLink;
 	let chatLink;
 	let linkagesLink;
+	let notificationsLink
 
 	onMount(()=>{
 		userId = data.userId;
@@ -21,6 +22,7 @@
 		newsFeedLink = `/newsfeed`;
 		chatLink = `/users/${userId}/chat-home`;
 		linkagesLink = `/users/${userId}/linkages`;
+		notificationsLink = `/notifications`
 
 		console.log(learningHomeLink);
 		console.log(myProfileLink);
@@ -164,7 +166,7 @@
 					<div class="flex flex-row  justify-center relative">
 						<a href="/ask-sneha"> <img src="/assets/home/png/ask.png" alt="" /></a>
 						<a href="/chat-home"> <img src="/assets/home/svg/message.svg" alt="" /></a>
-						<a href="/notifications"> <img src="/assets/home/png/notification.png" alt="" /></a>
+						<a href="{notificationsLink}"> <img src="/assets/home/png/notification.png" alt="" /></a>
 					</div>
 				</div>
 				<div
