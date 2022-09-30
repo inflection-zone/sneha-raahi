@@ -1,6 +1,6 @@
 import * as cookie from 'cookie';
+import { getAllNotifications } from '../../../api/services/notification';
 import type { PageServerLoad } from "./$types";
-import { getAllNotifications } from '../api/services/notification';
 
 ////////////////////////////////////////////////////////////////////////
 

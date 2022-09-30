@@ -7,6 +7,29 @@
 	
 	console.log(`${JSON.stringify(notice)}`);
 	
+	const handleAppyForJobClick = async (e, action) => {
+		console.log(e.currentTarget);
+		const noticeId = e.currentTarget.id;
+		console.log(`noticeId = ${noticeId}`)
+		await create({
+			sessionId: data.sessionId,
+			userId: data.userId,
+			noticeId
+		});
+		window.location.href = action;
+	}
+
+	async function create(model) {
+    const response = await fetch(`/api/server/linkages`, {
+      method: 'POST',
+      body: JSON.stringify(model),
+      headers: {
+        'content-type': 'application/json'
+      }
+    });
+  }
+
+	
 </script>
 <div class="flex items-center justify-center mt-16">
 	<div
@@ -47,12 +70,12 @@
 						</p>
 					</div>
 				</div>
-				<a href={data.notice.Link}>
-				<button class=" h-[52px] w-[340px] mt-2 text-[#fff]  rounded-lg bg-[#5b7aa3] "
+				<!-- <a href={data.notice.Link}> -->
+				<button type="submit" on:click|capture={(e)=>handleAppyForJobClick(e , notice.Action)} id={notice.id} name={notice.id} class=" h-[52px] w-[340px] mt-2 text-[#fff]  rounded-lg bg-[#5b7aa3] "
 				>
 					APPLY FOR JOB</button
 				>
-			</a>
+			<!-- </a> -->
 			</div>
 		</div>
 	</div>

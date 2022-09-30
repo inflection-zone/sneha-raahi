@@ -22,7 +22,7 @@
 		newsFeedLink = `/newsfeed`;
 		chatLink = `/users/${userId}/chat-home`;
 		linkagesLink = `/users/${userId}/linkages`;
-		notificationsLink = `/notifications`
+		notificationsLink = `/users/${userId}/notifications`
 
 		console.log(learningHomeLink);
 		console.log(myProfileLink);
