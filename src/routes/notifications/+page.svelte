@@ -46,7 +46,7 @@
 						<div class="text-base leading-5  ">{hrt(new Date(notification.SentOn), '%relative% ago')}</div>
 					</div>		
 				</div>	
-			</card>
+				</card>
 		
 				{/each}
 			

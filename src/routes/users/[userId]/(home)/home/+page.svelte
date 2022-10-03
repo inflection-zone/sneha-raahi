@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { onMount } from "svelte";
+	import { onMount } from 'svelte';
 
-	import type { PageServerData } from "./$types";
+	import type { PageServerData } from './$types';
 
 	let show = false;
 	export let data: PageServerData;
@@ -12,9 +12,9 @@
 	let newsFeedLink;
 	let chatLink;
 	let linkagesLink;
-	let notificationsLink
+	let notificationsLink;
 
-	onMount(()=>{
+	onMount(() => {
 		userId = data.userId;
 		learningHomeLink = `/users/${userId}/my-learnings`;
 		myProfileLink = `/users/${userId}/my-profile`;
@@ -22,7 +22,7 @@
 		newsFeedLink = `/newsfeed`;
 		chatLink = `/users/${userId}/chat-home`;
 		linkagesLink = `/users/${userId}/linkages`;
-		notificationsLink = `/users/${userId}/notifications`
+		notificationsLink = `/notifications`;
 
 		console.log(learningHomeLink);
 		console.log(myProfileLink);
@@ -30,14 +30,15 @@
 		console.log(newsFeedLink);
 		console.log(chatLink);
 		console.log(linkagesLink);
-	})
-
+		console.log(notificationsLink);
+	});
 </script>
 
-<div class="grid gird-cols justify-center items-center">
-	<div class="w-[375px] h-[812px]">
-		<div class="flex  items-center justify-center  mt-16">
-			{#if show}
+<!-- <div class="grid gird-cols justify-center items-center"> -->
+<!-- <div class="w-[375px] h-[812px]"> -->
+<!-- <div class="flex  items-center justify-center  mt-16"> -->
+
+<!-- {#if show}
 				<div class="card rounded-none w-[855px]  h-[812px] bg-[#DFE7FD] " >
 					<div class="mt-10 ">
 						<ul class=" p-4 overflow-y-auto  w-[370px] h-[800px] text-base-content ">
@@ -144,13 +145,13 @@
 						</ul>
 					</div>
 				</div>
-			{/if}
+			{/if} -->
 
-			<div
+<!-- <div
 				class="card  rounded-none card-bordered border-slate-400 w-[375px]
-		h-[812px]  bg-[#5b7aa3]  shadow-none"
-			>
-				<div class="card w-[375px] h-[406px] shadow-none rounded-none border-none">
+		h-[812px]  bg-[#5b7aa3]  shadow-none" -->
+
+<!-- <div class="card w-[375px] h-[406px] shadow-none rounded-none border-none">
 					<div class="card-body ">
 						<div class=" flex flex-row h-16 w-16">
 							<button on:click={() => (show = !show)}>
@@ -166,38 +167,35 @@
 					<div class="flex flex-row  justify-center relative">
 						<a href="/ask-sneha"> <img src="/assets/home/png/ask.png" alt="" /></a>
 						<a href="/chat-home"> <img src="/assets/home/svg/message.svg" alt="" /></a>
-						<a href="{notificationsLink}"> <img src="/assets/home/png/notification.png" alt="" /></a>
+						<a href={notificationsLink}> <img src="/assets/home/png/notification.png" alt="" /></a>
 					</div>
 				</div>
 				<div
 					class="card card-compact w-[375px]
 			h-[590px]  bg-base-100  rounded-none rounded-t-[44px] shadow-none "
-				>
-					<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
-					<div class="card-body h-[450px] place-content-around ">
-						<div class="overflow-auto h-[550px] scrollbar  scrollbar-medium">
-							<h2 class="card-title text-[#5b7aa3] flex tracking-widest justify-center text-base ">
-								GET STARTED ON YOUR JOURNEY
-							</h2>
-							<a href={learningHomeLink}>
-								<img class=" h-[172px] w-[340px]" src="/assets/home/svg/my-learning.svg" alt="" />
-							</a>
-							<div class="columns-2 mt-2 ">
-								<a href={newsFeedLink}>
-									<img class=" mb-4 " src="/assets/home/svg/newsfeed.svg" alt="" /></a
-								>
-								<a href={linkagesLink}> <img src="/assets/home/svg/linkages.svg" alt="" /></a>
-								<div>
-									<a href={chatLink}>
-										<img class=" mb-4 " src="/assets/home/svg/chat.svg" alt="" /></a
-									>
-									<a href={myProfileLink}> <img src="/assets/home/svg/my-profile.svg" alt="" /></a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				> -->
+
+<div class="card-body h-[450px] place-content-around ">
+	<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
+	<h2 class="card-title text-[#5b7aa3] flex tracking-widest justify-center text-base ">
+		GET STARTED ON YOUR JOURNEY
+	</h2>
+	<div class="overflow-auto h-[550px] scrollbar  scrollbar-medium">
+		<a href={learningHomeLink}>
+			<img class=" h-[172px] w-[340px]" src="/assets/home/svg/my-learning.svg" alt="" />
+		</a>
+		<div class="columns-2 mt-2 ">
+			<a href={newsFeedLink}> <img class=" mb-4 " src="/assets/home/svg/newsfeed.svg" alt="" /></a>
+			<a href={linkagesLink}> <img src="/assets/home/svg/linkages.svg" alt="" /></a>
+			<div>
+				<a href={chatLink}> <img class=" mb-4 " src="/assets/home/svg/chat.svg" alt="" /></a>
+				<a href={myProfileLink}> <img src="/assets/home/svg/my-profile.svg" alt="" /></a>
 			</div>
 		</div>
 	</div>
 </div>
+<!-- </div> -->
+<!-- </div> -->
+<!-- </div> -->
+<!-- </div> -->
+<!-- </div> -->

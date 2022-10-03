@@ -1,13 +1,10 @@
 <script>
-    import '../app.postcss';
-    import Navbar from '../lib/components/navbar/nav.svelte';
-  </script>
-   <Navbar/>
+	import '../app.postcss';
+	import Navbar from '../lib/components/navbar/nav.svelte';
+</script>
 
-  <slot>  
-    <main>
- 
+<!-- <Navbar/> -->
 
-    </main>
-
-  </slot> 
+<slot>
+	<main />
+</slot>
