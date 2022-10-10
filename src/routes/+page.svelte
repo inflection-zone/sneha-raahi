@@ -93,7 +93,7 @@ let showSplash = true;
 					</div> 	
 				</div> 
 			  </div> 
-			  <div class="flex justify-center w-full py-2 mt-2 gap-2 ">
+			  <div class="flex  justify-center w-full py-2 mt-2 gap-2 ">
 				<a href="#item1"  class="w-[10px] h-[10px] bg-[#dfe7fd]"> </a> 
 				<a href="#item2" class=" w-[10px] h-[10px] bg-[#dfe7fd]"> </a> 
 				<a href="#item3" class=" w-[10px] h-[10px] bg-[#dfe7fd]"> </a> 

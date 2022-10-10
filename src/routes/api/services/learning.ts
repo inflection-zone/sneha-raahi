@@ -29,7 +29,7 @@ export const getLearningPath = async (sessionId: string, learningPathId: string)
 };
 
 export const getCourseContentsForCourse = async (sessionId: string, courseId: string) => {
-    const url = BACKEND_API_URL + `/educational/course-contents//by-course/${courseId}`;
+    const url = BACKEND_API_URL + `/educational/course-contents/by-course/${courseId}`;
     return await get_(sessionId, url);
 };
 

@@ -3,8 +3,31 @@
 	import hrt from 'human-readable-time';
 
 	export let data: PageServerData;
-	let notifications = data.allNotifications.NotificationRecords.Items
+	let notifications = data.allNotifications.NotificationRecords.Items;
+	notifications = notifications.sort((a, b) => { return b.SentOn - a.SentOn; });
 	console.log(`\n Notifications = ${JSON.stringify(notifications)}`);
+    
+	// let showCollapseNotification = true;
+// 	const handleNotificationClick = async (e) => {
+// 		console.log(e.currentTarget);
+// 		const notificationId = e.currentTarget.id;
+// 		console.log(`notificationId = ${notificationId}`)
+// 		await update({
+// 			sessionId: data.sessionId,
+// 			notificationId,
+// 		});
+// 	}
+
+// 	async function update(model) {
+//     const response = await fetch(`/api/server/notifications`, {
+//       method: 'POST',
+//       body: JSON.stringify(model = {SentOn : new Date()}),
+//       headers: {
+//         'content-type': 'application/json'
+//       }
+//     });
+// 	console.log('response.....',response)
+//   }
 
 </script>
 
@@ -37,17 +60,15 @@
 				</h2>
 				<div class=" card-body h-[590px] overflow-auto scrollbar-medium ">
 				{#each notifications as notification}
-				
-				<card class="w-[320px] h-[150px] p-2 mb-2 rounded-lg bg-[#f2e2da]">
-					<div id={notification.id} class="mb-4 ">
-					<div class=" ">
-						<!-- <img class=" h-4 w-4" src= {notification.ImageUrl} alt="" /> -->
-						<h2 class="mb-2 font-normal">{notification.Title.length > 50 ? notification.Title.substring(0, 50) + '...': notification.Title}</h2>
-						<div class="text-base leading-5  ">{hrt(new Date(notification.SentOn), '%relative% ago')}</div>
-					</div>		
-				</div>	
-			</card>
-		
+				<card class="w-[320px] h-[100px] rounded-md mb-4 border-radius border shadow-md">
+					<div id={notification.id} class="mb-2">
+						<div class="p-4">
+							<!-- <img class=" h-4 w-4" src= {notification.ImageUrl} alt="" /> -->
+							<h2 class="mb-1font-semibold">{notification.Title.length > 20 ? notification.Title.substring(0, 18) + '...': notification.Title}</h2>
+							<p>{notification.Body}</p>
+						</div>		
+					</div>
+				</card>
 				{/each}
 			
 				<!-- <div class="mb-2">

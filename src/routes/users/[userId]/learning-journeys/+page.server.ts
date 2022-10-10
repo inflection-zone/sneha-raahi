@@ -1,6 +1,6 @@
 import * as cookie from 'cookie';
 import type { PageServerLoad } from "./$types";
-import { getAllLearningPaths } from "../../../api/services/learning";
+import { getAllCourseContents, getAllLearningPaths } from "../../../api/services/learning";
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -11,10 +11,12 @@ export const load: PageServerLoad = async ({ request, params }) => {
         const sessionId = cookies['sessionId'];
         const userId = params.userId;
         const allLearningPaths = await getAllLearningPaths(sessionId);
+        const allCourseContents = await getAllCourseContents(sessionId);
         return {
             sessionId,
             userId,
             allLearningPaths,
+            allCourseContents
         };
     }
     catch (error) {

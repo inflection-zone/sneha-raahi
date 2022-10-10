@@ -22,7 +22,7 @@
 				<div class="flex flex-row  justify-center relative">
 					<img src="/assets/home/png/ask.png" alt="" />
 					<img src="/assets/home/svg/message.svg" alt="" />
-					<img src="/assets/home/png/notice.png" alt="" />
+					<img src="/assets/home/png/notification.png" alt="" />
 				</div>
 			</div>
 		</div>
@@ -46,7 +46,10 @@
 									<h3>{notice.Title.length > 15 ? notice.Title.substring(0, 13) + '...': notice.Title}</h3>
 									<div class="text-base font-semibold ml-4 right-2 p-0 leading-5 ">{hrt(new Date(notice.PostDate), '%relative% ago')}</div>
 								</div>
+								<div class="flex mb-1 ">
 								<p>{notice.Description.length > 50 ? notice.Description.substring(0, 50) + '...': notice.Description}</p>
+								<img class="hidden" src="/assets/quiz-wrong/svg/correct.svg" alt="" />
+							    </div>
 							</div>
 						</div>
 					</a>

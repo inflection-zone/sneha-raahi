@@ -12,21 +12,29 @@ export const getLinkageById = async (sessionId: string, noticeId: string) => {
     return await get_(sessionId, url);
 };
 
-export const createNoticeAction = async (sessionId: string, noticeId: string, userId: string ) => {
+export const createNoticeAction = async (sessionId: string, noticeId: string, userId: string, action:string) => {
     const url = BACKEND_API_URL + `/notices/${noticeId}/users/${userId}/take-action`;
-      const createModel =
-      {
-    Action      : 'Apply for job',
-    Contents    : [
+      const createModel = 
         {
-            Title : "",
-            ResourceId: ""
-        }
-    ],
-      };
+        Action      : action,
+        Contents    : [
+            {
+                Title : "",
+                ResourceId: ""
+            }
+        ],
+        };
     return await post_(sessionId, url, createModel) ;
 };
 
+// const getcreateNoticeAction = (): NoticeActionDomainModel => {
+//     const createNoticeAction : NoticeActionDomainModel = {
+//         Action : "Apply for Job",
+//         Contents:[
+//         ]
+//     };
+//     return createNoticeAction;
+// }
 // export interface NoticeActionDomainModel {
 //     UserId?        : string;
 //     NoticeId?      : string;

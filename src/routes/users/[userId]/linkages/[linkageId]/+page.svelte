@@ -3,22 +3,24 @@
 	import hrt from 'human-readable-time';
 
 	export let data: PageServerData;
-    let notice = data.notice
+    let notice = data.notice;
+	let noticeId = data.notice.id;
+	let action = data.notice.action
 	
 	console.log(`${JSON.stringify(notice)}`);
 	
-	const handleAppyForJobClick = async (e, action) => {
+	const handleAppyForJobClick = async (e) => {
 		console.log(e.currentTarget);
 		const noticeId = e.currentTarget.id;
 		console.log(`noticeId = ${noticeId}`)
 		await create({
 			sessionId: data.sessionId,
 			userId: data.userId,
-			noticeId
+			noticeId : data.notice.id,
+			action: data.notice.Action
 		});
-		window.location.href = action;
+		
 	}
-
 	async function create(model) {
     const response = await fetch(`/api/server/linkages`, {
       method: 'POST',
@@ -27,8 +29,9 @@
         'content-type': 'application/json'
       }
     });
+	console.log('response.......',response);
+	
   }
-
 	
 </script>
 <div class="flex items-center justify-center mt-16">
@@ -70,12 +73,12 @@
 						</p>
 					</div>
 				</div>
-				<!-- <a href={data.notice.Link}> -->
-				<button type="submit" on:click|capture={(e)=>handleAppyForJobClick(e , notice.Action)} id={notice.id} name={notice.id} class=" h-[52px] w-[340px] mt-2 text-[#fff]  rounded-lg bg-[#5b7aa3] "
+				<a href={`/users/${data.userId}/linkages`}>
+				<button on:click={(e)=>handleAppyForJobClick(e)} id={data.notice.id} name={data.notice.Action} value={data.notice.Action} class=" h-[52px] w-[340px] mt-2 text-[#fff]  rounded-lg bg-[#5b7aa3] "
 				>
 					APPLY FOR JOB</button
 				>
-			<!-- </a> -->
+			</a>
 			</div>
 		</div>
 	</div>

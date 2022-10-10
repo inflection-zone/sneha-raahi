@@ -5,12 +5,14 @@ import { createNoticeAction } from '../../services/linkages';
 
 export const POST = async ({ request }) => {
 	const data = await request.json();
+	console.log ("data.........",data);
 	try {
 		console.log('Inside learning server endpoints');
 		const response = await createNoticeAction(
 			data.sessionId,
             data.noticeId,
-            data.userId  
+            data.userId ,
+			data.action
 		);
 		return new Response(response.message);
 	} catch (err) {
