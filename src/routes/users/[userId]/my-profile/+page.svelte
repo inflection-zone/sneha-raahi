@@ -61,8 +61,6 @@
 					</div>
 				</div>
 				
-				
-
 				<h2 class="flex  justify-left font-bold mt-2">My Progress</h2>
 				{#if myLearningJourneys.length == 0}
 					<h3 class="mb-3 mt-3 font-semibold text-center">You have not yet started learning journey!</h3>

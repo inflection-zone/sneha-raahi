@@ -7,9 +7,9 @@ export const getAllNotifications = async (sessionId: string) => {
     return await get_(sessionId, url);
 };
 
-export const markAsRead = async (sessionId: string, notificationId: string) => {
+export const markAsRead = async (sessionId: string, notificationId: string, readOn:string) => {
     const updates = {
-       ReadOn : new Date()
+       ReadOn : readOn
     };
     const url = BACKEND_API_URL + `/general/notifications/${notificationId}/mark-as-read`;
     return await put_(sessionId, url,updates);

@@ -24,6 +24,7 @@
 			contentId
 		});
 		window.location.href = resourceLink;
+
 	}
 
 	async function update(model) {

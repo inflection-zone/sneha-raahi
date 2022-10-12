@@ -8,26 +8,28 @@
 	console.log(`\n Notifications = ${JSON.stringify(notifications)}`);
     
 	// let showCollapseNotification = true;
-// 	const handleNotificationClick = async (e) => {
-// 		console.log(e.currentTarget);
-// 		const notificationId = e.currentTarget.id;
-// 		console.log(`notificationId = ${notificationId}`)
-// 		await update({
-// 			sessionId: data.sessionId,
-// 			notificationId,
-// 		});
-// 	}
+	const handleNotificationClick = async (e) => {
+		console.log(e.currentTarget);
+		const notificationId = e.currentTarget.id;
+		console.log(`notificationId = ${notificationId}`)
+		await update({
+			sessionId: data.sessionId,
+			notificationId,
+			readOn : new Date()
+		});
+	}
 
-// 	async function update(model) {
-//     const response = await fetch(`/api/server/notifications`, {
-//       method: 'POST',
-//       body: JSON.stringify(model = {SentOn : new Date()}),
-//       headers: {
-//         'content-type': 'application/json'
-//       }
-//     });
-// 	console.log('response.....',response)
-//   }
+	async function update(model) {
+    const response = await fetch(`/api/server/notifications`, {
+      method: 'POST',
+      body: JSON.stringify(model),
+      headers: {
+        'content-type': 'application/json'
+      }
+    });
+	console.log('response.....',response);
+	return response;
+  }
 
 </script>
 
@@ -60,14 +62,16 @@
 				</h2>
 				<div class=" card-body h-[590px] overflow-auto scrollbar-medium ">
 				{#each notifications as notification}
-				<card class="w-[320px] h-[100px] rounded-md mb-4 border-radius border shadow-md">
+				<card class=" w-[320px] h-[100px] rounded-md mb-4 border-radius border shadow-md">
+					<button on:click|preventDefault={(e) => handleNotificationClick(e)} id={notification.id} name={notification.id} class = "font-semibold leading-normal tracking-normal" >
 					<div id={notification.id} class="mb-2">
 						<div class="p-4">
 							<!-- <img class=" h-4 w-4" src= {notification.ImageUrl} alt="" /> -->
-							<h2 class="mb-1font-semibold">{notification.Title.length > 20 ? notification.Title.substring(0, 18) + '...': notification.Title}</h2>
+							<h2 class="mb-1 font-semibold">{notification.Title.length > 20 ? notification.Title.substring(0, 18) + '...': notification.Title}</h2>
 							<p>{notification.Body}</p>
 						</div>		
 					</div>
+					
 				</card>
 				{/each}
 			

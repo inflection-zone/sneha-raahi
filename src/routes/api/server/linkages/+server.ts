@@ -12,7 +12,9 @@ export const POST = async ({ request }) => {
 			data.sessionId,
             data.noticeId,
             data.userId ,
-			data.action
+			data.action,
+			data.title,
+			data.resourceId
 		);
 		return new Response(response.message);
 	} catch (err) {

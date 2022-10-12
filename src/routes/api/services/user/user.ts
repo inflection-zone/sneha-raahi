@@ -48,12 +48,12 @@ export const POST = async (event ) => {
     }
 };
 
-const getUserModel = (firstName:string, lastName:string, age:string, phone:string ,location:string): UserRegistrationModel => {
+const getUserModel = (firstName:string, lastName:string, age:string, phone:string ,location:[]): UserRegistrationModel => {
    const userModel: UserRegistrationModel = {} ;
     userModel.FirstName = firstName;
     userModel.LastName = lastName;
-    userModel.Age= age;
-    // userModel.Location = location;
+    userModel.Age = age;
+    userModel.Addresses = location;
     if (Helper.isPhone(phone)) {
         userModel.Phone = phone;
     }

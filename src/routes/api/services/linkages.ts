@@ -12,15 +12,16 @@ export const getLinkageById = async (sessionId: string, noticeId: string) => {
     return await get_(sessionId, url);
 };
 
-export const createNoticeAction = async (sessionId: string, noticeId: string, userId: string, action:string) => {
+export const createNoticeAction = async (sessionId: string, noticeId: string, userId: string, action:string, title: string, resourseId: string ) => {
     const url = BACKEND_API_URL + `/notices/${noticeId}/users/${userId}/take-action`;
       const createModel = 
         {
+        NoticeId : noticeId,
         Action      : action,
         Contents    : [
             {
-                Title : "",
-                ResourceId: ""
+                Title : title,
+                ResourceId: resourseId
             }
         ],
         };
