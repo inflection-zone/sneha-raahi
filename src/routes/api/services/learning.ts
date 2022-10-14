@@ -46,3 +46,8 @@ export const updateUserLearning = async (sessionId: string, userId: string, cont
     const url = BACKEND_API_URL + `/educational/user-learnings/${userId}/contents/${contentId}`;
     return await put_(sessionId, url, updates);
 };
+
+export const getContentProgress = async (sessionId: string, contentId: string, userId: string,) => {
+    const url = BACKEND_API_URL + `/educational/user-learnings/${userId}/courses/${contentId}/progress`;
+    return await get_(sessionId, url);
+};

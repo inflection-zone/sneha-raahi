@@ -56,7 +56,7 @@
 							<button class="uppercase text-base font-bold text-[#d05591] absolute right-5 mt-2">
 								EDIT
 							</button>
-							<p class=" text-left ">{data.sessionUser.age}, Dharavi</p>
+							<p class=" text-left ">14 , Dharavi</p>
 						</div>
 					</div>
 				</div>
