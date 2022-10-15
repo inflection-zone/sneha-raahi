@@ -29,7 +29,7 @@ export const getLearningPath = async (sessionId: string, learningPathId: string)
 };
 
 export const getCourseContentsForCourse = async (sessionId: string, courseId: string) => {
-    const url = BACKEND_API_URL + `/educational/course-contents//by-course/${courseId}`;
+    const url = BACKEND_API_URL + `/educational/course-contents/by-course/${courseId}`;
     return await get_(sessionId, url);
 };
 
@@ -45,4 +45,9 @@ export const updateUserLearning = async (sessionId: string, userId: string, cont
     };
     const url = BACKEND_API_URL + `/educational/user-learnings/${userId}/contents/${contentId}`;
     return await put_(sessionId, url, updates);
+};
+
+export const getContentProgress = async (sessionId: string, contentId: string, userId: string,) => {
+    const url = BACKEND_API_URL + `/educational/user-learnings/${userId}/courses/${contentId}/progress`;
+    return await get_(sessionId, url);
 };

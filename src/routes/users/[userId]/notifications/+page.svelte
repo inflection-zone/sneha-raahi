@@ -1,4 +1,36 @@
-<script>
+<script lang="ts">
+	import type { PageServerData } from './$types';
+	import hrt from 'human-readable-time';
+
+	export let data: PageServerData;
+	let notifications = data.allNotifications.NotificationRecords.Items;
+	notifications = notifications.sort((a, b) => { return b.SentOn - a.SentOn; });
+	console.log(`\n Notifications = ${JSON.stringify(notifications)}`);
+    
+	// let showCollapseNotification = true;
+	const handleNotificationClick = async (e) => {
+		console.log(e.currentTarget);
+		const notificationId = e.currentTarget.id;
+		console.log(`notificationId = ${notificationId}`)
+		await update({
+			sessionId: data.sessionId,
+			notificationId,
+			readOn : new Date()
+		});
+	}
+
+	async function update(model) {
+    const response = await fetch(`/api/server/notifications`, {
+      method: 'POST',
+      body: JSON.stringify(model),
+      headers: {
+        'content-type': 'application/json'
+      }
+    });
+	console.log('response.....',response);
+	return response;
+  }
+
 </script>
 
 <div class="flex items-center justify-center mt-16">
@@ -29,44 +61,47 @@
 					NOTIFICATIONS
 				</h2>
 				<div class=" card-body h-[590px] overflow-auto scrollbar-medium ">
-				<div class="mb-2 ">
+				{#each notifications as notification}
+				<card class=" w-[320px] h-[100px] rounded-md mb-4 border-radius border shadow-md">
+					<button on:click|preventDefault={(e) => handleNotificationClick(e)} id={notification.id} name={notification.id} class = "font-semibold leading-normal tracking-normal" >
+					<div id={notification.id} class="mb-2">
+						<div class="p-4">
+							<!-- <img class=" h-4 w-4" src= {notification.ImageUrl} alt="" /> -->
+							<h2 class="mb-1 font-semibold">{notification.Title.length > 20 ? notification.Title.substring(0, 18) + '...': notification.Title}</h2>
+							<p>{notification.Body}</p>
+						</div>		
+					</div>
+					
+				</card>
+				{/each}
+			
+				<!-- <div class="mb-2">
+					<div class="flex relative mb-1 ">
+						<h3>Lorem ipsum dolor sit amet</h3>
+						<div class="text-base font-semibold absolute right-0 pr-3 leading-5 ">12 Dec</div>
+					</div>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nisi odio, lacinia
+						eu dictum a, consequat eget purus. Phasellus nec est luctus, faucibus enim non,
+						malesuada sapien.
+					</p>
+				</div>
+				<div class="mb-2 opacity-25">
+					<div class="flex relative mb-1 ">
+						<h3>Lorem ipsum dolor sit amet</h3>
+						<div class="text-base font-semibold absolute right-0 pr-3 leading-5 ">12 Dec</div>
+					</div>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nisi odio, lacinia
+						eu dictum a, consequat eget purus. Phasellus nec est luctus, faucibus enim non,
+						malesuada sapien.
+					</p>
+				</div>
+				<div class="mb-2 opacity-25">
 					<div class="flex relative mb-1 ">
 						<h3 class="">Lorem ipsum dolor sit amet</h3>
 						<div class="text-base font-semibold absolute right-0 pr-3 leading-5 ">12 Dec</div>
 					</div>
-					<p class="tracking-normal font-">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nisi odio, lacinia
-						eu dictum a, consequat eget purus. Phasellus nec est luctus, faucibus enim non,
-						malesuada sapien.
-					</p>
-				</div>
-				<div class="mb-2">
-					<div class="flex relative mb-1 ">
-						<h3>Lorem ipsum dolor sit amet</h3>
-						<div class="text-base font-semibold absolute right-0 pr-3 leading-5 ">12 Dec</div>
-					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nisi odio, lacinia
-						eu dictum a, consequat eget purus. Phasellus nec est luctus, faucibus enim non,
-						malesuada sapien.
-					</p>
-				</div>
-				<div class="mb-2 opacity-25">
-					<div class="flex relative mb-1 ">
-						<h3>Lorem ipsum dolor sit amet</h3>
-						<div class="text-base font-semibold absolute right-0 pr-3 leading-5 ">12 Dec</div>
-					</div>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nisi odio, lacinia
-						eu dictum a, consequat eget purus. Phasellus nec est luctus, faucibus enim non,
-						malesuada sapien.
-					</p>
-				</div>
-				<div class="mb-2 opacity-25">
-					<div class="flex relative mb-1 ">
-						<h3 class="">Lorem ipsum dolor sit amet</h3>
-						<div class="text-base font-semibold absolute right-0 pr-3 leading-5 ">12 Dec</div>
-					</div>
 					<p>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nisi odio, lacinia
 						eu dictum a, consequat eget purus. Phasellus nec est luctus, faucibus enim non,
@@ -94,7 +129,7 @@
 						eu dictum a, consequat eget purus. Phasellus nec est luctus, faucibus enim non,
 						malesuada sapien.
 					</p>
-				</div>
+				</div> -->
 			</div>
 			</div>
 		</div>
