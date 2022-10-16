@@ -1,4 +1,3 @@
-
 import { getContentProgress, updateUserLearning } from '../../services/learning'
 
 //////////////////////////////////////////////////////////////

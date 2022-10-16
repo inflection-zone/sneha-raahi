@@ -62,7 +62,7 @@
 			}
 		});
 		console.log('respose....', response);
-		
+
 	}
 	// async function stratQuiz(model) {
 	// 	const response = await fetch(`/api/server/quiz`, {
@@ -91,6 +91,7 @@
 	// 		percentage.style.width = '100 %';
 	// 	});
 	// }
+
 </script>
 
 <div class="flex items-center justify-center m-16">

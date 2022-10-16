@@ -1,13 +1,17 @@
-<script>
+<script lang="ts">
     import '../app.postcss';
     import Navbar from '../lib/components/navbar/nav.svelte';
-  </script>
-   <Navbar/>
+    import Toasts from '$lib/components/toast/toasts.svelte';
+	  import { browser } from '$app/environment';
+</script>
 
-  <slot>  
-    <main>
- 
+  <Navbar/>
 
-    </main>
+  {#if browser }
+    <Toasts/>
+  {/if}
 
-  </slot> 
+<slot>
+  <main>
+  </main>
+</slot>
