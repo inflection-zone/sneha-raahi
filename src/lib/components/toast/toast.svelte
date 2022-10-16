@@ -4,7 +4,7 @@
   import SuccessIcon from "../success.icon.svelte";
   import ErrorIcon from "../error.icon.svelte";
   import InfoIcon from "../info.icon.svelte";
-  import CloseIcon from "../close.icon.svelte";
+  import CloseIcon from "../icons/close.icon.svelte";
 
   const dispatch = createEventDispatcher();
 

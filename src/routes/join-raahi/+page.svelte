@@ -3,10 +3,7 @@
     import { Flash } from 'sveltekit-flash-message/client';
     import { page } from '$app/stores';
 	import type { PageServerData } from "./$types";
-	import { failure, success } from '$lib/utils/toast.message';
 	import { onMount } from 'svelte';
-	import { SvelteToast } from '@zerodevx/svelte-toast';
-	import { browser } from '$app/environment';
 	import { show } from '$lib/utils/message.utils';
 
 	export let data: PageServerData;
