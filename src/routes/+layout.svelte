@@ -7,9 +7,9 @@
 
   <Navbar/>
 
-  {#if browser }
+  <!-- {#if browser } -->
     <Toasts/>
-  {/if}
+  <!-- {/if} -->
 
 <slot>
   <main>

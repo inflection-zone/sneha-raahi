@@ -1,9 +1,9 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { fade } from "svelte/transition";
-  import SuccessIcon from "../success.icon.svelte";
-  import ErrorIcon from "../error.icon.svelte";
-  import InfoIcon from "../info.icon.svelte";
+  import SuccessIcon from "../icons/success.icon.svelte";
+  import ErrorIcon from "../icons/error.icon.svelte";
+  import InfoIcon from "../icons/info.icon.svelte";
   import CloseIcon from "../icons/close.icon.svelte";
 
   const dispatch = createEventDispatcher();

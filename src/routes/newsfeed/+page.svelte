@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Counter from '$lib/Counter.svelte';
 	import type { PageServerData } from './$types';
 	import { communityNewsFeeds } from '../../lib/store/general.store';
 	export let data: PageServerData;
