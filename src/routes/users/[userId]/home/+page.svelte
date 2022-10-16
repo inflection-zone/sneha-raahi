@@ -12,15 +12,17 @@
 	let newsFeedLink;
 	let chatLink;
 	let linkagesLink;
+	let notificationsLink
 
 	onMount(()=>{
 		userId = data.userId;
-		learningHomeLink = `/users/${userId}/learning-home`;
+		learningHomeLink = `/users/${userId}/my-learnings`;
 		myProfileLink = `/users/${userId}/my-profile`;
 		askSnehaLink = `/ask-sneha`;
 		newsFeedLink = `/newsfeed`;
 		chatLink = `/users/${userId}/chat-home`;
 		linkagesLink = `/users/${userId}/linkages`;
+		notificationsLink = `/users/${userId}/notifications`
 
 		console.log(learningHomeLink);
 		console.log(myProfileLink);
@@ -158,13 +160,13 @@
 						</div>
 						<h1 class="card-title text-base-100 text-3xl">Hi {data.firstName}!</h1>
 						<p class=" text-base-100">
-							Welcome to Raahi, your friend, companion and guide as you navigate your journey into adulthood. 
+							Welcome to Raahi, your friend, companion and guide as you navigate your journey into adulthood.
 						</p>
 					</div>
 					<div class="flex flex-row  justify-center relative">
 						<a href="/ask-sneha"> <img src="/assets/home/png/ask.png" alt="" /></a>
 						<a href="/chat-home"> <img src="/assets/home/svg/message.svg" alt="" /></a>
-						<a href="/notifications"> <img src="/assets/home/png/notification.png" alt="" /></a>
+						<a href="{notificationsLink}"> <img src="/assets/home/png/notification.png" alt="" /></a>
 					</div>
 				</div>
 				<div

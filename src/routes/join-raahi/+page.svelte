@@ -1,5 +1,21 @@
 <script lang="ts">
 
+    import { Flash } from 'sveltekit-flash-message/client';
+    import { page } from '$app/stores';
+	import type { PageServerData } from "./$types";
+	import { onMount } from 'svelte';
+	import { show } from '$lib/utils/message.utils';
+
+	export let data: PageServerData;
+
+    const flash = new Flash(page);
+    const message = flash.message;
+	let flashMessage = data? data['flash'] : null;
+
+	onMount(()=> {
+		show(data);
+	});
+
 </script>
 
 <body>
@@ -15,13 +31,12 @@
 					<p
 						class="w-[335px] h-[44px]  mx-[20px] mb-[6px] text-[19px] tracking-wide leading-5 font-bold text-center text-[#5B7AA3]"
 					>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Enter a phone number
 					</p>
 					<p
 						class=" w-[335px] h-[64px] mt-[6px] mx-[20px] mb-[19px] text-[16px] font-normal not-italic leading-5 text-center text-[#000] tracking-wide"
 					>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec lacus nec est
-						condimentum consectetur quis eget nisi. Sed
+					The number you enter will be linked to your Raahi App account. Make sure you are able to access the OTP sent on this number.
 					</p>
 				</div>
 				<form method="post">
@@ -58,7 +73,7 @@
 						name="location"
 						class=" h-[52px] w-[340px] py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 					/>
-				
+
 				<div
 					class="w-[340px] h-[52px] mt-[16px] mr-[17px] mb-4 ml-[10px] pt-[15px] px-[106px] pb-15px  rounded-[10px] bg-[#5B7AA3]"
 				>

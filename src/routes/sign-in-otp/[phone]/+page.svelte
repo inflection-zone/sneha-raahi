@@ -3,7 +3,7 @@
 	import type { PageServerData } from './$types';
 	import { onDestroy, onMount } from 'svelte';
 	import {selectTextOnFocus, blurOnEscape} from '$lib/utils/input.directives';
-	import { personRolesStore } from '$lib/store/person.roles.store';
+	import { personRolesStore } from '$lib/store/general.store';
 	import type { Unsubscriber } from 'svelte/store';
 
 	export let data: PageServerData;

@@ -10,6 +10,7 @@ export interface Session {
     fullName?       : string;
     firstName?      : string;
     roleId?         : string;
+    age?            : string;
     expiryDate?     : Date;
 }
 
@@ -89,6 +90,7 @@ export class SessionHelper {
                 (user.Person.FirstName + ' ' +  user.Person.LastName) : null,
             firstName      : user.Person.FirstName ?? null,
             roleId         : user.RoleId,
+            age            : user.Age,
             expiryDate     : expiryDate
         };
         return Promise.resolve(session);
