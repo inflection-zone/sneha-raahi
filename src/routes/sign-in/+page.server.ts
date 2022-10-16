@@ -1,7 +1,8 @@
 
-import { error, type RequestEvent } from '@sveltejs/kit';
+import type { RequestEvent } from '@sveltejs/kit';
 import { sendOtp } from '../api/auth/send.otp';
 import { redirect } from 'sveltekit-flash-message/server';
+import { errorMessage } from '$lib/utils/message.utils';
 
 //////////////////////////////////////////////////////////////
 
@@ -17,7 +18,7 @@ export const actions = {
 		const loginRoleId_ = data.has('loginRoleId') ? data.get('loginRoleId') : null;
 
 		if (!phone_) {
-			throw error(400, `Phone is not valid!`);
+			throw redirect(303, '/sign-in', errorMessage(`Phone is not valid!`), event);
 		}
 		const phone = phone_.valueOf() as string;
 		const loginRoleId = loginRoleId_.valueOf() as number;
@@ -27,25 +28,13 @@ export const actions = {
 			loginRoleId ?? 2
 		);
 		if (response.Status === 'failure' || response.HttpCode !== 200) {
-			console.log(response.Message);
-			//throw error(response.HttpCode, response.Message);
-			const message = {
-				type: 'error' as "error" | "success",
-				message: response.Message as string,
-			};
-			console.log(`Throwing ... ${JSON.stringify(message, null, 2)}`)
-			throw redirect(
-				303,
-				'/join-raahi/',
-				message,
-				event
-			);
+			//console.log(response.Message);
+			//Most probably the user is not yet registered, so redirect to the sign-up page
+			throw redirect(303, '/join-raahi/', errorMessage(response.Message), event);
 		}
 		return {
 			location: `/sign-in-otp/${phone}`,
 			message: response.Message,
 		};
-
 	},
-
 };

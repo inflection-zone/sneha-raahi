@@ -25,4 +25,18 @@ export const show = (data) => {
     }
 };
 
-//let types = ["success", "error", "info"];
+export const successMessage = (message: string) => {
+    const msg = {
+        type: 'success' as "error" | "success",
+        message: message as string,
+    };
+    return msg;
+};
+
+export const errorMessage = (message: string) => {
+    const msg = {
+        type: 'error' as "error" | "success",
+        message: message as string,
+    };
+    return msg;
+};

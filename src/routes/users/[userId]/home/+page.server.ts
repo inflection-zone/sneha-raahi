@@ -1,5 +1,5 @@
 
-import type { PageServerLoad } from ".svelte-kit/types/src/routes/todos/$types";
+import type { PageServerLoad } from "./$types";
 import {redirect } from '@sveltejs/kit';
 import * as cookie from 'cookie';
 import { SessionHelper } from '../../../api/auth/session';

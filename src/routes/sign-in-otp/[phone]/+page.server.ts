@@ -4,6 +4,7 @@ import { error, type RequestEvent } from "@sveltejs/kit";
 import { SessionHelper } from "../../api/auth/session";
 import { loginWithOtp } from "../../api/auth/login.with.otp";
 import { redirect } from 'sveltekit-flash-message/server';
+import { errorMessage, successMessage } from "$lib/utils/message.utils";
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -43,64 +44,37 @@ export const actions = {
         const phone = phone_.valueOf() as string;
         const loginRoleId = loginRoleId_.valueOf() as number;
 
-        try {
-            const response = await loginWithOtp(otp, phone, loginRoleId);
-            if (response.Status === 'failure' || response.HttpCode !== 200) {
-                console.log(response.Message);
-                //throw error(response.HttpCode, response.Message);
-                throw redirect(
-                    303,
-                    '/join-raahi/',
-                    {
-                        type: 'error',
-                        message: response.message,
-                    },
-                    event
-                );
-            }
-
-            const user = response.Data.User;
-            user.SessionId = response.Data.SessionId;
-            const accessToken = response.Data.AccessToken;
-            const expiryDate = new Date(response.Data.SessionValidTill);
-            const sessionId = response.Data.SessionId;
-            const userId: string = response.Data.User.id;
-
-            if (user.Role.RoleName !== 'Patient') {
-                throw error(400, 'Unsupported user role!');
-            }
-
-            const session = await SessionHelper.constructSession(user, accessToken, expiryDate);
-            if (session) {
-                console.log('Session - ' + JSON.stringify(session, null, 2));
-                const userSession = await SessionHelper.addSession(session.sessionId, session);
-                console.log(JSON.stringify(userSession, null, 2));
-            }
-            else {
-                console.log(`Session cannot be constructed!`);
-                throw error(500, `Use login session cannot be created!`);
-            }
-            setHeaders({
-                'Set-Cookie': CookieUtils.setCookieHeader('sessionId', sessionId, 24 * 7),
-            });
-            throw redirect(
-                303,
-                `/users/${userId}/home`,
-                {
-                    type: 'success',
-                    message: response.message,
-                },
-                event
-            );
-            // return {
-            //     location: `/users/${userId}/home`,
-            //     message: response.Message,
-            // }
-        }
-        catch (err) {
-            console.error(`Error logging in: ${err.message}`);
-            throw error(400, err.message);
+        const response = await loginWithOtp(otp, phone, loginRoleId);
+        if (response.Status === 'failure' || response.HttpCode !== 200) {
+            //console.log(response.Message);
+            //Login error, so redirect to the sign-in page
+            throw redirect(303, '/sign-in/', errorMessage(response.Message), event);
         }
 
+        const user = response.Data.User;
+        user.SessionId = response.Data.SessionId;
+        const accessToken = response.Data.AccessToken;
+        const expiryDate = new Date(response.Data.SessionValidTill);
+        const sessionId = response.Data.SessionId;
+        const userId: string = response.Data.User.id;
+
+        if (user.Role.RoleName !== 'Patient') {
+            throw redirect(303, `/sign-in`, errorMessage(`Unsupported user role!`), event);
+        }
+
+        const session = await SessionHelper.constructSession(user, accessToken, expiryDate);
+        if (!session) {
+            console.log(`Session cannot be constructed!`);
+            throw redirect(303, `/sign-in`, errorMessage(`Use login session cannot be created!`), event);
+        }
+        console.log('Session - ' + JSON.stringify(session, null, 2));
+        const userSession = await SessionHelper.addSession(session.sessionId, session);
+        console.log(JSON.stringify(userSession, null, 2));
+
+        setHeaders({
+            'Set-Cookie': CookieUtils.setCookieHeader('sessionId', sessionId, 24 * 7),
+        });
+
+        throw redirect(303, `/users/${userId}/home`, successMessage(response.Message), event);
     }
 };

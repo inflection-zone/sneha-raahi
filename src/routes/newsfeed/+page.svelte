@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Counter from '$lib/Counter.svelte';
 	import type { PageServerData } from './$types';
-	import { newsFeeds } from '../../lib/store/newsfeeds.store';
+	import { communityNewsFeeds } from '../../lib/store/general.store';
 	export let data: PageServerData;
 	let newsItems = data.newsItems;
 	// let newsFeeds = data.newsFeeds;
@@ -64,7 +64,7 @@
                             </div>
                         {/each} -->
 
-						{#each Object.values($newsFeeds) as news}
+						{#each Object.values($communityNewsFeeds) as news}
 							<div class="mb-6">
 								<a href="/newsfeed/{news.id}">
 									<h4 class="text-right  text-[13px] font-semibold mb-1">{news.PubDate}</h4>
@@ -120,7 +120,7 @@
                     </div> -->
 
 					<div class=" h-[590px] overflow-auto scrollbar-medium">
-						{#each Object.values($newsFeeds) as news}
+						{#each Object.values($communityNewsFeeds) as news}
 							<div class="mb-6">
 								<a href="/newsfeed/{news.id}">
 									<h4 class="text-right  text-[13px] font-semibold mb-1">{news.PubDate}</h4>

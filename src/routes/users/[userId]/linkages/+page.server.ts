@@ -11,10 +11,10 @@ export const load: PageServerLoad = async ({ request, params, }) => {
         const userId = params.userId;
         const allLinkages = await getAllLinkages(sessionId);
 
-        console.log(`\n All linkages = ${JSON.stringify(allLinkages)}`);
+        //console.log(`\n All linkages = ${JSON.stringify(allLinkages)}`);
         return {
             userId,
-            allLinkages 
+            allLinkages
         };
     }
     catch (error) {

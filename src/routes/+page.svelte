@@ -2,8 +2,7 @@
 import { onMount } from 'svelte';
 import type { PageData } from './$types';
 import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-import { personRolesStore } from '$lib/store/person.roles.store';
-import { genderTypesStore } from '$lib/store/gender.types.store';
+import { personRolesStore, genderTypesStore } from '$lib/store/general.store';
 
 export let data: PageData;
 personRolesStore.set(data.roles);
@@ -54,11 +53,11 @@ let showSplash = true;
 						Your Learning Journey
 					</h2>
 					<p class=" font-normal overflow-auto text-[#000]">
-						Learn about your physical, mental, sexual <br> 
+						Learn about your physical, mental, sexual <br>
 						and reproductive health.
 					</p>
-					</div> 	
-				</div> 
+					</div>
+				</div>
 				<div id="item2" class="carousel-item ">
 					<div class="flex flex-col text-center justify-center">
 						<img src="/assets/home/svg/linkages.svg" alt="" class="mt-[50px] h-[250px]  p-4" />
@@ -68,8 +67,8 @@ let showSplash = true;
 					<p class="w-[335px] mt- h-[64px]  font-normal  text-[#000]">
 						Explore career and job opportunities
 					</p>
-					</div> 	
-				</div> 
+					</div>
+				</div>
 				<div id="item3" class="carousel-item ">
 					<div class="flex flex-col text-center justify-center">
 						<img src="/assets/home/svg/newsfeed.svg" alt="" class="mt-[50px] h-[250px] " />
@@ -79,8 +78,8 @@ let showSplash = true;
 					<p class="w-[335px] mt- h-[64px]  font-normal  text-[#000]">
 						Stay connected with SNEHA and your peers
 					</p>
-					</div> 	
-				</div> 
+					</div>
+				</div>
 				<div id="item4" class="carousel-item ">
 					<div class="flex flex-col text-center justify-center">
 						<img src="/assets/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px]" />
@@ -90,13 +89,13 @@ let showSplash = true;
 					<p class="w-[335px] mt- h-[64px]  font-normal  text-[#000]">
 						Talk to a SNEHA representative
 					</p>
-					</div> 	
-				</div> 
-			  </div> 
+					</div>
+				</div>
+			  </div>
 			  <div class="flex  justify-center w-full py-2 mt-2 gap-2 ">
-				<a href="#item1"  class="w-[10px] h-[10px] bg-[#dfe7fd]"> </a> 
-				<a href="#item2" class=" w-[10px] h-[10px] bg-[#dfe7fd]"> </a> 
-				<a href="#item3" class=" w-[10px] h-[10px] bg-[#dfe7fd]"> </a> 
+				<a href="#item1"  class="w-[10px] h-[10px] bg-[#dfe7fd]"> </a>
+				<a href="#item2" class=" w-[10px] h-[10px] bg-[#dfe7fd]"> </a>
+				<a href="#item3" class=" w-[10px] h-[10px] bg-[#dfe7fd]"> </a>
 				<a href="#item4" class=" w-[10px] h-[10px] bg-[#dfe7fd]"> </a>
 			  </div>
 			<!-- <div class="flex flex-row items-center justify-center gap-1">
