@@ -5,6 +5,7 @@
 	import {selectTextOnFocus, blurOnEscape} from '$lib/utils/input.directives';
 	import { personRolesStore } from '$lib/store/general.store';
 	import type { Unsubscriber } from 'svelte/store';
+	import { show } from '$lib/utils/message.utils';
 
 	export let data: PageServerData;
 	console.log('Page data received - ' + JSON.stringify(data, null, 2));
@@ -20,6 +21,7 @@
 		loginRoleId = patientRole.id;
 	}
 	onMount(()=>{
+		show(data);
 		otp1.focus();
 	});
 

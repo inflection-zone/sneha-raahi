@@ -1,6 +1,8 @@
 import type { PageServerLoad } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
 import { registerUser } from '../api/auth/register.user';
+import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import { redirect } from 'sveltekit-flash-message/server';
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -33,32 +35,22 @@ export const actions = {
 			throw error(400, `Phone is not valid!`);
 		}
 
-		try {
-			const response = await registerUser(
-				firstName.valueOf() as string,
-				lastName.valueOf() as string,
-				age.valueOf() as string,
-				phone.valueOf() as string,
-				location.valueOf() as string);
+		const response = await registerUser(
+			firstName.valueOf() as string,
+			lastName.valueOf() as string,
+			age.valueOf() as string,
+			phone.valueOf() as string,
+			location.valueOf() as string);
 
-			console.log(JSON.stringify(response, null, 2));
+		console.log(JSON.stringify(response, null, 2));
 
-			if (response.Status === 'failure' && response.HttpCode === 409) {
-				return {
-					location: `/sign-in`,
-				};
-			}
-			if (response.Status === 'failure' || response.HttpCode !== 201) {
-				console.log(response.Message);
-				throw error(response.HttpCode, response.Message);
-			}
-			console.log(`Reached here...`)
-			return {
-				location: `/sign-in`,
-			};
-		} catch (err) {
-			console.error(`Error registering user in: ${err.message}`);
-			throw error(400, err.message);
+		if (response.Status === 'failure' && response.HttpCode === 409) {
+			throw redirect(303, '/join-raahi', errorMessage(response.Message), event);
 		}
+		if (response.Status === 'failure' || response.HttpCode !== 201) {
+			throw redirect(303, '/join-raahi', errorMessage(response.Message), event);
+		}
+
+		throw redirect(303, `/sign-in-otp/${phone}`, successMessage('Your account is created successfully!'), event);
 	}
 };

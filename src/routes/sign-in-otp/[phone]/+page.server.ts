@@ -8,11 +8,13 @@ import { errorMessage, successMessage } from "$lib/utils/message.utils";
 
 ////////////////////////////////////////////////////////////////////////
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async (event: RequestEvent) => {
     try {
+        const params = event.params;
         console.log('Loading params' + JSON.stringify(params, null, 2));
         return {
-            phone: params.phone
+            phone: params.phone,
+            //flash: flash,
         };
     }
     catch (error) {
@@ -77,4 +79,5 @@ export const actions = {
 
         throw redirect(303, `/users/${userId}/home`, successMessage(response.Message), event);
     }
+
 };
