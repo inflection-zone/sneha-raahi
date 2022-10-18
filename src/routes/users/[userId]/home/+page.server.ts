@@ -1,16 +1,17 @@
 
 import type { PageServerLoad } from "./$types";
 import {redirect } from '@sveltejs/kit';
-import * as cookie from 'cookie';
 import { SessionHelper } from '../../../api/auth/session';
 
 ////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event) => {
 
-    const cookies = cookie.parse(event.request.headers.get('cookie') || '');
-    const sessionId = cookies['sessionId'];
-    console.log(`session id received - ${sessionId}`);
+    const sessionId = event.cookies.get('sessionId');
+    console.log('sessionId', sessionId);
+    // const cookies = cookie.parse(event.request.headers.get('cookie') || '');
+    // const sessionId = cookies['sessionId'];
+    // console.log(`session id received - ${sessionId}`);
 
     const session = await SessionHelper.getSession(sessionId);
     if (!session) {
