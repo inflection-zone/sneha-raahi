@@ -8,12 +8,11 @@ import { errorMessage, successMessage } from "$lib/utils/message.utils";
 ////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
-    console.log('Page ...' + JSON.stringify(event, null, 2));
-    const params = event.params;
     try {
+        const params = event.params;
         console.log('Loading params' + JSON.stringify(params, null, 2));
         return {
-            phone: params.phone 
+            phone: params.phone,
         };
     }
     catch (error) {
@@ -26,7 +25,6 @@ export const actions = {
 	default: async (event: RequestEvent) => {
 
         const request = event.request;
-        const cookies = event.cookies;
         const data = await request.formData(); // or .json(), or .text(), etc
         //console.log(Object.fromEntries(data));
 
@@ -71,19 +69,9 @@ export const actions = {
         const userSession = await SessionHelper.addSession(session.sessionId, session);
         console.log(JSON.stringify(userSession, null, 2));
 
-        // setHeaders({
-        //     'Set-Cookie': CookieUtils.setCookieHeader('sessionId', sessionId, 24 * 7),
-        // });
-        
-        cookies.set('sessionId', sessionId, {
-            path: '/',
-            httpOnly: true,
-            sameSite: 'strict',
-            secure: process.env.NODE_ENV === 'production',
-            //maxAge: 60 * 60 * 24 * 7, // one week
-            // expires: date
-        });
+        CookieUtils.setCookieHeader(event, 'sessionId', sessionId);
 
-        throw redirect(303, `/users/${userId}/home`, successMessage(response.Message), event);
+        throw redirect(303, `/users/${userId}/home`, successMessage(`Login successful!`), event);
     }
+
 };

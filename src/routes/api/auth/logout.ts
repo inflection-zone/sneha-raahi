@@ -2,6 +2,7 @@ import { API_CLIENT_INTERNAL_KEY, BACKEND_API_URL } from "$env/static/private";
 import { CookieUtils } from "$lib/utils/cookie.utils";
 import { SessionHelper } from "./session";
 import * as cookie from 'cookie';
+import type { RequestEvent } from "@sveltejs/kit";
 
 ////////////////////////////////////////////////////////////////
 
@@ -24,7 +25,7 @@ import * as cookie from 'cookie';
 //     return response;
 // }
 
-export const POST = async (event) => {
+export const POST = async (event: RequestEvent) => {
 
     const data = await event.request.json();
 
@@ -64,16 +65,13 @@ export const POST = async (event) => {
             const session = await SessionHelper.removeSession(sessionId);
             console.log(JSON.stringify(session, null, 2));
         }
-
+        CookieUtils.removeCookieHeader(event, 'sessionId');
         return {
             status : response.HttpCode,
             body : {
                 Success: true,
                 Message: response.Message,
             },
-            headers: {
-                'Set-Cookie' : CookieUtils.removeCookieHeader('sessionId')
-            }
         }
     }
     catch (error) {

@@ -50,7 +50,6 @@
 			}
 		});
 		console.log('respose....', response);
-
 	}
 
 	async function scheduleQuiz(model) {
@@ -62,8 +61,8 @@
 			}
 		});
 		console.log('respose....', response);
-
 	}
+
 	// async function stratQuiz(model) {
 	// 	const response = await fetch(`/api/server/quiz`, {
 	// 		method: 'POST',

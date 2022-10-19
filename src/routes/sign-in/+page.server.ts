@@ -32,10 +32,6 @@ export const actions = {
 			//Most probably the user is not yet registered, so redirect to the sign-up page
 			throw redirect(303, '/join-raahi/', errorMessage(response.Message), event);
 		}
-		throw redirect(303,`/sign-in-otp/${phone}`, successMessage(response.Message), event);
-		// return {
-		// 	location: `/sign-in-otp/${phone}`,
-		// 	message: response.Message,
-		// };
+		throw redirect(303, `/sign-in-otp/${phone}`);
 	},
 };

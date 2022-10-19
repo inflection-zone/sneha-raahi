@@ -34,24 +34,23 @@ export const actions = {
 		if (!phone && !countryCode) {
 			throw error(400, `Phone is not valid!`);
 		}
-			const response = await registerUser(
-				firstName.valueOf() as string,
-				lastName.valueOf() as string,
-				age.valueOf() as string,
-				phone.valueOf() as string,
-				location.valueOf() as string);
 
-			console.log(JSON.stringify(response, null, 2));
+		const response = await registerUser(
+			firstName.valueOf() as string,
+			lastName.valueOf() as string,
+			age.valueOf() as string,
+			phone.valueOf() as string,
+			location.valueOf() as string);
 
-			if (response.Status === 'failure' && response.HttpCode === 409) {
-				throw redirect(303, '/join-raahi/', errorMessage(response.Message), event);
-			}
-			if (response.Status === 'failure' || response.HttpCode !== 201) {
-				console.log(response.Message);
-				throw redirect(303, '/join-raahi/', errorMessage(response.Message), event);
-			}
-			console.log(`Reached here...`)
-			throw redirect(303,`/sign-in-otp/${phone}`, successMessage('Your account is created successfully!'), event);
-		
+		console.log(JSON.stringify(response, null, 2));
+
+		if (response.Status === 'failure' && response.HttpCode === 409) {
+			throw redirect(303, '/join-raahi', errorMessage(response.Message), event);
+		}
+		if (response.Status === 'failure' || response.HttpCode !== 201) {
+			throw redirect(303, '/join-raahi', errorMessage(response.Message), event);
+		}
+
+		throw redirect(303, `/sign-in-otp/${phone}`, successMessage('Your account is created successfully!'), event);
 	}
 };

@@ -1,10 +1,8 @@
 <script lang="ts">
-	import { show } from "$lib/utils/message.utils";
 	import { onMount } from "svelte";
-
 	import type { PageServerData } from "./$types";
 
-	let  showSidebar = false;
+	let showSidebar = false;
 	export let data: PageServerData;
 	let userId;
 	let learningHomeLink;
@@ -15,8 +13,9 @@
 	let linkagesLink;
 	let notificationsLink
 
+	//console.log(`${JSON.stringify(data, null, 2)}`);
+
 	onMount(()=>{
-		show(data);
 		userId = data.userId;
 		learningHomeLink = `/users/${userId}/my-learnings`;
 		myProfileLink = `/users/${userId}/my-profile`;
@@ -32,14 +31,16 @@
 		console.log(newsFeedLink);
 		console.log(chatLink);
 		console.log(linkagesLink);
-	})
+
+		show(data);
+	});
 
 </script>
 
 <div class="grid gird-cols justify-center items-center">
 	<div class="w-[375px] h-[812px]">
 		<div class="flex  items-center justify-center  mt-16">
-			{#if  showSidebar}
+			{#if showSidebar}
 				<div class="card rounded-none w-[855px]  h-[812px] bg-[#DFE7FD] " >
 					<div class="mt-10 ">
 						<ul class=" p-4 overflow-y-auto  w-[370px] h-[800px] text-base-content ">
@@ -155,7 +156,7 @@
 				<div class="card w-[375px] h-[406px] shadow-none rounded-none border-none">
 					<div class="card-body ">
 						<div class=" flex flex-row h-16 w-16">
-							<button on:click={() => ( showSidebar = ! showSidebar)}>
+							<button on:click={() => (showSidebar = !showSidebar)}>
 								<img src="/assets/home/svg/menu.svg" alt="" />
 							</button>
 							<img class="absolute right-0 " src="/assets/home/png/profile-settings.png" alt="" />
