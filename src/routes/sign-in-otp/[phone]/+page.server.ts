@@ -14,7 +14,6 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
         console.log('Loading params' + JSON.stringify(params, null, 2));
         return {
             phone: params.phone,
-            //flash: flash,
         };
     }
     catch (error) {
@@ -27,7 +26,6 @@ export const actions = {
 	default: async (event: RequestEvent) => {
 
         const request = event.request;
-        const setHeaders = event.setHeaders;
 
         const data = await request.formData(); // or .json(), or .text(), etc
         //console.log(Object.fromEntries(data));
@@ -73,11 +71,9 @@ export const actions = {
         const userSession = await SessionHelper.addSession(session.sessionId, session);
         console.log(JSON.stringify(userSession, null, 2));
 
-        setHeaders({
-            'Set-Cookie': CookieUtils.setCookieHeader('sessionId', sessionId, 24 * 7),
-        });
+        CookieUtils.setCookieHeader(event, 'sessionId', sessionId);
 
-        throw redirect(303, `/users/${userId}/home`, successMessage(response.Message), event);
+        throw redirect(303, `/users/${userId}/home`, successMessage(`Login successful!`), event);
     }
 
 };

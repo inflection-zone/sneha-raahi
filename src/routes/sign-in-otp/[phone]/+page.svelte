@@ -21,7 +21,6 @@
 		loginRoleId = patientRole.id;
 	}
 	onMount(()=>{
-		show(data);
 		otp1.focus();
 	});
 
