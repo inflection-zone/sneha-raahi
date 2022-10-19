@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let news;
+	let showRaahiUpdates = true;
 </script>
 
 <div class="flex items-center justify-center mt-16">
@@ -33,53 +33,58 @@
 				</h2>
 				<div class="flex flex-row w-[340px] h-[34px] justify-center ">
 					<button
-						class="rounded-2xl w-[170px] text-[#DFE7FD] h-[34px] text-center bg-[#5B7AA3] text-[13px] tracking-wider"
+						disabled={showRaahiUpdates}
+						class="disabled:bg-[#5b7aa3] disabled:text-[#dfe7fd] rounded-2xl w-[170px] text-[#5b7aa3] h-[34px] text-center bg-[#dfe7fd] text-[13px] tracking-wider"
+						on:click|preventDefault={() => (showRaahiUpdates = true)}
 					>
-						Rahhi Updates
+						Raahi Updates
 					</button>
 					<button
-						class="rounded-2xl text-center text-[#5B7AA3] w-[170px] h-[34px] bg-[#DFE7FD] text-[13px] tracking-wider"
+						disabled={!showRaahiUpdates}
+						class="disabled:bg-[#5b7aa3] disabled:text-[#dfe7fd] rounded-2xl w-[170px] text-[#5b7aa3] h-[34px] text-center bg-[#dfe7fd] text-[13px] tracking-wider"
+						on:click|preventDefault={() => (showRaahiUpdates = false)}
 					>
 						Community Updates
 					</button>
 				</div>
 
 				<!-- <div class="overflow-auto overscroll-auto"> -->
+					{#if showRaahiUpdates}
+                    <h4 class="text-right  text-[13px] font-semibold mb-1">27 sep 2022</h4>
 
-                    <h4 class="text-right  text-[13px] font-semibold mb-1"></h4>
-                    <div class="w-[340px] h-[280px]  rounded-lg bg-[#f2e2da]">
-                        <div class="flex flex-row p-1">
-                            <div class="w-[70px] mt-2 ml-2 h-[40px] rounded-lg bg-[#fff]">
-                                <img
-                                    src="/assets/newsfeed/png/logo.png"
-                                    alt=""
-                                    class="ml-1.5 mt-3 w-[28.8px] h-[14.3px]"
-                                />
-                            </div>
+                    <div class="w-[340px] h-[350px]  rounded-lg bg-[#f2e2da]">
+                        <div class="flex p-1">
+                            <div class="w-[50px] mt-2 ml-2 h-[45px] rounded-lg bg-[#fff] flex-none">
+								<img
+									src="/assets/newsfeed/png/logo.png"
+									alt=""
+									class="mt-2 p-1"
+								/>
+							</div>
                             <div class="ml-4 ">
                                 <h2 class="text-left text-[15px] mt-2">
                                     Field trip to Nehru Science Centre
                                 </h2>
                                 <p>
-                                    "Learning visits has always been a key strategy in EHSAS to build assets, agency and self-awareness in young people. On the 24th of September, 2022, 43 young people from all three sites of Dharavi, Kandivali and Kalwa visited the Nehru Science Center. They began their learning journey through a show on ‘Space Odyssey’ where they learnt about the various space explorations that have been undertaken by humankind, and the significance of those explorations. They then proceeded to an interactive exhibit on various physical forces in nature like gravity, centripetal and centrifugal forces. They continued on to a visual show on the Milky-Way galaxy and the solar system where they learnt about different planets and their constructs. The last show they saw was a 3D show on ‘Monsters of the sea’ which portrayed an evolutionary journey of the creatures in the sea. The day ended with open exploration of various exhibits like the ‘evolution exhibit’, ‘sound exhibit’ and the ‘light exhibit’ where they interactively learnt about reflection, refraction, vibrations, frequency and wavelength, etc.Many young people spoke about how they particularly enjoyed the shows and found them very interesting. One young person particularly said, “space ke baare main humein jaankaari di gayi jo ki bahut anek laga mujhe, aur bataaya gaya ki humaari soch aur khoj kitni aage jaa rahi hain”"
+                                    "Learning visits has always been a key strategy in EHSAS to build assets, agency and self-awareness in young people. On the 24th of September, 2022, 43 young people from all three sites of Dharavi, Kandivali and Kalwa visited the Nehru Science Center. 
                                 </p>
                             </div>
                         </div>
                         <img
-                            src={news.Image}
+                            src= https://www.jbcnschool.edu.in/wp-content/uploads/2019/12/field-trip-nehru-science-dec-19-006.jpg
                             alt=""
-                            class="w-[324px] mx-2 mt-6 h-[146px]  rounded-lg "
+                            class="w-[324px] mx-2 mt-4 h-[146px]  rounded-lg "
                         />
                     </div>
 
-				<div class="flex flex-row gap-40 mt-2">
+				<!-- <div class="flex flex-row gap-40 mt-2">
 					<h4>23likes 23comments</h4>
 					<div class="flex flex-row gap-3">
 						<img src="/assets/newsfeed/png/newsfeed-likes.png" alt="" />
 						<img src="/assets/newsfeed/png/newsfeed-comments.png" alt="" />
 					</div>
-				</div>
-				<div class=" mt-4 ">
+				</div> -->
+				<!-- <div class=" mt-4 ">
 					<div class="flex">
 						<img
 							src="/assets/newsfeed-details/png/jasmine.png"
@@ -91,8 +96,60 @@
 							<p class="text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<!-- </div> -->
+
+				{:else}
+				<h4 class="text-right  text-[13px] font-semibold mb-1">27 sep 2022</h4>
+
+				<div class="w-[340px] h-[350px]  rounded-lg bg-[#d7eaf7]">
+					<div class="flex p-1">
+						<div class="w-[50px] mt-2 ml-2 h-[45px] rounded-lg bg-[#fff] flex-none">
+							<img
+								src="/assets/newsfeed/png/logo.png"
+								alt=""
+								class="mt-2 p-1"
+							/>
+						</div>
+						<div class="ml-4 ">
+							<h2 class="text-left text-[15px] mt-2">
+							 Nehru Science Centre Trip
+							</h2>
+							<p>
+								"Learning visits has always been a key strategy in EHSAS to build assets, agency and self-awareness in young people. On the 24th of September, 2022, 43 young people from all three sites of Dharavi, Kandivali and Kalwa visited the Nehru Science Center. 
+							</p>
+						</div>
+					</div>
+					<img
+						src= https://www.jbcnschool.edu.in/wp-content/uploads/2019/12/field-trip-nehru-science-dec-19-006.jpg
+						alt=""
+						class="w-[320px] mx-2 mt-3 h-[146px]  rounded-lg "
+					/>
+				</div>
+
+			<!-- <div class="flex flex-row gap-40 mt-2">
+				<h4>23likes 23comments</h4>
+				<div class="flex flex-row gap-3">
+					<img src="/assets/newsfeed/png/newsfeed-likes.png" alt="" />
+					<img src="/assets/newsfeed/png/newsfeed-comments.png" alt="" />
+				</div>
+			</div> -->
+			<!-- <div class=" mt-4 ">
+				<div class="flex">
+					<img
+						src="/assets/newsfeed-details/png/jasmine.png"
+						alt=""
+						class=" mr-[16px] mb-[25px] ml-[4px]"
+					/>
+					<div class="">
+						<h3 class="text-left mb-2">Jasmine Doe</h3>
+						<p class="text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					</div>
+				</div>
+			</div> -->
+			<!-- </div> -->
+
+				{/if}
 			</div>
 		</div>
 		<div class="h-[90px] w-[375px] bg-white">

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
-	import { communityNewsFeeds } from '../../lib/store/general.store';
+	import { communityNewsFeeds ,raahiNewsFeeds } from '../../lib/store/general.store';
 	export let data: PageServerData;
 	let newsItems = data.newsItems;
 	// let newsFeeds = data.newsFeeds;
@@ -63,9 +63,9 @@
                             </div>
                         {/each} -->
 
-						{#each Object.values($communityNewsFeeds) as news}
-							<div class="mb-6">
-								<a href="/newsfeed/{news.id}">
+						{#each Object.values($raahiNewsFeeds) as news}
+							<div class="mb-6 last:mb-10">
+								<a href="/newsfeed/[newsfeedId]">
 									<h4 class="text-right  text-[13px] font-semibold mb-1">{news.PubDate}</h4>
 									<div class="w-[340px] h-[280px]  rounded-lg bg-[#f2e2da]">
 										<div class="flex flex-row p-1">
@@ -120,8 +120,8 @@
 
 					<div class=" h-[590px] overflow-auto scrollbar-medium">
 						{#each Object.values($communityNewsFeeds) as news}
-							<div class="mb-6">
-								<a href="/newsfeed/{news.id}">
+							<div class="mb-6 last:mb-10">
+								<a href="/newsfeed/[newsfeedId]">
 									<h4 class="text-right  text-[13px] font-semibold mb-1">{news.PubDate}</h4>
 									<div class="w-[340px] h-[280px]  rounded-lg bg-[#d7eaf7]">
 										<div class="flex flex-row p-1">

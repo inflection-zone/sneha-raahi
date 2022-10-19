@@ -74,12 +74,12 @@
 						</p>
 					</div>
 				</div>
-				<!-- <a href={`/users/${data.userId}/linkages`}> -->
+				<a href={`/users/${data.userId}/linkages`}>
 				<button on:click|preventDefault ={(e)=>handleAppyForJobClick(e)} id={notice.id} name={notice.id} class=" h-[52px] w-[340px] mt-2 text-[#fff]  rounded-lg bg-[#5b7aa3] "
 				>
 					APPLY FOR JOB</button
 				>
-			<!-- </a> -->
+			</a>
 			</div>
 		</div>
 	</div>

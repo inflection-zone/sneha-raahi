@@ -38,7 +38,7 @@
 			title: title,
 			scheduledDate: new Date(),
 		});
-			// goto(`/users/${data.userId}/quiz/`);
+			// goto(`/users/${data.userId}/learning-journeys/${data.learningPath.id}/quiz/${assessmentTemplateId}`);
 	};
 
 	async function update(model) {

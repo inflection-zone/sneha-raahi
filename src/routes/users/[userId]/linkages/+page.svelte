@@ -1,11 +1,15 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
 	import hrt from 'human-readable-time';
+	import { onMount } from 'svelte';
+	import { show } from '$lib/utils/message.utils';
 
 	export let data: PageServerData;
 	let allLinkages = data.allLinkages.NoticeRecords.Items;
 	console.log(`\n AllLinkages = ${JSON.stringify(allLinkages)}`);
-
+	onMount(()=>{
+		show(data);
+	})
 </script>
 
 <div class="flex items-center justify-center mt-16">
