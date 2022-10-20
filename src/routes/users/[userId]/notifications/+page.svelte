@@ -1,21 +1,32 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
 	import hrt from 'human-readable-time';
-
 	export let data: PageServerData;
-	let notifications = data.allNotifications.NotificationRecords.Items;
+	// let color = 'gray'
+	let records = data.allNotifications.NotificationRecords.Items;
+	let notifications = records.map(x => {
+		return {
+			...x,
+			expand: false,
+		}
+	})
 	notifications = notifications.sort((a, b) => { return b.SentOn - a.SentOn; });
 	console.log(`\n Notifications = ${JSON.stringify(notifications)}`);
     
-	// let showCollapseNotification = true;
 	const handleNotificationClick = async (e) => {
 		console.log(e.currentTarget);
 		const notificationId = e.currentTarget.id;
-		console.log(`notificationId = ${notificationId}`)
+		console.log(`notificationId = ${notificationId}`);
+		// notifications.forEach(element => {
+		// 	if (element.id === notificationId) {
+		// 		element.expand = !element.expand;
+		// 	}
+		// });
+		console.log()
 		await update({
 			sessionId: data.sessionId,
 			notificationId,
-			readOn : new Date()
+			readOn : new Date(),
 		});
 	}
 
@@ -27,7 +38,7 @@
         'content-type': 'application/json'
       }
     });
-	console.log('response.....',response);
+	console.log('response',response);
 	return response;
   }
 
@@ -62,17 +73,34 @@
 				</h2>
 				<div class=" card-body h-[590px] overflow-auto scrollbar-medium ">
 				{#each notifications as notification}
-				<card class=" w-[320px] h-[100px] rounded-md mb-4 border-radius border shadow-md">
-					<button on:click|preventDefault={(e) => handleNotificationClick(e)} id={notification.id} name={notification.id} class = "font-semibold leading-normal tracking-normal" >
-					<div id={notification.id} class="mb-2">
-						<div class="p-4">
+				{#if notification.expand == false}
+				<card style="background-color:[]" class=" w-[320px] h-[100px] mb-1 border-none">
+					<button on:click|preventDefault={(e) => {
+						notification.expand == !notification.expand;
+						handleNotificationClick(e)}} id={notification.id} name={notification.id} class = "font-semibold leading-3 text-left tracking-normal" >
+					<div id={notification.id} class="mb-1">
+						<div class="pl-3 py-2">
 							<!-- <img class=" h-4 w-4" src= {notification.ImageUrl} alt="" /> -->
-							<h2 class="mb-1 font-semibold">{notification.Title.length > 20 ? notification.Title.substring(0, 18) + '...': notification.Title}</h2>
+							<h2 class=" text-base ">{notification.Title.length > 30 ? notification.Title.substring(0, 28) + '...': notification.Title}</h2>
+							<p class="font-light text-sm py-1 pr-1">{notification.Body}</p>
+							<!-- <div class="text-right font-normal text-sm px-2 pr-10" >{hrt(new Date(notification.SentOn), '%relative% ago')}</div> -->
+						</div>		
+					</div>
+					</button>
+				</card>
+				{:else}
+				<card style="background-color:white" class=" w-[320px] h-[400px] rounded-md mb-4 border-radius border shadow-md">
+					<button on:click|preventDefault={(e) => handleNotificationClick(e)} id={notification.id} name={notification.id} class = "font-semibold leading-3 text-left tracking-normal" >
+						<div id={notification.id} class="mb-2">
+						<div class="pl-4 py-4">
+							<!-- <img class=" h-4 w-4" src= {notification.ImageUrl} alt="" /> -->
+							<h2 class="mb-3 font-semibold">{notification.Title}</h2>
 							<p>{notification.Body}</p>
 						</div>		
 					</div>
-					
+					</button>
 				</card>
+				{/if}
 				{/each}
 			
 				<!-- <div class="mb-2">

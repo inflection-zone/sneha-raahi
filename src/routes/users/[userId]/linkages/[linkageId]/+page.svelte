@@ -2,21 +2,20 @@
 	import type { PageServerData } from './$types';
 	import hrt from 'human-readable-time';
 	import { goto } from '$app/navigation';
-
 	export let data: PageServerData;
     let notice = data.notice;
-	
+	// let date = hrt(new Date(data.notice.PostDate),'%relative% ago');
 	console.log(`${JSON.stringify(notice)}`);
 	
-	const handleAppyForJobClick = async (e ) => {
+	const handleAppyForJobClick = async (e) => {
 		console.log(e.currentTarget);
 		const noticeId = e.currentTarget.id;
 		console.log(`noticeId = ${noticeId}`)
 		await create({
 			sessionId: data.sessionId,
 			userId: data.userId,
-			noticeId,
-			action: data.notice.Action,
+			noticeId: data.notice.id,
+			action: 'Apply for job',
 			title: data.notice.Title,
 			resourceId: data.notice.resourceLink,		
 		});
@@ -24,14 +23,15 @@
 	}
 
 	async function create(model) {
-    const response = await fetch(`/api/server/linkages`, {
-      method: 'POST',
-      body: JSON.stringify(model),
-      headers: {
-        'content-type': 'application/json'
-      }
-    });
-	return response ;
+		const response = await fetch(`/api/server/linkages`, {
+		method: 'POST',
+		body: JSON.stringify(model),
+		headers: {
+			'content-type': 'application/json'
+		}
+		});
+		console.log('response',response);
+		return response ;
   }	
 </script>
 
@@ -62,24 +62,24 @@
 				<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 					LINKAGES
 				</h2>
-				<div class="flex justify-center  mt-20 mb-1">
+				<div class="flex justify-center  mt-5 mb-6">
 					<img class="w-[3.625rem] h-[3.625rem] bg-[#fde2e4] rounded-lg" src={data.notice.ImageUrl} alt=""/>
 					<div class="ml-3 ">
-						<div id={data.notice.id} class="flex mb-5">
+						<div id={data.notice.id} class="flex mb-4">
 							<h3 class="text-left" >{data.notice.Title}</h3>
-							<div class="text-base font-semibold ml-4  leading-5 ">{hrt(new Date(data.notice.PostDate), '%relative% ago')}</div>
+							<!-- <div class="text-base font-normal ml-4  leading-5 ">{date}</div> -->
 						</div>
 						<p>
 							{data.notice.Description}
 						</p>
 					</div>
 				</div>
-				<a href={`/users/${data.userId}/linkages`}>
-				<button on:click|preventDefault ={(e)=>handleAppyForJobClick(e)} id={notice.id} name={notice.id} class=" h-[52px] w-[340px] mt-2 text-[#fff]  rounded-lg bg-[#5b7aa3] "
+				<!-- <a href={`/users/${data.userId}/linkages`}> -->
+				<button on:click|preventDefault = {(e)=>handleAppyForJobClick(e)} id={notice.id} name={notice.id} class=" h-[52px] w-[340px] mt-2 text-[#fff]  rounded-lg bg-[#5b7aa3] "
 				>
 					APPLY FOR JOB</button
 				>
-			</a>
+			<!-- </a> -->
 			</div>
 		</div>
 	</div>

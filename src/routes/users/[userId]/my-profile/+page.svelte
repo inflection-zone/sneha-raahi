@@ -7,6 +7,10 @@
 	let sum = 0;
     let count = 0;
 	let overallProgress ;
+	let FullName = data.user.User.Person.FirstName && data.user.User.Person.LastName ?
+                (data.user.User.Person.FirstName + ' ' +  data.user.User.Person.LastName ) : null;
+	let Age = data.user.User.Person.Age;	
+
 	for (let item of myLearningJourneys) {
 		if (item.PercentageCompletion != 0 && item.PercentageCompletion  != undefined ) {
 		sum = sum + item.PercentageCompletion;
@@ -15,10 +19,10 @@
 	overallProgress = (+ sum / count).toFixed(2);
   }
 
-  console.log(`\nSeesion user = ${JSON.stringify(data.sessionUser)}`)
-  console.log('Overall progress is =',overallProgress);
+  console.log(`\nUser Information = ${JSON.stringify(data.user)}`)
+  console.log('\nOverall progress is =',overallProgress);
   console.log(`\nMy learning journeys = ${JSON.stringify(myLearningJourneys)}`)
-	
+
 </script>
 
 <div class="flex items-center justify-center mt-16">
@@ -52,11 +56,11 @@
 					<div class="grid grid-flow-col">
 						<img src="/assets/my-profile/png/my-profile-pic.png" alt="" />
 						<div class="flex flex-col ml-6  ">
-							<h3 class="text-left mt-2 ml-[2px] mb-2 font-bold">{data.sessionUser.fullName}</h3>
+							<h3 class="text-left mt-2 ml-[2px] mb-2 font-bold">{FullName}</h3>
 							<button class="uppercase text-base font-bold text-[#d05591] absolute right-5 mt-2">
 								EDIT
 							</button>
-							<p class=" text-left ">14 , Dharavi</p>
+							<p class=" text-left ">{Age} , Pune</p>
 						</div>
 					</div>
 				</div>
@@ -77,7 +81,10 @@
 				<div class="overflow-auto scrollbar-medium w-[350px]">
 					
 					<div class="grid grid-flow-col auto-cols-max gap-3 mt-4">
-						<h3 class="text-center mt-2">Ongoing <br /> Course</h3>
+						<h3 class="text-center mt-2">Ongoing <br /> Courses</h3>
+						{#if myLearningJourneys.length == 0}
+						<h3 class=" mt-3 font-semibold text-center">No ongoing courses.<br />Please learning journey!</h3>
+						{:else}
 						{#each myLearningJourneys as journey}
 							<Image cls="mb-2 rounded-md" source={journey.ImageUrl + "?disposition=inline"} w=52 h=52></Image>
 							<!-- <img src="/assets/my-profile/png/virus-1.png" alt="" />
@@ -87,6 +94,7 @@
 							<img src="/assets/my-profile/png/rectangle-1.png" alt="" />
 							<img src="/assets/my-profile/png/rectangle-1.png" alt="" /> -->
 						{/each}
+						{/if}
 					</div>
 					
 				</div>

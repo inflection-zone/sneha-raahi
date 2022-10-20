@@ -1,13 +1,11 @@
-import * as cookie from 'cookie';
 import { getAllNotifications } from '../../../api/services/notification';
 import type { PageServerLoad } from "./$types";
 
 ////////////////////////////////////////////////////////////////////////
 
-export const load: PageServerLoad = async ({ request}) => {
+export const load: PageServerLoad = async (event) => {
     try { 
-        const cookies = cookie.parse(request.headers.get('cookie') || '');
-        const sessionId = cookies['sessionId'];
+        const sessionId = event.cookies.get('sessionId');
         const allNotifications = await getAllNotifications(sessionId);
         console.log(`\n All notifications = ${JSON.stringify(allNotifications)}`);
         return {

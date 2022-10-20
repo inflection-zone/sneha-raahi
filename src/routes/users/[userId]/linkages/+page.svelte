@@ -48,7 +48,7 @@
 							<div class="ml-3 ">
 								<div class="flex mb-1 ">
 									<h3>{notice.Title.length > 15 ? notice.Title.substring(0, 13) + '...': notice.Title}</h3>
-									<div class="text-base font-semibold ml-4 right-2 p-0 leading-5 ">{hrt(new Date(notice.PostDate), '%relative% ago')}</div>
+									<!-- <div class="text-base font-semibold ml-4 right-2 p-0 leading-5 ">{hrt(new Date(notice.PostDate), '%relative% ago')}</div> -->
 								</div>
 								<div class="flex mb-1 ">
 								<p>{notice.Description.length > 50 ? notice.Description.substring(0, 50) + '...': notice.Description}</p>

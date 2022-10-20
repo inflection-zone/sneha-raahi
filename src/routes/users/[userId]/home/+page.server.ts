@@ -9,10 +9,6 @@ export const load: PageServerLoad = async (event) => {
 
     const sessionId = event.cookies.get('sessionId');
     console.log('sessionId', sessionId);
-    // const cookies = cookie.parse(event.request.headers.get('cookie') || '');
-    // const sessionId = cookies['sessionId'];
-    // console.log(`session id received - ${sessionId}`);
-
     const session = await SessionHelper.getSession(sessionId);
     if (!session) {
         throw redirect(307, '/sign-in');
@@ -28,6 +24,7 @@ export const load: PageServerLoad = async (event) => {
             fullName       : session.fullName,
             firstName      : session.firstName,
             roleId         : session.roleId,
+            age            : session.age
         };
     return sessionUser;
 };

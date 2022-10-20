@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { show } from "$lib/utils/message.utils";
 	import { onMount } from "svelte";
 	import type { PageServerData } from "./$types";
 
@@ -12,14 +13,15 @@
 	let chatLink;
 	let linkagesLink;
 	let notificationsLink
-
+	let homeLink
 	//console.log(`${JSON.stringify(data, null, 2)}`);
 
 	onMount(()=>{
 		userId = data.userId;
+		homeLink = `/users/${userId}/home`
 		learningHomeLink = `/users/${userId}/my-learnings`;
 		myProfileLink = `/users/${userId}/my-profile`;
-		askSnehaLink = `/ask-sneha`;
+		askSnehaLink = `/users/${userId}/ask-sneha`;
 		newsFeedLink = `/newsfeed`;
 		chatLink = `/users/${userId}/chat-home`;
 		linkagesLink = `/users/${userId}/linkages`;
@@ -56,13 +58,13 @@
 								/>
 							</div>
 							<div class="grid grid-cols gap-2 ">
-								<a href="/">
+								<a href= {homeLink}>
 									<button class="flex flex-rows  ">
 										<img src="/assets/home-sidebar/svg/home-sidebar.svg" alt="" class="my-2 mx-4" />
 										<h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">home</h3>
 									</button>
 								</a>
-								<a href="/my-profile">
+								<a href={myProfileLink}>
 									<button class="flex flex-rows  ">
 										<img
 											src="/assets/home-sidebar/png/my-profile-sidebar.png"
@@ -167,9 +169,9 @@
 						</p>
 					</div>
 					<div class="flex flex-row  justify-center relative">
-						<a href="/ask-sneha"> <img src="/assets/home/png/ask.png" alt="" /></a>
-						<a href="/chat-home"> <img src="/assets/home/svg/message.svg" alt="" /></a>
-						<a href="{notificationsLink}"> <img src="/assets/home/png/notification.png" alt="" /></a>
+						<a href={askSnehaLink}> <img src="/assets/home/png/ask.png" alt="" /></a>
+						<a href={chatLink}> <img src="/assets/home/svg/message.svg" alt="" /></a>
+						<a href={notificationsLink}> <img src="/assets/home/png/notification.png" alt="" /></a>
 					</div>
 				</div>
 				<div

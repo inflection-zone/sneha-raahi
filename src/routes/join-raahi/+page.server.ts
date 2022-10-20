@@ -28,7 +28,7 @@ export const actions = {
 		const firstName = data.has('firstName') ? data.get('firstName') : null;
 		const lastName = data.has('lastName') ? data.get('lastName') : null;
 		const age = data.has('age') ? data.get('age') : null;
-		const location = data.has('location') ? data.get('location') : null;
+		const address = data.has('address') ? data.get('address') : null;
 		const phone = data.has('phone') ? data.get('phone') : null;
 
 		if (!phone && !countryCode) {
@@ -40,7 +40,7 @@ export const actions = {
 			lastName.valueOf() as string,
 			age.valueOf() as string,
 			phone.valueOf() as string,
-			location.valueOf() as string);
+			address.valueOf() as string);
 
 		console.log(JSON.stringify(response, null, 2));
 
