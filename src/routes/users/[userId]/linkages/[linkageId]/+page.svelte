@@ -1,9 +1,11 @@
 <script lang="ts" >
 	import type { PageServerData } from './$types';
-	import hrt from 'human-readable-time';
+	// import hrt from 'human-readable-time';
+	import { timeAgo } from 'short-time-ago';
 	import { goto } from '$app/navigation';
 	export let data: PageServerData;
     let notice = data.notice;
+	const postDate = new Date(data.notice.PostDate);
 	// let date = hrt(new Date(data.notice.PostDate),'%relative% ago');
 	console.log(`${JSON.stringify(notice)}`);
 	
@@ -67,7 +69,7 @@
 					<div class="ml-3 ">
 						<div id={data.notice.id} class="flex mb-4">
 							<h3 class="text-left" >{data.notice.Title}</h3>
-							<!-- <div class="text-base font-normal ml-4  leading-5 ">{date}</div> -->
+							<div class="text-base font-normal ml-4  leading-5 ">{timeAgo(postDate)}</div>
 						</div>
 						<p>
 							{data.notice.Description}

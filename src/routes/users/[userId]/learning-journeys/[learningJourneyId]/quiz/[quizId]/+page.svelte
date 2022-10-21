@@ -1,16 +1,15 @@
 <script lang="ts">
-import type { PageServerData } from './$types';
+	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let options = data.nextQuestion.Options;
 	let isAnswered = false;
 	let rightAnswer = false;
 	// let questionPointer = 0;
-
 	console.log('Quiz', data.quiz);
 	console.log('Next quetion', data.nextQuestion);
 
-	const handleAnswerClick = async (e, answer: number ) => {
+	const handleAnswerClick = async (e, answer: number) => {
 		console.log(e.currentTarget);
 		const assessmentTemplateId = e.currentTarget.id;
 		console.log(`Quiz template id = ${assessmentTemplateId}`);
@@ -22,8 +21,7 @@ import type { PageServerData } from './$types';
 			answer
 		});
 		isAnswered = true;
-		rightAnswer = (data.nextQuestion.CorrectOption == answer);
-		// location.reload();
+		rightAnswer = data.nextQuestion.CorrectOption == answer;
 	};
 
 	async function answerQuestion(model) {
@@ -35,7 +33,6 @@ import type { PageServerData } from './$types';
 			}
 		});
 		console.log('respose....', response);
-		
 	}
 
 	// const handleNextClick = async (e) => {
@@ -43,7 +40,6 @@ import type { PageServerData } from './$types';
 	// 	const assessmentId = e.currentTarget.id;
 	// 	console.log(`Next quetion id = ${assessmentId}`);
 	// };
-
 </script>
 
 <div class="flex items-center justify-center mt-16">
@@ -74,9 +70,11 @@ import type { PageServerData } from './$types';
 				<h2 class=" text-[#5b7aa3] flex tracking-widest justify-center font-bold text-base ">
 					QUIZ
 				</h2>
-				<div class="flex mb-2 gap-36">
-					<h2 class=" text-center text-base font-bold "> {data.nextQuestion.Sequence} of 10 QUESTIONS</h2>
-					<div class="flex ">
+				<div class="flex mb-2 ">
+					<h2 class=" text-center text-base font-bold ">
+						{data.nextQuestion.Sequence} of 3 QUESTIONS
+					</h2>
+					<!-- <div class="flex ">
 						{#if isAnswered}
 							{#if rightAnswer}
 								<img  disabled={rightAnswer} src="/assets/quiz-wrong/svg/correct.svg" alt="" />
@@ -84,7 +82,7 @@ import type { PageServerData } from './$types';
 								<img src="/assets/quiz-wrong/svg/wrong.svg" alt="" />
 							{/if}
 						{/if}
-					</div>
+					</div> -->
 				</div>
 
 				<div class=" bg-[#ffdbb2] rounded-full h-[10px]">
@@ -94,12 +92,13 @@ import type { PageServerData } from './$types';
 					/> -->
 				</div>
 				<!-- {#if !(questionPointer > answers.length - 1)} -->
-				<p class=" text-left mt-4 font-bold text-lg">
-					{data.nextQuestion.Title}
-				</p>
-				<div class=" flex flex-col items-center ">
-					<!-- {#each questions[questionPointer].options as opt, i} -->
-					<!-- 						
+				<div class="h-[400px] overflow-auto scrollbar-medium">
+					<p class=" text-left mt-3 mb-2 font-bold text-lg">
+						{data.nextQuestion.Title}
+					</p>
+					<div class=" flex flex-col items-center ">
+						<!-- {#each questions[questionPointer].options as opt, i} -->
+						<!-- 						
 							<button 
 								class=" {answers[questionPointer] == i ? 'selected' : ''} "
 								on:click={() => {
@@ -108,41 +107,51 @@ import type { PageServerData } from './$types';
 									
 								}}
 							> -->
-					{#each options as option}
-						<button
-						on:click|once={(e) =>
-							handleAnswerClick(e, option.Sequence)}
-						id={data.nextQuestion.id}
-						name={data.nextQuestion.id}
-							class="h-[70px] w-[340px] mt-5 text-lg text-left font-normal px-3 border tracking-normal rounded-lg bg-[#e3e3e3] active:bg-[#fcaf58] "
-						>
-							{option.Text}
-						</button>
-					{/each}
+						{#each options as option}
+						 
+							<button
+								on:click|once={(e) => handleAnswerClick(e, option.Sequence)}
+								id={data.nextQuestion.id}
+								name={data.nextQuestion.id}
+								disabled ={isAnswered && option.Sequence == data.nextQuestion.CorrectOption }
+								class="h-[65px] w-[340px] disabled:bg-[#fcaf58]  mt-4 first:mt-0 text-lg text-left font-normal pl-3 border tracking-normal rounded-lg bg-[#e3e3e3] active:bg-[#fcaf58] "
+							>
+								<div class=" flex relative ">
+									{option.Text}
+									{#if isAnswered}
+										{#if option.Sequence == data.nextQuestion.CorrectOption}
+											<img
+												class="absolute right-0 pr-3 "
+												src="/assets/quiz-wrong/svg/correct.svg"
+												alt=""
+											/>
+										{:else}
+											<img
+												class="absolute right-0 pr-3"
+												src="/assets/quiz-wrong/svg/wrong.svg"
+												alt=""
+											/>
+										{/if}
+									{/if}
+								</div>
+							</button>
+						{/each}
 
-					<!-- </button> -->
+						<!-- </button> -->
 
-					<!-- {/each} -->
-				</div>
-
-				<div class="flex mb-5 gap-10">
-						<button
-							class=" bg-[#5b7aa3] h-[52px] w-[160px] mt-4 text-[#fff] rounded-lg"
-			
-						>
-							Previous
-						</button>
-						<button
-						on:click|preventDefault={() =>
-							location.reload()}
-						id={data.nextQuestion.id}
-						name={data.nextQuestion.id}
-							class=" bg-[#5b7aa3] h-[52px] w-[160px] mt-4 text-[#fff] rounded-lg"
-							
-						>
-							Next
-						</button>
+						<!-- {/each} -->
 					</div>
+				</div>
+				<div class="flex justify-center">
+					<button
+						on:click|preventDefault={() => location.reload()}
+						id={data.nextQuestion.id}
+						name={data.nextQuestion.id}
+						class=" bg-[#5b7aa3] h-[52px] w-[340px] mt-4 mb-4 text-[#fff] justify-center rounded-lg"
+					>
+						NEXT QUESTION
+					</button>
+				</div>
 				<!-- {:else} -->
 				<!-- <div class="flex flex-col ml-24 mt-10 justify-center ">
 						<h1 class="text-xl">

@@ -1,6 +1,6 @@
 
 import { redirect } from '@sveltejs/kit';
-import { createNoticeAction } from '../../services/linkages';
+import { createNoticeAction, updateNotice } from '../../services/linkages';
 
 //////////////////////////////////////////////////////////////
 
@@ -17,8 +17,13 @@ export const POST = async ({ request }) => {
 			data.title,
 			data.resourceId
 		);
+		const updatedresponse = await updateNotice(
+			data.sessionId,
+            data.noticeId,
+		);
 		console.log('respnse',response);
-		return new Response(response.message);
+		console.log('updatedresponse',updatedresponse);
+		return new Response(response.message, updatedresponse.message);
 		
 	} catch (err) {
 		console.error(`Error creating notice action: ${err.message}`);

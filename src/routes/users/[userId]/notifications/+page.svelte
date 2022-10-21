@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
 	import hrt from 'human-readable-time';
+	import { timeAgo } from 'short-time-ago';
 	export let data: PageServerData;
 	// let color = 'gray'
 	let records = data.allNotifications.NotificationRecords.Items;
@@ -78,12 +79,12 @@
 					<button on:click|preventDefault={(e) => {
 						notification.expand == !notification.expand;
 						handleNotificationClick(e)}} id={notification.id} name={notification.id} class = "font-semibold leading-3 text-left tracking-normal" >
-					<div id={notification.id} class="mb-1">
+					<div id={notification.id} class="">
 						<div class="pl-3 py-2">
 							<!-- <img class=" h-4 w-4" src= {notification.ImageUrl} alt="" /> -->
-							<h2 class=" text-base ">{notification.Title.length > 30 ? notification.Title.substring(0, 28) + '...': notification.Title}</h2>
-							<p class="font-light text-sm py-1 pr-1">{notification.Body}</p>
-							<!-- <div class="text-right font-normal text-sm px-2 pr-10" >{hrt(new Date(notification.SentOn), '%relative% ago')}</div> -->
+							<h2 class=" text-base mb-1">{notification.Title.length > 30 ? notification.Title.substring(0, 28) + '...': notification.Title}</h2>
+							<p class="font-light text-sm pr-1">{notification.Body}</p>
+							<div class="text-right font-normal text-sm px-2 pr-4" >{timeAgo(new Date(notification.SentOn))}</div>
 						</div>		
 					</div>
 					</button>

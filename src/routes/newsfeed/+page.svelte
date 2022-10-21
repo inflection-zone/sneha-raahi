@@ -90,7 +90,7 @@
 										<img
 											src={news.Image}
 											alt=""
-											class="w-[324px] mx-2 mt-6 h-[146px]  rounded-lg "
+											class="w-[324px] mx-2 px-2 mt-6 h-[146px]  rounded-lg "
 										/>
 									</div></a
 								>
@@ -146,7 +146,7 @@
 										<img
 											src={news.Image}
 											alt=""
-											class="w-[324px] mx-2 mt-6 h-[146px]  rounded-lg "
+											class="w-[324px] mx-2 px-2 mt-6 h-[146px]  rounded-lg "
 										/>
 									</div></a
 								>
