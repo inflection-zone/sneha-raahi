@@ -1,5 +1,28 @@
-<script>
-	import { is_void } from 'svelte/internal';
+<script lang="ts">
+	import Image from "$lib/components/image.svelte";
+	import type { PageServerData } from "./$types";
+
+	export let data: PageServerData;
+	let myLearningJourneys = data.userLearningPaths?.UserLearningPaths;
+	let sum = 0;
+    let count = 0;
+	let overallProgress ;
+	let FullName = data.user.User.Person.FirstName && data.user.User.Person.LastName ?
+                (data.user.User.Person.FirstName + ' ' +  data.user.User.Person.LastName ) : null;
+	let Age = data.user.User.Person.Age;	
+
+	for (let item of myLearningJourneys) {
+		if (item.PercentageCompletion != 0 && item.PercentageCompletion  != undefined ) {
+		sum = sum + item.PercentageCompletion;
+		count = count + 1;
+		}
+	overallProgress = (+ sum / count).toFixed(2);
+  }
+
+  console.log(`\nUser Information = ${JSON.stringify(data.user)}`)
+  console.log('\nOverall progress is =',overallProgress);
+  console.log(`\nMy learning journeys = ${JSON.stringify(myLearningJourneys)}`)
+
 </script>
 
 <div class="flex items-center justify-center mt-16">
@@ -33,33 +56,49 @@
 					<div class="grid grid-flow-col">
 						<img src="/assets/my-profile/png/my-profile-pic.png" alt="" />
 						<div class="flex flex-col ml-6  ">
-							<h3 class="text-left mt-2 ml-[2px] mb-2 font-bold">jessica Doe</h3>
+							<h3 class="text-left mt-2 ml-[2px] mb-2 font-bold">{FullName}</h3>
 							<button class="uppercase text-base font-bold text-[#d05591] absolute right-5 mt-2">
 								EDIT
 							</button>
-							<p class=" text-left ">14, Dharavi</p>
+							<p class=" text-left ">{Age} , Pune</p>
 						</div>
 					</div>
 				</div>
+				
 				<h2 class="flex  justify-left font-bold mt-2">My Progress</h2>
+				{#if myLearningJourneys.length == 0}
+					<h3 class="mb-3 mt-3 font-semibold text-center">You have not yet started learning journey!</h3>
+
+				{:else}
 				<div class="flex flex-rows mt-2">
-					<p class="absolute right-4 top-[182px]">45%</p>
+					<p class="absolute right-4 top-[182px]">{(overallProgress* 100).toString()}%</p>
 
 					<div class=" bg-[#dfe7fd] rounded-full w-[294px] h-[10px]">
-						<div class="bg-[#5b7aa3] rounded-full h-[10px]" style="width:33.33%" />
+						<div class="bg-[#5b7aa3] rounded-full h-[10px]" style={"width:" + (overallProgress * 100).toString() + "%"} />
 					</div>
 				</div>
+				{/if}
 				<div class="overflow-auto scrollbar-medium w-[350px]">
+					
 					<div class="grid grid-flow-col auto-cols-max gap-3 mt-4">
-						<h3 class="text-center mt-2">Ongoing <br /> Course</h3>
-						<img src="/assets/my-profile/png/virus-1.png" alt="" />
-						<img src="/assets/my-profile/png/virus-2.png" alt="" />
-						<img src="/assets/my-profile/png/rectangle-1.png" alt="" />
-						<img src="/assets/my-profile/png/rectangle-1.png" alt="" />
-						<img src="/assets/my-profile/png/rectangle-1.png" alt="" />
-						<img src="/assets/my-profile/png/rectangle-1.png" alt="" />
+						<h3 class="text-center mt-2">Ongoing <br /> Courses</h3>
+						{#if myLearningJourneys.length == 0}
+						<h3 class=" mt-3 font-semibold text-center">No ongoing courses.<br />Please learning journey!</h3>
+						{:else}
+						{#each myLearningJourneys as journey}
+							<Image cls="mb-2 rounded-md" source={journey.ImageUrl + "?disposition=inline"} w=52 h=52></Image>
+							<!-- <img src="/assets/my-profile/png/virus-1.png" alt="" />
+							<img src="/assets/my-profile/png/virus-2.png" alt="" />
+							<img src="/assets/my-profile/png/rectangle-1.png" alt="" />
+							<img src="/assets/my-profile/png/rectangle-1.png" alt="" />
+							<img src="/assets/my-profile/png/rectangle-1.png" alt="" />
+							<img src="/assets/my-profile/png/rectangle-1.png" alt="" /> -->
+						{/each}
+						{/if}
 					</div>
+					
 				</div>
+				
 				<div class="grid grid-flow-col mt-1">
 					<h2 class="  justify-left  ">My Badges</h2>
 					<button class="uppercase text-base text-[#d05591] mt-[6px] text-right">view all</button>

@@ -1,6 +1,6 @@
 
 import type { PersonRole } from "$lib/types/domain.models";
-import type { PageServerLoad } from ".svelte-kit/types/src/routes/todos/$types";
+import type { PageServerLoad } from "./$types";
 import {redirect } from '@sveltejs/kit';
 import { getGenderTypes, getPersonRoles } from "./api/services/types/types";
 

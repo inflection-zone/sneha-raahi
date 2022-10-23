@@ -9,10 +9,10 @@ export const registerUser = async (
     lastName: string,
     age: string,
     phone: string,
-    location: string) => {
+    address: string) => {
 
     const model: UserModel = getUserModel(
-        firstName, lastName, age, phone, location);
+        firstName, lastName, age, phone, address);
 
     console.log(JSON.stringify(model, null, 2));
 
@@ -36,13 +36,13 @@ const getUserModel = (
     lastName: string,
     age: string,
     phone: string,
-    location?: string
+    address?: string
 ): UserModel => {
     const userModel: UserModel = {};
     userModel.FirstName = firstName;
     userModel.LastName = lastName;
     userModel.Age = age;
-    // userModel.Location= location;
+    userModel.Address= address;
     if (Helper.isPhone(phone)) {
         userModel.Phone = Helper.sanitizePhone(phone);
     }

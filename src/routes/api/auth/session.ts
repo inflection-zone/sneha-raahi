@@ -10,6 +10,7 @@ export interface Session {
     fullName?       : string;
     firstName?      : string;
     roleId?         : string;
+    age?            : string;
     expiryDate?     : Date;
 }
 
@@ -27,7 +28,7 @@ export class SessionHelper {
             //Remove existing
             SessionHelper._sessions = SessionHelper._sessions.filter((x) => x.sessionId !== sessionId);
         }
-        //console.log(`Add new session: ${JSON.stringify(session, null, 2)}`);
+        console.log(`Add new session: ${JSON.stringify(session, null, 2)}`);
         SessionHelper._sessions.push(session);
         return Promise.resolve(session);
     }
@@ -89,6 +90,7 @@ export class SessionHelper {
                 (user.Person.FirstName + ' ' +  user.Person.LastName) : null,
             firstName      : user.Person.FirstName ?? null,
             roleId         : user.RoleId,
+            age            : user.Age,
             expiryDate     : expiryDate
         };
         return Promise.resolve(session);

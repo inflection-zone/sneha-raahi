@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	let isAnswered = false;
 	let rightAnswer = false;
 
@@ -9,7 +9,6 @@
 	function handleAnswerClick(questionPointer, index) {
 		isAnswered = true;
 		rightAnswer = questions[questionPointer].correctIndex == index;
-		
 
 	}
 

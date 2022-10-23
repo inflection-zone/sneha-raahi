@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { show } from "$lib/utils/message.utils";
 	import { onMount } from "svelte";
-
 	import type { PageServerData } from "./$types";
 
-	let show = false;
+	let showSidebar = false;
 	export let data: PageServerData;
 	let userId;
 	let learningHomeLink;
@@ -12,15 +12,20 @@
 	let newsFeedLink;
 	let chatLink;
 	let linkagesLink;
+	let notificationsLink
+	let homeLink
+	//console.log(`${JSON.stringify(data, null, 2)}`);
 
 	onMount(()=>{
 		userId = data.userId;
-		learningHomeLink = `/users/${userId}/learning-home`;
+		homeLink = `/users/${userId}/home`
+		learningHomeLink = `/users/${userId}/my-learnings`;
 		myProfileLink = `/users/${userId}/my-profile`;
-		askSnehaLink = `/ask-sneha`;
+		askSnehaLink = `/users/${userId}/ask-sneha`;
 		newsFeedLink = `/newsfeed`;
 		chatLink = `/users/${userId}/chat-home`;
 		linkagesLink = `/users/${userId}/linkages`;
+		notificationsLink = `/users/${userId}/notifications`
 
 		console.log(learningHomeLink);
 		console.log(myProfileLink);
@@ -28,14 +33,16 @@
 		console.log(newsFeedLink);
 		console.log(chatLink);
 		console.log(linkagesLink);
-	})
+
+		show(data);
+	});
 
 </script>
 
 <div class="grid gird-cols justify-center items-center">
 	<div class="w-[375px] h-[812px]">
 		<div class="flex  items-center justify-center  mt-16">
-			{#if show}
+			{#if showSidebar}
 				<div class="card rounded-none w-[855px]  h-[812px] bg-[#DFE7FD] " >
 					<div class="mt-10 ">
 						<ul class=" p-4 overflow-y-auto  w-[370px] h-[800px] text-base-content ">
@@ -51,13 +58,13 @@
 								/>
 							</div>
 							<div class="grid grid-cols gap-2 ">
-								<a href="/">
+								<a href= {homeLink}>
 									<button class="flex flex-rows  ">
 										<img src="/assets/home-sidebar/svg/home-sidebar.svg" alt="" class="my-2 mx-4" />
 										<h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">home</h3>
 									</button>
 								</a>
-								<a href="/my-profile">
+								<a href={myProfileLink}>
 									<button class="flex flex-rows  ">
 										<img
 											src="/assets/home-sidebar/png/my-profile-sidebar.png"
@@ -151,20 +158,20 @@
 				<div class="card w-[375px] h-[406px] shadow-none rounded-none border-none">
 					<div class="card-body ">
 						<div class=" flex flex-row h-16 w-16">
-							<button on:click={() => (show = !show)}>
+							<button on:click={() => (showSidebar = !showSidebar)}>
 								<img src="/assets/home/svg/menu.svg" alt="" />
 							</button>
 							<img class="absolute right-0 " src="/assets/home/png/profile-settings.png" alt="" />
 						</div>
 						<h1 class="card-title text-base-100 text-3xl">Hi {data.firstName}!</h1>
 						<p class=" text-base-100">
-							Welcome to Raahi, your friend, companion and guide as you navigate your journey into adulthood. 
+							Welcome to Raahi, your friend, companion and guide as you navigate your journey into adulthood.
 						</p>
 					</div>
 					<div class="flex flex-row  justify-center relative">
-						<a href="/ask-sneha"> <img src="/assets/home/png/ask.png" alt="" /></a>
-						<a href="/chat-home"> <img src="/assets/home/svg/message.svg" alt="" /></a>
-						<a href="/notifications"> <img src="/assets/home/png/notification.png" alt="" /></a>
+						<a href={askSnehaLink}> <img src="/assets/home/png/ask.png" alt="" /></a>
+						<a href={chatLink}> <img src="/assets/home/svg/message.svg" alt="" /></a>
+						<a href={notificationsLink}> <img src="/assets/home/png/notification.png" alt="" /></a>
 					</div>
 				</div>
 				<div

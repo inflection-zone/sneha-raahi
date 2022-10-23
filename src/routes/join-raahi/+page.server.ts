@@ -1,43 +1,56 @@
-import { error, type Action } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
+import { error, type RequestEvent } from '@sveltejs/kit';
 import { registerUser } from '../api/auth/register.user';
+import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import { redirect } from 'sveltekit-flash-message/server';
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-export const POST: Action = async ({ request }) => {
-	const data = await request.formData(); // or .json(), or .text(), etc
-	//console.log(Object.fromEntries(data));
+export const load: PageServerLoad = async (event: RequestEvent) => {
+    try {
+        console.log('Page ...' + JSON.stringify(event, null, 2));
+    }
+    catch (error) {
+        console.error(`Error logging in: ${error.message}`);
+    }
+};
 
-	const countryCode = '+91';
-	const firstName = data.has('firstName') ? data.get('firstName') : null;
-	const lastName = data.has('lastName') ? data.get('lastName') : null;
-	const age = data.has('age') ? data.get('age') : null;
-	const location = data.has('location') ? data.get('location') : null;
-	const phone = data.has('phone') ? data.get('phone') : null;
+export const actions = {
 
-	if (!phone && !countryCode) {
-		throw error(400, `Phone is not valid!`);
-	}
+	default: async (event: RequestEvent) => {
 
-	try {
+		const request = event.request;
+
+		const data = await request.formData();
+		//console.log(Object.fromEntries(data));
+
+		const countryCode = '+91';
+		const firstName = data.has('firstName') ? data.get('firstName') : null;
+		const lastName = data.has('lastName') ? data.get('lastName') : null;
+		const age = data.has('age') ? data.get('age') : null;
+		const address = data.has('address') ? data.get('address') : null;
+		const phone = data.has('phone') ? data.get('phone') : null;
+
+		if (!phone && !countryCode) {
+			throw error(400, `Phone is not valid!`);
+		}
+
 		const response = await registerUser(
 			firstName.valueOf() as string,
 			lastName.valueOf() as string,
 			age.valueOf() as string,
 			phone.valueOf() as string,
-			location.valueOf() as string);
+			address.valueOf() as string);
 
 		console.log(JSON.stringify(response, null, 2));
 
-		if (response.Status === 'failure' || response.HttpCode !== 201) {
-			console.log(response.Message);
-			throw error(response.HttpCode, response.Message);
+		if (response.Status === 'failure' && response.HttpCode === 409) {
+			throw redirect(303, '/join-raahi', errorMessage(response.Message), event);
 		}
-		console.log(`Reached here...`)
-		return {
-			location: `/sign-in`,
-		};
-	} catch (err) {
-		console.error(`Error registering user in: ${err.message}`);
-		throw error(400, err.message);
+		if (response.Status === 'failure' || response.HttpCode !== 201) {
+			throw redirect(303, '/join-raahi', errorMessage(response.Message), event);
+		}
+
+		throw redirect(303, `/sign-in-otp/${phone}`, successMessage('Your account is created successfully!'), event);
 	}
 };
