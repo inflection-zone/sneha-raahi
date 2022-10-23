@@ -4,12 +4,10 @@ import { getAllCourseContents, getAllLearningPaths } from "../../../api/services
 
 ////////////////////////////////////////////////////////////////////////
 
-export const load: PageServerLoad = async ({ request, params }) => {
+export const load: PageServerLoad = async (event) => {
     try {
-
-        const cookies = cookie.parse(request.headers.get('cookie') || '');
-        const sessionId = cookies['sessionId'];
-        const userId = params.userId;
+        const sessionId = event.cookies.get('sessionId');
+        const userId = event.params.userId;
         const allLearningPaths = await getAllLearningPaths(sessionId);
         const allCourseContents = await getAllCourseContents(sessionId);
         return {

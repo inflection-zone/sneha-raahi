@@ -1,16 +1,13 @@
-import * as cookie from 'cookie';
 import { getAllLinkages } from '../../../api/services/linkages';
 import type { PageServerLoad } from "./$types";
 
 ////////////////////////////////////////////////////////////////////////
 
-export const load: PageServerLoad = async ({ request, params, }) => {
+export const load: PageServerLoad = async (event) => {
     try {
-        const cookies = cookie.parse(request.headers.get('cookie') || '');
-        const sessionId = cookies['sessionId'];
-        const userId = params.userId;
+        const sessionId = event.cookies.get('sessionId');
+        const userId = event.params.userId;
         const allLinkages = await getAllLinkages(sessionId);
-
         //console.log(`\n All linkages = ${JSON.stringify(allLinkages)}`);
         return {
             userId,

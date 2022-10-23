@@ -1,5 +1,5 @@
 import { BACKEND_API_URL } from "$env/static/private";
-import { get_, post_} from "./common";
+import { get_, post_, put_} from "./common";
 ////////////////////////////////////////////////////////////////
 
 export const getAllLinkages = async (sessionId: string) => {
@@ -26,6 +26,16 @@ export const createNoticeAction = async (sessionId: string, noticeId: string, us
         ],
         };
     return await post_(sessionId, url, createModel) ;
+};
+
+export const updateNotice = async (sessionId: string, noticeId: string,) => {
+    const url = BACKEND_API_URL + `/notices/${noticeId}`;
+    const updateModel = 
+    {
+    NoticeId : noticeId,
+    Action   :'Applied'
+    };
+    return await put_(sessionId, url, updateModel);
 };
 
 // const getcreateNoticeAction = (): NoticeActionDomainModel => {

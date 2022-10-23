@@ -10,8 +10,8 @@ export const handle: Handle = async ({ event, resolve }) => {
     // console.log(`headers = ${JSON.stringify(event.request.headers, null, 2)}`);
     // console.log(`formData = ${JSON.stringify(event.request.formData, null, 2)}`);
 
-    const cookies = cookie.parse(event.request.headers.get('cookie') || '');
-    const sessionId = cookies['sessionId'];
+    const sessionId = event.cookies.get('sessionId');
+    // const sessionId = cookies['sessionId'];
     if (!sessionId) {
         return await resolve(event);
     }

@@ -1,32 +1,21 @@
-import * as cookie from 'cookie';
 import type { PageServerLoad } from "./$types";
 import { getAllCourseContents, getAllLearningPaths, getUserLearningPaths } from "../../../api/services/learning";
-import { SessionHelper } from '../../../api/auth/session';
+import { getUserById } from '../../../../routes/api/services/my-profile';
 
 ////////////////////////////////////////////////////////////////////////
 
-export const load: PageServerLoad = async ({ request, params }) => {
+export const load: PageServerLoad = async (event) => {
     try {
-
-        const cookies = cookie.parse(request.headers.get('cookie') || '');
-        const sessionId = cookies['sessionId'];
-        const session = await SessionHelper.getSession(sessionId);
-
-        const sessionUser = {
-                email          : session.email,
-                username       : session.username,
-                profileImageUrl: session.profileImageUrl,
-                fullName       : session.fullName,
-                firstName      : session.firstName,
-                age            : session.age  
-            };
-        const userId = params.userId;
+        const sessionId = event.cookies.get('sessionId');
+        const userId = event.params.userId;
+        const _user = await getUserById(sessionId, userId);
         const allLearningPaths = await getAllLearningPaths(sessionId);
         const userLearningPaths = await getUserLearningPaths(sessionId, userId);
         const allCourseContents = await getAllCourseContents(sessionId);
+        const user = _user.Patient
         return {
             sessionId,
-            sessionUser,
+            user,
             userId,
             allLearningPaths,
             allCourseContents,

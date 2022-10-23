@@ -1,15 +1,13 @@
 import type { PageServerLoad } from '.svelte-kit/types/src/routes/$types';
-import * as cookie from 'cookie';
 import { getLinkageById } from '../../../../api/services/linkages';
 
 ////////////////////////////////////////////////////////////////////////
 
-export const load: PageServerLoad = async ({ request, params }) => {
+export const load: PageServerLoad = async (event) => {
     try {
-        const noticeId = params.linkageId;
-        const userId = params.userId;
-        const cookies = cookie.parse(request.headers.get('cookie') || '');
-        const sessionId = cookies['sessionId'];
+        const noticeId = event.params.linkageId;
+        const userId = event.params.userId;
+        const sessionId = event.cookies.get('sessionId');
         const _notice = await getLinkageById(sessionId, noticeId);
         const notice = _notice.Notice;
         console.log(`\n Notice = ${JSON.stringify(notice)}`);

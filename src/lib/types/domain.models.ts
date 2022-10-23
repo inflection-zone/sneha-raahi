@@ -4,7 +4,7 @@ export interface UserModel{
     LastName?     : string;
     Age?          : string;
     Phone?        : string;
-    Addresses?     : [];
+    Address?      : string;
 
 };
 export interface PersonRole {

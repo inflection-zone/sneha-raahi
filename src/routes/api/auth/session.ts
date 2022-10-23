@@ -28,7 +28,7 @@ export class SessionHelper {
             //Remove existing
             SessionHelper._sessions = SessionHelper._sessions.filter((x) => x.sessionId !== sessionId);
         }
-        //console.log(`Add new session: ${JSON.stringify(session, null, 2)}`);
+        console.log(`Add new session: ${JSON.stringify(session, null, 2)}`);
         SessionHelper._sessions.push(session);
         return Promise.resolve(session);
     }

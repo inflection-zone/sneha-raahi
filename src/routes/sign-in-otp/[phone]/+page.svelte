@@ -8,7 +8,8 @@
 	import { show } from '$lib/utils/message.utils';
 
 	export let data: PageServerData;
-	console.log('Page data received - ' + JSON.stringify(data, null, 2));
+
+	console.log('Page data received -' + JSON.stringify(data, null, 2));
 
 	let otp1, otp2, otp3, otp4, otp5, otp6, loginButton, loginRoleId = 2;
 	let otp = '';
@@ -21,6 +22,7 @@
 		loginRoleId = patientRole.id;
 	}
 	onMount(()=>{
+		show(data);
 		otp1.focus();
 	});
 

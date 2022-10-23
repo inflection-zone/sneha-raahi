@@ -1,10 +1,10 @@
-import { CookieUtils } from "$lib/utils/cookie.utils";
 import type { PageServerLoad } from "./$types";
 import { error, type RequestEvent } from "@sveltejs/kit";
 import { SessionHelper } from "../../api/auth/session";
 import { loginWithOtp } from "../../api/auth/login.with.otp";
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from "$lib/utils/message.utils";
+import { CookieUtils } from "$lib/utils/cookie.utils";
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -26,7 +26,6 @@ export const actions = {
 	default: async (event: RequestEvent) => {
 
         const request = event.request;
-
         const data = await request.formData(); // or .json(), or .text(), etc
         //console.log(Object.fromEntries(data));
 
@@ -46,7 +45,7 @@ export const actions = {
 
         const response = await loginWithOtp(otp, phone, loginRoleId);
         if (response.Status === 'failure' || response.HttpCode !== 200) {
-            //console.log(response.Message);
+            console.log(response.Message);
             //Login error, so redirect to the sign-in page
             throw redirect(303, '/sign-in/', errorMessage(response.Message), event);
         }

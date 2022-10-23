@@ -1,21 +1,37 @@
 <script lang="ts">
 import { onMount } from 'svelte';
-import type { PageData } from './$types';
+import type { PageServerData } from './$types';
 import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 import { personRolesStore, genderTypesStore } from '$lib/store/general.store';
+import { page } from '$app/stores';
+import { splashCarouselImage } from '$lib/store/general.store';
+import Image from '$lib/components/image.svelte';
 
-export let data: PageData;
+export let data: PageServerData;
+// let activeImage = '';
 personRolesStore.set(data.roles);
 genderTypesStore.set(data.genderTypes);
 LocalStorageUtils.setItem('personRoles', JSON.stringify(data.roles));
 LocalStorageUtils.setItem('genderTypes', JSON.stringify(data.genderTypes));
+
+// const sleep = (ms:number) => new Promise(r => setTimeout(r, ms));
+// const delay = async()=>{
+//   for (let item of $splashCarouselImage){
+//     console.log(item);
+//     await sleep(2000);
+//   }
+// }
+// delay();
 
 let showSplash = true;
 	onMount(() => {
 		setTimeout(() => {
 			showSplash = false;
 		}, 3000);
+
+		// activeImage = $page.url.pathname;
 	});
+
 </script>
 
 {#if showSplash}
@@ -45,20 +61,32 @@ let showSplash = true;
 					class="w-[110px] h-[50px] mt-[10px] object-contain  "
 				/>
 			</div>
-			<div class="carousel slide relative" data-bs-ride="carousel">
+			<div class="carousel slide relative" data-bs-ride="carousel" >
+				<!-- {#each Object.values($splashCarouselImage) as item}
 				<div id="item1" class="carousel-item ">
 					<div class="flex flex-col text-center justify-center">
-						<img src="/assets/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px]" />
+						<img src={item.Image} alt="" class="mt-[50px]" />
 					<h2 class=" text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
-						Your Learning Journey
+						{item.Title}
 					</h2>
 					<p class=" font-normal overflow-auto text-[#000]">
-						Learn about your physical, mental, sexual <br>
-						and reproductive health.
+						{item.Description}
 					</p>
 					</div>
 				</div>
-				<div id="item2" class="carousel-item ">
+				{/each} -->
+				<div id="item1" class=" slide carousel-item ">
+					<div class="flex flex-col text-center justify-center">
+						<img src="/assets/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px] h-[250px]  p-4" />
+					<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
+						Your Learning Journey
+					</h2>
+					<p class="w-[335px] mt- h-[64px]  font-normal  text-[#000]">
+						Learn about your physical, mental,sexual and reproductive health.
+					</p>
+					</div>
+				</div>
+				<div id="item2" class=" slide carousel-item ">
 					<div class="flex flex-col text-center justify-center">
 						<img src="/assets/home/svg/linkages.svg" alt="" class="mt-[50px] h-[250px]  p-4" />
 					<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
@@ -69,7 +97,7 @@ let showSplash = true;
 					</p>
 					</div>
 				</div>
-				<div id="item3" class="carousel-item ">
+				<div id="item3" class=" carousel-item ">
 					<div class="flex flex-col text-center justify-center">
 						<img src="/assets/home/svg/newsfeed.svg" alt="" class="mt-[50px] h-[250px] " />
 					<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
@@ -93,10 +121,10 @@ let showSplash = true;
 				</div>
 			  </div>
 			  <div class="flex  justify-center w-full py-2 mt-2 gap-2 ">
-				<a href="#item1"  class="w-[10px] h-[10px] bg-[#dfe7fd]"> </a>
-				<a href="#item2" class=" w-[10px] h-[10px] bg-[#dfe7fd]"> </a>
-				<a href="#item3" class=" w-[10px] h-[10px] bg-[#dfe7fd]"> </a>
-				<a href="#item4" class=" w-[10px] h-[10px] bg-[#dfe7fd]"> </a>
+				<a href="#item1" class=" w-[10px] h-[10px] active:bg-[#5b7aa3] bg-[#dfe7fd] rounded-full"> </a>
+				<a href="#item2" class=" w-[10px] h-[10px] bg-[#dfe7fd] active:bg-[#5b7aa3] rounded-full" > </a>
+				<a href="#item3" class=" w-[10px] h-[10px] bg-[#dfe7fd] active:bg-[#5b7aa3] rounded-full"> </a>
+				<a href="#item4" class=" w-[10px] h-[10px] bg-[#dfe7fd] active:bg-[#5b7aa3] rounded-full"> </a>
 			  </div>
 			<!-- <div class="flex flex-row items-center justify-center gap-1">
 				<div class="w-[10px] h-[10px] bg-[#5b7aa3]" />
