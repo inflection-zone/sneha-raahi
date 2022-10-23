@@ -1,19 +1,11 @@
-<script>
-	// let linkages=[
-	// 	 {
-	// 	date:new Date(),
-	// 	link:"Lorem ipsum dolor...",
-	// 	description:"Sed vestibulum ipsum ut tortor inter dum, vel pretium lacus …"
+<script lang="ts">
+	import type { PageServerData } from './$types';
+	// import hrt from 'human-readable-time';
+	import { timeAgo } from 'short-time-ago';
 
-		
-	// }, {
-	// 	date:new Date(),
-	// 	link:"Lorem ipsum dolor...",
-	// 	description:"Sed vestibulum ipsum ut tortor inter dum, vel pretium lacus …"
-
-		
-	// }
-	// ,]
+	export let data: PageServerData;
+	let allLinkages = data.allLinkages.NoticeRecords.Items;
+	console.log(`\n AllLinkages = ${JSON.stringify(allLinkages)}`);
 </script>
 
 <div class="flex items-center justify-center mt-16">
@@ -44,22 +36,30 @@
 					LINKAGES
 				</h2>
 				<div class=" card-body h-[690px] overflow-auto scrollbar-medium">
-					<!-- {#each linkages as linkage} -->
-					<a href="/linkages-details">
+					{#each allLinkages as notice}
+					<div id= {notice.id} >
+					<a href={`/users/${data.userId}/linkages/${notice.id}`}>
 						<div class="grid grid-flow-col mb-1">
-							<div class="w-[3.625rem] h-[3.625rem] bg-[#fde2e4] rounded-lg" />
-
+							<img class="w-[3.625rem] h-[3.625rem] bg-[#fde2e4] rounded-lg" src={notice.ImageUrl} alt=""/>
 							<div class="ml-3 ">
 								<div class="flex mb-1 ">
-									<h3>Lorem ipsum dolor...</h3>
-									<div class="text-base font-semibold ml-4  leading-5 ">12 Dec</div>
+									<h3>{notice.Title.length > 10 ? notice.Title.substring(0, 11) + '...': notice.Title}</h3>
+									<div class="text-base font-semibold ml-4 right-2 p-0 leading-5 ">{timeAgo(new Date(notice.PostDate))}</div>
 								</div>
-								<p>Sed vestibulum ipsum ut tortor inter dum, vel pretium lacus…</p>
+								<div class="flex mb-1 ">
+								<p>{notice.Description.length > 50 ? notice.Description.substring(0, 50) + '...': notice.Description}</p>
+								{#if notice.Action == 'Applied'}
+								<img class="text-right" src="/assets/quiz-wrong/svg/correct.svg" alt="" />
+								{:else}
+								<img class="hidden" src="/assets/quiz-wrong/svg/correct.svg" alt="" />
+								{/if}
+							    </div>
 							</div>
 						</div>
 					</a>
-					<!-- {/each} -->
-					<a href="/linkages-details">
+				</div>
+					{/each}
+					<!-- <a href="/notices-details">
 					<div class="grid grid-flow-col mb-1">
 						<div class="w-[3.625rem] h-[3.625rem] bg-[#dfe7fd] rounded-lg" />
 						<div class="ml-3 ">
@@ -70,7 +70,7 @@
 							<p>Sed vestibulum ipsum ut tortor inter dum, vel pretium lacus…</p>
 						</div>
 					</div></a>
-					<a href="/linkages-details">
+					<a href="/notices-details">
 					<div class="grid grid-flow-col mb-1">
 						<div class="w-[3.625rem] h-[3.625rem] bg-[#fff1e6] rounded-lg" />
 						<div class="ml-3 ">
@@ -81,7 +81,7 @@
 							<p>Sed vestibulum ipsum ut tortor inter dum, vel pretium lacus …</p>
 						</div>
 					</div></a>
-					<a href="/linkages-details">
+					<a href="/notices-details">
 					<div class="grid grid-flow-col mb-1">
 						<div class="w-[3.625rem] h-[3.625rem] bg-[#e3e3e3] rounded-lg" />
 						<div class="ml-3 ">
@@ -92,7 +92,7 @@
 							<p>Sed vestibulum ipsum ut tortor inter dum, vel pretium lacus …</p>
 						</div>
 					</div></a>
-					<a href="/linkages-details">
+					<a href="/notices-details">
 					<div class="grid grid-flow-col mb-1">
 						<div class="w-[3.625rem] h-[3.625rem] bg-[#e3e3e3] rounded-lg" />
 						<div class="ml-3 ">
@@ -103,7 +103,7 @@
 							<p>Sed vestibulum ipsum ut tortor inter dum, vel pretium lacus …</p>
 						</div>
 					</div></a>
-					<a href="/linkages-details">
+					<a href="/notices-details">
 					<div class="grid grid-flow-col mb-1">
 						<div class="w-[3.625rem] h-[3.625rem] bg-[#fff1e6] rounded-lg" />
 						<div class="ml-3 ">
@@ -114,7 +114,7 @@
 							<p>Sed vestibulum ipsum ut tortor inter dum, vel pretium lacus …</p>
 						</div>
 					</div></a>
-					<a href="/linkages-details">
+					<a href="/notices-details">
 					<div class="grid grid-flow-col mb-1">
 						<div class="w-[3.625rem] h-[3.625rem] bg-[#dfe7fd] rounded-lg" />
 						<div class="ml-3 ">
@@ -125,7 +125,7 @@
 							<p>Sed vestibulum ipsum ut tortor inter dum, vel pretium lacus …</p>
 						</div>
 					</div></a>
-					<a href="/linkages-details">
+					<a href="/notices-details">
 					<div class="grid grid-flow-col mb-1">
 						<div class="w-[3.625rem] h-[3.625rem] bg-[#fde2e4] rounded-lg" />
 						<div class="ml-3 ">
@@ -137,7 +137,7 @@
 						</div>
 					</div>
 				</a>
-					<a href="/linkages-details">
+					<a href="/notices-details">
 					<div class="grid grid-flow-col mb-1">
 						<div class="w-[3.625rem] h-[3.625rem] bg-[#fde2e4] rounded-lg" />
 						<div class="ml-3 ">
@@ -149,7 +149,7 @@
 						</div>
 					</div>
 				</a>
-					<a href="/linkages-details">
+					<a href="/notices-details">
 					<div class="grid grid-flow-col mb-1">
 						<div class="w-[3.625rem] h-[3.625rem] bg-[#fde2e4] rounded-lg" />
 						<div class="ml-3 ">
@@ -160,7 +160,7 @@
 							<p>Sed vestibulum ipsum ut tortor inter dum, vel pretium lacus …</p>
 						</div>
 					</div>
-				</a>
+				</a> -->
 				</div>
 			</div>
 		</div>

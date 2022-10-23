@@ -13,9 +13,12 @@ declare namespace App {
             firstName?      : string;
             roleId?         : string;
         }
-		
-	// interface PageData {}
 
-	// interface Platform {}
+      // interface PageData {}
+      // interface Platform {}
    }
+
+   interface PageData {
+      flash?: { type: 'success' | 'error'; message: string };
+    }
 }

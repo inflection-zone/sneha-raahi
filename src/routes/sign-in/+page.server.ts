@@ -1,32 +1,37 @@
 
-import { error, type Action } from '@sveltejs/kit';
+import type { RequestEvent } from '@sveltejs/kit';
 import { sendOtp } from '../api/auth/send.otp';
+import { redirect } from 'sveltekit-flash-message/server';
+import { errorMessage, successMessage } from '$lib/utils/message.utils';
 
 //////////////////////////////////////////////////////////////
 
-export const POST: Action = async ({ request }) => {
-	const data = await request.formData();
-	console.log(Object.fromEntries(data));
-	const phone_ = data.has('phone') ? data.get('phone') : null;
-    const loginRoleId_ = data.has('loginRoleId') ? data.get('loginRoleId') : null;
+export const actions = {
 
-	if (!phone_) {
-		throw error(400, `Phone is not valid!`);
-	}
-	const phone = phone_.valueOf() as string;
-	const loginRoleId = loginRoleId_.valueOf() as number;
+	default: async (event: RequestEvent) => {
 
-	try {
+		const request = event.request;
+
+		const data = await request.formData();
+		console.log(Object.fromEntries(data));
+		const phone_ = data.has('phone') ? data.get('phone') : null;
+		const loginRoleId_ = data.has('loginRoleId') ? data.get('loginRoleId') : null;
+
+		if (!phone_) {
+			throw redirect(303, '/sign-in', errorMessage(`Phone is not valid!`), event);
+		}
+		const phone = phone_.valueOf() as string;
+		const loginRoleId = loginRoleId_.valueOf() as number;
+
 		const response = await sendOtp(
 			phone,
 			loginRoleId ?? 2
 		);
-		return {
-			location: `/sign-in-otp/${phone}`,
-			message: response.Message,
-		};
-	} catch (err) {
-		console.error(`Error generating otp: ${err.message}`);
-		throw error(400, err.message);
-	}
+		if (response.Status === 'failure' || response.HttpCode !== 200) {
+			//console.log(response.Message);
+			//Most probably the user is not yet registered, so redirect to the sign-up page
+			throw redirect(303, '/join-raahi/', errorMessage(response.Message), event);
+		}
+		throw redirect(303, `/sign-in-otp/${phone}`);
+	},
 };
