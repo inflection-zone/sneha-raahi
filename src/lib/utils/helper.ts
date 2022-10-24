@@ -25,6 +25,14 @@ export class Helper {
         return true;
     }
 
+    static hasProperty = (obj, prop) => {
+        return Object.prototype.hasOwnProperty.call(obj, prop);
+    }
+
+    static isEmpty = (obj) => {
+        return Object.keys(obj).length === 0 && obj.constructor === Object;
+    }
+
     static isOtp = (str: string): boolean => {
         if (str.length < 4 || str.length > 6) {
             return false;

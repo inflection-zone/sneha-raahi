@@ -5,8 +5,13 @@ import { Helper } from "$lib/utils/helper";
 export const POST = async (event ) => {
 
     const data = await event.request.json();
-    
-    const model: UserRegistrationModel = getUserModel(data['firstName'], data['lastName'], data['age'], data['phone'], data['location'],);
+
+    const model: UserRegistrationModel = getUserModel(
+        data['firstName'],
+        data['lastName'],
+        data['age'],
+        data['phone'],
+        data['location'],);
     console.log(JSON.stringify(model, null, 2));
 
     const headers = {};
@@ -48,15 +53,14 @@ export const POST = async (event ) => {
     }
 };
 
-const getUserModel = (firstName:string, lastName:string, age:string, phone:string ,location:[]): UserRegistrationModel => {
+const getUserModel = (firstName:string, lastName:string, age:string, phone:string ,location:string): UserRegistrationModel => {
    const userModel: UserRegistrationModel = {} ;
     userModel.FirstName = firstName;
     userModel.LastName = lastName;
     userModel.Age = age;
-    userModel.Addresses = location;
+    userModel.Address = location;
     if (Helper.isPhone(phone)) {
         userModel.Phone = phone;
     }
     return userModel;
 }
-
