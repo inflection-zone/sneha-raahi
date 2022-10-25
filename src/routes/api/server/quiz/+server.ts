@@ -1,5 +1,3 @@
-import { redirect } from '@sveltejs/kit';
-import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import {
 	getNextQuestion,
 	getQuizByTemplateIdForUser,
