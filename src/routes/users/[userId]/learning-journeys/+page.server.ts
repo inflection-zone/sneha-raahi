@@ -1,6 +1,5 @@
-import * as cookie from 'cookie';
 import type { PageServerLoad } from "./$types";
-import { getAllCourseContents, getAllLearningPaths } from "../../../api/services/learning";
+import { getAllCourseContents, getAllLearningPaths, getUserCourseContents } from "../../../api/services/learning";
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -14,7 +13,8 @@ export const load: PageServerLoad = async (event) => {
             sessionId,
             userId,
             allLearningPaths,
-            allCourseContents
+            allCourseContents,
+
         };
     }
     catch (error) {

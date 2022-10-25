@@ -1,95 +1,72 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
 	import Image from '$lib/components/image.svelte';
+	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 
 	export let data: PageServerData;
 	let learningJourney = data.learningPath;
-	const courseContents = data.courseContents;
+	const courseContents = data.courseContentsForLearningPath;
 	const userId = data.userId;
-	let quizTemplates = data.allQuizTempletes.AssessmentTemplateRecords.Items;
-	let PercentageCompletion = '0';
+	//console.log(`${JSON.stringify(courseContents, null, 2)}`)
 
-	console.log(userId);
-	console.log(learningJourney);
-	console.log(courseContents);
-	console.log('allQuizTempletes', quizTemplates);
+	async function updateVideoProgress(model) {
+		await fetch(`/api/server/learning`, {
+			method: 'POST',
+			body: JSON.stringify(model),
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+	}
 
-	const handleCourseClick = async (e, resourceLink, percentageCompletion) => {
+	async function takeQuiz(model) {
+		return await fetch(`/api/server/quiz`, {
+			method: 'POST',
+			body: JSON.stringify(model),
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+	}
+
+	const handleCourseContentClick = async (e,
+		resourceLink: string,
+		contentType: string,
+		actionTemplateId?: string) => {
+
 		console.log(e.currentTarget);
 		const contentId = e.currentTarget.id;
 		console.log(`contentId = ${contentId}`);
-		await update({
-			sessionId: data.sessionId,
-			userId: data.userId,
-			contentId
-		});
-		window.location.href = resourceLink;
+
+		if (contentType === 'Video') {
+			const videoModel = {
+				sessionId: data.sessionId,
+				userId: data.userId,
+				contentId
+			};
+			await updateVideoProgress(videoModel);
+			//TODO: Please use video embedding rather than switching to different page
+			window.location.href = resourceLink;
+		}
+		else if (contentType === 'Assessment') {
+			const quizModel = {
+				sessionId: data.sessionId,
+				userId: data.userId,
+				assessmentTemplateId: actionTemplateId,
+				courseContentId: contentId,
+				learningJourneyId: $page.params.learningJourneyId,
+				scheduledDate: new Date(),
+			};
+			const response = await takeQuiz(quizModel);
+			const redirectPath = await response.text();
+			console.log(redirectPath);
+			goto(redirectPath);
+		}
+		else {
+			console.log(`Not yet handled!`);
+		}
 	};
-
-	const handleQuizClick = async (e, title) => {
-		console.log(e.currentTarget);
-		const assessmentTemplateId = e.currentTarget.id;
-		console.log(`Quiz template id = ${assessmentTemplateId}`);
-		await scheduleQuiz({
-			sessionId: data.sessionId,
-			userId: data.userId,
-			assessmentTemplateId,
-			title: title,
-			scheduledDate: new Date(),
-		});
-			// goto(`/users/${data.userId}/learning-journeys/${data.learningPath.id}/quiz/${assessmentTemplateId}`);
-	};
-
-	async function update(model) {
-		const response = await fetch(`/api/server/learning`, {
-			method: 'POST',
-			body: JSON.stringify(model),
-			headers: {
-				'content-type': 'application/json'
-			}
-		});
-		console.log('respose....', response);
-	}
-
-	async function scheduleQuiz(model) {
-		const response = await fetch(`/api/server/quiz`, {
-			method: 'POST',
-			body: JSON.stringify(model),
-			headers: {
-				'content-type': 'application/json'
-			}
-		});
-		console.log('respose....', response);
-	}
-
-	// async function stratQuiz(model) {
-	// 	const response = await fetch(`/api/server/quiz`, {
-	// 		method: 'POST',
-	// 		body: JSON.stringify(model),
-	// 		headers: {
-	// 			'content-type': 'application/json'
-	// 		}
-	// 	});
-	// }
-
-	// async function getProgress(model) {
-	// 	const response = await fetch(`/api/server/learning`, {
-	// 		method: 'GET',
-	// 		body: JSON.stringify(model),
-	// 		headers: {
-	// 			'content-type': 'application/json'
-	// 		}
-	// 	});
-	// }
-
-	// function percentageCompletion(e) {
-	// 	const contentId = e.currentTarget.id;
-	// 	let percentage = document.getElementById(contentId);
-	// 	percentage.addEventListener('click', function () {
-	// 		percentage.style.width = '100 %';
-	// 	});
-	// }
 
 </script>
 
@@ -156,19 +133,23 @@
 						Course is not available yet. Please stay tuned.
 					</h3>
 				{:else}
-					{#each courseContents as course}
+					{#each courseContents as content}
 						<button
-							on:click|capture={(e) =>
-								handleCourseClick(e, course.ResourceLink, course.PercentageCompletion)}
-							id={course.id}
-							name={course.id}
+							on:click|capture={async (e) =>
+								handleCourseContentClick(e, content.ResourceLink, content.ContentType, content.ActionTemplateId)}
+							id={content.id}
+							name={content.id}
 							class="leading-4 tracking-normal font-bold"
 						>
 							<!-- <button on:click = {() => (PercentageCompletion == '100')} > -->
 							<div class="grid  grid-flow-col mb-4">
-								{#if course.ContentType == 'Video'}
+								{#if content.ContentType == 'Video'}
 									<div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
 										<img class=" m-5 " src="/assets/learning-course/svg/video.svg" alt="" />
+									</div>
+								{:else if content.ContentType === 'Assessment'}
+									<div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
+										<img class=" m-4 " src="/assets/learning-course/svg/quiz.svg" alt="" />
 									</div>
 								{:else}
 									<div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
@@ -176,47 +157,14 @@
 									</div>
 								{/if}
 								<div class="mx-4">
-									<h3 class="text-left mb-5">{course.Title}</h3>
-									<!-- <p class="mb-3">{course.Title}</p> -->
-									<!-- {#if PercentageCompletion == 0 } -->
-									<!-- <div class="bg-[#e3e3e3]  rounded-full h-[10px] w-[211px]">
-									<div class="bg-[#70ae6e] rounded-full h-[10px]" on:click={() => "width:100%" } />
-								</div> -->
-									<!-- {:else} -->
+									<h3 class="text-left mb-5">{content.Title}</h3>
 									<div class="bg-[#e3e3e3]  rounded-full h-[10px] w-[211px]">
-										<!-- <div class="bg-[#70ae6e] rounded-full h-[10px]" style={"width:" + (course.PercentageCompletion* 100).toString() + "%"}/> -->
-										<div class="bg-[#70ae6e] rounded-full h-[10px]" style="width:0%" />
+										<div class="bg-[#70ae6e] rounded-full h-[10px]" style={"width:" + `${content.PercentageCompletion ? content?.PercentageCompletion?.toString() : '0'}` + "%"}/>
 									</div>
-									<!-- {/if} -->
 								</div>
 								<div class="mt-9 font-bold" />
 							</div>
-							<!-- </button> -->
 						</button>
-					{/each}
-					{#each quizTemplates as template}
-						<!-- <a href={`/users/${data.userId}/${template.id}`}> -->
-							<button
-								on:click|preventDefault={(e) => handleQuizClick(e, template.Title)}
-								id={template.id}
-								name={template.id}
-								class="leading-4 tracking-normal font-bold"
-							>
-								<div class="grid  grid-flow-col mb-4">
-									<div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
-										<img class="m-4" src="/assets/learning-course/svg/quiz.svg" alt="" />
-									</div>
-
-									<div class="mx-4">
-										<h3 class="text-left mb-5">{template.Title}</h3>
-										<div class="bg-[#e3e3e3]  rounded-full h-[10px] w-[211px]">
-											<div class="bg-[#70ae6e] rounded-full h-[10px]" style="width:0%" />
-										</div>
-									</div>
-									<div class="mt-9 font-bold" />
-								</div>
-							</button>
-						<!-- </a> -->
 					{/each}
 				{/if}
 			</div>

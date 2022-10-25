@@ -13,8 +13,9 @@ export const getUserLearningPaths = async (sessionId: string, userId: string) =>
     return await get_(sessionId, url);
 };
 
-export const getUserCourseContents = async (sessionId: string, userId: string) => {
-    const url = BACKEND_API_URL + `/educational/user-learnings/${userId}/course-contents`;
+export const getUserCourseContents = async (sessionId: string, userId: string, learningPathId?: string) => {
+    const queryParams = learningPathId ? `?learningPathId=${learningPathId}`: '';
+    const url = BACKEND_API_URL + `/educational/user-learnings/${userId}/course-contents` + queryParams;
     return await get_(sessionId, url);
 };
 

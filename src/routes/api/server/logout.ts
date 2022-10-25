@@ -1,6 +1,6 @@
 import { API_CLIENT_INTERNAL_KEY, BACKEND_API_URL } from "$env/static/private";
 import { CookieUtils } from "$lib/utils/cookie.utils";
-import { SessionHelper } from "./session";
+import { SessionManager } from "../session.manager";
 import * as cookie from 'cookie';
 import type { RequestEvent } from "@sveltejs/kit";
 
@@ -35,7 +35,7 @@ export const POST = async (event: RequestEvent) => {
     const token = data['token'];
     console.log(`Token = ${token}`);
 
-    const accessToken = await SessionHelper.getSession(sessionId);
+    const accessToken = await SessionManager.getSession(sessionId);
 
     const headers = {};
     headers['Content-Type'] = 'application/json';
@@ -62,7 +62,7 @@ export const POST = async (event: RequestEvent) => {
         }
 
         if (sessionId) {
-            const session = await SessionHelper.removeSession(sessionId);
+            const session = await SessionManager.removeSession(sessionId);
             console.log(JSON.stringify(session, null, 2));
         }
         CookieUtils.removeCookieHeader(event, 'sessionId');

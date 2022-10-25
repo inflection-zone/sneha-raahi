@@ -12,7 +12,10 @@
 
 	async function loadImage() {
 
-        const url = source.toLowerCase();
+        if (!source) {
+            return;
+        }
+        const url = source?.toLowerCase();
 
         if (browser) {
 
@@ -41,7 +44,6 @@
             const res = await fetch(source)
             const blb = await res.blob();
             objectUrl = URL.createObjectURL(blb);
-            console.log(`Added new image to imageCache! ${source}`);
         }
     }
     (async () => {

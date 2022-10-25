@@ -10,8 +10,8 @@
 	allCourses = allCourses.sort((a, b) => { return a.Sequence - b.Sequence; });
 	allLearningJourneys = allLearningJourneys.sort((a, b) => { return b.PreferenceWeight - a.PreferenceWeight; });
 
-	console.log(`\nMy learning journeys = ${JSON.stringify(myLearningJourneys)}`)
-	console.log(`\nAll learning paths = ${JSON.stringify(allLearningJourneys)}`)
+	// console.log(`\nMy learning journeys = ${JSON.stringify(myLearningJourneys)}`)
+	// console.log(`\nAll learning paths = ${JSON.stringify(allLearningJourneys)}`)
 	//console.log(`\nAll course contents = ${JSON.stringify(allCourses)}`)
 
 	const handleCourseClick = async (e, resourceLink) => {

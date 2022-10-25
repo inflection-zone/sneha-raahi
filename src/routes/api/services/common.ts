@@ -1,11 +1,11 @@
 import { API_CLIENT_INTERNAL_KEY } from "$env/static/private";
 import { error } from "@sveltejs/kit";
-import { SessionHelper } from "../auth/session";
+import { SessionManager } from "../session.manager";
 
 export const get_ = async (sessionId: string, url: string) => {
-    const session = await SessionHelper.getSession(sessionId);
+    const session = await SessionManager.getSession(sessionId);
     const accessToken = session.accessToken;
-    console.log(`accessToken = ${accessToken}`);
+    //console.log(`accessToken = ${accessToken}`);
     const headers = {};
     headers['Content-Type'] = 'application/json';
     headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
@@ -23,9 +23,9 @@ export const get_ = async (sessionId: string, url: string) => {
 }
 
 export const post_ = async (sessionId: string, url: string, bodyObj: unknown) => {
-    const session = await SessionHelper.getSession(sessionId);
+    const session = await SessionManager.getSession(sessionId);
     const accessToken = session.accessToken;
-    console.log(`accessToken = ${accessToken}`);
+    //console.log(`accessToken = ${accessToken}`);
     const headers = {};
     headers['Content-Type'] = 'application/json';
     headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
@@ -46,9 +46,9 @@ export const post_ = async (sessionId: string, url: string, bodyObj: unknown) =>
 }
 
 export const put_ = async (sessionId: string, url: string, bodyObj: unknown) => {
-    const session = await SessionHelper.getSession(sessionId);
+    const session = await SessionManager.getSession(sessionId);
     const accessToken = session.accessToken;
-    console.log(`accessToken = ${accessToken}`);
+    //console.log(`accessToken = ${accessToken}`);
     const headers = {};
     headers['Content-Type'] = 'application/json';
     headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
@@ -68,9 +68,9 @@ export const put_ = async (sessionId: string, url: string, bodyObj: unknown) => 
 }
 
 export const delete_ = async (sessionId: string, url: string) => {
-    const session = await SessionHelper.getSession(sessionId);
+    const session = await SessionManager.getSession(sessionId);
     const accessToken = session.accessToken;
-    console.log(`accessToken = ${accessToken}`);
+    //console.log(`accessToken = ${accessToken}`);
     const headers = {};
     headers['Content-Type'] = 'application/json';
     headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;

@@ -1,6 +1,6 @@
 import type { Handle } from '@sveltejs/kit';
 import * as cookie from 'cookie';
-import { SessionHelper } from './routes/api/auth/session';
+import { SessionManager } from './routes/api/session.manager';
 
 export const handle: Handle = async ({ event, resolve }) => {
 
@@ -19,7 +19,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     console.log(`session id received - ${sessionId}`);
 
     let sessionUser = null;
-    const session = await SessionHelper.getSession(sessionId);
+    const session = await SessionManager.getSession(sessionId);
     if (session) {
         console.log(`session received`);
         sessionUser = {
