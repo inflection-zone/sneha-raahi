@@ -1,22 +1,36 @@
 <script lang="ts">
+  	import QuizSingleChoice from './quiz.single.choice.svelte';
+  	import QuizMultiChoice from './quiz.multi.choice.svelte';
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
+	import { onMount } from 'svelte';
 
 	export let data: PageServerData;
 	let options = data.nextQuestion.Options;
-	const responseType = data.nextQuestion.ExpectedResponseType;
+	const question = data.nextQuestion;
+	console.log('Question', question);
+
+	onMount(()=> {
+		options = options.map(x => {
+			return {
+				...x,
+				Selected: false
+			}
+		});
+	});
+
+	$: multiChoiceSelections = options.filter(x => x.Selected === true); //This is an array
+	$: singleChoiceSelection = options.filter(x => x.Selected === true).find(e => typeof e !== 'undefined'); //This is a single value
+	$: answerSubmitted = false;
+
+	const responseType = question.ExpectedResponseType;
 	const isMultichoice = responseType === 'Multi Choice Selection';
+	const correctSequence = question.CorrectAnswer ? parseInt(data.nextQuestion.CorrectAnswer) : -1;
 
 	const userId = $page.params.userId;
 	const learningJourneyId = $page.params.learningJourneyId;
 	const assessmentId = $page.params.quizId;
 	const questionId = $page.params.questionId;
-
-	let isAnswered = false;
-	let rightAnswer = false;
-
-	//console.log('Quiz', data.quiz);
-	console.log('Next quetion', data.nextQuestion);
 
 	async function answerQuestion(model) {
 		const response = await fetch(`/api/server/quiz-answer`, {
@@ -29,33 +43,36 @@
 		console.log('respose....', response);
 	}
 
+	const onAnswerSelected = () => {
+		answerSubmitted = options.filter(x => x.Selected === true).length > 0;
+		multiChoiceSelections = options.filter(x => x.Selected === true); //This is an array
+		singleChoiceSelection = options.filter(x => x.Selected === true).find(e => typeof e !== 'undefined');
+	}
+
 	// const handleNextClick = async (e) => {
 	// 	console.log(e.currentTarget);
 	// 	const assessmentId = e.currentTarget.id;
 	// 	console.log(`Next quetion id = ${assessmentId}`);
 	// };
 
-	const handleChoiceClick = async (e, answer: number) => {
+	const submitSingleChoiceAnswer = async (sequence: number) => {
+		// await answerQuestion({
+		// 	sessionId: data.sessionId,
+		// 	assessmentId: assessmentId,
+		// 	assessmentQuestionId: questionId,
+		// 	responseType: responseType,
+		// 	answer: sequence
+		// });
+	};
 
-		console.log(e.currentTarget);
-		const assessmentTemplateId = e.currentTarget.id;
-		console.log(`Quiz template id = ${assessmentTemplateId}`);
-
-		if (isMultichoice) {
-
-		} else {
-			await answerQuestion({
-				sessionId: data.sessionId,
-				assessmentId: assessmentId,
-				assessmentQuestionId: questionId,
-				responseType: responseType,
-				answer
-			});
-			isAnswered = true;
-			rightAnswer = data.nextQuestion.CorrectOption == answer;
-		}
-
-
+	const submitMultiChoiceAnswer = async (e, sequence: number) => {
+		// await answerQuestion({
+		// 	sessionId: data.sessionId,
+		// 	assessmentId: assessmentId,
+		// 	assessmentQuestionId: questionId,
+		// 	responseType: responseType,
+		// 	answer: sequence
+		// });
 	};
 
 </script>
@@ -78,105 +95,53 @@
 		<div class="card card-compact w-[375px] h-[700px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm">
 			<div class="card-body ">
 				<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
-				<h2 class=" text-[#5b7aa3] flex tracking-widest justify-center font-bold text-base ">
+				<h3 class=" text-[#5b7aa3] flex tracking-widest justify-center font-bold text-base ">
 					QUIZ
-				</h2>
+				</h3>
+				<h3 class="text-[#5b7aa3] justify-center">{data.quiz.Title}</h3>
 				<div class="flex mb-2 ">
 					<h2 class=" text-center text-base font-bold ">
-						<!-- {data.nextQuestion.Sequence} of 3 QUESTIONS -->Questions
+						{data.nextQuestion.Sequence} of {data.quiz.TotalNumberOfQuestions}
 					</h2>
-					<!-- <div class="flex ">
-						{#if isAnswered}
-							{#if rightAnswer}
-								<img  disabled={rightAnswer} src="/assets/quiz-wrong/svg/correct.svg" alt="" />
-							{:else}
-								<img src="/assets/quiz-wrong/svg/wrong.svg" alt="" />
-							{/if}
-						{/if}
-					</div> -->
 				</div>
-
 				<div class=" bg-[#ffdbb2] rounded-full h-[10px]">
-					<!-- <div
+					<div
 						class="bg-[#fcaf58] rounded-full h-[10px]"
-						style="width:{(questionPointer / questions.length) * 100}%"
-					/> -->
+						style="width:{(data.nextQuestion.Sequence / data.quiz.TotalNumberOfQuestions) * 100}%"
+					/>
 				</div>
 				<!-- {#if !(questionPointer > answers.length - 1)} -->
 				<div class="h-[400px] overflow-auto scrollbar-medium">
-					<p class=" text-left mt-3 mb-2 font-bold text-lg">
+					<p class=" text-left mt-3 mb-3 font-bold text-lg">
 						{data.nextQuestion.Title}
 					</p>
-					<div class=" flex flex-col items-center ">
-						<!-- {#each questions[questionPointer].options as opt, i} -->
-						<!--
-							<button
-								class=" {answers[questionPointer] == i ? 'selected' : ''} "
-								on:click={() => {
-									answers[questionPointer] = i;
-									handleAnswerClick(questionPointer, i);
-
-								}}
-							> -->
-						{#each options as option}
-							<button
-								on:click|once={(e) => handleChoiceClick(e, option.Sequence)}
-								id={data.nextQuestion.id}
-								name={data.nextQuestion.id}
-								disabled ={isAnswered && option.Sequence == data.nextQuestion.CorrectOption }
-								class="h-[65px] w-[340px] disabled:bg-[#fcaf58]  mt-4 first:mt-0 text-lg text-left font-normal pl-3 border tracking-normal rounded-lg bg-[#e3e3e3] active:bg-[#fcaf58] "
-							>
-								<div class=" flex relative ">
-									{option.Text}
-									{#if isAnswered}
-										{#if option.Sequence == data.nextQuestion.CorrectOption}
-											<img
-												class="absolute right-0 pr-3 "
-												src="/assets/quiz-wrong/svg/correct.svg"
-												alt=""
-											/>
-										{:else}
-											<img
-												class="absolute right-0 pr-3"
-												src="/assets/quiz-wrong/svg/wrong.svg"
-												alt=""
-											/>
-										{/if}
-									{/if}
-								</div>
-							</button>
-						{/each}
-
-						<!-- </button> -->
-
-						<!-- {/each} -->
-					</div>
+					{#if isMultichoice}
+						<QuizMultiChoice
+							options={options}
+							answerSubmitted={answerSubmitted}
+							on:answerSelected={onAnswerSelected}>
+						</QuizMultiChoice>
+					{:else}
+						<QuizSingleChoice
+							options={options}
+							correctSequence={correctSequence}
+							answerSubmitted={answerSubmitted}
+							on:answerSelected={onAnswerSelected}>
+						</QuizSingleChoice>
+					{/if}
 				</div>
 				<div class="flex justify-center">
 					<button
 						on:click|preventDefault={() => location.reload()}
-						id={data.nextQuestion.id}
-						name={data.nextQuestion.id}
-						class=" bg-[#5b7aa3] h-[52px] w-[340px] mt-4 mb-4 text-[#fff] justify-center rounded-lg"
+						id="submit"
+						name="submit"
+						disabled={!answerSubmitted}
+						class=" bg-[#5b7aa3] disabled:bg-[#7d7d7d] h-[52px] w-[340px] mt-4 mb-4 text-[#fff] justify-center rounded-lg"
 					>
-						NEXT QUESTION
+						SUBMIT
 					</button>
 				</div>
-				<!-- {:else} -->
-				<!-- <div class="flex flex-col ml-24 mt-10 justify-center ">
-						<h1 class="text-xl">
-
-						</h1>
-						<button
-							class="bg-[#5b7aa3] h-[52px] w-[160px] mt-4 text-[#fff] rounded-lg"
-
-						>
-							Restart
-						</button>
-					</div> -->
-				<!-- {/if} -->
 			</div>
 		</div>
-		<!-- <div class="h-[90px] w-[375px] bg-white" /> -->
 	</div>
 </div>
