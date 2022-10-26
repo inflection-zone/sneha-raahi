@@ -49,23 +49,7 @@
 		singleChoiceSelection = options.filter(x => x.Selected === true).find(e => typeof e !== 'undefined');
 	}
 
-	// const handleNextClick = async (e) => {
-	// 	console.log(e.currentTarget);
-	// 	const assessmentId = e.currentTarget.id;
-	// 	console.log(`Next quetion id = ${assessmentId}`);
-	// };
-
-	const submitSingleChoiceAnswer = async (sequence: number) => {
-		// await answerQuestion({
-		// 	sessionId: data.sessionId,
-		// 	assessmentId: assessmentId,
-		// 	assessmentQuestionId: questionId,
-		// 	responseType: responseType,
-		// 	answer: sequence
-		// });
-	};
-
-	const submitMultiChoiceAnswer = async (e, sequence: number) => {
+	const handleSubmit = async (e, sequences: number[]) => {
 		// await answerQuestion({
 		// 	sessionId: data.sessionId,
 		// 	assessmentId: assessmentId,
@@ -132,7 +116,7 @@
 				</div>
 				<div class="flex justify-center">
 					<button
-						on:click|preventDefault={() => location.reload()}
+						on:click|preventDefault={() => handleSubmit}
 						id="submit"
 						name="submit"
 						disabled={!answerSubmitted}
