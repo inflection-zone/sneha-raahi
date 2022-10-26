@@ -1,28 +1,22 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
 	let options = data.nextQuestion.Options;
+	const responseType = data.nextQuestion.ExpectedResponseType;
+	const isMultichoice = responseType === 'Multi Choice Selection';
+
+	const userId = $page.params.userId;
+	const learningJourneyId = $page.params.learningJourneyId;
+	const assessmentId = $page.params.quizId;
+	const questionId = $page.params.questionId;
+
 	let isAnswered = false;
 	let rightAnswer = false;
 
 	//console.log('Quiz', data.quiz);
 	console.log('Next quetion', data.nextQuestion);
-
-	const handleAnswerClick = async (e, answer: number) => {
-		console.log(e.currentTarget);
-		const assessmentTemplateId = e.currentTarget.id;
-		console.log(`Quiz template id = ${assessmentTemplateId}`);
-		await answerQuestion({
-			sessionId: data.sessionId,
-			assessmentId: data.quiz.id,
-			assessmentQuestionId: data.nextQuestion.id,
-			responseType: data.nextQuestion.ExpectedResponseType,
-			answer
-		});
-		isAnswered = true;
-		rightAnswer = data.nextQuestion.CorrectOption == answer;
-	};
 
 	async function answerQuestion(model) {
 		const response = await fetch(`/api/server/quiz-answer`, {
@@ -41,13 +35,33 @@
 	// 	console.log(`Next quetion id = ${assessmentId}`);
 	// };
 
+	const handleChoiceClick = async (e, answer: number) => {
+
+		console.log(e.currentTarget);
+		const assessmentTemplateId = e.currentTarget.id;
+		console.log(`Quiz template id = ${assessmentTemplateId}`);
+
+		if (isMultichoice) {
+
+		} else {
+			await answerQuestion({
+				sessionId: data.sessionId,
+				assessmentId: assessmentId,
+				assessmentQuestionId: questionId,
+				responseType: responseType,
+				answer
+			});
+			isAnswered = true;
+			rightAnswer = data.nextQuestion.CorrectOption == answer;
+		}
+
+
+	};
+
 </script>
 
 <div class="flex items-center justify-center mt-16">
-	<div
-		class="card  rounded-none card-bordered bg-[#5b7aa3] border-slate-400 w-[375px]
-	h-[812px]   shadow-none"
-	>
+	<div class="card  rounded-none card-bordered bg-[#5b7aa3] border-slate-400 w-[375px] h-[812px] shadow-none">
 		<div class="card w-[375px] h-[130px] bg-[#5b7aa3] shadow-none rounded-none border-none">
 			<div class="card-body">
 				<div class=" flex flex-row h-16 w-16">
@@ -61,13 +75,9 @@
 				</div>
 			</div>
 		</div>
-		<div
-			class="card card-compact w-[375px]
-		h-[700px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm  "
-		>
+		<div class="card card-compact w-[375px] h-[700px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm">
 			<div class="card-body ">
 				<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
-
 				<h2 class=" text-[#5b7aa3] flex tracking-widest justify-center font-bold text-base ">
 					QUIZ
 				</h2>
@@ -109,9 +119,8 @@
 								}}
 							> -->
 						{#each options as option}
-
 							<button
-								on:click|once={(e) => handleAnswerClick(e, option.Sequence)}
+								on:click|once={(e) => handleChoiceClick(e, option.Sequence)}
 								id={data.nextQuestion.id}
 								name={data.nextQuestion.id}
 								disabled ={isAnswered && option.Sequence == data.nextQuestion.CorrectOption }

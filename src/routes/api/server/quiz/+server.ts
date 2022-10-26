@@ -49,7 +49,6 @@ export const POST = async (event) => {
 		const response = await scheduleQuiz(
 			data.sessionId,
 			data.userId,
-			data.title,
 			data.assessmentTemplateId,
 			data.scheduledDate
 		);

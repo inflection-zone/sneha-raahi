@@ -8,10 +8,9 @@ export const getAllQuizTemplates = async (sessionId: string) => {
     return await get_(sessionId, url);
 };
 
-export const scheduleQuiz = async (sessionId: string, userId: string, title:string, assessmentTemplateId:string, scheduledDate:string) => {
+export const scheduleQuiz = async (sessionId: string, userId: string, assessmentTemplateId:string, scheduledDate:string) => {
     const create = {
         PatientUserId : userId,
-        Title : title,
         AssessmentTemplateId : assessmentTemplateId,
         ScheduledDate : scheduledDate
     };
