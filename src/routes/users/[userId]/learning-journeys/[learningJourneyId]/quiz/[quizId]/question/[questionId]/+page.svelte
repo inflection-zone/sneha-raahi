@@ -4,6 +4,7 @@
 	import { page } from '$app/stores';
 	import type { PageServerData } from './$types';
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 
 	export let data: PageServerData;
 	let options = data.nextQuestion.Options;
@@ -41,22 +42,41 @@
 			}
 		});
 		console.log('respose....', response);
+		return response;
 	}
 
 	const onAnswerSelected = () => {
 		answerSubmitted = options.filter(x => x.Selected === true).length > 0;
 		multiChoiceSelections = options.filter(x => x.Selected === true); //This is an array
 		singleChoiceSelection = options.filter(x => x.Selected === true).find(e => typeof e !== 'undefined');
+
+		console.log(`answerSubmitted = ${answerSubmitted}`);
+		console.log(`multiChoiceSelections = ${multiChoiceSelections}`);
+		console.log(`singleChoiceSelection = ${singleChoiceSelection}`);
 	}
 
 	const handleSubmit = async (e, sequences: number[]) => {
-		// await answerQuestion({
-		// 	sessionId: data.sessionId,
-		// 	assessmentId: assessmentId,
-		// 	assessmentQuestionId: questionId,
-		// 	responseType: responseType,
-		// 	answer: sequence
-		// });
+
+		let answerModel = {
+			sessionId: data.sessionId,
+			userId: $page.params.userId,
+			learningJourneyId: $page.params.learningJourneyId,
+			assessmentId: assessmentId,
+			assessmentQuestionId: questionId,
+			responseType: responseType,
+		};
+		if (isMultichoice) {
+			const answerArray = multiChoiceSelections.map(x => x?.Sequence);
+			answerModel['answer'] = answerArray;
+		}
+		else {
+			answerModel['answer'] = singleChoiceSelection?.Sequence;
+		}
+
+		const response = await answerQuestion(answerModel);
+		const redirectPath = await response.text();
+		console.log(redirectPath);
+		goto(redirectPath);
 	};
 
 </script>
@@ -116,7 +136,7 @@
 				</div>
 				<div class="flex justify-center">
 					<button
-						on:click|preventDefault={() => handleSubmit}
+						on:click|preventDefault={async () => handleSubmit}
 						id="submit"
 						name="submit"
 						disabled={!answerSubmitted}

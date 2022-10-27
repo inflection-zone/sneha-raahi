@@ -44,7 +44,7 @@ export const getQuestionById = async (sessionId: string,  assessmentId: string, 
     return await get_(sessionId, url);
 };
 
-export const answerQuestion = async (sessionId: string, assessmentId: string, assessmentQuestionId:string, responseType: string, answer: number ) => {
+export const answerQuestion = async (sessionId: string, assessmentId: string, assessmentQuestionId:string, responseType: string, answer: number|number[]|string ) => {
     const url = BACKEND_API_URL + `/clinical/assessments/${assessmentId}/questions/${assessmentQuestionId}/answer`;
     const create = {
         ResponseType: responseType,
