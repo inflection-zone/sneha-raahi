@@ -23,15 +23,15 @@ export class Helper {
             return false;
 
         return true;
-    }
+    };
 
     static hasProperty = (obj, prop) => {
         return Object.prototype.hasOwnProperty.call(obj, prop);
-    }
+    };
 
     static isEmpty = (obj) => {
         return Object.keys(obj).length === 0 && obj.constructor === Object;
-    }
+    };
 
     static isOtp = (str: string): boolean => {
         if (str.length < 4 || str.length > 6) {
@@ -47,7 +47,7 @@ export class Helper {
             }
         }
         return true;
-    }
+    };
 
     static isUrl = (str) => {
         if (!str) {
@@ -59,7 +59,7 @@ export class Helper {
         } catch (err) {
             return false;
         }
-    }
+    };
 
     static formatDate = (date) => {
         const d = new Date(date);
@@ -86,7 +86,8 @@ export class Helper {
             }
         }
         return true;
-    }
+    };
+
     static sanitizePhone = (phone: string): string => {
         if (!phone) {
             return phone;
@@ -124,6 +125,13 @@ export class Helper {
             }
         }
         return false;
+    };
+
+    static createResponse = (action: 'message' | 'redirect' | 'error', content: string) => {
+        return new Response(JSON.stringify({
+			action: action,
+			content: content
+		}))
     };
 
 }

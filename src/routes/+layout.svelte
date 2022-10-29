@@ -2,16 +2,20 @@
     import '../app.postcss';
     import Navbar from '../lib/components/navbar/nav.svelte';
     import Toasts from '$lib/components/toast/toasts.svelte';
-	  import { browser } from '$app/environment';
+    import Popup from '$lib/components/popup/popup.svelte';
+	  import Modal from '$lib/components/popup/modal.svelte';
+    import { modal } from '$lib/components/popup/store';
+    import { navbarDisplay } from '$lib/components/navbar/navbar.display.store';
 </script>
-
-  <Navbar/>
 
   <!-- {#if browser } -->
     <Toasts/>
   <!-- {/if} -->
 
 <slot>
-  <main>
-  </main>
+  <!-- <Modal show={$modal}> -->
+    <main>
+    </main>
+  <!-- </Modal> -->
+
 </slot>

@@ -150,10 +150,7 @@
 					</div>
 				</div>
 			{/if}
-
-			<div
-				class="card  rounded-none card-bordered border-slate-400 w-[375px]
-		h-[812px]  bg-[#5b7aa3]  shadow-none"
+			<div class="card  rounded-none card-bordered border-slate-400 w-[375px] h-[812px]  bg-[#5b7aa3]  shadow-none"
 			>
 				<div class="card w-[375px] h-[406px] shadow-none rounded-none border-none">
 					<div class="card-body ">
@@ -174,10 +171,7 @@
 						<a href={notificationsLink}> <img src="/assets/home/png/notification.png" alt="" /></a>
 					</div>
 				</div>
-				<div
-					class="card card-compact w-[375px]
-			h-[590px]  bg-base-100  rounded-none rounded-t-[44px] shadow-none "
-				>
+				<div class="card card-compact w-[375px] h-[590px]  bg-base-100  rounded-none rounded-t-[44px] shadow-none ">
 					<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
 					<div class="card-body h-[450px] place-content-around ">
 						<div class="overflow-auto h-[550px] scrollbar  scrollbar-medium">

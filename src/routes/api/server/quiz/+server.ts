@@ -4,6 +4,7 @@ import {
 	scheduleQuiz,
 	startQuiz } from "../../services/quiz";
 import { updateUserLearning } from "../../services/learning";
+import { Helper } from "$lib/utils/helper";
 
 //////////////////////////////////////////////////////////////
 
@@ -33,16 +34,16 @@ export const POST = async (event) => {
 				userId,
 				courseContentId
 			);
-			console.log(response.message);
-			const redirectPath = `/users/${data.userId}/learning-journeys/${learningJourneyId}`;
-			return redirectPath;
+			console.log(`isCompleted: ${JSON.stringify(response, null, 2)}`);
+			// const redirectPath = `/users/${data.userId}/learning-journeys/${learningJourneyId}`;
+			return Helper.createResponse('message', 'Course is already completed!');
 		} else {
 			const _nextQuestion = await getNextQuestion(sessionId, assessmentId);
 			const nextQuestion = _nextQuestion.Next;
 			const nextQuestionId = nextQuestion.id;
 			const redirectPath = `/users/${userId}/learning-journeys/${learningJourneyId}/quiz/${assessmentId}/question/${nextQuestionId}`;
-			console.log(redirectPath);
-			return new Response(redirectPath);
+			console.log(`is not completed...`);
+			return Helper.createResponse('redirect', redirectPath);
 		}
 	}
 	else {
@@ -64,7 +65,7 @@ export const POST = async (event) => {
 		const nextQuestionId = nextQuestion.id;
 		const redirectPath = `/users/${data.userId}/learning-journeys/${learningJourneyId}/quiz/${assessmentId}/question/${nextQuestionId}`;
 		console.log(redirectPath);
-		return new Response(redirectPath);
+		return Helper.createResponse('redirect', redirectPath);
 	}
 };
 

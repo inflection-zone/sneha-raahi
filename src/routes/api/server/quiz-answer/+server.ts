@@ -21,7 +21,7 @@ export const POST = async ({ request }) => {
 		);
         console.log('Answer response',response)
 		console.log('Answer question response', JSON.stringify(response, null, 2));
-		const nextQuestion = response.Next;
+		const nextQuestion = response.AnswerResponse?.Next;
 		if (nextQuestion) {
 			const nextQuestionId = nextQuestion.id;
 			const redirectPath = `/users/${userId}/learning-journeys/${learningJourneyId}/quiz/${assessmentId}/question/${nextQuestionId}`;
