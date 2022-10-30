@@ -8,14 +8,13 @@
     import { navbarDisplay } from '$lib/components/navbar/navbar.display.store';
 </script>
 
-  <!-- {#if browser } -->
-    <Toasts/>
-  <!-- {/if} -->
+<!-- {#if browser } -->
+  <Toasts/>
+<!-- {/if} -->
 
+<!-- <Modal show={$modal}> -->
 <slot>
-  <!-- <Modal show={$modal}> -->
     <main>
     </main>
-  <!-- </Modal> -->
-
 </slot>
+<!-- </Modal> -->

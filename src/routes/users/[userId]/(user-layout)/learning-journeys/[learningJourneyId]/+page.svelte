@@ -3,7 +3,7 @@
 	import Image from '$lib/components/image.svelte';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import { errorMessage, successMessage } from '$lib/utils/message.utils';
+	import { errorMessage, showMessage, successMessage } from '$lib/utils/message.utils';
 
 	export let data: PageServerData;
 	let learningJourney = data.learningPath;
@@ -63,19 +63,20 @@
 			const text = await response.text();
 			const resp = JSON.parse(text);
 			console.log(resp.action);
+			console.log(resp.content);
 			if (resp.action === 'message') {
-				successMessage(resp.content);
+				showMessage(resp.content, "info", true, 3500);
 			}
 			else if (resp.action == 'redirect') {
 				goto(resp.content);
 			}
 			else {
-				errorMessage(resp.content);
+				showMessage(resp.content, "error", true, 3500);
 			}
 		}
 		else {
 			const errmsg = `Content type is not yet handled!`;
-			errorMessage(errmsg)
+			showMessage(errmsg, "error", true, 3500);
 			console.log(errmsg);
 		}
 	};

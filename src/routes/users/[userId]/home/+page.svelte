@@ -5,6 +5,7 @@
     import { page } from '$app/stores';
     import Navbar from '$lib/components/navbar/nav.svelte';
     import { navbarDisplay } from '$lib/components/navbar/navbar.display.store';
+    import Toasts from '$lib/components/toast/toasts.svelte';
 
 	let userId = $page.params.userId;
 	export let data: PageServerData;

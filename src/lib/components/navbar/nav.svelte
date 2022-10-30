@@ -90,7 +90,7 @@
     <div class="card rounded-none w-[855px]  h-[812px] bg-[#DFE7FD]">
         <div class="mt-10">
             <ul class="p-4 overflow-y-auto  w-[370px] h-[800px] text-base-content bg-[#DFE7FD]">
-                <div class="relative flex items-center ">
+                <!-- <div class="relative flex items-center ">
                     <input
                         placeholder="Search"
                         class=" text-[#5b7aa3] h-[40px] w-[220px] px-3 border rounded-3xl my-5 text-lg bg-[#B6C6E0]  "
@@ -99,6 +99,13 @@
                         class="absolute right-32  pr-3"
                         src="/assets/home-sidebar/png/search-icon.png"
                         alt=""
+                    />
+                </div> -->
+                <div class="flex flex-col items-start justify-left h mb-6 ml-2">
+                    <img
+                        src="/assets/about-raahi/png/logo.png"
+                        alt=""
+                        class="w-[110px] h-[50px] mt-[10px] object-contain  "
                     />
                 </div>
                 <div class="grid grid-cols gap-2 ">
