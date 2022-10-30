@@ -44,9 +44,18 @@ export const handleError: HandleServerError = ( obj ) => {
     const error = obj.error as App.Error;
     const event = obj.event;
     const sessionUser = event.locals.sessionUser;
+    let code = error?.code ? error?.code : null;
+    if (code == null) {
+        if(error?.message?.startsWith('Not found')) {
+            code = 400;
+        }
+        else {
+            code = 500;
+        }
+    }
     return {
         message: error?.message,
-        code: error?.code ?? 500,
+        code: code,
         userId: sessionUser?.userId ?? null
     }
 };
