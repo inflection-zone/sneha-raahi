@@ -20,7 +20,7 @@
         learningHomeLink = `/users/${userId}/my-learnings`;
         myProfileLink = `/users/${userId}/my-profile`;
         askSnehaLink = `/users/${userId}/ask-sneha`;
-        newsFeedLink = `/newsfeed`;
+        newsFeedLink = `/users/${userId}/newsfeed`;
         chatLink = `/users/${userId}/chat-home`;
         linkagesLink = `/users/${userId}/linkages`;
     });

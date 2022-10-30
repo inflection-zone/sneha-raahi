@@ -8,7 +8,7 @@ export const load: PageServerLoad = async (event) => {
         const sessionId = event.cookies.get('sessionId');
         const userId = event.params.userId;
         const allLinkages = await getAllLinkages(sessionId);
-        //console.log(`\n All linkages = ${JSON.stringify(allLinkages)}`);
+        console.log(`All linkages = ${JSON.stringify(allLinkages)}`);
         return {
             userId,
             allLinkages

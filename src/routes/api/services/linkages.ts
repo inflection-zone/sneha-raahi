@@ -3,34 +3,34 @@ import { get_, post_, put_} from "./common";
 ////////////////////////////////////////////////////////////////
 
 export const getAllLinkages = async (sessionId: string) => {
-    const url = BACKEND_API_URL + '/notices/search';
+    const url = BACKEND_API_URL + '/general/notices/search';
     return await get_(sessionId, url);
 };
 
 export const getLinkageById = async (sessionId: string, noticeId: string) => {
-    const url = BACKEND_API_URL + `/notices/${noticeId}`;
+    const url = BACKEND_API_URL + `/general/notices/${noticeId}`;
     return await get_(sessionId, url);
 };
 
 export const createNoticeAction = async (sessionId: string, noticeId: string, userId: string, action:string, title: string, resourseId: string ) => {
-    const url = BACKEND_API_URL + `/notices/${noticeId}/users/${userId}/take-action`;
-      const createModel = 
+    const url = BACKEND_API_URL + `/general/notices/${noticeId}/users/${userId}/take-action`;
+      const createModel =
         {
-        NoticeId : noticeId,
-        Action      : action,
-        Contents    : [
-            {
-                Title : title,
-                ResourceId: resourseId
-            }
-        ],
+            NoticeId : noticeId,
+            Action      : action,
+            Contents    : [
+                {
+                    Title : title,
+                    ResourceId: resourseId
+                }
+            ],
         };
     return await post_(sessionId, url, createModel) ;
 };
 
 export const updateNotice = async (sessionId: string, noticeId: string,) => {
-    const url = BACKEND_API_URL + `/notices/${noticeId}`;
-    const updateModel = 
+    const url = BACKEND_API_URL + `/general/notices/${noticeId}`;
+    const updateModel =
     {
     NoticeId : noticeId,
     Action   :'Applied'
