@@ -1,6 +1,5 @@
 <script lang="ts">
     import { navbarDisplay } from './navbar.display.store';
-    import { fly } from 'svelte/transition';
 	import { onDestroy, onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 
@@ -33,6 +32,11 @@
 		console.log(`toggling the sidebar`);
         $navbarDisplay = !$navbarDisplay;
 	}
+
+    const gotoHome = () => {
+        toggleSidebar();
+        goto(homeLink);
+    }
 
     const gotoMyProfile = () => {
         toggleSidebar();
@@ -98,12 +102,10 @@
                     />
                 </div>
                 <div class="grid grid-cols gap-2 ">
-                    <a href= {homeLink}>
-                        <button class="flex flex-rows">
-                            <img src="/assets/home-sidebar/svg/home-sidebar.svg" alt="" class="my-2 mx-4" />
-                            <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">home</h3>
-                        </button>
-                    </a>
+                    <button class="flex flex-rows"  on:click={gotoHome}>
+                        <img src="/assets/home-sidebar/svg/home-sidebar.svg" alt="" class="my-2 mx-4" />
+                        <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">home</h3>
+                    </button>
                     <button class="flex flex-rows" on:click={gotoMyProfile}>
                         <img src="/assets/home-sidebar/png/my-profile-sidebar.png" alt="" class="my-2 mx-4"/>
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">my profile</h3>

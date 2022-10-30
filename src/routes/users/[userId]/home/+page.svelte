@@ -2,10 +2,13 @@
 	import { show } from "$lib/utils/message.utils";
 	import { onMount } from "svelte";
 	import type { PageServerData } from "./$types";
+    import { page } from '$app/stores';
+    import Navbar from '$lib/components/navbar/nav.svelte';
+    import { navbarDisplay } from '$lib/components/navbar/navbar.display.store';
 
-	let showSidebar = false;
+	let userId = $page.params.userId;
 	export let data: PageServerData;
-	let userId;
+
 	let learningHomeLink;
 	let myProfileLink;
 	let askSnehaLink;
@@ -13,12 +16,16 @@
 	let chatLink;
 	let linkagesLink;
 	let notificationsLink
-	let homeLink
+
 	//console.log(`${JSON.stringify(data, null, 2)}`);
+
+	const toggleSidebar = () => {
+        console.log(`Sidebar toggled: ${$navbarDisplay}`);
+        $navbarDisplay = !$navbarDisplay;
+	}
 
 	onMount(()=>{
 		userId = data.userId;
-		homeLink = `/users/${userId}/home`
 		learningHomeLink = `/users/${userId}/my-learnings`;
 		myProfileLink = `/users/${userId}/my-profile`;
 		askSnehaLink = `/users/${userId}/ask-sneha`;
@@ -42,120 +49,12 @@
 <div class="grid gird-cols justify-center items-center">
 	<div class="w-[375px] h-[812px]">
 		<div class="flex  items-center justify-center  mt-16">
-			{#if showSidebar}
-				<div class="card rounded-none w-[855px]  h-[812px] bg-[#DFE7FD] " >
-					<div class="mt-10 ">
-						<ul class=" p-4 overflow-y-auto  w-[370px] h-[800px] text-base-content ">
-							<div class="relative flex items-center ">
-								<input
-									placeholder="Search"
-									class=" text-[#5b7aa3] h-[40px] w-[220px] px-3 border rounded-3xl my-5 text-lg bg-[#B6C6E0]  "
-								/>
-								<img
-									class="absolute right-32  pr-3"
-									src="/assets/home-sidebar/png/search-icon.png"
-									alt=""
-								/>
-							</div>
-							<div class="grid grid-cols gap-2 ">
-								<a href= {homeLink}>
-									<button class="flex flex-rows  ">
-										<img src="/assets/home-sidebar/svg/home-sidebar.svg" alt="" class="my-2 mx-4" />
-										<h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">home</h3>
-									</button>
-								</a>
-								<a href={myProfileLink}>
-									<button class="flex flex-rows  ">
-										<img
-											src="/assets/home-sidebar/png/my-profile-sidebar.png"
-											alt=""
-											class="my-2 mx-4"
-										/>
-										<h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">
-											my profile
-										</h3>
-									</button>
-								</a>
-								<a href={learningHomeLink}>
-									<button class="flex flex-rows ">
-										<img
-											src="/assets/home-sidebar/png/my-learning-sidebar.png"
-											alt=""
-											class="my-2 mx-4"
-										/>
-										<h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">
-											my learning
-										</h3>
-									</button>
-								</a>
-								<a href={chatLink}>
-									<button class="flex flex-rows  ">
-										<img src="/assets/home-sidebar/png/chat-sidebar.png" alt="" class="my-2 mx-4" />
-										<h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">chat</h3>
-									</button></a
-								>
-								<a href={newsFeedLink}>
-									<button class="flex flex-rows">
-										<img
-											src="/assets/home-sidebar/png/newsfeed-sidebar.png"
-											alt=""
-											class="my-2 mx-4"
-										/>
-										<h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">
-											newsfeed
-										</h3>
-									</button></a
-								>
-								<a href={linkagesLink}>
-									<button class="flex flex-rows ">
-										<img
-											src="/assets/home-sidebar/png/linkages-sidebar.png"
-											alt=""
-											class="my-2 mx-4"
-										/>
-										<h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">
-											linkages
-										</h3>
-									</button>
-								</a>
-								<a href={askSnehaLink}>
-									<button class="flex flex-rows">
-										<img
-											src="/assets/home-sidebar/png/ask-sneha-sidebar.png"
-											alt=""
-											class="my-2 mx-4"
-										/>
-										<h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">
-											ask sneha
-										</h3>
-									</button>
-								</a>
-								<button class="flex flex-rows ">
-									<img
-										src="/assets/home-sidebar/png/settings-sidebar.png"
-										alt=""
-										class="my-2 mx-4"
-									/>
-									<h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">
-										settings
-									</h3>
-								</button>
-
-								<div class="flex flex-col  text-[#5B7AA3] cursor-pointer">
-									<button class="ml-4 mr-8 mt-24 text-start   text-[#5B7AA3] text-base "> LOGOUT</button>
-									<button class="ml-4  mt-4 text-base text-start  ">ABOUT SNEHA</button>
-								</div>
-							</div>
-						</ul>
-					</div>
-				</div>
-			{/if}
-			<div class="card  rounded-none card-bordered border-slate-400 w-[375px] h-[812px]  bg-[#5b7aa3]  shadow-none"
-			>
+			<Navbar userId={userId}/>
+			<div class="card  rounded-none card-bordered border-slate-400 w-[375px] h-[812px]  bg-[#5b7aa3]  shadow-none">
 				<div class="card w-[375px] h-[406px] shadow-none rounded-none border-none">
 					<div class="card-body ">
 						<div class=" flex flex-row h-16 w-16">
-							<button on:click={() => (showSidebar = !showSidebar)}>
+							<button on:click={toggleSidebar}>
 								<img src="/assets/home/svg/menu.svg" alt="" />
 							</button>
 							<img class="absolute right-0 " src="/assets/home/png/profile-settings.png" alt="" />
