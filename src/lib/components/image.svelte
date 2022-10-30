@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { browser } from "$app/environment";
-    import { liveQuery } from "dexie";
     import { db } from '$lib/utils/local.db';
 	import { Helper } from "$lib/utils/helper";
 

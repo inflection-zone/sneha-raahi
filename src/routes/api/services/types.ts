@@ -1,5 +1,6 @@
 import { API_CLIENT_INTERNAL_KEY, BACKEND_API_URL } from "$env/static/private";
 import type { PersonRole} from "$lib/types/domain.models";
+import { error } from '@sveltejs/kit';
 
 /////////////////////////////////////////////////////////////////////
 
@@ -24,9 +25,10 @@ export const getPersonRoles = async (): Promise<PersonRole[]> => {
         }
         return response.Data.PersonRoleTypes;
     }
-    catch (error) {
-        console.error(`Error retrieving Person roles: ${error.message}`);
-        return [];
+    catch (err) {
+        const errmsg = `Error retrieving person roles: ${err.message}`;
+        console.log(errmsg);
+        throw error(500, errmsg);
     }
 }
 
@@ -60,8 +62,9 @@ export const getGenderTypes = async () : Promise<string[]> => {
 
         return response.Data.GenderTypes;
     }
-    catch (error) {
-        console.error(`Error retrieving gender types: ${error.message}`);
-        return [];
+    catch (err) {
+        const errmsg = `Error retrieving gender types: ${err.message}`;
+        console.log(errmsg);
+        throw error(500, errmsg);
     }
 }

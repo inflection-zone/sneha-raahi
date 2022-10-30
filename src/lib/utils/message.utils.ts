@@ -2,7 +2,7 @@ import { addToast } from '$lib/components/toast/toast.store';
 
 export const showMessage = (
     message: string,
-    type: string,
+    type: "success" | "error" | "info",
     dismissible = true,
     timeout = 3500) => {
     addToast({
