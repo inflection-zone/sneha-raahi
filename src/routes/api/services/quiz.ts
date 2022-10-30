@@ -8,10 +8,9 @@ export const getAllQuizTemplates = async (sessionId: string) => {
     return await get_(sessionId, url);
 };
 
-export const scheduleQuiz = async (sessionId: string, userId: string, title:string, assessmentTemplateId:string, scheduledDate:string) => {
+export const scheduleQuiz = async (sessionId: string, userId: string, assessmentTemplateId:string, scheduledDate:string) => {
     const create = {
         PatientUserId : userId,
-        Title : title,
         AssessmentTemplateId : assessmentTemplateId,
         ScheduledDate : scheduledDate
     };
@@ -19,12 +18,18 @@ export const scheduleQuiz = async (sessionId: string, userId: string, title:stri
     return await post_(sessionId, url, create);
 };
 
-export const startQuiz = async (sessionId: string, assessmentId: string,) => {
+export const getQuizByTemplateIdForUser = async (sessionId: string, assessmentTemplateId: string, userId: string) => {
+    const searchParams = `?templateId=${assessmentTemplateId}&patientUserId=${userId}`
+    const url = BACKEND_API_URL + `/clinical/assessments/search` + searchParams;
+    return await get_(sessionId, url);
+};
+
+export const startQuiz = async (sessionId: string, assessmentId: string) => {
     const url = BACKEND_API_URL + `/clinical/assessments/${assessmentId}/start`;
     return await post_(sessionId, url,{});
 };
 
-export const getQuizById = async (sessionId: string,  assessmentId: string ) => {
+export const getQuizById = async (sessionId: string,  assessmentId: string) => {
     const url = BACKEND_API_URL + `/clinical/assessments/${assessmentId}`;
     return await get_(sessionId, url);
 };
@@ -39,7 +44,7 @@ export const getQuestionById = async (sessionId: string,  assessmentId: string, 
     return await get_(sessionId, url);
 };
 
-export const answerQuestion = async (sessionId: string, assessmentId: string, assessmentQuestionId:string, responseType: string, answer: number ) => {
+export const answerQuestion = async (sessionId: string, assessmentId: string, assessmentQuestionId:string, responseType: string, answer: number|number[]|string ) => {
     const url = BACKEND_API_URL + `/clinical/assessments/${assessmentId}/questions/${assessmentQuestionId}/answer`;
     const create = {
         ResponseType: responseType,

@@ -1,6 +1,6 @@
 
 import type { RequestEvent } from '@sveltejs/kit';
-import { sendOtp } from '../api/auth/send.otp';
+import { sendOtp } from '../api/services/user';
 import { redirect } from 'sveltekit-flash-message/server';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 
