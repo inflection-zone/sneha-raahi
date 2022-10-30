@@ -1,10 +1,9 @@
-import type { Handle } from '@sveltejs/kit';
-import * as cookie from 'cookie';
+import type { Handle, HandleServerError } from '@sveltejs/kit';
 import { SessionManager } from './routes/api/session.manager';
 
 export const handle: Handle = async ({ event, resolve }) => {
 
-    console.log(`I am inside hooks`);
+    console.log(`Inside hooks`);
     // console.log(`path - ${event.request.url}`);
     // console.log(`request = ${JSON.stringify(event.request, null, 2)}`);
     // console.log(`headers = ${JSON.stringify(event.request.headers, null, 2)}`);
@@ -39,6 +38,17 @@ export const handle: Handle = async ({ event, resolve }) => {
     }
     console.log(`returning from hooks`);
     return await resolve(event);
+};
+
+export const handleError: HandleServerError = ( obj ) => {
+    const error = obj.error as App.Error;
+    const event = obj.event;
+    const sessionUser = event.locals.sessionUser;
+    return {
+        message: error?.message,
+        code: error?.code ?? 500,
+        userId: sessionUser?.userId ?? null
+    }
 };
 
 export function getSession(event) {
