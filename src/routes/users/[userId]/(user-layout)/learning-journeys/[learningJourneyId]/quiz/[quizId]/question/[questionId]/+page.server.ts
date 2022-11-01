@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 import * as cookie from 'cookie';
-import { getNextQuestion, getQuizById } from '../../../../../../../../api/services/quiz';
+import { getNextQuestion, getQuizById } from '../../../../../../../../../api/services/quiz';
 
 ////////////////////////////////////////////////////////////////////////
 
