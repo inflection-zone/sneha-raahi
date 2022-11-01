@@ -3,7 +3,7 @@ import {
 	getQuizByTemplateIdForUser,
 	scheduleQuiz,
 	startQuiz } from "../../services/quiz";
-import { updateUserLearning } from "../../services/learning";
+import { ProgressStatus, updateUserLearning } from "../../services/learning";
 import { Helper } from "$lib/utils/helper";
 
 //////////////////////////////////////////////////////////////
@@ -22,7 +22,9 @@ export const POST = async (event) => {
 		data.sessionId,
 		data.assessmentTemplateId,
 		data.userId);
+
 	//console.log(JSON.stringify(userAssessmentsResponse));
+
 	const existingCount = userAssessmentsResponse.AssessmentRecords?.Items?.length;
 	if (existingCount > 0) {
 		const existingAssessment = userAssessmentsResponse.AssessmentRecords?.Items[0];
@@ -40,9 +42,18 @@ export const POST = async (event) => {
 		} else {
 			const _nextQuestion = await getNextQuestion(sessionId, assessmentId);
 			const nextQuestion = _nextQuestion.Next;
-			const nextQuestionId = nextQuestion.id;
+			const nextQuestionId = nextQuestion?.id;
 			const redirectPath = `/users/${userId}/learning-journeys/${learningJourneyId}/quiz/${assessmentId}/question/${nextQuestionId}`;
 			console.log(`is not completed...`);
+			const percentageProgress = ((nextQuestion?.Sequence?? 0) / existingAssessment?.TotalNumberOfQuestions) * 100;
+			const response = await updateUserLearning(
+				sessionId,
+				userId,
+				courseContentId,
+				ProgressStatus.InProgress,
+				percentageProgress,
+			);
+			console.log(`quiz progress: ${JSON.stringify(response, null, 2)}`);
 			return Helper.createResponse('redirect', redirectPath);
 		}
 	}

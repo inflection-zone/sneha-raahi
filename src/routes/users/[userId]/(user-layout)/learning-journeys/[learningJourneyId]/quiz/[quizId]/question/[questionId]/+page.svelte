@@ -55,7 +55,7 @@
 		console.log(`singleChoiceSelection = ${singleChoiceSelection}`);
 	}
 
-	const handleSubmit = async (e, sequences: number[]) => {
+	const handleSubmit = async () => {
 
 		let answerModel = {
 			sessionId: data.sessionId,
@@ -64,10 +64,13 @@
 			assessmentId: assessmentId,
 			assessmentQuestionId: questionId,
 			responseType: responseType,
+			questionSequence: data.nextQuestion.Sequence,
+			totalNumberOfQuestions: data.quiz.TotalNumberOfQuestions,
 		};
 		if (isMultichoice) {
 			const answerArray = multiChoiceSelections.map(x => x?.Sequence);
 			answerModel['answer'] = answerArray;
+			console.log(`${JSON.stringify(answerArray)}`);
 		}
 		else {
 			answerModel['answer'] = singleChoiceSelection?.Sequence;
@@ -76,7 +79,8 @@
 		const response = await answerQuestion(answerModel);
 		const redirectPath = await response.text();
 		console.log(redirectPath);
-		goto(redirectPath);
+		window.location.href = redirectPath;
+		//goto(redirectPath);
 	};
 
 </script>
@@ -121,7 +125,7 @@
 		</div>
 		<div class="flex justify-center">
 			<button
-				on:click|preventDefault={async () => handleSubmit}
+				on:click={handleSubmit}
 				id="submit"
 				name="submit"
 				disabled={!answerSubmitted}
