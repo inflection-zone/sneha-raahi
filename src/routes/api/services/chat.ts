@@ -35,6 +35,22 @@ export const getConversationById = async (sessionId: string, conversationId: str
     return await get_(sessionId, url);
 };
 
+export const markConversationAsFavourite = async (sessionId: string, conversationId: string) => {
+    const url = BACKEND_API_URL + `/chats/conversations/${conversationId}`;
+    const body = {
+        Marked: true,
+    };
+    return await put_(sessionId, url, body);
+};
+
+export const unmarkConversationAsFavourite = async (sessionId: string, conversationId: string) => {
+    const url = BACKEND_API_URL + `/chats/conversations/${conversationId}`;
+    const body = {
+        Marked: false,
+    };
+    return await put_(sessionId, url, body);
+};
+
 export const getMessageById = async (sessionId: string, messageId: string) => {
     const url = BACKEND_API_URL + `/chats/messages/${messageId}`;
     return await get_(sessionId, url);
@@ -50,5 +66,15 @@ export const updateMessageById = async (sessionId: string, messageId: string, ne
 
 export const deleteMessage = async (sessionId: string, messageId: string) => {
     const url = BACKEND_API_URL + `/chats/messages/${messageId}`;
+    return await delete_(sessionId, url);
+};
+
+export const getMyFavouriteConversations = async (sessionId: string, userId: string) => {
+    const url = BACKEND_API_URL + `/chats/users/${userId}/conversations/marked`;
+    return await delete_(sessionId, url);
+};
+
+export const getMyRecentConversations = async (sessionId: string, userId: string) => {
+    const url = BACKEND_API_URL + `/chats/users/${userId}/conversations/recent`;
     return await delete_(sessionId, url);
 };

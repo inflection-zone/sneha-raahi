@@ -47,6 +47,7 @@ async function loadStaticFeeds() {
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function loadRSSFeeds() {
   const newsItems = [];
   const newsFeeds = [];
