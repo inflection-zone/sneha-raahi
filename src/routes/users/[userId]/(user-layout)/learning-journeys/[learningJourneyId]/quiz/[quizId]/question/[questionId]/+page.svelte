@@ -34,7 +34,7 @@
 	const questionId = $page.params.questionId;
 
 	async function answerQuestion(model) {
-		const response = await fetch(`/api/server/quiz-answer`, {
+		const response = await fetch(`/api/server/quiz/answer-question`, {
 			method: 'POST',
 			body: JSON.stringify(model),
 			headers: {

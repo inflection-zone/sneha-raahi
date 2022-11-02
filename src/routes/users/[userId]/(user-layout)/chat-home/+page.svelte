@@ -32,15 +32,15 @@
 		});
 	}
 
-	async function takeQuiz(model) {
-		return await fetch(`/api/server/quiz`, {
-			method: 'POST',
-			body: JSON.stringify(model),
-			headers: {
-				'content-type': 'application/json'
-			}
-		});
-	}
+	// async function takeQuiz(model) {
+	// 	return await fetch(`/api/server/quiz`, {
+	// 		method: 'POST',
+	// 		body: JSON.stringify(model),
+	// 		headers: {
+	// 			'content-type': 'application/json'
+	// 		}
+	// 	});
+	// }
 
 	const handleCourseContentClick = async (e,
 		resourceLink: string,
@@ -61,30 +61,30 @@
 			//TODO: Please use video embedding rather than switching to different page
 			window.location.href = resourceLink;
 		}
-		else if (contentType === 'Assessment') {
-			const quizModel = {
-				sessionId: data.sessionId,
-				userId: data.userId,
-				assessmentTemplateId: actionTemplateId,
-				courseContentId: contentId,
-				learningJourneyId: $page.params.learningJourneyId,
-				scheduledDate: new Date(),
-			};
-			const response = await takeQuiz(quizModel);
-			const text = await response.text();
-			const resp = JSON.parse(text);
-			console.log(resp.action);
-			console.log(resp.content);
-			if (resp.action === 'message') {
-				showMessage(resp.content, "info", true, 3500);
-			}
-			else if (resp.action == 'redirect') {
-				goto(resp.content);
-			}
-			else {
-				showMessage(resp.content, "error", true, 3500);
-			}
-		}
+		// else if (contentType === 'Assessment') {
+		// 	const quizModel = {
+		// 		sessionId: data.sessionId,
+		// 		userId: data.userId,
+		// 		assessmentTemplateId: actionTemplateId,
+		// 		courseContentId: contentId,
+		// 		learningJourneyId: $page.params.learningJourneyId,
+		// 		scheduledDate: new Date(),
+		// 	};
+		// 	const response = await takeQuiz(quizModel);
+		// 	const text = await response.text();
+		// 	const resp = JSON.parse(text);
+		// 	console.log(resp.action);
+		// 	console.log(resp.content);
+		// 	if (resp.action === 'message') {
+		// 		showMessage(resp.content, "info", true, 3500);
+		// 	}
+		// 	else if (resp.action == 'redirect') {
+		// 		goto(resp.content);
+		// 	}
+		// 	else {
+		// 		showMessage(resp.content, "error", true, 3500);
+		// 	}
+		// }
 		else {
 			const errmsg = `Content type is not yet handled!`;
 			showMessage(errmsg, "error", true, 3500);
