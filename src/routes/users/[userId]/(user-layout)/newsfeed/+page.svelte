@@ -1,22 +1,18 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
-	import { communityNewsFeeds ,raahiNewsFeeds } from '$lib/store/general.store';
+	import { communityNewsFeeds, raahiNewsFeeds } from '$lib/store/general.store';
 	import { page } from '$app/stores';
 
 	export let data: PageServerData;
 	const userId = $page.params.userId;
 	let newsItems = data.newsItems;
-	// let newsFeeds = data.newsFeeds;
 	let showRaahiUpdates = true;
-
 </script>
 
 <div class="card card-compact card-bordered w-[375px] h-[680px] bg-base-100  rounded-none rounded-t-[44px] shadow-sm">
 	<div class="card-body ">
 		<button class="h-[5px] w-[73px] bg-[#e3e3e3] ml-[8.5rem] mt-2 rounded" />
-		<h2
-			class=" text-[#5b7aa3] flex  justify-center uppercase tracking-widest font-bold text-base "
-		>
+		<h2 class=" text-[#5b7aa3] flex  justify-center uppercase tracking-widest font-bold text-base ">
 			Newsfeed
 		</h2>
 		<div class="flex flex-row w-[340px] h-[34px] justify-center ">
