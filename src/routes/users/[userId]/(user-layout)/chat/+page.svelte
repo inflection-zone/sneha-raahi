@@ -6,25 +6,64 @@
 	import { errorMessage, showMessage, successMessage } from '$lib/utils/message.utils';
 
 	export let data: PageServerData;
-	const favouriteConversations = data.favouriteConversations;
-	const recentConversations = data.recentConversations;
-	//console.log(`${JSON.stringify(favouriteConversations, null, 2)}`)
-	//console.log(`${JSON.stringify(recentConversations, null, 2)}`)
+	let favourites = data.favouriteConversations;
+	let recentUsers = data.recentConversations;
+	console.log(`${JSON.stringify(favourites, null, 2)}`)
+	console.log(`${JSON.stringify(recentUsers, null, 2)}`)
 
 	const ENTER_KEY_CODE = 13;
 	const userId = $page.params.userId;
 	let searchInput;
 	let searchResults = [];
 	let searchPeformed = false;
-	let favourites = [];
-	let recentUsers = [];
 
 	//Make it reactive
 	$: searchedUsers = searchResults;
 
+	const onSearchClick = async (e) => {
+		const text = searchInput.value;
+		await searchUsers(text);
+	}
+
+	// const onSearchTextEntered = async (e) => {
+	// 	const keyCode = e.keyCode;
+	// 	if (keyCode == ENTER_KEY_CODE) {
+	// 		const text = searchInput.value;
+	// 		await searchUsers(text);
+	// 	}
+	// }
+
+	//on:input={onSearchTextEntered}
+
+	const onSearchEnter = async (e) => {
+		const keyCode = e.keyCode;
+		if (keyCode == ENTER_KEY_CODE) {
+			const text = searchInput.value;
+			if (text.length > 2) {
+				await searchUsers(text);
+			}
+		}
+	}
+
+	const searchUsers = async (text) => {
+		searchPeformed = true;
+		const response = await fetch(`/api/server/chat/search-users?text=${text}`, {
+			method: 'GET',
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+		const users = await response.json();
+		console.log(JSON.stringify(users));
+		searchResults = users.filter(x => x.UserId != userId);
+
+		//Take only top 5 results
+		searchResults = searchResults.slice(0, 5);
+		console.log(JSON.stringify(searchResults));
+	}
+
 	const handleConversationClick = async (e,
 		conversationId?: string) => {
-
 		console.log(e.currentTarget);
 		const redirectPath = `/users/${userId}/chat/${conversationId}`;
 		console.log(redirectPath);
@@ -32,36 +71,47 @@
 		//goto(redirectPath, { keepfocus: false });
 	};
 
-	const onSearchClick = async (e) => {
-		const text = searchInput.value;
-		await searchUsers(text);
-	}
-
-	const onSearchTextEntered = async (e) => {
-
-	}
-
-	const onSearchEnter = async (e) => {
-		const keyCode = e.keyCode;
-		if (keyCode == ENTER_KEY_CODE) {
-			const text = searchInput.value;
-			await searchUsers(text);
-		}
-	}
-
-	const searchUsers = async (text) => {
+	const onSearchedCoversationClick = async (e, otherUserId?: string) => {
 		searchPeformed = true;
-		const response = await fetch(`/api/server/chat`, {
-			method: 'POST',
-			body: JSON.stringify({ text }),
+		const response = await fetch(`/api/server/chat/conversations-for-users?userId=${userId}&otherUserId=${otherUserId}`, {
+			method: 'GET',
 			headers: {
 				'content-type': 'application/json'
 			}
 		});
-		const resp = response.json();
-		searchResults = resp['users'];
-		//Take only top 5 results
-		searchResults = searchResults.slice(0, 5);
+		const resp = await response.text();
+		console.log(`conversation found: `, JSON.stringify(resp, null, 2));
+		const conversation = JSON.parse(resp);
+		if (conversation) {
+			const redirectPath = `/users/${userId}/chat/${conversation.id}`;
+			console.log(redirectPath);
+			window.location.href = redirectPath;
+		}
+		else {
+			const response = await fetch(`/api/server/chat/start-conversation`, {
+				method: 'POST',
+				body: JSON.stringify({
+					sessionId: data.sessionId,
+					userId: userId,
+					otherUserId: otherUserId,
+				}),
+				headers: {
+					'content-type': 'application/json'
+				}
+			});
+			const resp = await response.text();
+			console.log(`conversation found: `, JSON.stringify(resp, null, 2));
+			const conversation = JSON.parse(resp);
+			if (conversation) {
+				const redirectPath = `/users/${userId}/chat/${conversation.id}`;
+				console.log(redirectPath);
+				window.location.href = redirectPath;
+			}
+			else {
+				showMessage(`Unable to start conversation!`, 'error', true, 3500);
+			}
+		}
+
 	}
 
 </script>
@@ -78,7 +128,6 @@
 				id="search"
 				name="search"
 				bind:this={searchInput}
-				on:input={onSearchTextEntered}
 				class=" text-[#5b7aa3] h-[40px] w-full px-3 border rounded-3xl my-5 text-lg bg-[#B6C6E0]  "
 				on:keyup={onSearchEnter}
 			/>
@@ -93,43 +142,44 @@
 			/>
 		</div>
 		{#if searchPeformed}
-			{#if searchedUsers.length > 0}
-				<h2 class="flex  justify-left ">Search Results</h2>
-				<div class="overflow-auto scrollbar-medium h-[400px]">
-					{#each searchedUsers as otherUser}
-						<a href={`/users/${userId}/chat-individual/${otherUser.id}`}>
-							<div class="grid grid-flex-rows-6 mb-3  gap-2">
-								<div class="grid grid-flow-col">
-									<img src="/assets/chat/png/account-img-1.png" alt="" />
-									<div class="grid grid-flow-rows-2 ml-2">
-										<div class="flex relative mt-2">
-											<h3 class="text-left">{otherUser.DisplayName}</h3>
-											<!-- <div class="text-base font-semibold absolute right-0 pr-3 leading-5 ">
-												12 Dec
-											</div> -->
-										</div>
-										<!-- <p class="">Lorem ipsum dolor sit amet, conse…</p> -->
+			<div class="overflow-auto scrollbar-medium w-[365px]">
+				<div class="grid grid-flow-col mt-2 auto-cols-max gap-3">
+					{#if favourites.length === 0}
+						<h3 class="m-1">No results found!</h3>
+					{:else}
+						{#each searchedUsers as searchedUser}
+							<button on:click={async (e) => onSearchedCoversationClick(e, searchedUser.userId)}>
+								<!-- <a href={`/users/${userId}/chat/${searchedUser.id}`}> -->
+									<div class="grid grid-rows-2 ">
+										{#if searchedUser.profileImage != null}
+											<Image cls="rounded" h="58" w="58" source={searchedUser.profileImage} ></Image>
+										{:else}
+											<img src="/assets/chat/png/account-img-3.png" alt="" />
+										{/if}
+										<h3 class=" mt-3 text-sm ">{searchedUser.firstName} <br />{searchedUser.lastName}</h3>
 									</div>
-								</div>
-							</div>
-						</a>
-					{/each}
+								<!-- </a> -->
+							</button>
+						{/each}
+					{/if}
 				</div>
-			{:else if searchResults.length === 0}
-				<h2 class="flex  justify-left ">No results found!</h2>
-			{/if}
+			</div>
 		{/if}
-		<h2 class="flex  justify-left ">Favourites</h2>
+		<h2 class="flex justify-left ">Favourites</h2>
 		<div class="overflow-auto scrollbar-medium w-[365px]">
 			<div class="grid grid-flow-col mt-2 auto-cols-max gap-3">
 				{#if favourites.length === 0}
 					<h3 class="m-1">No favourites so far!</h3>
 				{:else}
 					{#each favourites as favourite}
-						<a href={`/users/${userId}/chat-individual/${favourite.id}`}>
+						<a href={`/users/${userId}/chat/${favourite.id}`}>
 							<div class="grid grid-rows-2 ">
-								<img src="/assets/chat/png/account-img-1.png" alt="" />
-								<h3 class=" mt-3 text-sm ">{favourite.FirstName} <br />{favourite.LastName}</h3>
+								{#if favourite.profileImage != null}
+									<Image cls="rounded" h="58" w="58" source={favourite.profileImage} ></Image>
+								{:else}
+									<img src="/assets/chat/png/account-img-4.png" alt="" />
+								{/if}
+								<h3 class=" mt-3 text-sm ">{favourite.firstName} <br />{favourite.lastName}</h3>
 							</div>
 						</a>
 					{/each}
@@ -169,21 +219,27 @@
 		<h2 class="flex  justify-left ">Recent Chats</h2>
 		<div class="overflow-auto scrollbar-medium h-[400px]">
 			{#if recentUsers.length === 0}
-				<h3 class="m-1">No favourites so far!</h3>
+				<h3 class="m-1">No recent conversations!</h3>
 			{:else}
-				{#each recentUsers as otherUser}
-					<a href="/chat-individual">
-						<div class="grid grid-flex-rows-6 mb-3  gap-2">
-							<div class="grid grid-flow-col">
-								<img src="/assets/chat/png/account-img-1.png" alt="" />
-								<div class="grid grid-flow-rows-2 ml-2">
-									<div class="flex relative mt-2">
-										<h3 class="text-left   ">{otherUser.DisplayName}</h3>
+				{#each recentUsers as conversation}
+					<a href={`/users/${userId}/chat/${conversation.id}`}>
+						<div class="grid grid-flex-rows-6 mb-3 gap-2 mt-2">
+							<div class="grid grid-flow-col ">
+								<!-- <img src="/assets/chat/png/account-img-1.png" alt="" /> -->
+								{#if conversation.profileImage != null}
+									<Image cls="rounded col-span-2" h="58" w="58" source={conversation.profileImage} ></Image>
+								{:else}
+									<img src="/assets/chat/png/account-img-1.png" alt="" />
+								{/if}
+								<div class="grid grid-flow-rows-2 col-span-4 ml-2 mt-4">
+									<div class="flex relative">
+										<h3 class="text-left">{conversation.displayName}</h3>
+										<br/>
 										<div class="text-base font-semibold absolute right-0 pr-3 leading-5 ">
-											{otherUser.LastChatDate}
+											{conversation.lastChatDate}
 										</div>
 									</div>
-									<p class="">{otherUser.LastChatText}</p>
+									<!-- <p class="">{otherUser.LastChatText}</p> -->
 								</div>
 							</div>
 						</div>

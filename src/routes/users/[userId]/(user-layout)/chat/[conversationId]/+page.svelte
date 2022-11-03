@@ -1,4 +1,16 @@
-<script>
+<script lang="ts">
+	import type { PageServerData } from './$types';
+	import Image from '$lib/components/image.svelte';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+	import { errorMessage, showMessage, successMessage } from '$lib/utils/message.utils';
+
+	export let data: PageServerData;
+	let conversation = data.conversation;
+	let messages = data.messages;
+	console.log(`${JSON.stringify(conversation, null, 2)}`)
+	console.log(`${JSON.stringify(messages, null, 2)}`)
+
 </script>
 
 <div class="card card-compact card-bordered w-[375px] h-[590px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm">

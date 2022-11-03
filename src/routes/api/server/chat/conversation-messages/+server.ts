@@ -1,14 +1,16 @@
+import type { RequestEvent } from "@sveltejs/kit";
 import { getConversationMessages } from "../../../services/chat";
 
 //////////////////////////////////////////////////////////////
 
-export const GET = async ({ request }) => {
-	const data = await request.json();
+export const GET = async (event: RequestEvent) => {
+    const sessionId = event.cookies.get('sessionId');
+    const conversationId = event.url.searchParams.get('conversationId');
 	try {
 		console.log('Getting conversation messages...');
 		const response = await getConversationMessages(
-			data.sessionId,
-            data.conversationId,
+			sessionId,
+            conversationId,
 		);
         const messages = response.ConversationMessages;
         const sorted = messages.sort((a, b)=> {
@@ -16,7 +18,7 @@ export const GET = async ({ request }) => {
         });
 		return new Response(JSON.stringify(sorted));
 	} catch (err) {
-		console.error(`Error updating user learning: ${err.message}`);
+		console.error(`Error getting conversation messages: ${err.message}`);
 		return new Response(err.message);
 	}
 };

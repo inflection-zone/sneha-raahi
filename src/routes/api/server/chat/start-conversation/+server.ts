@@ -1,28 +1,22 @@
-import type { RequestEvent } from "@sveltejs/kit";
-import { getConversationsBetweenTwoUsers } from "../../../services/chat";
+import { startConversation } from "../../../services/chat";
 
 //////////////////////////////////////////////////////////////
 
-export const GET = async (event: RequestEvent) => {
-
-    const sessionId = event.cookies.get('sessionId');
-    const userId = event.url.searchParams.get('userId');
-    const otherUserId = event.url.searchParams.get('otherUserId');
-
+export const POST = async ({ request }) => {
+	const data = await request.json();
 	try {
-        console.log(`otherUserId = ${otherUserId}`);
-		console.log('Getting conversation between two users...----------');
-		const response = await getConversationsBetweenTwoUsers(
-			sessionId,
-            userId,
-            otherUserId,
+		console.log('Getting conversation between two users...');
+		const response = await startConversation(
+			data.sessionId,
+            data.userId,
+            data.otherUserId,
 		);
+        //console.log(JSON.stringify(response.Conversation, null, 2));
         const c = response.Conversation;
-        console.log(JSON.stringify(c, null, 2));
         let conversation = {};
         if (c) {
-            const otherUserId = userId === c.InitiatingUserId ? c.OtherUserId : c.InitiatingUserId;
-            const otherUser = userId === c.InitiatingUserId ? {
+            const otherUserId = data.userId === c.InitiatingUserId ? c.OtherUserId : c.InitiatingUserId;
+            const otherUser = data.userId === c.InitiatingUserId ? {
                 id: c.OtherUser.id,
                 FirstName: c.OtherUser.FirstName,
                 LastName: c.OtherUser.LastName,
@@ -38,14 +32,14 @@ export const GET = async (event: RequestEvent) => {
             conversation = {
                 id: c.id,
                 Marked: c.Marked,
-                UserId: userId === c.InitiatingUserId ? c.InitiatingUserId : c.OtherUserId,
+                UserId: data.userId === c.InitiatingUserId ? c.InitiatingUserId : c.OtherUserId,
                 OtherUserId: otherUserId,
                 OtherUser: otherUser,
             }
         }
 		return new Response(JSON.stringify(conversation));
 	} catch (err) {
-		console.error(`Error getting conversation between the users: ${err.message}`);
+		console.error(`Error starting conversation: ${err.message}`);
 		return new Response(err.message);
 	}
 };

@@ -1,28 +1,35 @@
+import type { RequestEvent } from "@sveltejs/kit";
 import { searchUsersByName } from "../../../services/user";
 
 //////////////////////////////////////////////////////////////
 
-export const GET = async ({ request }) => {
-	const data = await request.json();
+export const GET = async (event: RequestEvent) => {
+    const sessionId = event.cookies.get('sessionId');
+    const text = event.url.searchParams.get('text');
 	try {
-		console.log('Inside learning server endpoints');
+		console.log('Search other users to chat...');
 		const response = await searchUsersByName(
-			data.sessionId,
-            data.name
+			sessionId,
+            text
 		);
+        console.log(`text = ${text}`);
         const results = response.Patients?.Items;
+        console.log(`text = ${JSON.stringify(results, null, 2)}`);
         let users = [];
         if (results.length > 0) {
             users = results.map(x => {
                 return {
-                    UserId: x.UserId,
-                    DisplayName: x.DisplayName,
+                    userId: x.UserId,
+                    displayName: x.DisplayName,
+                    firstName: x.FirstName,
+                    lastName: x.LastName,
+                    profileImage: x.profileImage,
                 }
             });
         }
 		return new Response(JSON.stringify(users));
 	} catch (err) {
-		console.error(`Error updating user learning: ${err.message}`);
+		console.error(`Search users to start conversation: ${err.message}`);
 		return new Response(err.message);
 	}
 };

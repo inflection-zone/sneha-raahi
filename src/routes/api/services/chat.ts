@@ -71,10 +71,10 @@ export const deleteMessage = async (sessionId: string, messageId: string) => {
 
 export const getMyFavouriteConversations = async (sessionId: string, userId: string) => {
     const url = BACKEND_API_URL + `/chats/users/${userId}/conversations/marked`;
-    return await delete_(sessionId, url);
+    return await get_(sessionId, url);
 };
 
 export const getMyRecentConversations = async (sessionId: string, userId: string) => {
     const url = BACKEND_API_URL + `/chats/users/${userId}/conversations/recent`;
-    return await delete_(sessionId, url);
+    return await get_(sessionId, url);
 };
