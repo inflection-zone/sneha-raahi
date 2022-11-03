@@ -6,13 +6,13 @@
 	import { errorMessage, showMessage, successMessage } from '$lib/utils/message.utils';
 
 	export let data: PageServerData;
+	const favouriteConversations = data.favouriteConversations;
+	const recentConversations = data.recentConversations;
+	//console.log(`${JSON.stringify(favouriteConversations, null, 2)}`)
+	//console.log(`${JSON.stringify(recentConversations, null, 2)}`)
+
 	const ENTER_KEY_CODE = 13;
-
-	// let learningJourney = data.learningPath;
-	// const courseContents = data.courseContentsForLearningPath;
 	const userId = $page.params.userId;
-	//console.log(`${JSON.stringify(courseContents, null, 2)}`)
-
 	let searchInput;
 	let searchResults = [];
 	let searchPeformed = false;
@@ -22,74 +22,14 @@
 	//Make it reactive
 	$: searchedUsers = searchResults;
 
-	async function updateVideoProgress(model) {
-		await fetch(`/api/server/learning`, {
-			method: 'POST',
-			body: JSON.stringify(model),
-			headers: {
-				'content-type': 'application/json'
-			}
-		});
-	}
-
-	// async function takeQuiz(model) {
-	// 	return await fetch(`/api/server/quiz`, {
-	// 		method: 'POST',
-	// 		body: JSON.stringify(model),
-	// 		headers: {
-	// 			'content-type': 'application/json'
-	// 		}
-	// 	});
-	// }
-
-	const handleCourseContentClick = async (e,
-		resourceLink: string,
-		contentType: string,
-		actionTemplateId?: string) => {
+	const handleConversationClick = async (e,
+		conversationId?: string) => {
 
 		console.log(e.currentTarget);
-		const contentId = e.currentTarget.id;
-		console.log(`contentId = ${contentId}`);
-
-		if (contentType === 'Video') {
-			const videoModel = {
-				sessionId: data.sessionId,
-				userId: data.userId,
-				contentId
-			};
-			await updateVideoProgress(videoModel);
-			//TODO: Please use video embedding rather than switching to different page
-			window.location.href = resourceLink;
-		}
-		// else if (contentType === 'Assessment') {
-		// 	const quizModel = {
-		// 		sessionId: data.sessionId,
-		// 		userId: data.userId,
-		// 		assessmentTemplateId: actionTemplateId,
-		// 		courseContentId: contentId,
-		// 		learningJourneyId: $page.params.learningJourneyId,
-		// 		scheduledDate: new Date(),
-		// 	};
-		// 	const response = await takeQuiz(quizModel);
-		// 	const text = await response.text();
-		// 	const resp = JSON.parse(text);
-		// 	console.log(resp.action);
-		// 	console.log(resp.content);
-		// 	if (resp.action === 'message') {
-		// 		showMessage(resp.content, "info", true, 3500);
-		// 	}
-		// 	else if (resp.action == 'redirect') {
-		// 		goto(resp.content);
-		// 	}
-		// 	else {
-		// 		showMessage(resp.content, "error", true, 3500);
-		// 	}
-		// }
-		else {
-			const errmsg = `Content type is not yet handled!`;
-			showMessage(errmsg, "error", true, 3500);
-			console.log(errmsg);
-		}
+		const redirectPath = `/users/${userId}/chat/${conversationId}`;
+		console.log(redirectPath);
+		window.location.href = redirectPath;
+		//goto(redirectPath, { keepfocus: false });
 	};
 
 	const onSearchClick = async (e) => {
@@ -111,7 +51,7 @@
 
 	const searchUsers = async (text) => {
 		searchPeformed = true;
-		const response = await fetch(`/api/server/chat-home`, {
+		const response = await fetch(`/api/server/chat`, {
 			method: 'POST',
 			body: JSON.stringify({ text }),
 			headers: {
@@ -157,10 +97,10 @@
 				<h2 class="flex  justify-left ">Search Results</h2>
 				<div class="overflow-auto scrollbar-medium h-[400px]">
 					{#each searchedUsers as otherUser}
-						<a href={`/users/${userId}/chat-home-individual/${otherUser.id}`}>
+						<a href={`/users/${userId}/chat-individual/${otherUser.id}`}>
 							<div class="grid grid-flex-rows-6 mb-3  gap-2">
 								<div class="grid grid-flow-col">
-									<img src="/assets/chat-home/png/account-img-1.png" alt="" />
+									<img src="/assets/chat/png/account-img-1.png" alt="" />
 									<div class="grid grid-flow-rows-2 ml-2">
 										<div class="flex relative mt-2">
 											<h3 class="text-left">{otherUser.DisplayName}</h3>
@@ -186,41 +126,41 @@
 					<h3 class="m-1">No favourites so far!</h3>
 				{:else}
 					{#each favourites as favourite}
-						<a href={`/users/${userId}/chat-home-individual/${favourite.id}`}>
+						<a href={`/users/${userId}/chat-individual/${favourite.id}`}>
 							<div class="grid grid-rows-2 ">
-								<img src="/assets/chat-home/png/account-img-1.png" alt="" />
+								<img src="/assets/chat/png/account-img-1.png" alt="" />
 								<h3 class=" mt-3 text-sm ">{favourite.FirstName} <br />{favourite.LastName}</h3>
 							</div>
 						</a>
 					{/each}
 				{/if}
-				<!-- <a href="/chat-home-individual">
+				<!-- <a href="/chat-individual">
 					<div class="grid grid-rows-2 ">
-						<img src="/assets/chat-home/png/account-img-2.png" alt="" />
+						<img src="/assets/chat/png/account-img-2.png" alt="" />
 						<h3 class=" mt-3 text-sm ">jemma <br />Doe</h3>
 					</div>
 				</a>
-				<a href="/chat-home-individual">
+				<a href="/chat-individual">
 					<div class="grid grid-rows-2 ">
-						<img src="/assets/chat-home/png/account-img-3.png" alt="" />
+						<img src="/assets/chat/png/account-img-3.png" alt="" />
 						<h3 class=" mt-3 text-sm">jayesh <br />Doe</h3>
 					</div>
 				</a>
-				<a href="/chat-home-individual">
+				<a href="/chat-individual">
 					<div class="grid grid-rows-2 ">
-						<img src="/assets/chat-home/png/account-img-4.png" alt="" />
+						<img src="/assets/chat/png/account-img-4.png" alt="" />
 						<h3 class=" mt-3 text-sm ">jacob <br />Doe</h3>
 					</div>
 				</a>
-				<a href="/chat-home-individual">
+				<a href="/chat-individual">
 					<div class="grid grid-rows-2 ">
-						<img src="/assets/chat-home/png/account-img-5.png" alt="" />
+						<img src="/assets/chat/png/account-img-5.png" alt="" />
 						<h3 class=" mt-3 text-sm ">jenny <br />Doe</h3>
 					</div>
 				</a>
-				<a href="/chat-home-individual">
+				<a href="/chat-individual">
 					<div class="grid grid-rows-2 ">
-						<img src="/assets/chat-home/png/account-img-6.png" alt="" />
+						<img src="/assets/chat/png/account-img-6.png" alt="" />
 						<h3 class=" mt-3 text-sm">jaspreet <br />Doe</h3>
 					</div>
 				</a> -->
@@ -232,10 +172,10 @@
 				<h3 class="m-1">No favourites so far!</h3>
 			{:else}
 				{#each recentUsers as otherUser}
-					<a href="/chat-home-individual">
+					<a href="/chat-individual">
 						<div class="grid grid-flex-rows-6 mb-3  gap-2">
 							<div class="grid grid-flow-col">
-								<img src="/assets/chat-home/png/account-img-1.png" alt="" />
+								<img src="/assets/chat/png/account-img-1.png" alt="" />
 								<div class="grid grid-flow-rows-2 ml-2">
 									<div class="flex relative mt-2">
 										<h3 class="text-left   ">{otherUser.DisplayName}</h3>
@@ -251,10 +191,10 @@
 				{/each}
 			{/if}
 
-			<!-- <a href="/chat-home-individual">
+			<!-- <a href="/chat-individual">
 				<div class="grid grid-rows mt-1 auto-row mb-3 gap-2">
 					<div class="grid grid-flow-col">
-						<img src="/assets/chat-home/png/account-img-2.png" alt="" />
+						<img src="/assets/chat/png/account-img-2.png" alt="" />
 						<div class="grid grid-flow-rows-2 ml-2">
 							<div class="flex relative mt-2 ">
 								<h3 class="text-left   ">jamma Doe</h3>
@@ -267,10 +207,10 @@
 					</div>
 				</div>
 			</a>
-			<a href="/chat-home-individual">
+			<a href="/chat-individual">
 				<div class="grid grid-flow-row mt-1 auto-row mb-3 gap-2">
 					<div class="grid grid-flow-col">
-						<img src="/assets/chat-home/png/account-img-3.png" alt="" />
+						<img src="/assets/chat/png/account-img-3.png" alt="" />
 						<div class="grid grid-flow-rows-2 ml-2">
 							<div class="flex relative mt-2 ">
 								<h3 class="text-left  ">jayesh Doe</h3>
@@ -283,10 +223,10 @@
 					</div>
 				</div>
 			</a>
-			<a href="/chat-home-individual">
+			<a href="/chat-individual">
 				<div class="grid grid-flow-row mt-1 auto-row mb-3 gap-2">
 					<div class="grid grid-flow-col">
-						<img src="/assets/chat-home/png/account-img-4.png" alt="" />
+						<img src="/assets/chat/png/account-img-4.png" alt="" />
 						<div class="grid grid-flow-rows-2 ml-2">
 							<div class="flex relative mt-2 ">
 								<h3 class="text-left ">jacob Doe</h3>
@@ -299,10 +239,10 @@
 					</div>
 				</div>
 			</a>
-			<a href="/chat-home-individual">
+			<a href="/chat-individual">
 				<div class="grid grid-flow-row mt-1 auto-row mb-3 gap-2">
 					<div class="grid grid-flow-col">
-						<img src="/assets/chat-home/png/account-img-5.png" alt="" />
+						<img src="/assets/chat/png/account-img-5.png" alt="" />
 						<div class="grid grid-flow-rows-2 ml-2">
 							<div class="flex relative mt-2 ">
 								<h3 class="text-left  ">jenny Doe</h3>
@@ -315,10 +255,10 @@
 					</div>
 				</div>
 			</a>
-			<a href="/chat-home-individual">
+			<a href="/chat-individual">
 				<div class="grid grid-flow-row mt-1 auto-row mb-3 gap-2">
 					<div class="grid grid-flow-col">
-						<img src="/assets/chat-home/png/account-img-6.png" alt="" />
+						<img src="/assets/chat/png/account-img-6.png" alt="" />
 						<div class="grid grid-flow-rows-2 ml-2">
 							<div class="flex relative mt-2 ">
 								<h3 class="text-left  ">jaspreet Doe</h3>

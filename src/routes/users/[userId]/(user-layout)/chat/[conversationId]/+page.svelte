@@ -11,7 +11,7 @@
 		<div class=" h-[440px] overflow-auto scrollbar-medium ">
 		<p class="flex text-xs  justify-center ">09 Dec 2021</p>
 		<div class="grid grid-flow-col mb-3">
-			<img src="/assets/chat-home-individual/png/jasmine.png" alt="" />
+			<img src="/assets/chat-individual/png/jasmine.png" alt="" />
 			<div class="ml-2">
 				<h3 class="text-left mb-1">Jasmine Doe</h3>
 				<p>
@@ -31,7 +31,7 @@
 			<img src="/assets/ask-sneha/png/mask.png" alt="" />
 		</div>
 		<div class="grid grid-flow-col mb-3">
-			<img src="/assets/chat-home-individual/png/jasmine.png" alt="" />
+			<img src="/assets/chat-individual/png/jasmine.png" alt="" />
 			<div class="ml-2">
 				<h3 class="text-left mb-1">Jasmine Doe</h3>
 				<p>
@@ -52,7 +52,7 @@
 		</div>
 
 		<div class="grid grid-flow-col mb-3">
-			<img src="/assets/chat-home-individual/png/jasmine.png" alt="" />
+			<img src="/assets/chat-individual/png/jasmine.png" alt="" />
 			<div class="ml-2">
 				<h3 class="text-left mb-1">Jasmine Doe</h3>
 				<p>

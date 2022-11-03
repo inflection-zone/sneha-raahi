@@ -1,5 +1,5 @@
 import type { PageServerLoad } from "./$types";
-import { getAllCourseContents, getAllLearningPaths } from "../../../../api/services/learning";
+import { getMyFavouriteConversations, getMyRecentConversations } from "src/routes/api/services/chat";
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -7,14 +7,13 @@ export const load: PageServerLoad = async (event) => {
     try {
         const sessionId = event.cookies.get('sessionId');
         const userId = event.params.userId;
-        const allLearningPaths = await getAllLearningPaths(sessionId);
-        const allCourseContents = await getAllCourseContents(sessionId);
+        const favouriteConversations = await getMyFavouriteConversations(sessionId, userId);
+        const recentConversations = await getMyRecentConversations(sessionId, userId);
         return {
             sessionId,
             userId,
-            allLearningPaths,
-            allCourseContents,
-
+            favouriteConversations,
+            recentConversations,
         };
     }
     catch (error) {

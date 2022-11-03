@@ -16,7 +16,7 @@
 
 	onMount(() => {
 		askSnehaLink = `/users/${userId}/ask-sneha`;
-		chatLink = `/users/${userId}/chat-home`;
+		chatLink = `/users/${userId}/chat`;
 		notificationsLink = `/users/${userId}/notifications`;
 		console.log(askSnehaLink);
 		console.log(notificationsLink);
