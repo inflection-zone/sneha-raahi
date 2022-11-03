@@ -1,5 +1,5 @@
 import type { PageServerLoad } from "./$types";
-import { getMyFavouriteConversations, getMyRecentConversations } from "src/routes/api/services/chat";
+import { getMyFavouriteConversations, getMyRecentConversations } from "../../../../api/services/chat";
 
 ////////////////////////////////////////////////////////////////////////
 
