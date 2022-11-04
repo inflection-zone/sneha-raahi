@@ -8,8 +8,8 @@
 	export let data: PageServerData;
 	let favourites = data.favouriteConversations;
 	let recentUsers = data.recentConversations;
-	console.log(`${JSON.stringify(favourites, null, 2)}`)
-	console.log(`${JSON.stringify(recentUsers, null, 2)}`)
+	console.log(`${JSON.stringify(favourites, null, 2)}`);
+	console.log(`${JSON.stringify(recentUsers, null, 2)}`);
 
 	const ENTER_KEY_CODE = 13;
 	const userId = $page.params.userId;
@@ -62,14 +62,14 @@
 		console.log(JSON.stringify(searchResults));
 	}
 
-	const handleConversationClick = async (e,
-		conversationId?: string) => {
-		console.log(e.currentTarget);
-		const redirectPath = `/users/${userId}/chat/${conversationId}`;
-		console.log(redirectPath);
-		window.location.href = redirectPath;
-		//goto(redirectPath, { keepfocus: false });
-	};
+	// const handleConversationClick = async (e,
+	// 	conversationId?: string) => {
+	// 	console.log(e.currentTarget);
+	// 	const redirectPath = `/users/${userId}/chat/${conversationId}`;
+	// 	console.log(redirectPath);
+	// 	window.location.href = redirectPath;
+	// 	//goto(redirectPath, { keepfocus: false });
+	// };
 
 	const onSearchedCoversationClick = async (e, otherUserId?: string) => {
 		searchPeformed = true;
@@ -148,7 +148,7 @@
 						<h3 class="m-1">No results found!</h3>
 					{:else}
 						{#each searchedUsers as searchedUser}
-							<button on:click={async (e) => onSearchedCoversationClick(e, searchedUser.userId)}>
+							<button on:click={async (e) => onSearchedCoversationClick(e, searchedUser.userId)} class="tracking-normal font-sm">
 								<!-- <a href={`/users/${userId}/chat/${searchedUser.id}`}> -->
 									<div class="grid grid-rows-2 ">
 										{#if searchedUser.profileImage != null}
