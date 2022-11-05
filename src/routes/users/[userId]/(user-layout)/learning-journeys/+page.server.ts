@@ -1,5 +1,5 @@
 import type { PageServerLoad } from "./$types";
-import { getAllCourseContents, getAllLearningPaths, getUserCourseContents } from "../../../../api/services/learning";
+import { getAllCourseContents, getAllLearningPaths } from "../../../../api/services/learning";
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -19,7 +19,7 @@ export const load: PageServerLoad = async (event) => {
     }
     catch (error) {
         console.log(error.stack)
-        console.error(`Error retrieving data related to user's courses: ${error.message}`);
+        console.error(`Error retrieving data related to user's learning journey: ${error.message}`);
         return {
             location: `/sign-in`,
         };

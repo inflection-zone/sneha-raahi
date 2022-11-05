@@ -22,7 +22,7 @@
 	}
 
 	async function takeQuiz(model) {
-		return await fetch(`/api/server/quiz`, {
+		return await fetch(`/api/server/quiz/take-quiz`, {
 			method: 'POST',
 			body: JSON.stringify(model),
 			headers: {

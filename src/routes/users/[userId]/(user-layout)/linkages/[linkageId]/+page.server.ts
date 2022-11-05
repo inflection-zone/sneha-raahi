@@ -1,9 +1,10 @@
 import type { PageServerLoad } from '.svelte-kit/types/src/routes/$types';
+import type { ServerLoadEvent } from '@sveltejs/kit';
 import { getLinkageById } from '../../../../../api/services/linkages';
 
 ////////////////////////////////////////////////////////////////////////
 
-export const load: PageServerLoad = async (event) => {
+export const load: PageServerLoad = async (event: ServerLoadEvent) => {
     try {
         const noticeId = event.params.linkageId;
         const userId = event.params.userId;
@@ -24,4 +25,3 @@ export const load: PageServerLoad = async (event) => {
         };
     }
 };
-

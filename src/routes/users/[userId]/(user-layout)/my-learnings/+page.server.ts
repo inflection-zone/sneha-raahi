@@ -1,4 +1,3 @@
-import * as cookie from 'cookie';
 import type { PageServerLoad } from "./$types";
 import { getAllCourseContents, getAllLearningPaths, getUserLearningPaths } from "../../../../api/services/learning";
 
@@ -21,7 +20,7 @@ export const load: PageServerLoad = async (event) => {
     }
     catch (error) {
         console.log(error.stack)
-        console.error(`Error retrieving data related to user's courses: ${error.message}`);
+        console.error(`Error retrieving data related to user's learnings: ${error.message}`);
         return {
             location: `/sign-in`,
         };

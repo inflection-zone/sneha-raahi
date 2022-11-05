@@ -24,7 +24,7 @@ export const load: PageServerLoad = async (event) => {
     }
     catch (error) {
         console.log(error.stack)
-        console.error(`Error retrieving data related to user's courses: ${error.message}`);
+        console.error(`Error retrieving data related to user's profile content: ${error.message}`);
         return {
             location: `/sign-in`,
         };
