@@ -13,10 +13,10 @@ export const GET = async (event: RequestEvent) => {
             conversationId,
 		);
         const messages = response.ConversationMessages;
-        const sorted = messages.sort((a, b)=> {
-            return a.CreatedAt > b.CreatedAt;
-        });
-		return new Response(JSON.stringify(sorted));
+        // const sorted = messages.sort((a, b)=> {
+        //     return a.CreatedAt > b.CreatedAt;
+        // });
+		return new Response(JSON.stringify(messages));
 	} catch (err) {
 		console.error(`Error getting conversation messages: ${err.message}`);
 		return new Response(err.message);
