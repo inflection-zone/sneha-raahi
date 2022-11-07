@@ -1,11 +1,10 @@
-
 import { takeNoticeAction } from '../../../services/linkages';
 
 //////////////////////////////////////////////////////////////
 
 export const POST = async ({ request }) => {
 	const data = await request.json();
-	console.log ("data.........",data);
+	console.log ("Taking action on notice...",data);
 	try {
 		console.log('Taking action against linkage...');
 		const response = await takeNoticeAction(
@@ -16,8 +15,8 @@ export const POST = async ({ request }) => {
 			data.title,
 			data.resourceId
 		);
-		console.log('respnse',response);
-		return new Response(response.message);
+        const noticeAction = response.NoticeAction;
+		return new Response(JSON.stringify(noticeAction));
 	} catch (err) {
 		console.error(`Error creating notice action: ${err.message}`);
 		return new Response(err.message);

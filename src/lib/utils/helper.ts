@@ -127,7 +127,7 @@ export class Helper {
         return false;
     };
 
-    static createResponse = (action: 'message' | 'redirect' | 'error', content: string) => {
+    static createResponse = (action: 'message' | 'redirect' | 'error' | 'data', content: string) => {
         return new Response(JSON.stringify({
 			action: action,
 			content: content

@@ -3,17 +3,20 @@
 	// import hrt from 'human-readable-time';
 	import { timeAgo } from 'short-time-ago';
 	import { goto } from '$app/navigation';
+	import { showMessage } from '$lib/utils/message.utils';
 	export let data: PageServerData;
     let notice = data.notice;
+	let noticeAction = data.noticeAction;
+
 	const postDate = new Date(data.notice.PostDate);
 	// let date = hrt(new Date(data.notice.PostDate),'%relative% ago');
-	console.log(`${JSON.stringify(notice)}`);
+	// console.log(`${JSON.stringify(notice)}`);
 
-	const handleAppyForJobClick = async (e) => {
+	const takeActionButtonClick = async (e) => {
 		console.log(e.currentTarget);
 		const noticeId = e.currentTarget.id;
 		console.log(`noticeId = ${noticeId}`)
-		await create({
+		await takeAction({
 			sessionId: data.sessionId,
 			userId: data.userId,
 			noticeId: data.notice.id,
@@ -24,24 +27,32 @@
 		goto(`/users/${data.userId}/linkages`);
 	}
 
-	async function create(model) {
-		const response = await fetch(`/api/server/linkages`, {
+	const backToLinkages = () => {
+		goto(`/users/${data.userId}/linkages`);
+	}
+
+	async function takeAction(model) {
+		const response = await fetch(`/api/server/linkages/take-action`, {
 		method: 'POST',
 		body: JSON.stringify(model),
 		headers: {
 			'content-type': 'application/json'
 		}
 		});
-		console.log('response',response);
-		return response ;
+		const resp = await response.text();
+		const noticeAction = JSON.parse(resp);
+		if (noticeAction) {
+			showMessage(`Action taken successfully!`, 'success');
+		}
   }
+
 </script>
 
 <div class="card card-compact card-bordered w-[375px] h-[701px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm">
 	<div class="card-body ">
 		<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
 		<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
-			LINKAGES
+			LINKAGE - JOB
 		</h2>
 		<div class="flex justify-center  mt-5 mb-6">
 			<img class="w-[3.625rem] h-[3.625rem] bg-[#fde2e4] rounded-lg" src={data.notice.ImageUrl} alt=""/>
@@ -56,10 +67,24 @@
 			</div>
 		</div>
 		<!-- <a href={`/users/${data.userId}/linkages`}> -->
-		<button on:click|preventDefault = {(e)=>handleAppyForJobClick(e)} id={notice.id} name={notice.id} class=" h-[52px] w-[340px] mt-2 text-[#fff]  rounded-lg bg-[#5b7aa3] "
-		>
-			APPLY FOR JOB</button
-		>
+			{#if noticeAction == null}
+				<button
+					on:click|preventDefault = {(e)=>takeActionButtonClick(e)}
+					id={notice.id}
+					name={notice.id}
+					class=" h-[52px] w-[340px] mt-2 text-[#fff] rounded-lg bg-[#5b7aa3]">
+					APPLY FOR JOB
+				</button>
+			{:else}
+				<div class="text-center bg-[#70ae6e] p-3 rounded-md text-white">
+					<p>You have already applied for this job!</p>
+				</div>
+				<button
+					on:click|preventDefault = {backToLinkages}
+					class=" h-[52px] w-[340px] mt-2 text-[#fff] rounded-lg bg-[#5b7aa3]">
+					Back to Linkages
+				</button>
+			{/if}
 	<!-- </a> -->
 	</div>
 </div>
