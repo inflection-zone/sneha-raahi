@@ -1,10 +1,11 @@
 <script lang="ts">
     import { navbarDisplay } from './navbar.display.store';
-	import { onDestroy, onMount } from 'svelte';
+	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 
     export let show = false;
     export let userId = undefined;
+    const dispatch = createEventDispatcher();
 
     let learningHomeLink;
 	let myProfileLink;
@@ -73,19 +74,19 @@
         //goto(settingsLink);
     }
 
-    const gotoAboutSneha = () => {
+    const gotoLogout = async () => {
         toggleSidebar();
-        //goto(aboutLink);
+        dispatch("logout");
     }
 
-    const gotoLogout = () => {
+    const gotoAboutSneha = () => {
         toggleSidebar();
-        //goto(aboutLink);
     }
 
     onDestroy(unsubscribe);
 
 </script>
+
 {#if show}
     <div class="card rounded-none w-[855px]  h-[812px] bg-[#DFE7FD]">
         <div class="mt-10">
@@ -142,7 +143,7 @@
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">settings</h3>
                     </button>
                     <div class="flex flex-col  text-[#5B7AA3] cursor-pointer">
-                        <button class="ml-4 mr-8 mt-24 text-start text-[#5B7AA3] text-base" on:click={gotoLogout}> LOGOUT</button>
+                        <button class="ml-4 mr-8 mt-24 text-start text-[#5B7AA3] text-base" on:click={async () => { await gotoLogout(); } }> LOGOUT</button>
                         <button class="ml-4  mt-4 text-base text-start"  on:click={gotoAboutSneha}>ABOUT SNEHA</button>
                     </div>
                 </div>

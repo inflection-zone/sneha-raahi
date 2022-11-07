@@ -3,9 +3,23 @@
     import Navbar from '$lib/components/navbar/nav.svelte';
     import { navbarDisplay } from '$lib/components/navbar/navbar.display.store';
     import { page } from '$app/stores';
-	  import Toasts from '$lib/components/toast/toasts.svelte';
     const userId = $page.params.userId;
+
+    const onLogout = async () => {
+
+      const response = await fetch(`/api/server/logout`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        }
+      });
+		  const resp = await response.text();
+      console.log(`resp: ${JSON.stringify(resp, null, 2)}`);
+      window.location.href = '/sign-in';
+    };
+
 </script>
+
 <svelte:head>
   <title>{$page.data.title ? $page.data.title : 'Sneha-Raahi'}</title>
 </svelte:head>
@@ -13,7 +27,9 @@
 <div class="grid gird-cols justify-center items-center">
 	<div class="w-[375px] h-[812px]">
     <div class="flex items-center justify-center mt-16">
-      <Navbar userId={userId}/>
+      <Navbar userId={userId} on:logout={async () => {
+        await onLogout();
+      }}/>
       <UserSessionLayout userId={userId} on:toggleSidebar={()=>{
         console.log(`Sidebar toggled: ${$navbarDisplay}`);
         $navbarDisplay = !$navbarDisplay;

@@ -88,6 +88,12 @@
 			}
 		});
 		const resp = await response.text();
+		if (conversation.favourite) {
+			showMessage(`Added as favourite!`, 'success');
+		}
+		else {
+			showMessage(`Removed from favourite list!`, 'success');
+		}
 	}
 
 	const sendMessage = async (msg) =>{
@@ -151,11 +157,11 @@
 			</button>
 		</div>
 		<div class=" h-[455px] overflow-auto scrollbar-medium" bind:this={messageContainer}>
-			{ #if messages.length == 0}
-			<h3 class="text-center font-medium mt-2">
-				No messages here!
-			</h3>
-			<br/><br/>
+			{ #if messages.length == 0 }
+				<h3 class="text-center font-medium mt-2">
+					No messages here!
+				</h3>
+				<br/><br/>
 				<h4 class="text-center font-normal">
 					Start the conversation by sending first message!
 				</h4>
