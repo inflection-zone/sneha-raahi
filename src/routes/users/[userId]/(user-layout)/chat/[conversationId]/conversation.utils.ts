@@ -7,7 +7,7 @@ export const getConversationDetails = (userId, conversation) => {
     const profileImage = userId === conversation.OtherUser.id ? conversation.InitiatingUser.ProfileImage : conversation.OtherUser.ProfileImage;
     return {
         id: conversation.id,
-        favourite: conversation.Marked,
+        favourite: conversation.Marked ?? false,
         otherUserId: userId === conversation.OtherUser.id ? conversation.InitiatingUser.id : conversation.OtherUser.id,
         displayName: userId === conversation.OtherUser.id ? conversation.InitiatingUser.DisplayName : conversation.OtherUser.DisplayName,
         firstName: userId === conversation.OtherUser.id ? conversation.InitiatingUser.FirstName : conversation.OtherUser.FirstName,

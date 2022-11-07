@@ -17,8 +17,11 @@ export const GET = async (event: RequestEvent) => {
             userId,
             otherUserId,
 		);
-        const c = response.Conversation;
-        console.log(JSON.stringify(c, null, 2));
+        if (response === null) {
+            return new Response(`null`);
+        }
+        const c = response?.Conversation;
+        console.log(`Conversation = ${JSON.stringify(c, null, 2)}`);
         let conversation = {};
         if (c) {
             const otherUserId = userId === c.InitiatingUserId ? c.OtherUserId : c.InitiatingUserId;

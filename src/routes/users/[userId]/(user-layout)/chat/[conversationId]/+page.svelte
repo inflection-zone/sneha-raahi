@@ -12,6 +12,8 @@
 	export let data: PageServerData;
 	let conversation = data.conversation;
 
+	$: conversation = conversation;
+
 	let _messages = data.messages;
 	$: messages = _messages;
 
@@ -72,6 +74,22 @@
 		}
 	}
 
+	const toggleFavourite = async () => {
+		conversation.favourite = !conversation.favourite;
+		const response = await fetch(`/api/server/chat/mark-as-favourite`, {
+			method: 'PUT',
+			body: JSON.stringify({
+				sessionId: data.sessionId,
+				conversationId: conversationId,
+				favourite: conversation.favourite,
+			}),
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+		const resp = await response.text();
+	}
+
 	const sendMessage = async (msg) =>{
 		const response = await fetch(`/api/server/chat/send-message`, {
 			method: 'POST',
@@ -124,11 +142,22 @@
 					{`${conversation.firstName} ${conversation.lastName}`}
 				</h2>
 			</span>
+			<button on:click|preventDefault={toggleFavourite}>
+				{#if conversation.favourite}
+					<img class="text-right" src="/assets/quiz-wrong/svg/correct.svg" alt="" />
+				{:else}
+					<img class="text-right" src="/assets/quiz-wrong/png/correct-light-grey.png" alt="" />
+				{/if}
+			</button>
 		</div>
 		<div class=" h-[455px] overflow-auto scrollbar-medium" bind:this={messageContainer}>
 			{ #if messages.length == 0}
-				<h4 class="justify-center font-medium">
-					No messages here! start the conversation!
+			<h3 class="text-center font-medium mt-2">
+				No messages here!
+			</h3>
+			<br/><br/>
+				<h4 class="text-center font-normal">
+					Start the conversation by sending first message!
 				</h4>
 			{:else}
 				{#each messages as md }

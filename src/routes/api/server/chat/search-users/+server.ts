@@ -12,8 +12,7 @@ export const GET = async (event: RequestEvent) => {
 			sessionId,
             text
 		);
-        //console.log(`text = ${text}`);
-        const results = response.Patients?.Items;
+        const results = response?.Patients?.Items;
         //console.log(`text = ${JSON.stringify(results, null, 2)}`);
         let users = [];
         if (results.length > 0) {
