@@ -25,7 +25,6 @@ WORKDIR /app
 RUN rm -rf ./*
 
 COPY --from=builder ./app/package*.json ./
-COPY --from=builder ./app/entrypoint.sh ./
 COPY --from=builder ./app/build .
 
 RUN npm install --production
