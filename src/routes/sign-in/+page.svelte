@@ -23,7 +23,7 @@
 		</div>
 		<div class="card-body ">
 			<h2 class="mt-40 text-center text-[#d05591] text-xl font-bold">
-				Enter a phone number 
+				Enter a phone number
 			</h2>
 			<p class=" leading-tight text-base text-center">
 				The number you enter will be linked to your Raahi App account. Make sure you are able to access the OTP sent on this number.
@@ -31,7 +31,7 @@
 			<form method="post">
 			<input
 				placeholder="Phone Number"
-				type="number"
+				type="tel"
 				name="phone"
 				class=" h-[52px] w-[340px] py-2 px-3 border rounded-lg bg-[#fde2e4] mt-5 text-lg "
 			/>
