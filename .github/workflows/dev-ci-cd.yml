@@ -37,7 +37,7 @@ jobs:
           echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
           echo "::set-output name=repo_name::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')"
 
-      - name: Another step
+      - name: Print Branch Details
         run: |
           echo "Branch: ${{ steps.vars.outputs.branch }}"
           echo "Sha: ${{ steps.vars.outputs.sha_short }}"
@@ -58,6 +58,9 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
+      
+      - name: Copy env file
+        run: aws s3 cp s3://${{ secrets.ENV_FILE_BUCKET_PATH }}/.env ./.env
 
       - name: Build and push
         id: docker_build
