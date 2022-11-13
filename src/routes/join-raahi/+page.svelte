@@ -3,11 +3,13 @@
 	import type { PageServerData } from "./$types";
 	import { onMount } from 'svelte';
 	import { show } from '$lib/utils/message.utils';
+	import { LocalStorageUtils } from "$lib/utils/local.storage.utils";
 
 	export let data: PageServerData;
 
 	onMount(()=> {
 		show(data);
+		LocalStorageUtils.removeItem('prevUrl');
 	});
 
 </script>

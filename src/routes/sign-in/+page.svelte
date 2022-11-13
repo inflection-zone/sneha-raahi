@@ -10,6 +10,7 @@
 		if (patientRole) {
 			loginRoleId = patientRole.id;
 		}
+		LocalStorageUtils.removeItem('prevUrl');
 	}
 </script>
 

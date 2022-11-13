@@ -3,10 +3,10 @@
     import Navbar from '$lib/components/navbar/nav.svelte';
     import { navbarDisplay } from '$lib/components/navbar/navbar.display.store';
     import { page } from '$app/stores';
+	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
     const userId = $page.params.userId;
 
     const onLogout = async () => {
-
       const response = await fetch(`/api/server/logout`, {
         method: 'POST',
         headers: {
@@ -15,6 +15,7 @@
       });
 		  const resp = await response.text();
       console.log(`resp: ${JSON.stringify(resp, null, 2)}`);
+      LocalStorageUtils.removeItem('showSplash');
       window.location.href = '/sign-in';
     };
 

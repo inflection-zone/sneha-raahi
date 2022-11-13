@@ -1,11 +1,15 @@
 <script lang="ts">
-    import '../app.postcss';
-    import Navbar from '../lib/components/navbar/nav.svelte';
-    import Toasts from '$lib/components/toast/toasts.svelte';
-    import Popup from '$lib/components/popup/popup.svelte';
-	  import Modal from '$lib/components/popup/modal.svelte';
-    import { modal } from '$lib/components/popup/store';
-    import { navbarDisplay } from '$lib/components/navbar/navbar.display.store';
+  import '../app.postcss';
+  import Toasts from '$lib/components/toast/toasts.svelte';
+  import { page } from '$app/stores';
+	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
+	import { beforeNavigate } from '$app/navigation';
+
+  beforeNavigate(()=>{
+    console.log(`previous URL: ` + $page.url.href)
+    LocalStorageUtils.setItem('prevUrl', $page.url.href);
+  });
+
 </script>
 
 <!-- {#if browser } -->
