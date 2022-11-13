@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
 	import { timeAgo } from 'short-time-ago';
+	import { Helper } from '$lib/utils/helper';
+	import { slide } from 'svelte/transition';
 
 	export let data: PageServerData;
 
@@ -12,19 +14,10 @@
 		}
 	})
 
-	notifications = notifications.sort((a, b) => { return b.SentOn - a.SentOn; });
-	console.log(`\n Notifications = ${JSON.stringify(notifications)}`);
+	notifications = notifications.sort((a, b) => { return new Date(b.SentOn)?.getTime() - new Date(a.SentOn)?.getTime(); });
 
 	const handleNotificationClick = async (e) => {
-		console.log(e.currentTarget);
 		const notificationId = e.currentTarget.id;
-		console.log(`notificationId = ${notificationId}`);
-		// notifications.forEach(element => {
-		// 	if (element.id === notificationId) {
-		// 		element.expand = !element.expand;
-		// 	}
-		// });
-		console.log()
 		await update({
 			sessionId: data.sessionId,
 			notificationId,
@@ -34,11 +27,11 @@
 
 	async function update(model) {
 		const response = await fetch(`/api/server/notifications`, {
-		method: 'POST',
-		body: JSON.stringify(model),
-		headers: {
-			'content-type': 'application/json'
-		}
+			method: 'POST',
+			body: JSON.stringify(model),
+			headers: {
+				'content-type': 'application/json'
+			}
 		});
 		console.log('response',response);
 		return response;
@@ -54,91 +47,35 @@
 		</h2>
 		<div class=" card-body h-[590px] overflow-auto scrollbar-medium ">
 		{#each notifications as notification}
-			{#if notification.expand == false}
-				<card style="background-color:[]" class=" w-[320px] h-[100px] mb-1 border-none">
-					<button on:click|preventDefault={(e) => {
-						notification.expand == !notification.expand;
-						handleNotificationClick(e)}} id={notification.id} name={notification.id} class = "font-semibold leading-3 text-left tracking-normal" >
-						<div id={notification.id} class="">
-							<div class="pl-3 py-2">
-								<!-- <img class=" h-4 w-4" src= {notification.ImageUrl} alt="" /> -->
-								<h2 class=" text-base mb-1">{notification.Title.length > 30 ? notification.Title.substring(0, 28) + '...': notification.Title}</h2>
-								<p class="font-light text-sm pr-1">{notification.Body}</p>
-								<div class="text-right font-normal text-sm px-2 pr-4" >{timeAgo(new Date(notification.SentOn))}</div>
-							</div>
+			<card style="background-color:[]" class={notifications.ReadOn == null ? "mb-1 bg-slate-100 rounded-md" : "mb-1 border-none"}>
+				<button on:click|preventDefault={async (e) => {	notification.expand = !notification.expand; await handleNotificationClick(e); }}
+					id={notification.id}
+					name={notification.id}
+					class = "font-semibold leading-3 text-left tracking-normal" >
+					<div id={notification.id} class="">
+						<div class="pl-2 pr-2 py-2">
+							<h2 class=" text-base mb-1">{Helper.truncateText(notification.Title, 30)}</h2>
+							{#if notification.expand}
+								<div class="" transition:slide="{{ duration: 1000 }}">
+									{#if notification?.ImageUrl}
+										<img class={"w-full mr-2 rounded-md mb-2"} src= {notification.ImageUrl} alt="" />
+									{/if}
+									<p class="font-normal text-normal pr-1">{Helper.truncateText(notification.Body, 1024)}</p>
+								</div>
+							{:else}
+								<div class="flex">
+									{#if notification?.ImageUrl}
+										<img class={"w-[44px] mr-2 rounded-md"} src= {notification.ImageUrl} alt="" />
+									{/if}
+									<p class="font-normal text-normal pr-1">{Helper.truncateText(notification.Body, 85)}</p>
+								</div>
+							{/if}
+							<div class="text-right font-medium text-sm px-2 pr-4" >{timeAgo(new Date(notification.SentOn))}</div>
 						</div>
-					</button>
-				</card>
-			{:else}
-				<card style="background-color:white" class=" w-[320px] h-[400px] rounded-md mb-4 border-radius border shadow-md">
-					<button on:click|preventDefault={(e) => handleNotificationClick(e)} id={notification.id} name={notification.id} class = "font-semibold leading-3 text-left tracking-normal" >
-						<div id={notification.id} class="mb-2">
-							<div class="pl-4 py-4">
-								<!-- <img class=" h-4 w-4" src= {notification.ImageUrl} alt="" /> -->
-								<h2 class="mb-3 font-semibold">{notification.Title}</h2>
-								<p>{notification.Body}</p>
-							</div>
-						</div>
-					</button>
-				</card>
-			{/if}
+					</div>
+				</button>
+			</card>
 		{/each}
-
-		<!-- <div class="mb-2">
-			<div class="flex relative mb-1 ">
-				<h3>Lorem ipsum dolor sit amet</h3>
-				<div class="text-base font-semibold absolute right-0 pr-3 leading-5 ">12 Dec</div>
-			</div>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nisi odio, lacinia
-				eu dictum a, consequat eget purus. Phasellus nec est luctus, faucibus enim non,
-				malesuada sapien.
-			</p>
-		</div>
-		<div class="mb-2 opacity-25">
-			<div class="flex relative mb-1 ">
-				<h3>Lorem ipsum dolor sit amet</h3>
-				<div class="text-base font-semibold absolute right-0 pr-3 leading-5 ">12 Dec</div>
-			</div>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nisi odio, lacinia
-				eu dictum a, consequat eget purus. Phasellus nec est luctus, faucibus enim non,
-				malesuada sapien.
-			</p>
-		</div>
-		<div class="mb-2 opacity-25">
-			<div class="flex relative mb-1 ">
-				<h3 class="">Lorem ipsum dolor sit amet</h3>
-				<div class="text-base font-semibold absolute right-0 pr-3 leading-5 ">12 Dec</div>
-			</div>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nisi odio, lacinia
-				eu dictum a, consequat eget purus. Phasellus nec est luctus, faucibus enim non,
-				malesuada sapien.
-			</p>
-		</div>
-		<div class="mb-2 opacity-25">
-			<div class="flex relative mb-1 ">
-				<h3>Lorem ipsum dolor sit amet</h3>
-				<div class="text-base font-semibold absolute right-0 pr-3 leading-5 ">12 Dec</div>
-			</div>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nisi odio, lacinia
-				eu dictum a, consequat eget purus. Phasellus nec est luctus, faucibus enim non,
-				malesuada sapien.
-			</p>
-		</div>
-		<div class="mb-2 opacity-25">
-			<div class="flex relative mb-1 ">
-				<h3>Lorem ipsum dolor sit amet</h3>
-				<div class="text-base font-semibold absolute right-0 pr-3 leading-5 ">12 Dec</div>
-			</div>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nisi odio, lacinia
-				eu dictum a, consequat eget purus. Phasellus nec est luctus, faucibus enim non,
-				malesuada sapien.
-			</p>
-		</div> -->
 	</div>
 	</div>
 </div>

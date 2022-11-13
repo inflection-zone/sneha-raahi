@@ -25,6 +25,11 @@ export class Helper {
         return true;
     };
 
+    static truncateText = (text, numChars) => {
+		const txt = text.length > numChars ? text.substring(0, numChars-3) + '...': text;
+        return txt;
+	}
+
     static hasProperty = (obj, prop) => {
         return Object.prototype.hasOwnProperty.call(obj, prop);
     };
