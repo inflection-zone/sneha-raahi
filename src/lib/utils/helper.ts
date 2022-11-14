@@ -97,6 +97,10 @@ export class Helper {
         if (!phone) {
             return phone;
         }
+        if (phone.startsWith('1000001') || phone.startsWith('1000002')) {
+            //Internal test phone numbers
+            return phone;
+        }
         const prefix = '+91-';
         if (!phone.startsWith(prefix)) {
            return prefix + phone

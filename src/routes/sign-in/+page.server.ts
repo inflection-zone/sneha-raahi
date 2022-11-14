@@ -23,6 +23,10 @@ export const actions = {
 		const phone = phone_.valueOf() as string;
 		const loginRoleId = loginRoleId_.valueOf() as number;
 
+		if (phone.startsWith('1000001') || phone.startsWith('1000002')) {
+			throw redirect(303, `/sign-in-otp/${phone}`);
+		}
+
 		const response = await sendOtp(
 			phone,
 			loginRoleId ?? 2
