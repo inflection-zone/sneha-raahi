@@ -20,7 +20,6 @@ export const show = (data) => {
     if (flashMessage) {
       messageType = flashMessage?.type;
       messageText = flashMessage?.message;
-      console.log(`Layout svelte...${JSON.stringify(flashMessage, null, 2)}`);
       showMessage(messageText, messageType);
     }
 };

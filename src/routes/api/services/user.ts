@@ -2,7 +2,7 @@ import type { LoginModel, OtpModel } from "$lib/types/domain.models";
 import { API_CLIENT_INTERNAL_KEY, BACKEND_API_URL } from "$env/static/private";
 import { Helper } from "$lib/utils/helper";
 import type { UserModel } from "$lib/types/domain.models";
-import { get_ } from "./common";
+import { get_, post_ } from "./common";
 
 ////////////////////////////////////////////////////////////////
 
@@ -134,6 +134,13 @@ export const searchUsersByName = async (sessionId: string, name?: string, phone?
         url += `&phone=${phone}`;
     }
     return await get_(sessionId, url);
+};
+
+////////////////////////////////////////////////////////////////////////////////////
+
+export const logout = async (sessionId: string) => {
+    const url = BACKEND_API_URL + `/users/logout`;
+    return await post_(sessionId, url, {});
 };
 
 ////////////////////////////////////////////////////////////////////////////////////

@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { show } from "$lib/utils/message.utils";
+	import { showMessage } from "$lib/utils/message.utils";
 	import { onMount } from "svelte";
 	import type { PageServerData } from "./$types";
     import { page } from '$app/stores';
     import Navbar from '$lib/components/navbar/nav.svelte';
     import { navbarDisplay } from '$lib/components/navbar/navbar.display.store';
-    import Toasts from '$lib/components/toast/toasts.svelte';
+	import { LocalStorageUtils } from "$lib/utils/local.storage.utils";
 
 	let userId = $page.params.userId;
 	export let data: PageServerData;
@@ -18,12 +18,23 @@
 	let linkagesLink;
 	let notificationsLink
 
-	//console.log(`${JSON.stringify(data, null, 2)}`);
-
 	const toggleSidebar = () => {
         console.log(`Sidebar toggled: ${$navbarDisplay}`);
         $navbarDisplay = !$navbarDisplay;
 	}
+
+	const onLogout = async () => {
+		const response = await fetch(`/api/server/logout`, {
+			method: 'POST',
+			headers: {
+			'content-type': 'application/json'
+			}
+		});
+		const resp = await response.text();
+		console.log(`resp: ${JSON.stringify(resp, null, 2)}`);
+		LocalStorageUtils.removeItem('showSplash');
+		window.location.href = '/sign-in';
+	};
 
 	onMount(()=>{
 		userId = data.userId;
@@ -35,14 +46,12 @@
 		linkagesLink = `/users/${userId}/linkages`;
 		notificationsLink = `/users/${userId}/notifications`
 
-		console.log(learningHomeLink);
-		console.log(myProfileLink);
-		console.log(askSnehaLink);
-		console.log(newsFeedLink);
-		console.log(chatLink);
-		console.log(linkagesLink);
+		const prevUrl = LocalStorageUtils.getItem('prevUrl');
+		console.log(`prevUrl = ${JSON.stringify(LocalStorageUtils.getItem('prevUrl'))}`);
+		if (prevUrl.includes('sign-in-otp')) {
+			showMessage('Login successful!', "success");
+		}
 
-		show(data);
 	});
 
 </script>
@@ -50,7 +59,9 @@
 <div class="grid gird-cols justify-center items-center">
 	<div class="w-[375px] h-[812px]">
 		<div class="flex  items-center justify-center  mt-16">
-			<Navbar userId={userId}/>
+			<Navbar userId={userId} on:logout={async () => {
+				await onLogout();
+			  }}/>
 			<div class="card  rounded-none card-bordered border-slate-400 w-[375px] h-[812px]  bg-[#5b7aa3]  shadow-none">
 				<div class="card w-[375px] h-[406px] shadow-none rounded-none border-none">
 					<div class="card-body ">

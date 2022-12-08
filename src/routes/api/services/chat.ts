@@ -35,18 +35,10 @@ export const getConversationById = async (sessionId: string, conversationId: str
     return await get_(sessionId, url);
 };
 
-export const markConversationAsFavourite = async (sessionId: string, conversationId: string) => {
+export const markConversation = async (sessionId: string, conversationId: string, favourite = true) => {
     const url = BACKEND_API_URL + `/chats/conversations/${conversationId}`;
     const body = {
-        Marked: true,
-    };
-    return await put_(sessionId, url, body);
-};
-
-export const unmarkConversationAsFavourite = async (sessionId: string, conversationId: string) => {
-    const url = BACKEND_API_URL + `/chats/conversations/${conversationId}`;
-    const body = {
-        Marked: false,
+        Marked: favourite,
     };
     return await put_(sessionId, url, body);
 };

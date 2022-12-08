@@ -25,6 +25,11 @@ export class Helper {
         return true;
     };
 
+    static truncateText = (text, numChars) => {
+		const txt = text.length > numChars ? text.substring(0, numChars-3) + '...': text;
+        return txt;
+	}
+
     static hasProperty = (obj, prop) => {
         return Object.prototype.hasOwnProperty.call(obj, prop);
     };
@@ -92,6 +97,10 @@ export class Helper {
         if (!phone) {
             return phone;
         }
+        if (phone.startsWith('1000001') || phone.startsWith('1000002')) {
+            //Internal test phone numbers
+            return phone;
+        }
         const prefix = '+91-';
         if (!phone.startsWith(prefix)) {
            return prefix + phone
@@ -127,7 +136,7 @@ export class Helper {
         return false;
     };
 
-    static createResponse = (action: 'message' | 'redirect' | 'error', content: string) => {
+    static createResponse = (action: 'message' | 'redirect' | 'error' | 'data', content: string) => {
         return new Response(JSON.stringify({
 			action: action,
 			content: content

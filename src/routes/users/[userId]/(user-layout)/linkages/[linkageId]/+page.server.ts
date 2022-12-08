@@ -1,6 +1,6 @@
 import type { PageServerLoad } from '.svelte-kit/types/src/routes/$types';
 import type { ServerLoadEvent } from '@sveltejs/kit';
-import { getLinkageById } from '../../../../../api/services/linkages';
+import { getLinkageById, getNoticeActionForUser } from '../../../../../api/services/linkages';
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -9,13 +9,17 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
         const noticeId = event.params.linkageId;
         const userId = event.params.userId;
         const sessionId = event.cookies.get('sessionId');
-        const _notice = await getLinkageById(sessionId, noticeId);
-        const notice = _notice.Notice;
+        const notice_ = await getLinkageById(sessionId, noticeId);
+        const notice = notice_.Notice;
         console.log(`\n Notice = ${JSON.stringify(notice)}`);
+
+        const noticeAction_ = await getNoticeActionForUser(sessionId, noticeId, userId);
+        const noticeAction = noticeAction_.NoticeAction ?? null;
         return {
            notice,
            userId,
-           sessionId
+           sessionId,
+           noticeAction,
         };
     }
     catch (error) {

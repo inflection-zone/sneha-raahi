@@ -2,7 +2,6 @@
 	import type { PageServerData } from './$types';
 	import Image from '$lib/components/image.svelte';
 	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
 	import { errorMessage, showMessage, successMessage } from '$lib/utils/message.utils';
 
 	export let data: PageServerData;
@@ -25,13 +24,13 @@
 		await searchUsers(text);
 	}
 
-	// const onSearchTextEntered = async (e) => {
-	// 	const keyCode = e.keyCode;
-	// 	if (keyCode == ENTER_KEY_CODE) {
-	// 		const text = searchInput.value;
-	// 		await searchUsers(text);
-	// 	}
-	// }
+	const onSearchTextEntered = async (e) => {
+		const keyCode = e.keyCode;
+		if (keyCode == ENTER_KEY_CODE) {
+			const text = searchInput.value;
+			await searchUsers(text);
+		}
+	}
 
 	//on:input={onSearchTextEntered}
 
@@ -55,21 +54,12 @@
 		});
 		const users = await response.json();
 		console.log(JSON.stringify(users));
-		searchResults = users.filter(x => x.UserId != userId);
+		searchResults = users.filter(x => x.userId != userId);
 
 		//Take only top 5 results
 		searchResults = searchResults.slice(0, 5);
 		console.log(JSON.stringify(searchResults));
 	}
-
-	// const handleConversationClick = async (e,
-	// 	conversationId?: string) => {
-	// 	console.log(e.currentTarget);
-	// 	const redirectPath = `/users/${userId}/chat/${conversationId}`;
-	// 	console.log(redirectPath);
-	// 	window.location.href = redirectPath;
-	// 	//goto(redirectPath, { keepfocus: false });
-	// };
 
 	const onSearchedCoversationClick = async (e, otherUserId?: string) => {
 		searchPeformed = true;
@@ -88,6 +78,7 @@
 			window.location.href = redirectPath;
 		}
 		else {
+			console.log(`Conversation not found! Starting new one`);
 			const response = await fetch(`/api/server/chat/start-conversation`, {
 				method: 'POST',
 				body: JSON.stringify({
@@ -144,32 +135,30 @@
 		{#if searchPeformed}
 			<div class="overflow-auto scrollbar-medium w-[365px]">
 				<div class="grid grid-flow-col mt-2 auto-cols-max gap-3">
-					{#if favourites.length === 0}
-						<h3 class="m-1">No results found!</h3>
+					{#if searchedUsers.length === 0}
+						<h3 class="text-center font-medium mt-2">No results found!</h3>
 					{:else}
 						{#each searchedUsers as searchedUser}
 							<button on:click={async (e) => onSearchedCoversationClick(e, searchedUser.userId)} class="tracking-normal font-sm">
-								<!-- <a href={`/users/${userId}/chat/${searchedUser.id}`}> -->
-									<div class="grid grid-rows-2 ">
-										{#if searchedUser.profileImage != null}
-											<Image cls="rounded" h="58" w="58" source={searchedUser.profileImage} ></Image>
-										{:else}
-											<img src="/assets/chat/png/account-img-3.png" alt="" />
-										{/if}
-										<h3 class=" mt-3 text-sm ">{searchedUser.firstName} <br />{searchedUser.lastName}</h3>
-									</div>
-								<!-- </a> -->
+								<div class="grid grid-rows-2 ">
+									{#if searchedUser.profileImage != null}
+										<Image cls="rounded" h="58" w="58" source={searchedUser.profileImage} ></Image>
+									{:else}
+										<img src="/assets/chat/png/account-img-3.png" alt="" />
+									{/if}
+									<h3 class=" mt-3 text-sm ">{searchedUser.firstName} <br />{searchedUser.lastName}</h3>
+								</div>
 							</button>
 						{/each}
 					{/if}
 				</div>
 			</div>
 		{/if}
-		<h2 class="flex justify-left ">Favourites</h2>
+		<h2 class="flex justify-left text-normal">Favourites</h2>
 		<div class="overflow-auto scrollbar-medium w-[365px]">
 			<div class="grid grid-flow-col mt-2 auto-cols-max gap-3">
 				{#if favourites.length === 0}
-					<h3 class="m-1">No favourites so far!</h3>
+					<h3 class="text-center font-normal mb-2">No favourites so far!</h3>
 				{:else}
 					{#each favourites as favourite}
 						<a href={`/users/${userId}/chat/${favourite.id}`}>
@@ -179,7 +168,7 @@
 								{:else}
 									<img src="/assets/chat/png/account-img-4.png" alt="" />
 								{/if}
-								<h3 class=" mt-3 text-sm ">{favourite.firstName} <br />{favourite.lastName}</h3>
+								<h3 class="mt-3 text-sm">{favourite.firstName} <br />{favourite.lastName}</h3>
 							</div>
 						</a>
 					{/each}
@@ -235,7 +224,7 @@
 									<div class="flex relative">
 										<h3 class="text-left">{conversation.displayName}</h3>
 										<br/>
-										<div class="text-base font-semibold absolute right-0 pr-3 leading-5 ">
+										<div class="text-base font-normal absolute right-0 pr-3 leading-5 ">
 											{conversation.lastChatDate}
 										</div>
 									</div>

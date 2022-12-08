@@ -7,7 +7,7 @@ export const load: PageServerLoad = async (event) => {
     try {
         const sessionId = event.cookies.get('sessionId');
         const allNotifications = await getAllNotifications(sessionId);
-        console.log(`\n All notifications = ${JSON.stringify(allNotifications)}`);
+        console.log(`\n All notifications = ${JSON.stringify(allNotifications, null, 2)}`);
         return {
             sessionId,
             allNotifications
