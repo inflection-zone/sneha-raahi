@@ -214,8 +214,8 @@
 		<div class="mt-9 font-bold">0%</div>
 	</div> -->
 
-	<button class="text-center">
-		<a href="/users/{userId}/my-learnings"> BACK TO COURSES </a>
+	<button class="text-center mt-3">
+		<a href="/users/{userId}/my-learnings"> BACK TO JOURNEY </a>
 	</button>
 </div>
 
