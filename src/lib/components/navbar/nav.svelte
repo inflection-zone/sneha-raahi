@@ -88,7 +88,8 @@
 </script>
 
 {#if show}
-    <div class="card rounded-none w-[855px]  h-[812px] bg-[#DFE7FD]">
+
+    <div class="card rounded-none w-[855px]  h-[812px] bg-[#DFE7FD] lg:mt-16 md:mt-16 sm:mt-16 mt-0">
         <div class="mt-10">
             <ul class="p-4 overflow-y-auto  w-[370px] h-[800px] text-base-content bg-[#DFE7FD]">
                 <!-- <div class="relative flex items-center ">
@@ -150,4 +151,5 @@
             </ul>
         </div>
     </div>
+
 {/if}

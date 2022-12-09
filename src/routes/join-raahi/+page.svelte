@@ -15,7 +15,7 @@
 </script>
 
 <body>
-	<div class=" flex items-center justify-center mt-16 ">
+	<div class=" flex items-center justify-center lg:mt-16 md:mt-16 sm:mt-16 mt-0 ">
 		<div class="card  w-[375px] h-[812px] bg-[#fff] rounded-none border-solid border-2">
 			<div class="card-body items-center text-center">
 				<img

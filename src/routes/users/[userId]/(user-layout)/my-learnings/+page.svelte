@@ -38,7 +38,7 @@
 
 </script>
 
-<div class="card card-compact w-[375px] h-[1029px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm">
+<div class="card card-compact w-[375px] h-[1029px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm ">
 	<div class="card-body ">
 		<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 rounded" />
 		<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">

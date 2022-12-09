@@ -4,7 +4,6 @@
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import { personRolesStore, genderTypesStore } from '$lib/store/general.store';
 
-
 	export let data: PageServerData;
 	personRolesStore.set(data.roles);
 	genderTypesStore.set(data.genderTypes);
@@ -30,7 +29,7 @@
 </script>
 
 {#if showSplash}
-	<div class="flex items-center justify-center mt-16">
+	<div class="flex items-center justify-center lg:mt-16 md:mt-16 sm:mt-16 mt-0">
 		<div
 			class="card card-compact rounded-none card-bordered border-slate-400 w-[375px]
         h-[812px] bg-base-100  shadow-none "
@@ -46,7 +45,7 @@
 		</div>
 	</div>
 {:else}
-	<div class="flex items-center justify-center mt-16">
+	<div class="flex items-center justify-center lg:mt-16 md:mt-16 sm:mt-16 mt-0">
 		<div class="card card-compact w-[375px] h-[812px] bg-base-100 border-2 rounded-none">
 			<div class="card-body">
 				<div class="flex flex-col items-center justify-center h">

@@ -25,16 +25,19 @@
   <title>{$page.data.title ? $page.data.title : 'Sneha-Raahi'}</title>
 </svelte:head>
 
-<div class="grid gird-cols justify-center items-center">
+<div class="grid gird-cols justify-center items-center ">
 	<div class="w-[375px] h-[812px]">
-    <div class="flex items-center justify-center mt-16">
+    <div class="flex items-center justify-center ">
       <Navbar userId={userId} on:logout={async () => {
         await onLogout();
       }}/>
       <UserSessionLayout userId={userId} on:toggleSidebar={()=>{
         console.log(`Sidebar toggled: ${$navbarDisplay}`);
-        $navbarDisplay = !$navbarDisplay;
-      }}>
+        $navbarDisplay = !$navbarDisplay; 
+      }}
+      on:logout={async () => {
+        await onLogout();
+      }} >
         <slot>
             <main/>
         </slot>

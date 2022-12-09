@@ -14,7 +14,7 @@
 	}
 </script>
 
-<div class="flex items-center justify-center mt-16">
+<div class="flex items-center justify-center lg:mt-16 md:mt-16 sm:mt-16 mt-0">
 	<div
 		class="card card-compact rounded-none card-bordered border-slate-400 w-[375px]
 	h-[812px] bg-base-100  shadow-none "

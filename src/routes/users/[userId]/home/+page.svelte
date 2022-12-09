@@ -56,28 +56,29 @@
 
 </script>
 
-<div class="grid gird-cols justify-center items-center">
+<div class="grid gird-cols justify-center items-center ">
 	<div class="w-[375px] h-[812px]">
-		<div class="flex  items-center justify-center  mt-16">
+		<div class="flex  items-center justify-center">
 			<Navbar userId={userId} on:logout={async () => {
 				await onLogout();
 			  }}/>
-			<div class="card  rounded-none card-bordered border-slate-400 w-[375px] h-[812px]  bg-[#5b7aa3]  shadow-none">
+			<div class="card  rounded-none card-bordered border-slate-400 w-[375px] h-[812px]  bg-[#5b7aa3]  shadow-none lg:mt-16 md:mt-16 sm:mt-16 mt-0">
 				<div class="card w-[375px] h-[406px] shadow-none rounded-none border-none">
 					<div class="card-body ">
 						<div class=" flex flex-row h-16 w-16">
 							<button on:click={toggleSidebar}>
 								<img src="/assets/home/svg/menu.svg" alt="" />
 							</button>
-							<img class="absolute right-0 " src="/assets/home/png/profile-settings.png" alt="" />
+							<!-- svelte-ignore a11y-click-events-have-key-events -->
+							<img on:click={onLogout} class="absolute right-0 h-[74px] w-[74px]" src="/assets/home/png/ask.png" alt="" />
 						</div>
 						<h1 class="card-title text-base-100 text-3xl">Hi {data.firstName}!</h1>
 						<p class=" text-base-100">
 							Welcome to Raahi, your friend, companion and guide as you navigate your journey into adulthood.
 						</p>
 					</div>
-					<div class="flex flex-row  justify-center relative">
-						<a href={askSnehaLink}> <img src="/assets/home/png/ask.png" alt="" /></a>
+					<div class="flex flex-row   justify-center relative">
+						<a href={askSnehaLink}> <img class="h-[110px] w-[110px]" src="/assets/home/png/profile-settings.png"  alt="" /></a>
 						<a href={chatLink}> <img src="/assets/home/svg/message.svg" alt="" /></a>
 						<a href={notificationsLink}> <img src="/assets/home/png/notification.png" alt="" /></a>
 					</div>
