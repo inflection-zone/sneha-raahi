@@ -23,7 +23,7 @@
 			<div class="flex flex-row gap-4">
 				<div class="w-[180px] mt-2 ml-2 h-[40px] rounded-lg bg-[#fff]">
 					<img
-						src="/assets/newsfeed/png/logo.png"
+						src="/images/assets/newsfeed/png/logo.png"
 						alt=""
 						class="ml-1.5 mt-3 w-[28.8px] h-[14.3px]"
 					/>
@@ -51,7 +51,7 @@
 		<div class=" mt-4 ">
 			<div class="flex">
 				<img
-					src="/assets/newsfeed-details/png/jasmine.png"
+					src="/images/assets/newsfeed-details/png/jasmine.png"
 					alt=""
 					class=" mr-[16px] mb-[25px] ml-[4px]"
 				/>

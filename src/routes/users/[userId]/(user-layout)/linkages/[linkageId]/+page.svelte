@@ -54,12 +54,12 @@
 		<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 			LINKAGE - JOB
 		</h2>
-		<div class="flex justify-center  mt-5 mb-6">
+		<div class="flex justify-center mt-5 mb-6">
 			<img class="w-[3.625rem] h-[3.625rem] bg-[#fde2e4] rounded-lg" src={data.notice.ImageUrl} alt=""/>
 			<div class="ml-3 ">
 				<div id={data.notice.id} class="flex mb-4">
 					<h3 class="text-left" >{data.notice.Title}</h3>
-					<div class="text-base font-normal ml-4  leading-5 ">{timeAgo(postDate)}</div>
+					<div class="text-base font-normal ml-4 leading-5 ">{timeAgo(postDate)}</div>
 				</div>
 				<p>
 					{data.notice.Description}
@@ -74,6 +74,9 @@
 					name={notice.id}
 					class=" h-[52px] w-[340px] mt-2 text-[#fff] rounded-lg bg-[#5b7aa3]">
 					APPLY FOR JOB
+				</button>
+				<button on:click|preventDefault = {backToLinkages} class="text-center mt-72">
+					 BACK TO LINKAGES 
 				</button>
 			{:else}
 				<div class="text-center bg-[#70ae6e] p-3 rounded-md text-white">

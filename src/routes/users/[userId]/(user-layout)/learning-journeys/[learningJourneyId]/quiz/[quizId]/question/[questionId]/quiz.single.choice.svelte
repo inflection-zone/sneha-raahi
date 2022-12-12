@@ -40,13 +40,13 @@
 					{#if option.Sequence == correctSequence}
 						<img 
 							class=" absolute right-0 pt-1 pr-3"
-							src="/assets/quiz-wrong/svg/correct.svg"
+							src="/images/assets/quiz-wrong/svg/correct.svg"
 							alt=""
 						/>
 					{:else}
 						<img
 							class="absolute right-0 pt-1 pr-3 "
-							src="/assets/quiz-wrong/svg/wrong.svg"
+							src="/images/assets/quiz-wrong/svg/wrong.svg"
 							alt=""
 						/>
 

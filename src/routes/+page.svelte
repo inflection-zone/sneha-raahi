@@ -37,11 +37,11 @@
 			<div class="card-body ">
 				<img
 					class="mt-[17.6rem] mx-4 w-[300px] h-[170px]"
-					src="/assets/splash-screen/svg/logo.svg"
+					src="/images/assets/splash-screen/svg/logo.svg"
 					alt=""
 				/>
 			</div>
-			<img src="/assets/sign-in/svg/color-strip.svg" alt="" />
+			<img src="/images/assets/sign-in/svg/color-strip.svg" alt="" />
 		</div>
 	</div>
 {:else}
@@ -50,7 +50,7 @@
 			<div class="card-body">
 				<div class="flex flex-col items-center justify-center h">
 					<img
-						src="/assets/about-raahi/png/logo.png"
+						src="/images/assets/about-raahi/png/logo.png"
 						alt=""
 						class="w-[110px] h-[50px] mt-[10px] object-contain  "
 					/>
@@ -71,7 +71,7 @@
 					{/each} -->
 					<div id="item1" class=" slide carousel-item ">
 						<div class="flex flex-col text-center justify-center">
-							<img src="/assets/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px] h-[250px]  p-4" />
+							<img src="/images/assets/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px] h-[250px]  p-4" />
 						<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
 							Your Learning Journey
 						</h2>
@@ -82,7 +82,7 @@
 					</div>
 					<div id="item2" class=" slide carousel-item ">
 						<div class="flex flex-col text-center justify-center">
-							<img src="/assets/home/svg/linkages.svg" alt="" class="mt-[50px] h-[250px]  p-4" />
+							<img src="/images/assets/home/svg/linkages.svg" alt="" class="mt-[50px] h-[250px]  p-4" />
 						<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
 							Linkages
 						</h2>
@@ -93,7 +93,7 @@
 					</div>
 					<div id="item3" class=" carousel-item ">
 						<div class="flex flex-col text-center justify-center">
-							<img src="/assets/home/svg/newsfeed.svg" alt="" class="mt-[50px] h-[250px] " />
+							<img src="/images/assets/home/svg/newsfeed.svg" alt="" class="mt-[50px] h-[250px] " />
 						<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
 							Newsfeed
 						</h2>
@@ -104,7 +104,7 @@
 					</div>
 					<div id="item4" class="carousel-item ">
 						<div class="flex flex-col text-center justify-center">
-							<img src="/assets/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px]" />
+							<img src="/images/assets/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px]" />
 						<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
 							Ask SNEHA
 						</h2>
@@ -144,7 +144,7 @@
 				</div>
 			</div>
 			<img
-				src="/assets/about-raahi/png/colors-strip.png"
+				src="/images/assets/about-raahi/png/colors-strip.png"
 				alt=""
 				class="w-[375px] h-[10px] object-contain"
 			/>

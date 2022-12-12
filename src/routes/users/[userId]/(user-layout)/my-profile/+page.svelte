@@ -33,7 +33,7 @@
 		</h2>
 		<div class="flex flex-row ">
 			<div class="grid grid-flow-col">
-				<img src="/assets/my-profile/png/my-profile-pic.png" alt="" />
+				<img src="/images/assets/my-profile/png/my-profile-pic.png" alt="" />
 				<div class="flex flex-col ml-6  ">
 					<h3 class="text-left mt-2 ml-[2px] mb-2 font-bold">{FullName}</h3>
 					<button class="uppercase text-base font-bold text-[#d05591] absolute right-5 mt-2">
@@ -87,7 +87,7 @@
 			<div class="grid grid-flow-row">
 				<div class="w-[99px] h-[99px] rounded bg-[#fcaf58]">
 					<img
-						src="/assets/my-profile/png/star-member.png"
+						src="/images/assets/my-profile/png/star-member.png"
 						alt=""
 						class="object-contain my-6 mx-9"
 					/>
@@ -97,7 +97,7 @@
 			<div class="grid grid-flow-row">
 				<div class="w-[99px] h-[99px] rounded bg-[#5b7aa3]">
 					<img
-						src="/assets/my-profile/png/champion-medal.png"
+						src="/images/assets/my-profile/png/champion-medal.png"
 						alt=""
 						class="object-contain  my-7  mx-6"
 					/>
@@ -107,7 +107,7 @@
 			<div class="grid grid-flow-row">
 				<div class="w-[99px] h-[99px] rounded bg-[#70ae6e]">
 					<img
-						src="/assets/my-profile/png/percentage-meter.png"
+						src="/images/assets/my-profile/png/percentage-meter.png"
 						alt=""
 						class="object-contain my-7 mx-6"
 					/>
@@ -125,7 +125,7 @@
 				<div class="grid grid-flow-row">
 					<div class="w-[133px] h-[80px] rounded-lg bg-[#fff1e6]">
 						<img
-							src="/assets/my-profile/png/my-profile-award-1.png"
+							src="/images/assets/my-profile/png/my-profile-award-1.png"
 							alt=""
 							class="object-contain my-4 mx-11"
 						/>
@@ -135,7 +135,7 @@
 				<div class="grid grid-flow-row">
 					<div class="w-[133px] h-[80px] rounded-lg bg-[#dfe7fd]">
 						<img
-							src="/assets/my-profile/png/my-profile-award-2.png"
+							src="/images/assets/my-profile/png/my-profile-award-2.png"
 							alt=""
 							class="object-contain  my-4  mx-11"
 						/>
@@ -145,7 +145,7 @@
 				<div class="grid grid-flow-row">
 					<div class="w-[133px] h-[80px] rounded-lg bg-[#fde2e4]">
 						<img
-							src="/assets/my-profile/png/my-profile-award-3.png"
+							src="/images/assets/my-profile/png/my-profile-award-3.png"
 							alt=""
 							class="object-contain my-4 mx-11"
 						/>

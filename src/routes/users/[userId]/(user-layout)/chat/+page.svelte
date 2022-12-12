@@ -126,7 +126,7 @@
 				id="searchButton"
 				name="searchButton"
 				class="right-48 pr-3 ml-3 w-2/12"
-				src="/assets/home-sidebar/png/search-icon.png"
+				src="/images/assets/home-sidebar/png/search-icon.png"
 				alt=""
 				on:click={onSearchClick}
 				on:keyup={onSearchEnter}
@@ -144,7 +144,7 @@
 									{#if searchedUser.profileImage != null}
 										<Image cls="rounded" h="58" w="58" source={searchedUser.profileImage} ></Image>
 									{:else}
-										<img src="/assets/chat/png/account-img-3.png" alt="" />
+										<img src="/images/assets/chat/png/account-img-3.png" alt="" />
 									{/if}
 									<h3 class=" mt-3 text-sm ">{searchedUser.firstName} <br />{searchedUser.lastName}</h3>
 								</div>
@@ -166,7 +166,7 @@
 								{#if favourite.profileImage != null}
 									<Image cls="rounded" h="58" w="58" source={favourite.profileImage} ></Image>
 								{:else}
-									<img src="/assets/chat/png/account-img-4.png" alt="" />
+									<img src="/images/assets/chat/png/account-img-4.png" alt="" />
 								{/if}
 								<h3 class="mt-3 text-sm">{favourite.firstName} <br />{favourite.lastName}</h3>
 							</div>
@@ -218,7 +218,7 @@
 								{#if conversation.profileImage != null}
 									<Image cls="rounded col-span-2" h="58" w="58" source={conversation.profileImage} ></Image>
 								{:else}
-									<img src="/assets/chat/png/account-img-1.png" alt="" />
+									<img src="/images/assets/chat/png/account-img-1.png" alt="" />
 								{/if}
 								<div class="grid grid-flow-rows-2 col-span-4 ml-2 mt-4">
 									<div class="flex relative">

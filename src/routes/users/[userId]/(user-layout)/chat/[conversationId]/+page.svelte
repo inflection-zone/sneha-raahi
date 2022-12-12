@@ -141,7 +141,7 @@
 			{#if conversation?.profileImage}
 				<Image cls="rounded justify-center align-middle" h="58" w="58" source={conversation.profileImage} ></Image>
 			{:else}
-				<img src="/assets/chat/png/account-img-4.png" width="54" height="54" class="justify-center col-span-1 align-middle" alt="" />
+				<img src="/images/assets/chat/png/account-img-4.png" width="54" height="54" class="justify-center col-span-1 align-middle" alt="" />
 			{/if}
 			<span class="items-center py-4 ">
 				<h2 class=" text-[#5b7aa3] font-bold text-base align-middle">
@@ -150,9 +150,9 @@
 			</span>
 			<button on:click|preventDefault={toggleFavourite}>
 				{#if conversation.favourite}
-					<img class="text-right" src="/assets/quiz-wrong/svg/correct.svg" alt="" />
+					<img class="text-right" src="/images/assets/quiz-wrong/svg/correct.svg" alt="" />
 				{:else}
-					<img class="text-right" src="/assets/quiz-wrong/png/correct-light-grey.png" alt="" />
+					<img class="text-right" src="/images/assets/quiz-wrong/png/correct-light-grey.png" alt="" />
 				{/if}
 			</button>
 		</div>

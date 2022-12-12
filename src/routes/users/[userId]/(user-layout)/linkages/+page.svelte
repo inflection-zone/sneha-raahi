@@ -18,22 +18,22 @@
 				<h3 class="text-slate-500">No linkages to show</h3>
 			{:else}
 				{#each allLinkages as notice}
-					<div id= {notice.id} >
+					<div class="first:mt-2 mb-3 last:mb-16" id= {notice.id} >
 						<a href={`/users/${data.userId}/linkages/${notice.id}`}>
-							<div class="grid grid-flow-col mb-3">
+							<div class="grid grid-flow-col ">
 								<img class="w-[3.625rem] h-[3.625rem] bg-[#fde2e4] rounded-lg" src={notice.ImageUrl} alt=""/>
 								<div class="ml-3 ">
-									<div class="flex mb-1 ">
-										<h3 class="text-left">{notice.Title.length > 20 ? notice.Title.substring(0, 20) + '...': notice.Title}</h3>
-										<div class="text-right text-xs font-semibold ml-4 right-2 p-0 leading-5 ">{timeAgo(new Date(notice.PostDate))}</div>
+									<div class="flex relative mb-1 ">
+										<h3 class="text-left">{notice.Title.length > 20 ? notice.Title.substring(0, 16) + '...': notice.Title}</h3>
+										<div class="text-right text-xs font-semibold ml-4 absolute right-0 p-0 leading-3 ">{timeAgo(new Date(notice.PostDate))}</div>
 									</div>
 									<!-- <div class="text-right text-xs font-semibold ml-4 right-2 p-0 leading-5 ">{timeAgo(new Date(notice.PostDate))}</div> -->
 									<div class="flex mb-1 ">
 									<p>{notice.Description.length > 50 ? notice.Description.substring(0, 55) + '...': notice.Description}</p>
 									{#if notice.UserAction}
-										<img class="text-right" src="/assets/quiz-wrong/svg/correct.svg" alt="" />
+										<img class="text-right" src="/images/assets/quiz-wrong/svg/correct.svg" alt="" />
 									{:else}
-										<img class="hidden" src="/assets/quiz-wrong/svg/correct.svg" alt="" />
+										<img class="hidden" src="/images/assets/quiz-wrong/svg/correct.svg" alt="" />
 									{/if}
 									</div>
 								</div>

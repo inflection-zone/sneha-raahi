@@ -14,6 +14,7 @@
 	let chatLink;
 	let linkagesLink;
 	let homeLink;
+    let aboutSneha;
 
     onMount(()=> {
         homeLink = `/users/${userId}/home`
@@ -23,6 +24,7 @@
         newsFeedLink = `/users/${userId}/newsfeed`;
         chatLink = `/users/${userId}/chat`;
         linkagesLink = `/users/${userId}/linkages`;
+        aboutSneha = `/users/${userId}/about-sneha`;
     });
 
     const unsubscribe = navbarDisplay.subscribe(value => {
@@ -81,8 +83,8 @@
 
     const gotoAboutSneha = () => {
         toggleSidebar();
+        goto(aboutSneha);
     }
-
     onDestroy(unsubscribe);
 
 </script>
@@ -105,42 +107,42 @@
                 </div> -->
                 <div class="flex flex-col items-start justify-left h mb-6 ml-2">
                     <img
-                        src="/assets/about-raahi/png/logo.png"
+                        src="/images/assets/about-raahi/png/logo.png"
                         alt=""
                         class="w-[110px] h-[50px] mt-[10px] object-contain  "
                     />
                 </div>
                 <div class="grid grid-cols gap-2 ">
                     <button class="flex flex-rows"  on:click={gotoHome}>
-                        <img src="/assets/home-sidebar/svg/home-sidebar.svg" alt="" class="my-2 mx-4" />
+                        <img src="/images/assets/home-sidebar/svg/home-sidebar.svg" alt="" class="my-2 mx-4" />
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">home</h3>
                     </button>
                     <button class="flex flex-rows" on:click={gotoMyProfile}>
-                        <img src="/assets/home-sidebar/png/my-profile-sidebar.png" alt="" class="my-2 mx-4"/>
+                        <img src="/images/assets/home-sidebar/png/my-profile-sidebar.png" alt="" class="my-2 mx-4"/>
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">my profile</h3>
                     </button>
                     <button class="flex flex-rows" on:click={gotoLearningHome}>
-                        <img src="/assets/home-sidebar/png/my-learning-sidebar.png" alt="" class="my-2 mx-4"/>
+                        <img src="/images/assets/home-sidebar/png/my-learning-sidebar.png" alt="" class="my-2 mx-4"/>
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">my learning</h3>
                     </button>
                     <button class="flex flex-rows" on:click={gotoChat}>
-                        <img src="/assets/home-sidebar/png/chat-sidebar.png" alt="" class="my-2 mx-4" />
+                        <img src="/images/assets/home-sidebar/png/chat-sidebar.png" alt="" class="my-2 mx-4" />
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">chat</h3>
                     </button>
                     <button class="flex flex-rows" on:click={gotoNewsFeed}>
-                        <img src="/assets/home-sidebar/png/newsfeed-sidebar.png" alt="" class="my-2 mx-4"/>
+                        <img src="/images/assets/home-sidebar/png/newsfeed-sidebar.png" alt="" class="my-2 mx-4"/>
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">newsfeed</h3>
                     </button>
                     <button class="flex flex-rows" on:click={gotoLinkages}>
-                        <img src="/assets/home-sidebar/png/linkages-sidebar.png" alt="" class="my-2 mx-4"/>
+                        <img src="/images/assets/home-sidebar/png/linkages-sidebar.png" alt="" class="my-2 mx-4"/>
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">linkages</h3>
                     </button>
                     <button class="flex flex-rows" on:click={gotoAskSneha}>
-                        <img src="/assets/home-sidebar/png/ask-sneha-sidebar.png" alt="" class="my-2 mx-4"/>
+                        <img src="/images/assets/home-sidebar/png/ask-sneha-sidebar.png" alt="" class="my-2 mx-4"/>
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">ask sneha</h3>
                     </button>
                     <button class="flex flex-rows" on:click={gotoSettings}>
-                        <img src="/assets/home-sidebar/png/settings-sidebar.png" alt="" class="my-2 mx-4"/>
+                        <img src="/images/assets/home-sidebar/png/settings-sidebar.png" alt="" class="my-2 mx-4"/>
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">settings</h3>
                     </button>
                     <div class="flex flex-col  text-[#5B7AA3] cursor-pointer">

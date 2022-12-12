@@ -25,13 +25,13 @@
 
 		<!-- <div class="overflow-auto overscroll-auto"> -->
 			{#if showRaahiUpdates}
-			<h4 class="text-right  text-[13px] font-semibold mb-1">27 sep 2022</h4>
+			<h4 class="text-right  text-[13px] font-semibold mb-1">27 Sep 2022</h4>
 
 			<div class="w-[340px] h-[350px]  rounded-lg bg-[#f2e2da]">
 				<div class="flex p-1">
 					<div class="w-[50px] mt-2 ml-2 h-[45px] rounded-lg bg-[#fff] flex-none">
 						<img
-							src="/assets/newsfeed/png/logo.png"
+							src="/images/assets/newsfeed/png/logo.png"
 							alt=""
 							class="mt-2 p-1"
 						/>
@@ -75,13 +75,13 @@
 		<!-- </div> -->
 
 		{:else}
-		<h4 class="text-right  text-[13px] font-semibold mb-1">27 sep 2022</h4>
+		<h4 class="text-right  text-[13px] font-semibold mb-1">27 Sep 2022</h4>
 
 		<div class="w-[340px] h-[350px]  rounded-lg bg-[#d7eaf7]">
 			<div class="flex p-1">
 				<div class="w-[50px] mt-2 ml-2 h-[45px] rounded-lg bg-[#fff] flex-none">
 					<img
-						src="/assets/newsfeed/png/logo.png"
+						src="/images/assets/newsfeed/png/logo.png"
 						alt=""
 						class="mt-2 p-1"
 					/>

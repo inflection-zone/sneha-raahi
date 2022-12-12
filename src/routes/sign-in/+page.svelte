@@ -20,7 +20,7 @@
 	h-[812px] bg-base-100  shadow-none "
 	>
 		<div class="flex items-center justify-center">
-			<img class="mt-12" src="/assets/sign-in/svg/logo.svg" alt="" />
+			<img class="mt-12" src="/images/assets/sign-in/svg/logo.svg" alt="" />
 		</div>
 		<div class="card-body ">
 			<h2 class="mt-40 text-center text-[#d05591] text-xl font-bold">
@@ -49,6 +49,6 @@
 				<a href="/"> <span class=" text-xl tracking-widest  font-bold"> BACK TO HOME </span></a>
 			</div>
 		</div>
-		<img src="/assets/sign-in/svg/color-strip.svg" alt="" />
+		<img src="/images/assets/sign-in/svg/color-strip.svg" alt="" />
 	</div>
 </div>

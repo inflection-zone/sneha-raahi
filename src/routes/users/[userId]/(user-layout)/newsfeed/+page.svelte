@@ -48,7 +48,7 @@
 								<div class="flex flex-row p-1">
 									<div class="w-[70px] mt-2 ml-2 h-[40px] rounded-lg bg-[#fff]">
 										<img
-											src="/assets/newsfeed/png/logo.png"
+											src="/images/assets/newsfeed/png/logo.png"
 											alt=""
 											class="ml-1.5 mt-3 w-[28.8px] h-[14.3px]"
 										/>
@@ -104,7 +104,7 @@
 								<div class="flex flex-row p-1">
 									<div class="w-[70px] mt-2 ml-2 h-[40px] rounded-lg bg-[#fff]">
 										<img
-											src="/assets/newsfeed/png/logo.png"
+											src="/images/assets/newsfeed/png/logo.png"
 											alt=""
 											class="ml-1.5 mt-3 w-[28.8px] h-[14.3px]"
 										/>

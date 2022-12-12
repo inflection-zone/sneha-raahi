@@ -14,8 +14,8 @@
 		<div class=" h-[470px] overflow-auto scrollbar-medium ">
 			<p class="flex text-xs leading-3 justify-center ">09 Dec 2021</p>
 
-			<div class="grid grid-flow-col mb-3">
-				<img src="/assets/ask-sneha/png/sneha.png" alt="" />
+			<div class="grid grid-flow-col mb-4">
+				<img src="/images/assets/ask-sneha/png/sneha.png" alt="" />
 				<div>
 					<h3 class="text-left mt-2 mb-1">SNEHA</h3>
 					<p>
@@ -24,7 +24,7 @@
 					</p>
 				</div>
 			</div>
-			<div class="grid grid-flow-col mb-3 relative">
+			<div class="grid grid-flow-col mb-4 relative">
 				<div class=" mr-3">
 					<h3 class="text-right  mb-1">You</h3>
 					<p class="text-right">
@@ -32,10 +32,10 @@
 						Mauris sodales diam at justo aliquet accu bolo amet colit doisa msan.
 					</p>
 				</div>
-				<img src="/assets/ask-sneha/png/mask.png" alt="" />
+				<img src="/images/assets/ask-sneha/png/mask.png" alt="" />
 			</div>
-			<div class="grid grid-flow-col mb-3">
-				<img src="/assets/ask-sneha/png/sneha.png" alt="" />
+			<div class="grid grid-flow-col mb-4">
+				<img src="/images/assets/ask-sneha/png/sneha.png" alt="" />
 				<div>
 					<h3 class="text-left mt-2 mb-1">SNEHA</h3>
 					<p>
@@ -45,17 +45,17 @@
 				</div>
 			</div>
 
-			<div class="grid grid-flow-col mb-3 relative">
+			<div class="grid grid-flow-col mb-4 relative">
 				<div class=" mr-3">
 					<h3 class="text-right  mb-1">You</h3>
 					<p class="text-right">
 						Lorem ipsum dolor sit amet, consectetur mauris non massa adipiscing elit.
 					</p>
 				</div>
-				<img src="/assets/ask-sneha/png/mask.png" alt="" />
+				<img src="/images/assets/ask-sneha/png/mask.png" alt="" />
 			</div>
-			<div class="grid grid-flow-col mb-3">
-				<img src="/assets/ask-sneha/png/sneha.png" alt="" />
+			<div class="grid grid-flow-col mb-4">
+				<img src="/images/assets/ask-sneha/png/sneha.png" alt="" />
 				<div>
 					<h3 class="text-left mt-2 mb-1">SNEHA</h3>
 					<p>
@@ -76,7 +76,7 @@
 			placeholder="Start typing here…"
 		/>
 		<div class="relative h-[50px] w-[50px] bg-[#5b7aa3] rounded-lg ml-3 mt-3  ">
-			<img class="m-3" src="/assets/ask-sneha/png/send.png" alt="" />
+			<img class="m-3" src="/images/assets/ask-sneha/png/send.png" alt="" />
 		</div>
 	</div>
 </div>

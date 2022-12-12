@@ -67,10 +67,10 @@
 					<div class="card-body ">
 						<div class=" flex flex-row h-16 w-16">
 							<button on:click={toggleSidebar}>
-								<img src="/assets/home/svg/menu.svg" alt="" />
+								<img src="/images/assets/home/svg/menu.svg" alt="" />
 							</button>
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
-							<img on:click={onLogout} class="absolute right-0 h-[74px] w-[74px]" src="/assets/home/png/ask.png" alt="" />
+							<img on:click={onLogout} class="absolute right-0 h-[74px] w-[74px]" src="/images/assets/home/png/ask.png" alt="" />
 						</div>
 						<h1 class="card-title text-base-100 text-3xl">Hi {data.firstName}!</h1>
 						<p class=" text-base-100">
@@ -78,9 +78,9 @@
 						</p>
 					</div>
 					<div class="flex flex-row   justify-center relative">
-						<a href={askSnehaLink}> <img class="h-[110px] w-[110px]" src="/assets/home/png/profile-settings.png"  alt="" /></a>
-						<a href={chatLink}> <img src="/assets/home/svg/message.svg" alt="" /></a>
-						<a href={notificationsLink}> <img src="/assets/home/png/notification.png" alt="" /></a>
+						<a href={askSnehaLink}> <img class="h-[110px] w-[110px]" src="/images/assets/home/png/profile-settings.png"  alt="" /></a>
+						<a href={chatLink}> <img src="/images/assets/home/svg/message.svg" alt="" /></a>
+						<a href={notificationsLink}> <img src="/images/assets/home/png/notification.png" alt="" /></a>
 					</div>
 				</div>
 				<div class="card card-compact w-[375px] h-[590px]  bg-base-100  rounded-none rounded-t-[44px] shadow-none ">
@@ -91,18 +91,18 @@
 								GET STARTED ON YOUR JOURNEY
 							</h2>
 							<a href={learningHomeLink}>
-								<img class=" h-[172px] w-[340px]" src="/assets/home/svg/my-learning.svg" alt="" />
+								<img class=" h-[172px] w-[340px]" src="/images/assets/home/svg/my-learning.svg" alt="" />
 							</a>
 							<div class="columns-2 mt-2 ">
 								<a href={newsFeedLink}>
-									<img class=" mb-4 " src="/assets/home/svg/newsfeed.svg" alt="" /></a
+									<img class=" mb-4 " src="/images/assets/home/svg/newsfeed.svg" alt="" /></a
 								>
-								<a href={linkagesLink}> <img src="/assets/home/svg/linkages.svg" alt="" /></a>
+								<a href={linkagesLink}> <img src="/images/assets/home/svg/linkages.svg" alt="" /></a>
 								<div>
 									<a href={chatLink}>
-										<img class=" mb-4 " src="/assets/home/svg/chat.svg" alt="" /></a
+										<img class=" mb-4 " src="/images/assets/home/svg/chat.svg" alt="" /></a
 									>
-									<a href={myProfileLink}> <img src="/assets/home/svg/my-profile.svg" alt="" /></a>
+									<a href={myProfileLink}> <img src="/images/assets/home/svg/my-profile.svg" alt="" /></a>
 								</div>
 							</div>
 						</div>

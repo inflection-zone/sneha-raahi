@@ -119,7 +119,7 @@
 								{#if course.ImageUrl == null}
 									<img
 										class="mb-4 w-[162px] h-[162px] "
-										src="/assets/learning-home/svg/growing-up-affect.svg"
+										src="/images/assets/learning-home/svg/growing-up-affect.svg"
 										alt=""
 									/>
 								{:else}
