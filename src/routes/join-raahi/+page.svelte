@@ -51,9 +51,9 @@
 						class=" h-[52px] w-[340px] py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 					/>
 					<input
-						placeholder="Age"
-						type="number"
-						name="age"
+						placeholder="BirthDate"
+						type="date"
+						name="birthDate"
 						class=" h-[52px] w-[340px] py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 					/>
 					<input

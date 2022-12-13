@@ -2,7 +2,7 @@ import type { LoginModel, OtpModel } from "$lib/types/domain.models";
 import { API_CLIENT_INTERNAL_KEY, BACKEND_API_URL } from "$env/static/private";
 import { Helper } from "$lib/utils/helper";
 import type { UserModel } from "$lib/types/domain.models";
-import { get_, post_ } from "./common";
+import { delete_, get_, post_, put_ } from "./common";
 
 ////////////////////////////////////////////////////////////////
 
@@ -44,14 +44,29 @@ const getOtpModel = (phone: string, loginRoleId: number): OtpModel => {
 export const registerUser = async (
     firstName: string,
     lastName: string,
-    age: string,
+    birthDate: Date,
     phone: string,
-    address: string) => {
-
-    const model: UserModel = getUserModel(
-        firstName, lastName, age, phone, address);
-
-    console.log(JSON.stringify(model, null, 2));
+    address: string
+    ) => {
+    // const model: UserModel = getUserModel(
+    //     firstName, lastName, birthDate, phone, address);
+    //     console.log("model.....", model);
+    // console.log(JSON.stringify(model, null, 2));
+    const model = {
+        FirstName: firstName,
+        LastName: lastName,
+        BirthDate: birthDate,
+        Phone: phone,
+        Address : {
+         Type : "Home",
+         AddressLine : "Home",
+         Location : address
+        }
+      };
+      if (Helper.isPhone(phone)) {
+        model.Phone = Helper.sanitizePhone(phone);
+    }
+    console.log(JSON.stringify(model, null, 2))
 
     const headers = {};
     headers['Content-Type'] = 'application/json';
@@ -65,21 +80,26 @@ export const registerUser = async (
         headers
     });
     const response = await res.json();
+    console.log("response",response);
     return response;
+
+
 };
 
 const getUserModel = (
     firstName: string,
     lastName: string,
-    age: string,
+    birthDate: Date,
     phone: string,
-    address?: string
+    address: string
 ): UserModel => {
     const userModel: UserModel = {};
     userModel.FirstName = firstName;
     userModel.LastName = lastName;
-    userModel.Age = age;
-    userModel.Address= address;
+    userModel.BirthDate = birthDate;
+    userModel.Address.AddressLine = address;
+    userModel.Address.Type = "Home";
+
     if (Helper.isPhone(phone)) {
         userModel.Phone = Helper.sanitizePhone(phone);
     }
@@ -126,7 +146,7 @@ const getLoginModel = (otp: string, phone: string, loginRoleId: number): LoginMo
 ////////////////////////////////////////////////////////////////////////////////////
 
 export const searchUsersByName = async (sessionId: string, name?: string, phone?:string) => {
-    let url = BACKEND_API_URL + '/patients/search?pageIndex=0&itemsPerPage=5';
+    let url = BACKEND_API_URL + '/patients/search?pbirthDateIndex=0&itemsPerPbirthDate=5';
     if(name) {
         url += `&name=${name}`;
     }
@@ -144,3 +164,41 @@ export const logout = async (sessionId: string) => {
 };
 
 ////////////////////////////////////////////////////////////////////////////////////
+
+export const getUserById = async (sessionId: string, userId: string) => {
+    const url = BACKEND_API_URL + `/patients/${userId}`;
+    return await get_(sessionId, url);
+};
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+export const updateProfile = async (
+    sessionId: string,
+    userId: string,
+    firstName: string,
+    lastName: string,
+    birthDate: Date,
+    phone: string,
+    address: string,
+  ) => {
+    const body = {
+      FirstName: firstName,
+      LastName: lastName,
+      BirthDate: birthDate,
+      Phone: phone,
+      Address : {
+       Type : "Home",
+       AddressLine:"Home",
+       Location : address,
+      }
+    };
+    const url = BACKEND_API_URL + `/patients/${userId}`;
+    return await put_(sessionId, url, body);
+  };
+
+  ///////////////////////////////////////////////////////////////////
+
+  export const deleteAccount= async (sessionId: string, userId: string) => {
+    const url = BACKEND_API_URL + `/patients/${userId}`;
+    return await delete_(sessionId, url);
+  };

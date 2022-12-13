@@ -7,10 +7,14 @@
 	let sum = 0;
     let count = 0;
 	let overallProgress ;
+	let userId = data.user.User.id
+	let  addresses = data.user.User.Person.Addresses;
+	let location = addresses;
+	console.log("location.......",location);
 	let FullName = data.user.User.Person.FirstName && data.user.User.Person.LastName ?
                 (data.user.User.Person.FirstName + ' ' +  data.user.User.Person.LastName ) : null;
 	let Age = data.user.User.Person.Age;
-
+ 	console.log("Age",Age);
 	for (let item of myLearningJourneys) {
 		if (item.PercentageCompletion != 0 && item.PercentageCompletion  != undefined ) {
 		sum = sum + item.PercentageCompletion;
@@ -36,10 +40,12 @@
 				<img src="/images/assets/my-profile/png/my-profile-pic.png" alt="" />
 				<div class="flex flex-col ml-6  ">
 					<h3 class="text-left mt-2 ml-[2px] mb-2 font-bold">{FullName}</h3>
+					<a href="/users/{userId}/edit-profile">
 					<button class="uppercase text-base font-bold text-[#d05591] absolute right-5 mt-2">
 						EDIT
 					</button>
-					<p class=" text-left ">{Age} , Pune</p>
+					</a>
+					<p class=" text-left ">{Age} <br> , Pune</p>
 				</div>
 			</div>
 		</div>
