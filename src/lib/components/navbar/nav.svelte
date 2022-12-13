@@ -14,7 +14,8 @@
 	let chatLink;
 	let linkagesLink;
 	let homeLink;
-    let aboutSneha;
+    let aboutSnehaLink;
+    let settingsLink;
 
     onMount(()=> {
         homeLink = `/users/${userId}/home`
@@ -24,7 +25,8 @@
         newsFeedLink = `/users/${userId}/newsfeed`;
         chatLink = `/users/${userId}/chat`;
         linkagesLink = `/users/${userId}/linkages`;
-        aboutSneha = `/users/${userId}/about-sneha`;
+        aboutSnehaLink = `/users/${userId}/about-sneha`;
+        settingsLink = `/users/${userId}/settings`;
     });
 
     const unsubscribe = navbarDisplay.subscribe(value => {
@@ -73,7 +75,7 @@
 
     const gotoSettings = () => {
         toggleSidebar();
-        //goto(settingsLink);
+        goto(settingsLink);
     }
 
     const gotoLogout = async () => {
@@ -83,7 +85,7 @@
 
     const gotoAboutSneha = () => {
         toggleSidebar();
-        goto(aboutSneha);
+        goto(aboutSnehaLink);
     }
     onDestroy(unsubscribe);
 
