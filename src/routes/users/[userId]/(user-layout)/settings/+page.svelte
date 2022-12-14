@@ -18,47 +18,23 @@
 		window.location.href = '/sign-in';
 	};
 
-	const handleDeleteAccount = async (e, id) => {
-		const userId = id;
-		console.log("userId..........",userId);
-		await Delete({
-			sessionId,
-		    userId
-		});
-
-	};
-	console.log("session id",sessionId);
-
-	async function Delete(model) {
-		console.log("model",model);
+	const onDeleteAccount = async () => {
 		const response = await fetch(`/api/server/user`, {
-		method: 'DELETE',
-		body: JSON.stringify(model),
-		headers: {
+			method: 'DELETE',
+			body: JSON.stringify({
+					userId: userId,
+					sessionId:sessionId
+				}),
+
+			headers: {
 			'content-type': 'application/json'
-		}
+			}
 		});
 		console.log('response', response);
-		// window.location.href = '/';
-	}
-	
-	// const onDeleteAccount = async () => {
-	// 	const response = await fetch(`/api/server/user`, {
-	// 		method: 'DELETE',
-	// 		body: JSON.stringify({
-	// 				userId: userId,
-	// 				sessionId:sessionId
-	// 			}),
-
-	// 		headers: {
-	// 		'content-type': 'application/json'
-	// 		}
-	// 	});
-	// 	console.log('response', response);
-	// 	// const resp = await response.text();
-	// 	// console.log(`resp: ${JSON.stringify(resp, null, 2)}`);
-	// 	// window.location.href = '/';
-	// };
+		const resp = await response.text();
+		console.log(`resp: ${JSON.stringify(resp, null, 2)}`);
+		window.location.href = '/';
+	};
 
 </script>
 
@@ -81,8 +57,8 @@
 
          <div class=" ml-4 grid grid-flow-row items-start justify-start">  
         <button class="leading-none w-[300px] h-[52px] rounded-[10px] justify-center bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal pl-3 mt-4">Delete Chat</button>
-        <button  on:click ={(e) => handleDeleteAccount(e, userId)} class="leading-none w-[300px] h-[52px] rounded-[10px]  bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal mt-5 ">Delete Account</button>
-        <button on:click={onLogout} class="leading-none w-[300px] h-[52px] rounded-[10px]  bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal  mt-5 ">Logout</button>
+        <button  on:click = {onDeleteAccount} class="leading-none w-[300px] h-[52px] rounded-[10px]  bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal mt-5 ">Delete Account</button>
+        <button on:click = {onLogout} class="leading-none w-[300px] h-[52px] rounded-[10px]  bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal  mt-5 ">Logout</button>
     </div> 
 	</div>
 </div>

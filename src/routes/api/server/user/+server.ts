@@ -4,11 +4,9 @@ import { deleteAccount } from "../../services/user";
 //////////////////////////////////////////////////////////////
 
 export const DELETE = async (event: RequestEvent) => {
-    // const sessionId = event.cookies.get('sessionId');
+
 	const request = event.request;
-    console.log("request----------",request);
 	const data = await request.json();
-	console.log("data",data );
 	try {
 		console.log('Inside user server endpoints');
 		const response = await deleteAccount(
