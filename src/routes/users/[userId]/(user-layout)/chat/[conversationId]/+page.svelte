@@ -218,7 +218,7 @@
 			<div class="relative h-[50px] w-[50px] bg-[#5b7aa3] rounded-lg ml-3 mt-3"
 				on:click={onSendMessageClick}
 				on:keypress={async (e) => onSendMessageKeyPressed(e)}>
-				<img class="m-3" src="/assets/ask-sneha/png/send.png" alt="" />
+				<img class="m-3" src="/images/assets/ask-sneha/png/send.png" alt="" />
 			</div>
 	</div>
 </div>

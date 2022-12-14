@@ -1,15 +1,15 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
-	import { LocalStorageUtils } from "$lib/utils/local.storage.utils";
+	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	export let data: PageServerData;
-    let sessionId = data.sessionId;
+	let sessionId = data.sessionId;
 	let userId = data.user.User.id;
-	
+
 	const onLogout = async () => {
 		const response = await fetch(`/api/server/logout`, {
 			method: 'POST',
 			headers: {
-			'content-type': 'application/json'
+				'content-type': 'application/json'
 			}
 		});
 		const resp = await response.text();
@@ -22,12 +22,12 @@
 		const response = await fetch(`/api/server/user`, {
 			method: 'DELETE',
 			body: JSON.stringify({
-					userId: userId,
-					sessionId:sessionId
-				}),
+				userId: userId,
+				sessionId: sessionId
+			}),
 
 			headers: {
-			'content-type': 'application/json'
+				'content-type': 'application/json'
 			}
 		});
 		console.log('response', response);
@@ -35,7 +35,6 @@
 		console.log(`resp: ${JSON.stringify(resp, null, 2)}`);
 		window.location.href = '/';
 	};
-
 </script>
 
 <div
@@ -46,19 +45,36 @@
 		<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 			SETTINGS
 		</h2>
-       
+
 		<div class=" flex flex-row justify-center mt-6 mb-2">
 			<img class="h-24 w-24" src="/images/assets/my-profile/svg/my-profile-pic.svg" alt="" />
-        </div>
-            <button class="leading-2 tracking-[1px] text-lg font-semibold">EDIT</button>
-	
-			<a class="mt-5 ml-4" href="/users/{userId}/edit-profile">
-				<button class="leading-none w-[300px] h-[52px] rounded-[10px]  bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal pl-3 pr-1 ">Edit Profile</button></a>
+		</div>
+		<button class="leading-2 tracking-[1px] text-lg font-semibold">EDIT</button>
 
-         <div class=" ml-4 grid grid-flow-row items-start justify-start">  
-        <button class="leading-none w-[300px] h-[52px] rounded-[10px] justify-center bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal pl-3 mt-4">Delete Chat</button>
-        <button  on:click = {onDeleteAccount} class="leading-none w-[300px] h-[52px] rounded-[10px]  bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal mt-5 ">Delete Account</button>
-        <button on:click = {onLogout} class="leading-none w-[300px] h-[52px] rounded-[10px]  bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal  mt-5 ">Logout</button>
-    </div> 
+		
+			<div class="  grid grid-flow-row items-center justify-center">
+				<a class="mt-5 " href="/users/{userId}/edit-profile">
+					<button
+						class="leading-none w-[300px] h-[52px] rounded-[10px]  bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal pl-3 pr-1 "
+						>Edit Profile</button
+					></a>
+					<a class="mt-1" href="/users/{userId}/chat">
+						<button
+							class="leading-none w-[300px] h-[52px] rounded-[10px] justify-center bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal pl-3 mt-4"
+							>Delete Chat</button
+						></a
+					>
+				<button
+					on:click={onDeleteAccount}
+					class="leading-none w-[300px] h-[52px] rounded-[10px]  bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal mt-5 "
+					>Delete Account</button
+				>
+				<button
+					on:click={onLogout}
+					class="leading-none w-[300px] h-[52px] rounded-[10px]  bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal  mt-5 "
+					>Logout</button
+				>
+			</div>
+		
 	</div>
 </div>

@@ -102,8 +102,30 @@
 				showMessage(`Unable to start conversation!`, 'error', true, 3500);
 			}
 		}
-
 	}
+
+	 const handleDeleteChat = async (e, id) => {
+		const conversationId = id;
+		await Delete({
+			sessionId: data.sessionId,
+		    conversationId
+		});
+	};
+	
+
+	async function Delete(model) {
+		console.log("model",model);
+		const response = await fetch(`/api/server/chat/delete-conversation`, {
+		method: 'DELETE',
+		body: JSON.stringify(model),
+		headers: {
+			'content-type': 'application/json'
+		}
+		});
+		console.log('response', response);
+		// window.location.href = '/';
+		}
+	
 
 </script>
 
@@ -211,28 +233,37 @@
 				<h3 class="m-1">No recent conversations!</h3>
 			{:else}
 				{#each recentUsers as conversation}
-					<a href={`/users/${userId}/chat/${conversation.id}`}>
+					
 						<div class="grid grid-flex-rows-6 mb-3 gap-2 mt-2">
 							<div class="grid grid-flow-col ">
+								<a href={`/users/${userId}/chat/${conversation.id}`}>
 								<!-- <img src="/assets/chat/png/account-img-1.png" alt="" /> -->
 								{#if conversation.profileImage != null}
 									<Image cls="rounded col-span-2" h="58" w="58" source={conversation.profileImage} ></Image>
 								{:else}
 									<img src="/images/assets/chat/png/account-img-1.png" alt="" />
 								{/if}
-								<div class="grid grid-flow-rows-2 col-span-4 ml-2 mt-4">
+
+								</a>
+								<div class="grid grid-flow-rows-2 col-span-3 ml-2 mt-4">
 									<div class="flex relative">
+										<a href={`/users/${userId}/chat/${conversation.id}`}>
 										<h3 class="text-left">{conversation.displayName}</h3>
-										<br/>
-										<div class="text-base font-normal absolute right-0 pr-3 leading-5 ">
+										</a>
+										<!-- <br/> -->
+										<div class="text-base px-2 font-normal leading-5 ">
 											{conversation.lastChatDate}
 										</div>
+									
+										<!-- svelte-ignore a11y-click-events-have-key-events -->
+										<img on:click = {(e) => handleDeleteChat(e , conversation.id)} class="absolute right-0 " src="/images/assets/chat/png/delete.png" alt="" />
+										
 									</div>
-									<!-- <p class="">{otherUser.LastChatText}</p> -->
+									
 								</div>
 							</div>
 						</div>
-					</a>
+					
 				{/each}
 			{/if}
 
