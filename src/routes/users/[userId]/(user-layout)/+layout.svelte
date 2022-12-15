@@ -19,6 +19,7 @@
       window.location.href = '/sign-in';
     };
 
+
 </script>
 
 <svelte:head>
