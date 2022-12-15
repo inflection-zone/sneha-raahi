@@ -3,7 +3,7 @@ import { SessionManager } from './routes/api/session.manager';
 
 export const handle: Handle = async ({ event, resolve }) => {
 
-    console.log(`Inside hooks`);
+    //console.log(`Inside hooks`);
     // console.log(`path - ${event.request.url}`);
     // console.log(`request = ${JSON.stringify(event.request, null, 2)}`);
     // console.log(`headers = ${JSON.stringify(event.request.headers, null, 2)}`);
@@ -15,7 +15,7 @@ export const handle: Handle = async ({ event, resolve }) => {
         return await resolve(event);
     }
 
-    console.log(`session id received - ${sessionId}`);
+    //console.log(`session id received - ${sessionId}`);
 
     let sessionUser = null;
     const session = await SessionManager.getSession(sessionId);
@@ -36,7 +36,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     if (sessionUser) {
         event.locals.sessionUser = sessionUser;
     }
-    console.log(`returning from hooks`);
+    //console.log(`returning from hooks`);
     return await resolve(event);
 };
 

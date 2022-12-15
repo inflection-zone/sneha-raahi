@@ -1,11 +1,15 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
-	import { communityNewsFeeds, raahiNewsFeeds } from '$lib/store/general.store';
 	import { page } from '$app/stores';
 
 	export let data: PageServerData;
 	const userId = $page.params.userId;
-	let newsItems = data.newsItems;
+	let raahiFeedItems = data.raahiFeedItems;
+	let communityFeedItems = data.communityFeedItems;
+
+	console.log(JSON.stringify(raahiFeedItems, null, 2));
+	console.log(JSON.stringify(communityFeedItems, null, 2));
+
 	let showRaahiUpdates = true;
 </script>
 
@@ -40,10 +44,10 @@
 					</div>
 				{/each} -->
 
-				{#each Object.values($raahiNewsFeeds) as news}
+				{#each Object.values(raahiFeedItems) as news}
 					<div class="mb-6 last:mb-10">
 						<a href={`/users/${userId}/newsfeed/${news.id}`}>
-							<h4 class="text-right  text-[13px] font-semibold mb-1">{news.PubDate}</h4>
+							<h4 class="text-right  text-[13px] font-semibold mb-1">{news.pubDate}</h4>
 							<div class="w-[340px] h-[280px]  rounded-lg bg-[#f2e2da]">
 								<div class="flex flex-row p-1">
 									<div class="w-[70px] mt-2 ml-2 h-[40px] rounded-lg bg-[#fff]">
@@ -55,17 +59,19 @@
 									</div>
 									<div class="ml-4 ">
 										<h2 class="text-left text-[15px] mt-2">
-											{news.Title}
+											{news.title?.length > 30
+												? news.title?.substring(0, 30) + '...'
+												: news.title}
 										</h2>
 										<p>
-											{news.Description.length > 50
-												? news.Description.substring(0, 50) + '...'
-												: news.Description}
+											{news.content?.length > 50
+												? news.content?.substring(0, 50) + '...'
+												: news.content}
 										</p>
 									</div>
 								</div>
 								<img
-									src={news.Image}
+									src={news.image}
 									alt=""
 									class="w-[324px] mx-2 px-2 mt-6 h-[146px]  rounded-lg "
 								/>
@@ -96,10 +102,10 @@
 			</div> -->
 
 			<div class=" h-[590px] overflow-auto scrollbar-medium">
-				{#each Object.values($communityNewsFeeds) as news}
+				{#each Object.values(communityFeedItems) as news}
 					<div class="mb-6 last:mb-10">
 						<a href="/newsfeed/[newsfeedId]">
-							<h4 class="text-right  text-[13px] font-semibold mb-1">{news.PubDate}</h4>
+							<h4 class="text-right  text-[13px] font-semibold mb-1">{news.pubDate}</h4>
 							<div class="w-[340px] h-[280px]  rounded-lg bg-[#d7eaf7]">
 								<div class="flex flex-row p-1">
 									<div class="w-[70px] mt-2 ml-2 h-[40px] rounded-lg bg-[#fff]">
@@ -111,16 +117,18 @@
 									</div>
 									<div class="ml-4 ">
 										<h2 class="text-left text-[15px] mt-2">
-											{news.Title}
+											{news.title?.length > 30
+												? news.title?.substring(0, 30) + '...'
+												: news.title}
 										</h2>
 										<p>
-											{news.Description.length > 50
-												? news.Description.substring(0, 50) + '...'
-												: news.Description}
+											{news.content?.length > 50
+												? news.content?.substring(0, 50) + '...'
+												: news.content}
 										</p>
 									</div>
 								</div>
-								<img src={news.Image} alt="" class="w-[324px] mx-2 px-2 mt-6 h-[146px] rounded-lg"/>
+								<img src={news.image} alt="" class="w-[324px] mx-2 px-2 mt-6 h-[146px] rounded-lg"/>
 							</div>
 						</a>
 					</div>
