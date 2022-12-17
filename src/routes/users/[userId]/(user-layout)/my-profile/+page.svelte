@@ -29,7 +29,7 @@
 
 </script>
 
-<div class="card card-compact card-bordered w-[375px] h-[680px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm">
+<div class="card card-compact card-bordered border-slate-400 w-[375px] h-[701px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm">
 	<div class="card-body ">
 		<button class="h-[5px] w-[73px] bg-[#e3e3e3] ml-[8.5rem] mt-2 rounded" />
 		<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
@@ -37,7 +37,7 @@
 		</h2>
 		<div class="flex flex-row ">
 			<div class="grid grid-flow-col">
-				<img src="/images/assets/my-profile/png/my-profile-pic.png" alt="" />
+				<img src="/assets/images/my-profile/png/my-profile-pic.png" alt="" />
 				<div class="flex flex-col ml-6  ">
 					<h3 class="text-left mt-2 ml-[2px] mb-2 font-bold">{FullName}</h3>
 					<a href="/users/{userId}/edit-profile">
@@ -93,7 +93,7 @@
 			<div class="grid grid-flow-row">
 				<div class="w-[99px] h-[99px] rounded bg-[#fcaf58]">
 					<img
-						src="/images/assets/my-profile/png/star-member.png"
+						src="/assets/images/my-profile/png/star-member.png"
 						alt=""
 						class="object-contain my-6 mx-9"
 					/>
@@ -103,7 +103,7 @@
 			<div class="grid grid-flow-row">
 				<div class="w-[99px] h-[99px] rounded bg-[#5b7aa3]">
 					<img
-						src="/images/assets/my-profile/png/champion-medal.png"
+						src="/assets/images/my-profile/png/champion-medal.png"
 						alt=""
 						class="object-contain  my-7  mx-6"
 					/>
@@ -113,7 +113,7 @@
 			<div class="grid grid-flow-row">
 				<div class="w-[99px] h-[99px] rounded bg-[#70ae6e]">
 					<img
-						src="/images/assets/my-profile/png/percentage-meter.png"
+						src="/assets/images/my-profile/png/percentage-meter.png"
 						alt=""
 						class="object-contain my-7 mx-6"
 					/>
@@ -131,7 +131,7 @@
 				<div class="grid grid-flow-row">
 					<div class="w-[133px] h-[80px] rounded-lg bg-[#fff1e6]">
 						<img
-							src="/images/assets/my-profile/png/my-profile-award-1.png"
+							src="/assets/images/my-profile/png/my-profile-award-1.png"
 							alt=""
 							class="object-contain my-4 mx-11"
 						/>
@@ -141,7 +141,7 @@
 				<div class="grid grid-flow-row">
 					<div class="w-[133px] h-[80px] rounded-lg bg-[#dfe7fd]">
 						<img
-							src="/images/assets/my-profile/png/my-profile-award-2.png"
+							src="/assets/images/my-profile/png/my-profile-award-2.png"
 							alt=""
 							class="object-contain  my-4  mx-11"
 						/>
@@ -151,7 +151,7 @@
 				<div class="grid grid-flow-row">
 					<div class="w-[133px] h-[80px] rounded-lg bg-[#fde2e4]">
 						<img
-							src="/images/assets/my-profile/png/my-profile-award-3.png"
+							src="/assets/images/my-profile/png/my-profile-award-3.png"
 							alt=""
 							class="object-contain my-4 mx-11"
 						/>

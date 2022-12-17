@@ -23,7 +23,7 @@
 			<div class="flex flex-row gap-4">
 				<div class="w-[180px] mt-2 ml-2 h-[40px] rounded-lg bg-[#fff]">
 					<img
-						src="/images/assets/newsfeed/png/logo.png"
+						src="/assets/images/newsfeed/png/logo.png"
 						alt=""
 						class="ml-1.5 mt-3 w-[28.8px] h-[14.3px]"
 					/>
@@ -44,14 +44,14 @@
 		<div class="flex flex-row gap-40 mt-2">
 			<h4>23likes 23comments</h4>
 			<div class="flex flex-row gap-3">
-				<img src="/assets/newsfeed/png/newsfeed-likes.png" alt="" />
-				<img src="/assets/newsfeed/png/newsfeed-comments.png" alt="" />
+				<img src="/assets/images/newsfeed/png/newsfeed-likes.png" alt="" />
+				<img src="/assets/images/newsfeed/png/newsfeed-comments.png" alt="" />
 			</div>
 		</div>
 		<div class=" mt-4 ">
 			<div class="flex">
 				<img
-					src="/images/assets/newsfeed-details/png/jasmine.png"
+					src="/images/assets/images/newsfeed-details/png/jasmine.png"
 					alt=""
 					class=" mr-[16px] mb-[25px] ml-[4px]"
 				/>
@@ -72,7 +72,7 @@
 			placeholder="Start typing here…"
 		/>
 		<div class="relative h-[50px] w-[50px] bg-[#5b7aa3] rounded-lg ml-3 mt-3  ">
-			<img class="m-3" src="/assets/ask-sneha/png/send.png" alt="" />
+			<img class="m-3" src="/assets/images/ask-sneha/png/send.png" alt="" />
 		</div>
 	</div>
 </div>

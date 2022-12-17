@@ -19,15 +19,14 @@
       window.location.href = '/sign-in';
     };
 
-
 </script>
 
 <svelte:head>
   <title>{$page.data.title ? $page.data.title : 'Sneha-Raahi'}</title>
 </svelte:head>
 
-<div class="grid gird-cols justify-center items-center ">
-	<div class="w-[375px] h-[812px]">
+<div class="grid gird-cols justify-center items-center">
+	<div class=" w-[375px] h-[812px]">
     <div class="flex items-center justify-center ">
       <Navbar userId={userId} on:logout={async () => {
         await onLogout();

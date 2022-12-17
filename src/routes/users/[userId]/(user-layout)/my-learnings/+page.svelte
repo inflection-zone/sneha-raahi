@@ -38,8 +38,8 @@
 
 </script>
 
-<div class="card card-compact w-[375px] h-[701px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm ">
-	<div class="card-body ">
+<div class="card card-compact w-[375px] h-[701px] card-bordered border-slate-400  bg-base-100  rounded-none rounded-t-[44px] shadow-sm ">
+	<div class="card-body">
 		<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 rounded" />
 		<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 			MY LEARNING
@@ -79,7 +79,7 @@
 					<button class="text-[#d05591] text-base absolute right-0 pr-3">VIEW ALL</button>
 				</a>
 			</div>
-			<div class="overflow-x-scroll w-[365px]">
+			<div class="overflow-x-scroll w-[340px]">
 				<div class="grid grid-flow-col auto-cols-max">
 					<!-- <div class=" flex-col justify-center  mb-4 ">
 						<img class="mb-3 mr-4" src="/assets/learning-home/svg/substance-abuse.svg" alt="" />
@@ -111,7 +111,7 @@
 					<button class=" text-[#d05591] text-base absolute right-0 pr-3">VIEW ALL</button>
 				</a>
 			</div>
-			<div class="overflow-auto scrollbar-medium h-[560px]">
+			<div class="overflow-auto scrollbar-medium h-[250px]">
 				<div class="columns-2 flex-wrap ">
 					{#each allCourses as course}
 						<button on:click|capture={(e)=>handleCourseClick(e, course.ResourceLink)} id={course.id} name={course.id}>
@@ -119,7 +119,7 @@
 								{#if course.ImageUrl == null}
 									<img
 										class="mb-4 w-[162px] h-[162px] "
-										src="/images/assets/learning-home/svg/growing-up-affect.svg"
+										src="/assets/images/learning-home/svg/growing-up-affect.svg"
 										alt=""
 									/>
 								{:else}

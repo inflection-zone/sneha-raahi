@@ -148,7 +148,7 @@
 				id="searchButton"
 				name="searchButton"
 				class="right-48 pr-3 ml-3 w-2/12"
-				src="/images/assets/home-sidebar/png/search-icon.png"
+				src="/assets/images/home-sidebar/png/search-icon.png"
 				alt=""
 				on:click={onSearchClick}
 				on:keyup={onSearchEnter}
@@ -166,7 +166,7 @@
 									{#if searchedUser.profileImage != null}
 										<Image cls="rounded" h="58" w="58" source={searchedUser.profileImage} ></Image>
 									{:else}
-										<img src="/images/assets/chat/png/account-img-3.png" alt="" />
+										<img src="/assets/images/chat/png/account-img-3.png" alt="" />
 									{/if}
 									<h3 class=" mt-3 text-sm ">{searchedUser.firstName} <br />{searchedUser.lastName}</h3>
 								</div>
@@ -188,7 +188,7 @@
 								{#if favourite.profileImage != null}
 									<Image cls="rounded" h="58" w="58" source={favourite.profileImage} ></Image>
 								{:else}
-									<img src="/images/assets/chat/png/account-img-4.png" alt="" />
+									<img src="/assets/images/chat/png/account-img-4.png" alt="" />
 								{/if}
 								<h3 class="mt-3 text-sm">{favourite.firstName} <br />{favourite.lastName}</h3>
 							</div>
@@ -241,7 +241,7 @@
 								{#if conversation.profileImage != null}
 									<Image cls="rounded col-span-2" h="58" w="58" source={conversation.profileImage} ></Image>
 								{:else}
-									<img src="/images/assets/chat/png/account-img-1.png" alt="" />
+									<img src="/assets/images/chat/png/account-img-1.png" alt="" />
 								{/if}
 
 								</a>
@@ -256,7 +256,7 @@
 										</div>
 									
 										<!-- svelte-ignore a11y-click-events-have-key-events -->
-										<img on:click = {(e) => handleDeleteChat(e , conversation.id)} class="absolute right-0 " src="/images/assets/chat/png/delete.png" alt="" />
+										<img on:click = {(e) => handleDeleteChat(e , conversation.id)} class="absolute right-0 " src="/assets/images/chat/png/delete.png" alt="" />
 										
 									</div>
 									

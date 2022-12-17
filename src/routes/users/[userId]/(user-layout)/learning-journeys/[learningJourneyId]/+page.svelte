@@ -137,15 +137,15 @@
 					<div class="grid  grid-flow-col mb-4">
 						{#if content.ContentType == 'Video'}
 							<div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
-								<img class=" m-5 " src="/images/assets/learning-course/svg/video.svg" alt="" />
+								<img class=" m-5 " src="/assets/images/learning-course/svg/video.svg" alt="" />
 							</div>
 						{:else if content.ContentType === 'Assessment'}
 							<div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
-								<img class=" m-4 " src="/images/assets/learning-course/svg/quiz.svg" alt="" />
+								<img class=" m-4 " src="/assets/images/learning-course/svg/quiz.svg" alt="" />
 							</div>
 						{:else}
 							<div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
-								<img class=" m-4 " src="/images/assets/learning-course/svg/slides.svg" alt="" />
+								<img class=" m-4 " src="/assets/images/learning-course/svg/slides.svg" alt="" />
 							</div>
 						{/if}
 						<div class="mx-4">
