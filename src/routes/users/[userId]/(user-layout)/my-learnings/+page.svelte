@@ -50,7 +50,7 @@
 		{:else}
 			{#each myLearningJourneys as journey}
 			<div class="flex flex-row">
-				<Image cls="mb-2 rounded-md" source={journey.ImageUrl + "?disposition=inline"} w=52 h=52></Image>
+				<Image cls="mb-2 rounded-md" source={journey.ImageUrl + "?disposition=inline"} w=40 h=40></Image>
 				<!-- <img class="mb-2 " src="/assets/learning-home/svg/about-anaemia.svg" alt="" /> -->
 				<div class="mx-2">
 					<h3 class="mb-4 mt-1">{journey.Name}</h3>
@@ -96,7 +96,7 @@
 					{#each allLearningJourneys as learningJourney}
 						<div id={learningJourney.id} class="flex-col justify-center mb-4 mr-4">
 							<a href={`/users/${data.userId}/learning-journeys/${learningJourney.id}`}>
-								<Image cls="mb-3 mr-1" source={learningJourney.ImageUrl + "?disposition=inline"} w=140 h=174 />
+								<Image cls="mb-3 mr-1" source={learningJourney.ImageUrl + "?disposition=inline"} w=110 h=132 />
 								<p class="font-semibold text-center overflow-hidden text-ellipsis">{learningJourney.Name.length > 15 ? learningJourney.Name.substring(0, 13) + '...': learningJourney.Name}</p>
 							</a>
 						</div>
@@ -111,7 +111,7 @@
 					<button class=" text-[#d05591] text-base absolute right-0 pr-3">VIEW ALL</button>
 				</a>
 			</div>
-			<div class="overflow-auto scrollbar-medium h-[250px]">
+			<div class="overflow-auto scrollbar-medium h-[160px]">
 				<div class="columns-2 flex-wrap ">
 					{#each allCourses as course}
 						<button on:click|capture={(e)=>handleCourseClick(e, course.ResourceLink)} id={course.id} name={course.id}>

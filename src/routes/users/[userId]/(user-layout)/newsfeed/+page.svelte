@@ -1,16 +1,14 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
 	import { page } from '$app/stores';
-
 	export let data: PageServerData;
 	const userId = $page.params.userId;
 	let raahiFeedItems = data.raahiFeedItems;
 	let communityFeedItems = data.communityFeedItems;
-
+	let showRaahiUpdates = true;
 	console.log(JSON.stringify(raahiFeedItems, null, 2));
 	console.log(JSON.stringify(communityFeedItems, null, 2));
 
-	let showRaahiUpdates = true;
 </script>
 
 <div class="card card-compact card-bordered w-[375px] h-[701px] bg-base-100 border-slate-200 rounded-none rounded-t-[44px] shadow-sm">

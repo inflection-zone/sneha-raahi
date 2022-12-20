@@ -83,16 +83,17 @@
 
 </script>
 
-<div class="card card-compact w-[375px] h-[330px] card-bordered border-slate-200 bg-[#ffdbb2]  rounded-none rounded-t-[44px] shadow-sm">
+<div class="card card-compact w-[375px] h-[280px] card-bordered border-slate-200 bg-[#ffdbb2]  rounded-none rounded-t-[44px] shadow-sm">
 	<div class="card-body ">
-		<div class="flex flex-col justify-center">
+		<div class="flex flex-col text-center justify-center">
 			<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 rounded" />
 			<!-- <img
 				class="h-[310px] w-[308px]"
 				src="/assets/learning-course/svg/growing-up-affect.svg"
 				alt=""
 			/> -->
-			<Image cls="h-[310px] w-[308px]" source={learningJourney?.ImageUrl} w="200" h="200" />
+			<div class=" flex justify-center">
+			<Image cls="" source={learningJourney?.ImageUrl} w="200" h="200" /></div>
 		</div>
 	</div>
 </div>

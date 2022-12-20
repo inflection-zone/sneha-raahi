@@ -1,5 +1,14 @@
 <script lang="ts">
+	import { timeAgo } from 'short-time-ago';
 	let showRaahiUpdates = true;
+	import type { PageServerData } from './$types';
+	import { page } from '$app/stores';
+	export let data: PageServerData;
+	const userId = $page.params.userId;
+	let feedItem = data.feedItem;
+	const pubdate = new Date(data.feedItem.PublishingDate);;
+	console.log("pubdate", pubdate);
+	console.log("feedItem",feedItem);
 </script>
 
 <div class="card card-compact card-bordered w-[375px] h-[590px] bg-base-100  rounded-none rounded-t-[44px] shadow-sm">
@@ -8,7 +17,7 @@
 		<h2 class=" text-[#5B7AA3] flex  justify-center uppercase tracking-widest font-bold text-base">
 			Newsfeed
 		</h2>
-		<div class="flex flex-row w-[340px] h-[34px] justify-center ">
+		<!-- <div class="flex flex-row w-[340px] h-[34px] justify-center ">
 			<button
 				disabled={showRaahiUpdates}
 				class="disabled:bg-[#5b7aa3] disabled:text-[#dfe7fd] rounded-2xl w-[170px] text-[#5b7aa3] h-[34px] text-center bg-[#dfe7fd] text-[13px] tracking-wider"
@@ -21,37 +30,40 @@
 				on:click|preventDefault={() => (showRaahiUpdates = false)}>
 				Community Updates
 			</button>
-		</div>
+		</div> -->
 
 		<!-- <div class="overflow-auto overscroll-auto"> -->
 			{#if showRaahiUpdates}
-			<h4 class="text-right  text-[13px] font-semibold mb-1">27 Sep 2022</h4>
+			<!-- <div class="card-body "> -->
+			<h4 class="text-right  text-[13px] font-semibold mb-1">{timeAgo(pubdate)}</h4>
 
-			<div class="w-[340px] h-[350px]  rounded-lg bg-[#f2e2da]">
+			<div class="w-[340px] h-[470px] overflow-auto  rounded-lg bg-[#f2e2da]">
 				<div class="flex p-1">
 					<div class="w-[50px] mt-2 ml-2 h-[45px] rounded-lg bg-[#fff] flex-none">
 						<img
-							src="/assets/images/images/newsfeed/png/logo.png"
+							src="/assets/images/newsfeed/png/logo.png"
 							alt=""
 							class="mt-2 p-1"
 						/>
 					</div>
 					<div class="ml-4 ">
-						<h2 class="text-left text-[15px] mt-2">
-							Field trip to Nehru Science Centre
+						<h2 class="text-left text-[15px] leading-4 mt-2">
+							{feedItem.Title}
 						</h2>
 						<p>
-							"Learning visits has always been a key strategy in EHSAS to build assets, agency and self-awareness in young people. On the 24th of September, 2022, 43 young people from all three sites of Dharavi, Kandivali and Kalwa visited the Nehru Science Center.
+							{feedItem.Description}
 						</p>
 					</div>
 				</div>
+				<div class="flex justify-center">
 				<img
-					src= https://www.jbcnschool.edu.in/wp-content/uploads/2019/12/field-trip-nehru-science-dec-19-006.jpg
+					src={feedItem.Image}
 					alt=""
-					class="w-[324px] mx-2 mt-4 h-[146px]  rounded-lg "
+					class="w-[310px] item-center mt-4 h-[200px]  rounded-lg "
 				/>
 			</div>
-
+			</div>
+		<!-- </div> -->
 		<!-- <div class="flex flex-row gap-40 mt-2">
 			<h4>23likes 23comments</h4>
 			<div class="flex flex-row gap-3">
@@ -74,14 +86,14 @@
 		</div> -->
 		<!-- </div> -->
 
-		{:else}
-		<h4 class="text-right  text-[13px] font-semibold mb-1">27 Sep 2022</h4>
+		<!-- {:else} -->
+		<!-- <h4 class="text-right  text-[13px] font-semibold mb-1">27 Sep 2022</h4>
 
 		<div class="w-[340px] h-[350px]  rounded-lg bg-[#d7eaf7]">
 			<div class="flex p-1">
 				<div class="w-[50px] mt-2 ml-2 h-[45px] rounded-lg bg-[#fff] flex-none">
 					<img
-						src="/assets/images/images/newsfeed/png/logo.png"
+						src="/assets/images/newsfeed/png/logo.png"
 						alt=""
 						class="mt-2 p-1"
 					/>
@@ -100,7 +112,7 @@
 				alt=""
 				class="w-[320px] mx-2 mt-3 h-[146px]  rounded-lg "
 			/>
-		</div>
+		</div> -->
 
 	<!-- <div class="flex flex-row gap-40 mt-2">
 		<h4>23likes 23comments</h4>
@@ -128,14 +140,17 @@
 	</div>
 </div>
 <div class="h-[90px] w-[375px] bg-white">
-	<div class="h-20 w-[375px] mt-3 bg-[#dfe7fd] flex ">
-		<textarea
+	<a href="/users/{userId}/newsfeed">
+	<div class="h-20 w-[375px] mt-3 bg-[#dfe7fd] flex justify-center ">
+		<!-- <textarea
 			type="text"
 			class="h-[52px] p-3 ml-3 mt-3  w-[277px] rounded-lg bg-white"
 			placeholder="Start typing here…"
 		/>
 		<div class="relative h-[50px] w-[50px] bg-[#5b7aa3] rounded-lg ml-3 mt-3  ">
 			<img class="m-3" src="/assets/images/ask-sneha/png/send.png" alt="" />
-		</div>
-	</div>
+		</div> -->
+		
+		<button class="">BACK TO NEWSFEED</button>
+	</div></a>
 </div>
