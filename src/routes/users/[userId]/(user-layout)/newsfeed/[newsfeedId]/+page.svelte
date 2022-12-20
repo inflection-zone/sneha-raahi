@@ -6,7 +6,7 @@
 	export let data: PageServerData;
 	const userId = $page.params.userId;
 	let feedItem = data.feedItem;
-	const pubdate = new Date(data.feedItem.PublishingDate);;
+	const pubdate = new Date(data.feedItem.PublishingDate);
 	console.log("pubdate", pubdate);
 	console.log("feedItem",feedItem);
 </script>
@@ -46,8 +46,8 @@
 							class="mt-2 p-1"
 						/>
 					</div>
-					<div class="ml-4 ">
-						<h2 class="text-left text-[15px] leading-4 mt-2">
+					<div class="ml-4">
+						<h2 class="text-left text-base leading-5 mt-2 mb-3">
 							{feedItem.Title}
 						</h2>
 						<p>

@@ -43,7 +43,7 @@
 				{/each} -->
 
 				{#each Object.values(raahiFeedItems) as news}
-					<div class="mb-6 last:mb-10">
+					<div class="mb-6 ">
 						<a href={`/users/${userId}/newsfeed/${news.id}`}>
 							<h4 class="text-right  text-[13px] font-semibold mb-1">{news.pubDate}</h4>
 							<div class="w-[340px] h-[280px]  rounded-lg bg-[#f2e2da]">
@@ -71,7 +71,7 @@
 								<img
 									src={news.image}
 									alt=""
-									class="w-[324px] mx-2 px-2 mt-6 h-[146px]  rounded-lg "
+									class="w-[324px] mx-2 px-2 mt-4 h-[170px]  rounded-lg "
 								/>
 							</div></a
 						>
@@ -101,7 +101,7 @@
 
 			<div class=" h-[590px] overflow-auto scrollbar-medium">
 				{#each Object.values(communityFeedItems) as news}
-					<div class="mb-6 last:mb-10">
+					<div class="mb-6">
 						<a href={`/users/${userId}/newsfeed/${news.id}`}>
 							<h4 class="text-right  text-[13px] font-semibold mb-1">{news.pubDate}</h4>
 							<div class="w-[340px] h-[280px]  rounded-lg bg-[#d7eaf7]">
@@ -126,7 +126,7 @@
 										</p>
 									</div>
 								</div>
-								<img src={news.image} alt="" class="w-[324px] mx-2 px-2 mt-6 h-[146px] rounded-lg"/>
+								<img src={news.image} alt="" class="w-[324px] mx-2 px-2 mt-4 h-[170px] rounded-lg"/>
 							</div>
 						</a>
 					</div>
