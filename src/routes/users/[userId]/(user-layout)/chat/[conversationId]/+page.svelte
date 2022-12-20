@@ -134,7 +134,7 @@
 
 </script>
 
-<div class="card card-compact card-bordered w-[375px] h-[590px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm">
+<div class="card card-compact card-bordered w-[375px] h-[590px]  bg-base-100 border-slate-200 rounded-none rounded-t-[44px] shadow-sm">
 	<div class="card-body ">
 		<button class=" h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
 		<div class="gap-2 flex items-center justify-center mb-2">

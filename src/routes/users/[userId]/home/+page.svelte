@@ -62,7 +62,7 @@
 			<Navbar userId={userId} on:logout={async () => {
 				await onLogout();
 			  }}/>
-			<div class="card  rounded-none  w-[375px] h-[812px]  bg-[#5b7aa3]  shadow-none lg:mt-16 md:mt-16 sm:mt-16 mt-0">
+			<div class="card  rounded-none  w-[375px] h-[812px] bg-[#5b7aa3] shadow-none lg:mt-16 md:mt-16 sm:mt-16 mt-0">
 				<div class="card w-[375px] h-[406px] shadow-none rounded-none border-none">
 					<div class="card-body ">
 						<div class=" flex flex-row h-16 w-16">
@@ -83,7 +83,7 @@
 						<a href={notificationsLink}> <img src="/assets/images/home/png/notification.png" alt="" /></a>
 					</div>
 				</div>
-				<div class="card card-compact w-[375px] h-[590px]  bg-base-100 card-bordered border-slate-400  rounded-none rounded-t-[44px] shadow-none ">
+				<div class="card card-compact w-[375px] h-[590px]  bg-base-100 card-bordered border-slate-200 rounded-none rounded-t-[44px] shadow-none ">
 					<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
 					<div class="card-body h-[450px] place-content-around ">
 						<div class="overflow-auto h-[550px] scrollbar  scrollbar-medium">

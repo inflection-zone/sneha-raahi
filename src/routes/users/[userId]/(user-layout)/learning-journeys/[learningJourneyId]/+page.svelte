@@ -83,7 +83,7 @@
 
 </script>
 
-<div class="card card-compact w-[375px] h-[330px]  bg-[#ffdbb2]  rounded-none rounded-t-[44px] shadow-sm">
+<div class="card card-compact w-[375px] h-[330px] card-bordered border-slate-200 bg-[#ffdbb2]  rounded-none rounded-t-[44px] shadow-sm">
 	<div class="card-body ">
 		<div class="flex flex-col justify-center">
 			<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 rounded" />
@@ -96,7 +96,7 @@
 		</div>
 	</div>
 </div>
-<div class=" card-body h-[300px] bg-base-100">
+<div class=" card-body h-[300px] bg-base-100  card-bordered border-slate-200">
 	<h2 class="leading-4 text-lg mb-2">{learningJourney.Name}</h2>
 	<p class="h-auto">
 		{learningJourney.Description ? learningJourney.Description : ''}
