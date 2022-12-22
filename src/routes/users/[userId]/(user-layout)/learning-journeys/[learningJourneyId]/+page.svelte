@@ -83,20 +83,21 @@
 
 </script>
 
-<div class="card card-compact w-[375px] h-[330px]  bg-[#ffdbb2]  rounded-none rounded-t-[44px] shadow-sm">
+<div class="card card-compact w-[375px] h-[280px] card-bordered border-slate-200 bg-[#ffdbb2]  rounded-none rounded-t-[44px] shadow-sm">
 	<div class="card-body ">
-		<div class="flex flex-col justify-center">
+		<div class="flex flex-col text-center justify-center">
 			<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 rounded" />
 			<!-- <img
 				class="h-[310px] w-[308px]"
 				src="/assets/learning-course/svg/growing-up-affect.svg"
 				alt=""
 			/> -->
-			<Image cls="h-[310px] w-[308px]" source={learningJourney?.ImageUrl} w="200" h="200" />
+			<div class=" flex justify-center">
+			<Image cls="" source={learningJourney?.ImageUrl} w="200" h="200" /></div>
 		</div>
 	</div>
 </div>
-<div class=" card-body h-[300px] bg-base-100">
+<div class=" card-body h-[300px] bg-base-100  card-bordered border-slate-200">
 	<h2 class="leading-4 text-lg mb-2">{learningJourney.Name}</h2>
 	<p class="h-auto">
 		{learningJourney.Description ? learningJourney.Description : ''}
@@ -137,15 +138,15 @@
 					<div class="grid  grid-flow-col mb-4">
 						{#if content.ContentType == 'Video'}
 							<div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
-								<img class=" m-5 " src="/images/assets/learning-course/svg/video.svg" alt="" />
+								<img class=" m-5 " src="/assets/images/learning-course/svg/video.svg" alt="" />
 							</div>
 						{:else if content.ContentType === 'Assessment'}
 							<div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
-								<img class=" m-4 " src="/images/assets/learning-course/svg/quiz.svg" alt="" />
+								<img class=" m-4 " src="/assets/images/learning-course/svg/quiz.svg" alt="" />
 							</div>
 						{:else}
 							<div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
-								<img class=" m-4 " src="/images/assets/learning-course/svg/slides.svg" alt="" />
+								<img class=" m-4 " src="/assets/images/learning-course/svg/slides.svg" alt="" />
 							</div>
 						{/if}
 						<div class="mx-4">

@@ -10,13 +10,13 @@
 		<div class="card-body">
 			<div class="flex flex-col items-center justify-center h">
 				<img
-					src="/assets/about-raahi/png/logo.png"
+					src="/assets/images/about-raahi/png/logo.png"
 					alt=""
 					class="w-[110px] h-[50px] mt-[10px] object-contain  "
 				/>
 			</div>
       <div class="flex flex-col text-center justify-center">
-        <img src="/assets/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px]" />
+        <img src="/assets/images/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px]" />
         <h2 class=" text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-6 mb-4 leading-[23px]">
           Oops! Something went wrong!
         </h2>
@@ -46,7 +46,7 @@
 			</div>
 		</div>
 		<img
-			src="/assets/about-raahi/png/colors-strip.png"
+			src="/assets/images/about-raahi/png/colors-strip.png"
 			alt=""
 			class="w-[375px] h-[10px] object-contain"
 		/>

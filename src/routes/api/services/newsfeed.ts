@@ -6,7 +6,7 @@ export const getCommunityFeed = async (sessionId: string) => {
     const url = BACKEND_API_URL + `/rss-feeds/search?title=Community`;
     const results = await get_(sessionId, url);
     const items = results.RssfeedRecords.Items;
-    //console.log(JSON.stringify(items, null, 2));
+    console.log(JSON.stringify(items, null, 2));
     let item = null;
     if (items.length > 0) {
         item = items[0];
@@ -22,7 +22,7 @@ export const getRaahiFeed = async (sessionId: string) => {
     const url = BACKEND_API_URL + `/rss-feeds/search?title=Raahi`;
     const results = await get_(sessionId, url);
     const items = results.RssfeedRecords.Items;
-    //console.log(JSON.stringify(items, null, 2));
+    console.log(JSON.stringify(items, null, 2));
     let item = null;
     if (items.length > 0) {
         item = items[0];
@@ -47,6 +47,11 @@ export const getFeed = async (url: string) => {
         headers
     });
     const response = await res.text();
-    //console.log(`Rss feed: ${response}`);
+    // console.log(`Rss feed: ${response}`);
     return response;
 }
+
+export const getFeedItemById = async (sessionId: string, rssFeedItemId: string ) => {
+    const url = BACKEND_API_URL + `/rss-feeds/feed-items/${rssFeedItemId}`;
+    return await get_(sessionId, url);
+};

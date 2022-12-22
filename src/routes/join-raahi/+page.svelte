@@ -19,7 +19,7 @@
 		<div class="card  w-[375px] h-[812px] bg-[#fff] rounded-none border-solid border-2">
 			<div class="card-body items-center text-center">
 				<img
-					src="/images/assets/join-raahi/png/logo.png"
+					src="/assets/images/join-raahi/png/logo.png"
 					alt=""
 					class="w-[110px] h-[50px]  mt-[10px] mr-[132px] mb-[32px] ml-[133px] object-contain "
 				/>
@@ -86,7 +86,7 @@
 					<a href="/"> <span class=" text-xl tracking-widest  font-bold"> BACK TO HOME </span></a>
 				</div>
 			</div>
-			<img src="/images/assets/sign-in/svg/color-strip.svg" alt="" />
+			<img src="/assets/images/sign-in/svg/color-strip.svg" alt="" />
 		</div>
 	</div></body
 >

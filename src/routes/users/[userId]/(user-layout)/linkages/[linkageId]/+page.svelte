@@ -48,8 +48,8 @@
 
 </script>
 
-<div class="card card-compact card-bordered w-[375px] h-[701px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm">
-	<div class="card-body ">
+<div class="card card-compact card-bordered w-[375px] h-[701px]  bg-base-100 border-slate-200  rounded-none rounded-t-[44px] shadow-sm">
+	<div class="card-body overflow-auto scrollbar-medium ">
 		<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
 		<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 			LINKAGE - JOB
@@ -58,7 +58,7 @@
 			<img class="w-[3.625rem] h-[3.625rem] bg-[#fde2e4] rounded-lg" src={data.notice.ImageUrl} alt=""/>
 			<div class="ml-3 ">
 				<div id={data.notice.id} class="flex mb-4">
-					<h3 class="text-left" >{data.notice.Title}</h3>
+					<h3 class="text-left leading-5" >{data.notice.Title}</h3>
 					<div class="text-base font-normal ml-4 leading-5 ">{timeAgo(postDate)}</div>
 				</div>
 				<p>
@@ -75,7 +75,7 @@
 					class=" h-[52px] w-[340px] mt-2 text-[#fff] rounded-lg bg-[#5b7aa3]">
 					APPLY FOR JOB
 				</button>
-				<button on:click|preventDefault = {backToLinkages} class="text-center mt-72">
+				<button on:click|preventDefault = {backToLinkages} class="text-center mt-3">
 					 BACK TO LINKAGES 
 				</button>
 			{:else}
@@ -84,8 +84,8 @@
 				</div>
 				<button
 					on:click|preventDefault = {backToLinkages}
-					class=" h-[52px] w-[340px] mt-2 text-[#fff] rounded-lg bg-[#5b7aa3]">
-					Back to Linkages
+					class=" h-[52px] w-[340px] mt-2 rounded-lg  ">
+					BACK TO LINKAGES 
 				</button>
 			{/if}
 	<!-- </a> -->

@@ -7,18 +7,18 @@
 </script>
 
 
-<div class="card card-compact card-bordered w-[375px] h-[701px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm">
+<div class="card card-compact card-bordered w-[375px] h-[701px]  bg-base-100 border-slate-200 rounded-none rounded-t-[44px] shadow-sm">
 	<div class="card-body ">
 		<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
 		<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 			LINKAGES
 		</h2>
-		<div class="card-body h-[690px] overflow-auto scrollbar-medium">
+		<div class="card-body h-[610px] overflow-auto scrollbar-medium">
 			{#if allLinkages.length == 0}
 				<h3 class="text-slate-500">No linkages to show</h3>
 			{:else}
 				{#each allLinkages as notice}
-					<div class="first:mt-2 mb-3 last:mb-16" id= {notice.id} >
+					<div class="first:mt-2 mb-3" id= {notice.id} >
 						<a href={`/users/${data.userId}/linkages/${notice.id}`}>
 							<div class="grid grid-flow-col ">
 								<img class="w-[3.625rem] h-[3.625rem] bg-[#fde2e4] rounded-lg" src={notice.ImageUrl} alt=""/>
@@ -31,9 +31,9 @@
 									<div class="flex mb-1 ">
 									<p>{notice.Description.length > 50 ? notice.Description.substring(0, 55) + '...': notice.Description}</p>
 									{#if notice.UserAction}
-										<img class="text-right" src="/images/assets/quiz-wrong/svg/correct.svg" alt="" />
+										<img class="text-right" src="/assets/images/quiz-wrong/svg/correct.svg" alt="" />
 									{:else}
-										<img class="hidden" src="/images/assets/quiz-wrong/svg/correct.svg" alt="" />
+										<img class="hidden" src="/assets/images/quiz-wrong/svg/correct.svg" alt="" />
 									{/if}
 									</div>
 								</div>

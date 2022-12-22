@@ -67,7 +67,7 @@ async function loadRSSFeeds(raahiFeed, communityFeed) {
   raahifeed_.items.forEach(item => {
     console.log(JSON.stringify(item, null, 2));
     raahiFeedItems.push({
-      id: item.id,
+      id: item.guid,
       title: item.title,
       link: item.link,
       pubDate: hrt(new Date(item.pubDate), '%relative% ago'),
@@ -82,7 +82,7 @@ async function loadRSSFeeds(raahiFeed, communityFeed) {
   communityFeed_.items.forEach(item => {
     console.log(JSON.stringify(item, null, 2));
     communityFeedItems.push({
-      id: item.id,
+      id: item.guid,
       title: item.title,
       link: item.link,
       pubDate: hrt(new Date(item.pubDate), '%relative% ago'),
@@ -91,6 +91,8 @@ async function loadRSSFeeds(raahiFeed, communityFeed) {
       author: item.author,
     });
   });
+  console.log("Raahi feed items",raahiFeedItems);
+  console.log("Community feed items",communityFeedItems);
   return {
     raahiFeedItems: raahiFeedItems,
     communityFeedItems: communityFeedItems
