@@ -11,7 +11,7 @@
 	console.log("feedItem",feedItem);
 </script>
 
-<div class="card card-compact card-bordered w-[375px] h-[590px] bg-base-100  rounded-none rounded-t-[44px] shadow-sm">
+<div class="card card-compact card-bordered w-[375px] h-[701px] bg-base-100  rounded-none rounded-t-[44px] shadow-sm">
 	<div class="card-body ">
 		<button class="h-[5px] w-[73px] bg-[#E3E3E3] ml-[8.5rem] mt-2 rounded" />
 		<h2 class=" text-[#5B7AA3] flex  justify-center uppercase tracking-widest font-bold text-base">
@@ -37,8 +37,8 @@
 			<!-- <div class="card-body "> -->
 			<h4 class="text-right  text-[13px] font-semibold mb-1">{timeAgo(pubdate)}</h4>
 
-			<div class="w-[340px] h-[470px] overflow-auto  rounded-lg bg-[#f2e2da]">
-				<div class="flex p-1">
+			<div class="w-[340px] h-[460px] overflow-auto scrollbar-medium rounded-lg bg-[#f2e2da]">
+				<div class="flex p-1 mt-4">
 					<div class="w-[50px] mt-2 ml-2 h-[45px] rounded-lg bg-[#fff] flex-none">
 						<img
 							src="/assets/images/newsfeed/png/logo.png"
@@ -50,7 +50,7 @@
 						<h2 class="text-left text-base leading-5 mt-2 mb-3">
 							{feedItem.Title}
 						</h2>
-						<p>
+						<p class="pr-1">
 							{feedItem.Description}
 						</p>
 					</div>
@@ -59,7 +59,7 @@
 				<img
 					src={feedItem.Image}
 					alt=""
-					class="w-[310px] item-center mt-4 h-[200px]  rounded-lg "
+					class="w-[310px] item-center mt-8 h-[200px]  rounded-lg "
 				/>
 			</div>
 			</div>
@@ -138,19 +138,20 @@
 
 		{/if}
 	</div>
+	<div class="h-[90px] w-[375px] bg-white">
+		<a href="/users/{userId}/newsfeed">
+		<div class="h-20 w-[375px] mt-3 flex justify-center ">
+			<!-- <textarea
+				type="text"
+				class="h-[52px] p-3 ml-3 mt-3  w-[277px] rounded-lg bg-white"
+				placeholder="Start typing here…"
+			/>
+			<div class="relative h-[50px] w-[50px] bg-[#5b7aa3] rounded-lg ml-3 mt-3  ">
+				<img class="m-3" src="/assets/images/ask-sneha/png/send.png" alt="" />
+			</div> -->
+			
+			<button class="">BACK TO NEWSFEED</button>
+		</div></a>
+	</div>
 </div>
-<div class="h-[90px] w-[375px] bg-white">
-	<a href="/users/{userId}/newsfeed">
-	<div class="h-20 w-[375px] mt-3 bg-[#dfe7fd] flex justify-center ">
-		<!-- <textarea
-			type="text"
-			class="h-[52px] p-3 ml-3 mt-3  w-[277px] rounded-lg bg-white"
-			placeholder="Start typing here…"
-		/>
-		<div class="relative h-[50px] w-[50px] bg-[#5b7aa3] rounded-lg ml-3 mt-3  ">
-			<img class="m-3" src="/assets/images/ask-sneha/png/send.png" alt="" />
-		</div> -->
-		
-		<button class="">BACK TO NEWSFEED</button>
-	</div></a>
-</div>
+

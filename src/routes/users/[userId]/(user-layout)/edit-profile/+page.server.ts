@@ -1,23 +1,20 @@
-import * as cookie from 'cookie';
-import type { PageServerLoad, Action } from './$types';
+import type { PageServerLoad } from './$types';
 import type {  RequestEvent } from '@sveltejs/kit';
 import { redirect } from 'sveltekit-flash-message/server';
-import { errorMessage, successMessage } from '$lib/utils/message.utils';
+import { successMessage } from '$lib/utils/message.utils';
 import { getUserById, updateProfile } from '../../../../../routes/api/services/user';
 
 /////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
-  const sessionId = event.cookies.get('sessionId');
-  console.log('sessionId', sessionId);
+    const sessionId = event.cookies.get('sessionId');
     const userId = event.params.userId;
     const _user = await getUserById(sessionId, userId);
     const user = _user.Patient;
-    console.log('User...............', user);
+    console.log('User', user);
     return {
       user
     };
-  
 };
 
 export const actions = {

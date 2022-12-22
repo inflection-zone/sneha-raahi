@@ -6,7 +6,7 @@
     import Navbar from '$lib/components/navbar/nav.svelte';
     import { navbarDisplay } from '$lib/components/navbar/navbar.display.store';
 	import { LocalStorageUtils } from "$lib/utils/local.storage.utils";
-
+	let show = true ;
 	let userId = $page.params.userId;
 	export let data: PageServerData;
 
