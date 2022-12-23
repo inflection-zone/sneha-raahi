@@ -111,7 +111,7 @@
 					<button class=" text-[#d05591] text-base absolute right-0 pr-3">VIEW ALL</button>
 				</a>
 			</div>
-			<div class="overflow-auto scrollbar-medium h-[160px]">
+			<div class="overflow-auto scrollbar-medium h-[250px]">
 				<div class="columns-2 flex-wrap ">
 					{#each allCourses as course}
 						<button on:click|capture={(e)=>handleCourseClick(e, course.ResourceLink)} id={course.id} name={course.id}>
