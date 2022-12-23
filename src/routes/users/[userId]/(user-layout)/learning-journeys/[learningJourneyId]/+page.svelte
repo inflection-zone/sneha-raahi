@@ -3,13 +3,35 @@
 	import Image from '$lib/components/image.svelte';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import { errorMessage, showMessage, successMessage } from '$lib/utils/message.utils';
-
+	import { showMessage} from '$lib/utils/message.utils';
+	import Youtube from '$lib/components/youtube-embed/youtube.svelte';
 	export let data: PageServerData;
+
 	let learningJourney = data.learningPath;
-	const courseContents = data.courseContentsForLearningPath;
+	let courseContents = data.courseContentsForLearningPath;
+	courseContents = courseContents.sort((a, b) => { return a.Sequence - b.Sequence; });
 	const userId = data.userId;
-	//console.log(`${JSON.stringify(courseContents, null, 2)}`)
+	console.log(`${JSON.stringify(courseContents, null, 2)}`)
+
+	 courseContents = courseContents.map(x => {
+		return {
+			...x,
+			showVedio: false,
+		}
+	})
+
+	function getYouTubeId(url){
+	let id = '';
+		url = url.replace(/(>|<)/gi,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+		if(url[2] !== undefined) {
+			id = url[2].split(/[^0-9a-z_\-]/i);
+			id = id[0];
+		}
+		else {
+			id = url;
+		}
+			return id;
+		}
 
 	async function updateVideoProgress(model) {
 		await fetch(`/api/server/learning`, {
@@ -48,7 +70,7 @@
 			};
 			await updateVideoProgress(videoModel);
 			//TODO: Please use video embedding rather than switching to different page
-			window.location.href = resourceLink;
+			// window.location.href = resourceLink;
 		}
 		else if (contentType === 'Assessment') {
 			const quizModel = {
@@ -97,7 +119,7 @@
 		</div>
 	</div>
 </div>
-<div class=" card-body h-[300px] bg-base-100  card-bordered border-slate-200">
+<div class=" card-body h-[421px] bg-base-100  card-bordered border-slate-200">
 	<h2 class="leading-4 text-lg mb-2">{learningJourney.Name}</h2>
 	<p class="h-auto">
 		{learningJourney.Description ? learningJourney.Description : ''}
@@ -120,7 +142,7 @@
 		{/each}
 	</div> -->
 
-	<div class="overflow-auto scrollbar-medium h-[280px]">
+	<div class="overflow-auto scrollbar-medium h-[350px]">
 		{#if courseContents.length == 0}
 			<h3 class="mb-3 mt-1 font-semibold text-start">
 				Course is not available yet. Please stay tuned.
@@ -129,33 +151,75 @@
 			{#each courseContents as content}
 				<button
 					on:click|capture={async (e) =>
-						handleCourseContentClick(e, content.ResourceLink, content.ContentType, content.ActionTemplateId)}
+					{content.showVedio = true; await handleCourseContentClick(e, content.ResourceLink, content.ContentType, content.ActionTemplateId)}}
 					id={content.id}
 					name={content.id}
 					class="leading-4 tracking-normal font-bold"
 				>
-					<!-- <button on:click = {() => (PercentageCompletion == '100')} > -->
-					<div class="grid  grid-flow-col mb-4">
+					<div class="grid grid-flow-col mb-4">
 						{#if content.ContentType == 'Video'}
-							<div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
-								<img class=" m-5 " src="/assets/images/learning-course/svg/video.svg" alt="" />
+						{#if content.showVedio}
+						<!-- <div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
+							<img class=" m-5 " src="/assets/images/learning-course/svg/video.svg" alt="" />
+						</div> -->
+						<div class="mx-4 grid grid-flow-row">
+							<h3 class="text-center mb-3">{content.Title}</h3>
+							<!-- svelte-ignore a11y-media-has-caption -->	
+							<!-- <div>  -->
+							  <Youtube id={getYouTubeId(content.ResourceLink)} on:closeVideo = {async (e) => content.showVedio = false} >
+								<button></button>
+							  </Youtube>
+							<!-- </div>	 -->
+							<!-- <div class="bg-[#e3e3e3] mt-3 rounded-full h-[10px] w-[211px]">
+								<div class="bg-[#70ae6e] rounded-full h-[10px]" style={"width:" + `${content.PercentageCompletion ? content?.PercentageCompletion?.toString() : '0'}` + "%"}/>
+							</div> -->
+						</div>
+						{:else}
+						<div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
+							<img class=" m-5 " src="/assets/images/learning-course/svg/video.svg" alt="" />
+						</div>
+						<div class="mx-4">
+							<h3 class="text-left mb-3">{content.Title}</h3>
+							<!-- svelte-ignore a11y-media-has-caption -->		 
+							  <!-- <Youtube id={"Y19kYh6k7ls"}>
+								<button></button>
+							  </Youtube> -->
+							
+							<div class="bg-[#e3e3e3] mt-3 rounded-full h-[10px] w-[211px]">
+								<div class="bg-[#70ae6e] rounded-full h-[10px]" style={"width:" + `${content.PercentageCompletion ? content?.PercentageCompletion?.toString() : '0'}` + "%"}/>
 							</div>
+						</div>
+						{/if}
 						{:else if content.ContentType === 'Assessment'}
+						<!-- <div class=""> -->
 							<div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
 								<img class=" m-4 " src="/assets/images/learning-course/svg/quiz.svg" alt="" />
 							</div>
+							<div class="mx-4">
+								<h3 class="text-left mb-5">{content.Title}</h3>
+								<div class="bg-[#e3e3e3]  rounded-full h-[10px] w-[211px]">
+									<div class="bg-[#70ae6e] rounded-full h-[10px]" style={"width:" + `${content.PercentageCompletion ? content?.PercentageCompletion?.toString() : '0'}` + "%"}/>
+								</div>
+							</div>
+						<!-- </div> -->
 						{:else}
 							<div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
 								<img class=" m-4 " src="/assets/images/learning-course/svg/slides.svg" alt="" />
 							</div>
+							<div class="mx-4">
+								<h3 class="text-left mb-5">{content.Title}</h3>
+								<div class="bg-[#e3e3e3]  rounded-full h-[10px] w-[211px]">
+									<div class="bg-[#70ae6e] rounded-full h-[10px]" style={"width:" + `${content.PercentageCompletion ? content?.PercentageCompletion?.toString() : '0'}` + "%"}/>
+								</div>
+							</div>
 						{/if}
-						<div class="mx-4">
+						<!-- <div class="mx-4">
 							<h3 class="text-left mb-5">{content.Title}</h3>
 							<div class="bg-[#e3e3e3]  rounded-full h-[10px] w-[211px]">
 								<div class="bg-[#70ae6e] rounded-full h-[10px]" style={"width:" + `${content.PercentageCompletion ? content?.PercentageCompletion?.toString() : '0'}` + "%"}/>
 							</div>
 						</div>
-						<div class="mt-9 font-bold" />
+						<div class="mt-9 font-bold" /> -->
 					</div>
 				</button>
 			{/each}
