@@ -4,7 +4,7 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { showMessage} from '$lib/utils/message.utils';
-	import Youtube from '$lib/components/youtube-embed.svelte/youtube.svelte'
+	import Youtube from '$lib/components/youtube-embed/youtube.svelte';
 	export let data: PageServerData;
 
 	let learningJourney = data.learningPath;
