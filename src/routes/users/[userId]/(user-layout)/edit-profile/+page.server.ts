@@ -11,7 +11,7 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const userId = event.params.userId;
     const _user = await getUserById(sessionId, userId);
     const user = _user.Patient;
-    console.log('User', user);
+    console.log('User', JSON.stringify(user, null, 2));
     return {
       user
     };
@@ -30,9 +30,9 @@ export const actions = {
     const address = data.has('address') ? data.get('address') : null;
 
     const sessionId = event.cookies.get('sessionId');
-    console.log('sessionId', sessionId);
+    //console.log('sessionId', sessionId);
     const userId = event.params.userId;
-    console.log('user id', userId);
+    //console.log('user id', userId);
 
     const response = await updateProfile(
       sessionId,
@@ -43,9 +43,9 @@ export const actions = {
       phone.valueOf() as string,
       address.valueOf() as string
     );
-    console.log(response)
+    //console.log(response);
     const id = response.Patient.User.id;
-    console.log("id", id)
+    //console.log("id", id);
 
     throw redirect(
       303,

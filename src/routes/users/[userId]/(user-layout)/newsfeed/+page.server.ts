@@ -98,4 +98,3 @@ async function loadRSSFeeds(raahiFeed, communityFeed) {
     communityFeedItems: communityFeedItems
   };
 }
-

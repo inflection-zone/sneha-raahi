@@ -7,12 +7,12 @@ import { redirect } from 'sveltekit-flash-message/server';
 ///////////////////////////////////////////////////////////////////////////////////
 
 export const load: PageServerLoad = async (event: RequestEvent) => {
-    try {
-        console.log('Page ...' + JSON.stringify(event, null, 2));
-    }
-    catch (error) {
-        console.error(`Error logging in: ${error.message}`);
-    }
+	try {
+		console.log('Page ...' + JSON.stringify(event, null, 2));
+	}
+	catch (error) {
+		console.error(`Error logging in: ${error.message}`);
+	}
 };
 
 export const actions = {
@@ -22,7 +22,7 @@ export const actions = {
 		const request = event.request;
 
 		const data = await request.formData();
-		console.log("Form data",Object.fromEntries(data));
+		console.log("Form data", Object.fromEntries(data));
 
 		const countryCode = '+91';
 		const firstName = data.has('firstName') ? data.get('firstName') : null;
@@ -41,11 +41,11 @@ export const actions = {
 			birthDate.valueOf() as Date,
 			phone.valueOf() as string,
 			address.valueOf() as string
-			);
+		);
 
 		console.log(JSON.stringify(response, null, 2));
 
-		console. log("Response................",response)
+		console.log("Response................", response)
 
 		if (response.Status === 'failure' && response.HttpCode === 409) {
 			throw redirect(303, '/join-raahi', errorMessage(response.Message), event);

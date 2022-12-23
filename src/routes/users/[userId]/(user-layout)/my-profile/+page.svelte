@@ -8,9 +8,12 @@
     let count = 0;
 	let overallProgress ;
 	let userId = data.user.User.id
-	let  addresses = data.user.User.Person.Addresses;
-	let location = addresses;
-	console.log("location.......",location);
+	let addresses = data.user.User.Person.Addresses;
+	let location = "Mumbai";
+	if (addresses.length > 0) {
+		let address = addresses[0];
+		location = address.AddressLine ?? address.City;
+	}
 	let FullName = data.user.User.Person.FirstName && data.user.User.Person.LastName ?
                 (data.user.User.Person.FirstName + ' ' +  data.user.User.Person.LastName ) : null;
 	let Age = data.user.User.Person.Age;
@@ -45,7 +48,7 @@
 						EDIT
 					</button>
 					</a>
-					<p class=" text-left ">{Age} <br> , Pune</p>
+					<p class=" text-left ">{Age} <br> , {location}</p>
 				</div>
 			</div>
 		</div>
