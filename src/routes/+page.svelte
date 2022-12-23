@@ -93,7 +93,7 @@
 					</div>
 					<div id="item3" class=" carousel-item ">
 						<div class="flex flex-col text-center justify-center">
-							<img src="/assets/images/home/svg/newsfeed.svg" alt="" class="mt-[50px] h-[250px] " />
+							<img src="/assets/images/home/svg/newsfeed-without-bg.svg" alt="" class="mt-[50px] h-[250px] " />
 						<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
 							Newsfeed
 						</h2>
