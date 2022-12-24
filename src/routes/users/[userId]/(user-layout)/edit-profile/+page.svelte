@@ -1,24 +1,34 @@
 <script lang="ts">
-  import type { PageServerData } from './$types';
-  import date from 'date-and-time';
-  export let data: PageServerData;
-  let firstName = data.user.User.Person.FirstName;
-  let lastName = data.user.User.Person.LastName;
+    import type { PageServerData } from './$types';
+    import date from 'date-and-time';
+    import { writable, get } from 'svelte/store';
 
-  let phone = data.user.User.Person.Phone;
-  phone = phone.startsWith('+91') ? phone.replace('+91-', '') : phone;
-  let addresses = data.user.User.Person.Addresses;
-  let location = "Mumbai";
-  if (addresses.length > 0) {
+    // create a writable store for storing the file that will be uploaded
+    let file = writable(null);
+
+    export let data: PageServerData;
+
+    let userId = data.user.User.id;
+    let birthDate = date.format(new Date(data.user.User.Person.BirthDate), 'MM-DD-YYYY');
+    let firstName = data.user.User.Person.FirstName;
+    let lastName = data.user.User.Person.LastName;
+    let phone = data.user.User.Person.Phone;
+    phone = phone.startsWith('+91') ? phone.replace('+91-', '') : phone;
+
+    let addresses = data.user.User.Person.Addresses;
+    let location = "Mumbai";
+    if (addresses.length > 0) {
     let address = addresses[0];
-    location = address.AddressLine ?? address.City;
-  }
-  console.log("user", JSON.stringify(data.user.User, null, 2));
-  console.log("address", location);
-  let userId = data.user.User.id;
+        location = address.AddressLine ?? address.City;
+    }
+    //console.log("address", location);
 
+    console.log("user", JSON.stringify(data.user.User, null, 2));
 
-  let birthDate = date.format(new Date(data.user.User.Person.BirthDate), 'MM-DD-YYYY');
+    async function uploadFile() {
+        // get the file from the store
+        const f = get(file);
+    }
 
 </script>
 
@@ -26,7 +36,10 @@
 	class="card card-compact card-bordered w-[375px] h-[701px] border-slate-200 bg-base-100 rounded-none rounded-t-[44px] shadow-sm"
 >
 	<div class="card-body ">
-		<button class=" h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
+        <input type="file" bind:value={file}>
+        <!-- <button on:click={uploadFile}>Upload file</button> -->
+
+		<button on:click={uploadFile} class=" h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
 		<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 			EDIT PROFILE
 		</h2>
