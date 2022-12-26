@@ -48,19 +48,16 @@ export const registerUser = async (
     phone: string,
     address: string
     ) => {
-    // const model: UserModel = getUserModel(
-    //     firstName, lastName, birthDate, phone, address);
-    //     console.log("model.....", model);
-    // console.log(JSON.stringify(model, null, 2));
+
     const model = {
         FirstName: firstName,
         LastName: lastName,
         BirthDate: birthDate,
         Phone: phone,
         Address : {
-         Type : "Home",
-         AddressLine : "Home",
-         Location : address
+            Type : "Home",
+            AddressLine : address,
+            Location : address
         }
       };
       if (Helper.isPhone(phone)) {
@@ -82,8 +79,6 @@ export const registerUser = async (
     const response = await res.json();
     console.log("response",response);
     return response;
-
-
 };
 
 const getUserModel = (
@@ -188,10 +183,11 @@ export const updateProfile = async (
       Phone: phone,
       Address : {
        Type : "Home",
-       AddressLine:"Home",
-       Location : address,
+       AddressLine:address,
+       City : address,
       }
     };
+    console.log(JSON.stringify(body, null, 2));
     const url = BACKEND_API_URL + `/patients/${userId}`;
     return await put_(sessionId, url, body);
   };
