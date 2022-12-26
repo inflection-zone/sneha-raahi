@@ -40,6 +40,7 @@
 	"type": "module",
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.5.0",
+		"@neodrag/svelte": "^1.2.4",
 		"chalk": "^5.1.2",
 		"cookie": "^0.4.1",
 		"date-and-time": "^2.4.1",
@@ -47,7 +48,6 @@
 		"human-readable-time": "^0.3.0",
 		"rss-parser": "^3.12.0",
 		"short-time-ago": "^2.0.0",
-
 		"sveltekit-flash-message": "^0.9.7"
 	}
 }

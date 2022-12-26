@@ -107,14 +107,17 @@
 		<div class="mt-1">
 			<div class="flex mb-4 relative">
 				<h2 class="text-xl ">Courses</h2>
-				<a href={`/users/${data.userId}/learning-journeys`}>
+				<!-- <a href={`/users/${data.userId}/learning-journeys`}>
 					<button class=" text-[#d05591] text-base absolute right-0 pr-3">VIEW ALL</button>
-				</a>
+				</a> -->
 			</div>
 			<div class="overflow-auto scrollbar-medium h-[250px]">
 				<div class="columns-2 flex-wrap ">
 					{#each allCourses as course}
 						<button on:click|capture={(e)=>handleCourseClick(e, course.ResourceLink)} id={course.id} name={course.id}>
+							{#if course.ContentType == 'Assessment'}
+							<div></div>
+							{:else}
 							<div class=" flex-col justify-center mb-6 ">
 								{#if course.ImageUrl == null}
 									<img
@@ -127,6 +130,7 @@
 								{/if}
 								<h3 class="font-semibold text-center tracking-normal text-ellipsis">{course.Title.length > 20 ? course.Title.substring(0,18 ) + '...': course.Title}</h3>
 							</div>
+							{/if}
 						</button>
 					{/each}
 					<!-- <a href="/course-home">

@@ -1,6 +1,5 @@
 <script>
 // @ts-nocheck
-
     import { afterUpdate, tick, onMount, onDestroy } from "svelte";
     import { fly, fade } from "svelte/transition";
     export let visible = true;

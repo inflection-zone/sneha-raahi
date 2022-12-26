@@ -71,7 +71,8 @@
 					{/each} -->
 					<div id="item1" class=" slide carousel-item ">
 						<div class="flex flex-col text-center justify-center">
-							<img src="/assets/images/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px] h-[250px]  p-4" />
+							<!-- <img src="/assets/images/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px] h-[250px]" /> -->
+							<img src="/assets/images/about-raahi/svg/my-learning-white-bg.svg" alt="" class="mt-[50px] h-[250px] w-[330px]" />
 						<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
 							Your Learning Journey
 						</h2>
@@ -82,7 +83,7 @@
 					</div>
 					<div id="item2" class=" slide carousel-item ">
 						<div class="flex flex-col text-center justify-center">
-							<img src="/assets/images/home/svg/linkages.svg" alt="" class="mt-[50px] h-[250px]  p-4" />
+							<img src="/assets/images/about-raahi/svg/linkages-white-bg.svg" alt="" class="mt-[50px]  w-[300px] h-[250px] " />
 						<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
 							Linkages
 						</h2>
@@ -93,7 +94,7 @@
 					</div>
 					<div id="item3" class=" carousel-item ">
 						<div class="flex flex-col text-center justify-center">
-							<img src="/assets/images/home/svg/newsfeed-without-bg.svg" alt="" class="mt-[50px] h-[250px] " />
+							<img src="/assets/images/about-raahi/svg/newsfeed-without-bg.svg" alt="" class="mt-[50px] w-[350px] h-[250px] " />
 						<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
 							Newsfeed
 						</h2>
@@ -104,7 +105,7 @@
 					</div>
 					<div id="item4" class="carousel-item ">
 						<div class="flex flex-col text-center justify-center">
-							<img src="/assets/images/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px]" />
+							<img src="/assets/images/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px]  h-[250px]" />
 						<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
 							Ask SNEHA
 						</h2>
