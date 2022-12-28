@@ -39,9 +39,9 @@
 
 </script>
 
-<div class="card card-compact card-bordered w-[375px] h-[701px]  bg-base-100 border-slate-200  rounded-none rounded-t-[44px] shadow-sm">
+<!-- <div class="card card-compact card-bordered w-[375px] h-[701px]  bg-base-100 border-slate-200  rounded-none rounded-t-[44px] shadow-sm"> -->
 	<div class="card-body ">
-		<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
+		<!-- <button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" /> -->
 		<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 			NOTIFICATIONS
 		</h2>
@@ -54,15 +54,16 @@
 					class = "font-semibold leading-3 text-left tracking-normal" >
 					<div id={notification.id} class="">
 						<div class="pl-2 pr-2 py-2">
-							<h2 class=" text-base mb-1">{Helper.truncateText(notification.Title, 30)}</h2>
 							{#if notification.expand}
 								<div class="" transition:slide="{{ duration: 1000 }}">
+									<h2 class=" text-base mb-1">{notification.Title}</h2>
 									{#if notification?.ImageUrl}
 										<img class={"w-full mr-2 rounded-md mb-2"} src= {notification.ImageUrl} alt="" />
 									{/if}
 									<p class="font-normal text-normal pr-1">{Helper.truncateText(notification.Body, 1024)}</p>
 								</div>
 							{:else}
+								<h2 class=" text-base mb-1">{Helper.truncateText(notification.Title, 30)}</h2>
 								<div class="flex">
 									{#if notification?.ImageUrl}
 										<img class={"w-[44px] mr-2 rounded-md"} src= {notification.ImageUrl} alt="" />
@@ -78,4 +79,4 @@
 		{/each}
 	</div>
 	</div>
-</div>
+<!-- </div> -->

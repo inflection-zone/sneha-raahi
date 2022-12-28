@@ -106,14 +106,17 @@
 						axis: 'y',
 						bounds: { top: 340, bottom: 90 },
 						handle: '.handle' ,
-						ignoreMultitouch: true
+						ignoreMultitouch: false
 					}}
+					style="touch-auto"
 					class="touch-auto"
 				>
 					<div
 						class="card card-compact bg-base-100 card-bordered border-slate-200 rounded-none rounded-t-[44px] shadow-none "
 					>
-						<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded handle" />
+					<div class="flex justify-center">
+						<button class=" h-[5px] w-[73px] bg-[#e3e3e3] mt-4 rounded handle" />
+					</div>
 						<div class="card-body h-[450px] place-content-around ">
 							<div class="overflow-auto h-[550px] scrollbar  scrollbar-medium">
 								<h2

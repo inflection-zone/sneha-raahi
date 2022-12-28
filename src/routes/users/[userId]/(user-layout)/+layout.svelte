@@ -4,8 +4,6 @@
 	import { navbarDisplay } from '$lib/components/navbar/navbar.display.store';
 	import { page } from '$app/stores';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import { draggable } from '@neodrag/svelte';
-	import type { DragOptions } from '@neodrag/svelte';
 	
 	const userId = $page.params.userId;
 
@@ -46,18 +44,9 @@
 					await onLogout();
 				}}
 			>
-				<div
-					use:draggable={{
-						axis: 'y',
-						bounds: { top: 200, bottom: 0},
-            handle: '.handle' 
-					}}
-					class=""
-				>
 					<slot>
 						<main />
 					</slot>
-				</div>
 			</UserSessionLayout>
 		</div>
 	</div>

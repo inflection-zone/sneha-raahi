@@ -103,23 +103,23 @@
 	};
 </script>
 
-<div
+<!-- <div
 	class="card card-compact w-[375px] h-[280px] card-bordered border-slate-200 bg-[#ffdbb2]  rounded-none rounded-t-[44px] shadow-sm"
->
-	<div class="card-body ">
+> -->
+	<div class="card-body h-[260px] w-[375px] bg-[#ffdbb2]  rounded-none rounded-t-[44px] shadow-sm">
 		<div class="flex flex-col text-center justify-center">
-			<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 rounded" />
+			<!-- <button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 rounded" /> -->
 			<!-- <img
 				class="h-[310px] w-[308px]"
 				src="/assets/learning-course/svg/growing-up-affect.svg"
 				alt=""
 			/> -->
-			<div class=" flex justify-center">
-				<Image cls="" source={learningJourney?.ImageUrl} w="200" h="200" />
+			<div class=" flex justify-center mb-4">
+				<Image cls="" source={learningJourney?.ImageUrl} w="200" h="180" />
 			</div>
 		</div>
 	</div>
-</div>
+<!-- </div> -->
 <div class=" card-body h-[421px] bg-base-100  card-bordered border-slate-200">
 	<h2 class="leading-4 text-lg mb-2">{learningJourney.Name}</h2>
 	<p class="h-auto">
@@ -170,8 +170,8 @@
 								<!-- <div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
 							<img class=" m-5 " src="/assets/images/learning-course/svg/video.svg" alt="" />
 						</div> -->
-						<div class="" in:fly="{{ x: 100, duration: 3000 }}" out:fly = {{ x: 100, duration: 1000 }}>
-								<!-- <div class="" transition:slide={{ duration: 1000 }}> -->
+						<!-- <div class="" in:fly="{{ x: 100, duration: 3000 }}" out:fly = {{ x: 100, duration: 1000 }}> -->
+								<div class="" transition:slide={{ duration: 1000 }}>
 									<div class="mx-4 grid grid-flow-row">
 										<h3 class="text-center mb-3">{content.Title}</h3>
 										<!-- svelte-ignore a11y-media-has-caption -->
@@ -183,9 +183,7 @@
 											<!-- <button /> -->
 										</Youtube>
 										<!-- </div>	 -->
-										<!-- <div class="bg-[#e3e3e3] mt-3 rounded-full h-[10px] w-[211px]">
-								<div class="bg-[#70ae6e] rounded-full h-[10px]" style={"width:" + `${content.PercentageCompletion ? content?.PercentageCompletion?.toString() : '0'}` + "%"}/>
-							</div> -->
+									
 									</div>
 								</div>
 							{:else}
@@ -194,10 +192,6 @@
 								</div>
 								<div class="mx-4">
 									<h3 class="text-left mb-3">{content.Title}</h3>
-									<!-- svelte-ignore a11y-media-has-caption -->
-									<!-- <Youtube id={"Y19kYh6k7ls"}>
-								<button></button>
-							  </Youtube> -->
 
 									<div class="bg-[#e3e3e3] mt-3 rounded-full h-[10px] w-[211px]">
 										<div
