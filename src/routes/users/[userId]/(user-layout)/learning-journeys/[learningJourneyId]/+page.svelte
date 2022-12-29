@@ -106,21 +106,21 @@
 <!-- <div
 	class="card card-compact w-[375px] h-[280px] card-bordered border-slate-200 bg-[#ffdbb2]  rounded-none rounded-t-[44px] shadow-sm"
 > -->
-	<div class="card-body h-[260px] w-[375px] bg-[#ffdbb2]  rounded-none rounded-t-[44px] shadow-sm">
-		<div class="flex flex-col text-center justify-center">
+	<div class="card h-[280px] w-[375px] border-x border-slate-200 ">
+		<!-- <div class="flex flex-col text-center justify-center"> -->
 			<!-- <button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 rounded" /> -->
 			<!-- <img
 				class="h-[310px] w-[308px]"
 				src="/assets/learning-course/svg/growing-up-affect.svg"
 				alt=""
 			/> -->
-			<div class=" flex justify-center mb-4">
+			<div class=" flex justify-center mt-2">
 				<Image cls="" source={learningJourney?.ImageUrl} w="200" h="180" />
 			</div>
-		</div>
+		<!-- </div> -->
 	</div>
 <!-- </div> -->
-<div class=" card-body h-[421px] bg-base-100  card-bordered border-slate-200">
+<div class=" card-body h-[421px] bg-base-100  border-slate-200 border-x border-b">
 	<h2 class="leading-4 text-lg mb-2">{learningJourney.Name}</h2>
 	<p class="h-auto">
 		{learningJourney.Description ? learningJourney.Description : ''}

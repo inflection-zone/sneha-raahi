@@ -48,6 +48,7 @@
 		"human-readable-time": "^0.3.0",
 		"rss-parser": "^3.12.0",
 		"short-time-ago": "^2.0.0",
+		"svelte-carousel": "^1.0.20",
 		"sveltekit-flash-message": "^0.9.7"
 	}
 }

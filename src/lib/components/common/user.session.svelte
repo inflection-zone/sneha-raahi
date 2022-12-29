@@ -31,7 +31,7 @@
 </script>
 
 <div
-	class="card rounded-none  bg-[#5b7aa3] w-[375px] h-[812px] shadow-none lg:mt-16 md:mt-16 sm:mt-16 mt-0"
+	class="card rounded-none  bg-[#5b7aa3] w-[375px] h-[812px] shadow-none lg:mt-10 md:mt-10 sm:mt-10 mt-0"
 >
 	<div class="card w-[375px] h-[130px] bg-[#5b7aa3] shadow-none rounded-none border-none">
 		<Toasts />
@@ -72,11 +72,19 @@
 	<div
 		use:draggable={{
 			axis: 'y',
-			bounds: { top: 200, bottom: 0 },
+			bounds: { top: 180, bottom:0},
 			handle: '.handle',
 			ignoreMultitouch: true,
-			disabled: false
-		}}
+			disabled: false,
+			applyUserSelectHack: true,
+				// onDrag: ({ offsetY}) => {
+				//  offsetY = 300	
+				// },
+				// onDragEnd: ({offsetY}) => {
+				// 	offsetY = 400	
+				// },
+			}}
+		
 		class="card card-compact card-bordered w-[375px] h-[690px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm"
 	>
 		<div class="flex justify-center">

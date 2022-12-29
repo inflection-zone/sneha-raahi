@@ -65,7 +65,7 @@
 				}}
 			/>
 			<div
-				class="card  rounded-none  w-[375px] h-[812px] bg-[#5b7aa3] shadow-none lg:mt-16 md:mt-16 sm:mt-16 mt-0"
+				class="card rounded-none w-[375px] h-[812px] bg-[#5b7aa3] shadow-none lg:mt-10 md:mt-10 sm:mt-10 mt-0"
 			>
 				<div class="card w-[375px] h-[406px] shadow-none rounded-none border-none">
 					<div class="card-body ">
@@ -101,17 +101,15 @@
 						>
 					</div>
 				</div>
-				<div
+					<div
 					use:draggable={{
 						axis: 'y',
-						bounds: { top: 340, bottom: 90 },
+						bounds: { top: 340, bottom: 50 },
 						handle: '.handle' ,
-						ignoreMultitouch: false
+						ignoreMultitouch: true,
+						disabled: false,
+						applyUserSelectHack: true,
 					}}
-					style="touch-auto"
-					class="touch-auto"
-				>
-					<div
 						class="card card-compact bg-base-100 card-bordered border-slate-200 rounded-none rounded-t-[44px] shadow-none "
 					>
 					<div class="flex justify-center">
@@ -154,4 +152,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+
