@@ -2,7 +2,7 @@ export const spalshImages = [
     {
         id:1,
 		Title : 'Your Learning Journey',
-		Description : 'Learn about your physical, mental,sexual and reproductive health.',
+		Description : 'Learn about your physical, mental, sexual and reproductive health.',
 		Image : '/assets/images/about-raahi/svg/my-learning-white-bg.svg',
 	},
     {

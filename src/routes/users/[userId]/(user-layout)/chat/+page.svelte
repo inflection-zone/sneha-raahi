@@ -141,13 +141,13 @@
 				id="search"
 				name="search"
 				bind:this={searchInput}
-				class=" text-[#5b7aa3] h-[40px] w-full px-3 border rounded-3xl my-5 text-lg bg-[#B6C6E0]  "
+				class=" text-[#5b7aa3] h-[40px] w-full px-3 border border-slate-400 rounded-3xl my-5 text-lg bg-[#ffffff]  "
 				on:keyup={onSearchEnter}
 			/>
 			<img
 				id="searchButton"
 				name="searchButton"
-				class="right-48 pr-3 ml-3 w-2/12"
+				class="absolute right-0 pr-3 w-2/9 "
 				src="/assets/images/home-sidebar/png/search-icon.png"
 				alt=""
 				on:click={onSearchClick}

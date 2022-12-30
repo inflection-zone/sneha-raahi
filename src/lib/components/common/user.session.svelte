@@ -5,7 +5,6 @@
 
 	const dispatch = createEventDispatcher();
 	export let userId = null;
-
 	let askSnehaLink;
 	let chatLink;
 	let notificationsLink;
@@ -72,17 +71,18 @@
 	<div
 		use:draggable={{
 			axis: 'y',
-			bounds: { top: 180, bottom:0},
+			bounds: { top: 140, bottom:-200},
 			handle: '.handle',
 			ignoreMultitouch: true,
 			disabled: false,
 			applyUserSelectHack: true,
-				// onDrag: ({ offsetY}) => {
-				//  offsetY = 300	
-				// },
-				// onDragEnd: ({offsetY}) => {
-				// 	offsetY = 400	
-				// },
+			gpuAcceleration: false 
+			// onDragStart: ({ offsetY}) => {
+			// 	let y = offsetY 
+			// 	},
+			// 	onDragEnd: ({offsetY}) => {
+			// 		let y = offsetY
+			// 	},
 			}}
 		
 		class="card card-compact card-bordered w-[375px] h-[690px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm"

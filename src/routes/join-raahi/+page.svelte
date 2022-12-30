@@ -36,6 +36,9 @@
 					</p>
 				</div>
 				<form method="post">
+					<!-- <div class="text-[#5B7AA3] mx-2 mt-1 py-2 px-3 font-semibold text-start">
+						<span>First Name</span>
+					</div> -->
 					<input
 						placeholder="First Name"
 						name="firstName"
@@ -51,10 +54,11 @@
 						class=" h-[52px] w-[340px] py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 					/>
 					<input
-						placeholder="BirthDate"
+						placeholder="Date of Birth"
 						type="date"
 						name="birthDate"
 						class=" h-[52px] w-[340px] py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
+						
 					/>
 					<input
 						placeholder="Phone Number"
