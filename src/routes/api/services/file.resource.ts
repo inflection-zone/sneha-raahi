@@ -2,40 +2,98 @@ import { API_CLIENT_INTERNAL_KEY, BACKEND_API_URL } from "$env/static/private";
 import { SessionManager } from "../session.manager";
 import { error } from "@sveltejs/kit";
 import { get_ } from "./common";
+import { ServerHelper } from "$lib/server/server.helper";
+import axios from 'axios';
+import FormData from "form-data";
+import fs from 'fs';
+import path from 'path';
 
 ////////////////////////////////////////////////////////////////
 
-export const upload = async (sessionId: string, fileInput, filename: string, isPublic = true) => {
+export const uploadBinary = async (sessionId: string, buffer: Buffer, filename: string, isPublic = true) => {
 
-    const url = BACKEND_API_URL + `file-resources/upload`;
+    const url = BACKEND_API_URL + `/file-resources/upload-binary`;
     const session = await SessionManager.getSession(sessionId);
     const accessToken = session.accessToken;
 
-    const formdata = new FormData();
-    formdata.append("name", fileInput.files[0], filename);
-    formdata.append("IsPublicResource", isPublic ? "true" : "false");
-    const body = JSON.stringify(formdata);
+	const mimeType = ServerHelper.getMimeTypeFromFileName(filename);
+	console.log(`mimeType = ${mimeType}`);
 
     const headers = {};
-    headers['enc'] = 'multipart/form-data';
+    headers['Content-Type'] = 'application/octet-stream';
+    headers['filename'] = filename;
+    headers['public'] = isPublic ? 'true' : 'false';
     headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
     headers['Authorization'] = `Bearer ${accessToken}`;
 
-    const res = await fetch(url, {
-        method: 'POST',
-        body,
-        headers
-    });
-    const response = await res.json();
-    if (response.Status === 'failure') {
-        if(response.HttpCode !== 201 && response.HttpCode !== 200) {
-            console.log(`get_ response message: ${response.Message}`);
-            throw error(response.HttpCode, response.Message);
+    const config = {
+        method: 'post',
+        url: url,
+        headers: headers,
+        data: buffer
+    };
+
+    // console.log(JSON.stringify(config, null, 2));
+
+    const res = await axios(config);
+
+    const response = res.data;
+
+    if (response['Status'] === 'failure') {
+        if(response['HttpCode'] !== 201 && response['HttpCode'] !== 200) {
+            console.log(`get_ response message: ${response['Message']}`);
+            throw error(response['HttpCode'], response['Message']);
         }
     }
-    console.log(`get_ response message: ${response.Message}`);
-    return response.Data;
-}
+
+    console.log(`get_ response message: ${response['Message']}`);
+    return response['Data'];
+};
+
+export const upload = async (sessionId: string, filePath: string, filename: string, isPublic = true) => {
+
+    const url = BACKEND_API_URL + `/file-resources/upload`;
+    const session = await SessionManager.getSession(sessionId);
+    const accessToken = session.accessToken;
+
+	const mimeType = ServerHelper.getMimeTypeFromFileName(filename);
+	console.log(`mimeType = ${mimeType}`);
+
+    const p = path.join(process.cwd(), filePath);
+    const form = new FormData();
+    form.append("name", fs.readFileSync(p));
+    //form.append("IsPublicResource", isPublic ? "true" : "false");
+    console.log(filePath);
+
+    const headers = {
+        ...form.getHeaders()
+    };
+    //headers['enc'] = 'multipart/form-data';
+    // headers['Content-Type'] = "application/x-www-form-urlencoded";
+    headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
+    headers['Authorization'] = `Bearer ${accessToken}`;
+
+    // const config = {
+    //     method: 'post',
+    //     url: url,
+    //     headers: headers,
+    // };
+
+    console.log(JSON.stringify(headers, null, 2));
+    console.log(form);
+
+    const response = await axios.post(url, form, headers);
+
+    if (response['Status'] === 'failure') {
+        if(response['HttpCode'] !== 201 && response['HttpCode'] !== 200) {
+            console.log(`get_ response message: ${response['Message']}`);
+            throw error(response['HttpCode'], response['Message']);
+        }
+    }
+
+    console.log(`get_ response message: ${response['Message']}`);
+    return response['Data'];
+};
 
 export const getFileResourceById = async (sessionId, fileResourceId) => {
     const url = BACKEND_API_URL + `file-resources/${fileResourceId}`;
@@ -65,7 +123,8 @@ export const download = async (sessionId, fileResourceId, asAttachment = false) 
     if (data) {
         const responseHeaders = res.headers;
         const contentType = responseHeaders['content-type'];
-        const extension = getFileExtensionFromMimeType(contentType);
+        const parts = contentType.split('/');
+        const extension = parts.pop();
         let filename = 'download-' + Date.now().toString() + '.' + extension;
         if (asAttachment === true) {
             const disposition = responseHeaders['content-disposition'];
@@ -113,35 +172,3 @@ export function downloadAsAttachment(response) {
 
     document.body.appendChild(a);
 }
-
-export function downloadAsInlineObjectUrl(response) {
-    return dataURLtoBlob(response.Data.Buffer);
-}
-
-function getFileExtensionFromMimeType(mimeType) {
-    const parts = mimeType.split('/');
-    return parts.pop();
-}
-
-export const toBase64 =  async (file): Promise<string | ArrayBuffer> => {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
-};
-
-export const dataURLtoBlob = (dataurl) => {
-    const arr = dataurl.split(',');
-    const mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-
-    while(n--){
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new Blob([u8arr], {type:mime});
-}
-

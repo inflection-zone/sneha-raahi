@@ -13,11 +13,11 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
     const _allConversations = await searchUserConversations(sessionId, userId);
     const user = _user.Patient;
     const allConversations = _allConversations.UserConversations.Items;
-    console.log("All conversation",allConversations);
+    //console.log("All conversation",allConversations);
     return {
       user,
       sessionId,
       allConversations
     };
-  
+
 };
