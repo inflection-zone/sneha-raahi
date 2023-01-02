@@ -58,12 +58,14 @@
 <div class="grid gird-cols justify-center items-center ">
 	<div class="w-[375px] h-[812px] ">
 		<div class="flex  items-center justify-center">
+			{#if $navbarDisplay}
 			<Navbar
 				{userId}
 				on:logout={async () => {
 					await onLogout();
 				}}
 			/>
+			{:else}
 			<div
 				class="card rounded-none w-[375px] h-[812px] bg-[#5b7aa3] shadow-none lg:mt-10 md:mt-10 sm:mt-10 mt-0"
 			>
@@ -104,7 +106,7 @@
 					<div
 					use:draggable={{
 						axis: 'y',
-						bounds: { top: 340, bottom: 50 },
+						bounds: { top: 300, bottom:90},
 						handle: '.handle' ,
 						ignoreMultitouch: true,
 						disabled: false,
@@ -149,7 +151,8 @@
 						</div>
 					</div>
 				</div>
-			</div>
+				{/if}
+			</div>	
 		</div>
 	</div>
 

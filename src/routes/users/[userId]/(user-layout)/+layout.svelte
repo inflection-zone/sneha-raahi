@@ -4,7 +4,7 @@
 	import { navbarDisplay } from '$lib/components/navbar/navbar.display.store';
 	import { page } from '$app/stores';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	
+
 	const userId = $page.params.userId;
 
 	const onLogout = async () => {
@@ -28,26 +28,29 @@
 <div class="grid gird-cols justify-center items-center">
 	<div class=" w-[375px] h-[812px] ">
 		<div class="flex items-center justify-center ">
-			<Navbar
-				{userId}
-				on:logout={async () => {
-					await onLogout();
-				}}
-			/>
-			<UserSessionLayout
-				{userId}
-				on:toggleSidebar={() => {
-					console.log(`Sidebar toggled: ${$navbarDisplay}`);
-					$navbarDisplay = !$navbarDisplay;
-				}}
-				on:logout={async () => {
-					await onLogout();
-				}}
-			>
+			{#if $navbarDisplay}
+				<Navbar
+					{userId}
+					on:logout={async () => {
+						await onLogout();
+					}}
+				/>
+			{:else}
+				<UserSessionLayout
+					{userId}
+					on:toggleSidebar={() => {
+						console.log(`Sidebar toggled: ${$navbarDisplay}`);
+						$navbarDisplay = !$navbarDisplay;
+					}}
+					on:logout={async () => {
+						await onLogout();
+					}}
+				>
 					<slot>
 						<main />
 					</slot>
-			</UserSessionLayout>
+				</UserSessionLayout>
+			{/if}
 		</div>
 	</div>
 </div>
