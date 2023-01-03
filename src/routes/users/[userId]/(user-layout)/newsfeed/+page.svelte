@@ -11,9 +11,9 @@
 
 </script>
 
-<div class="card card-compact card-bordered w-[375px] h-[701px] bg-base-100 border-slate-200 rounded-none rounded-t-[44px] shadow-sm">
+<!-- <div class="card card-compact card-bordered w-[375px] h-[701px] bg-base-100 border-slate-200 rounded-none rounded-t-[44px] shadow-sm"> -->
 	<div class="card-body ">
-		<button class="h-[5px] w-[73px] bg-[#e3e3e3] ml-[8.5rem] mt-2 rounded" />
+		<!-- <button class="h-[5px] w-[73px] bg-[#e3e3e3] ml-[8.5rem] mt-2 rounded" /> -->
 		<h2 class=" text-[#5b7aa3] flex  justify-center uppercase tracking-widest font-bold text-base ">
 			Newsfeed
 		</h2>
@@ -99,7 +99,7 @@
 				{/each}
 			</div> -->
 
-			<div class=" h-[590px] overflow-auto scrollbar-medium">
+			<div class="h-[550px] overflow-auto scrollbar-medium">
 				{#each Object.values(communityFeedItems) as news}
 					<div class="mb-6">
 						<a href={`/users/${userId}/newsfeed/${news.id}`}>
@@ -134,4 +134,4 @@
 			</div>
 		{/if}
 	</div>
-</div>
+<!-- </div> -->

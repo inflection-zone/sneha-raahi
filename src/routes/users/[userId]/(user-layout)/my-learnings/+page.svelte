@@ -38,9 +38,9 @@
 
 </script>
 
-<div class="card card-compact w-[375px] h-[701px] card-bordered border-slate-200  bg-base-100  rounded-none rounded-t-[44px] shadow-sm ">
-	<div class="card-body">
-		<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 rounded" />
+<!-- <div class="card card-compact w-[375px] h-[701px] card-bordered border-slate-200  bg-base-100  rounded-none rounded-t-[44px] shadow-sm "> -->
+	<div class="card-body h-[500px]">
+		<!-- <button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 rounded" /> -->
 		<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 			MY LEARNING
 		</h2>
@@ -107,14 +107,17 @@
 		<div class="mt-1">
 			<div class="flex mb-4 relative">
 				<h2 class="text-xl ">Courses</h2>
-				<a href={`/users/${data.userId}/learning-journeys`}>
+				<!-- <a href={`/users/${data.userId}/learning-journeys`}>
 					<button class=" text-[#d05591] text-base absolute right-0 pr-3">VIEW ALL</button>
-				</a>
+				</a> -->
 			</div>
-			<div class="overflow-auto scrollbar-medium h-[250px]">
+			<div class="overflow-auto scrollbar-medium h-[200px]">
 				<div class="columns-2 flex-wrap ">
 					{#each allCourses as course}
 						<button on:click|capture={(e)=>handleCourseClick(e, course.ResourceLink)} id={course.id} name={course.id}>
+							{#if course.ContentType == 'Assessment'}
+							<div></div>
+							{:else}
 							<div class=" flex-col justify-center mb-6 ">
 								{#if course.ImageUrl == null}
 									<img
@@ -127,6 +130,7 @@
 								{/if}
 								<h3 class="font-semibold text-center tracking-normal text-ellipsis">{course.Title.length > 20 ? course.Title.substring(0,18 ) + '...': course.Title}</h3>
 							</div>
+							{/if}
 						</button>
 					{/each}
 					<!-- <a href="/course-home">
@@ -159,5 +163,5 @@
 			</div>
 		</div>
 	</div>
-</div>
+<!-- </div> -->
 

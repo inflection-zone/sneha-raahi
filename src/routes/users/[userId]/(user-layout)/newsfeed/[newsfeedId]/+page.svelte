@@ -11,9 +11,9 @@
 	console.log("feedItem",feedItem);
 </script>
 
-<div class="card card-compact card-bordered w-[375px] h-[701px] bg-base-100  rounded-none rounded-t-[44px] shadow-sm">
+<!-- <div class="card card-compact card-bordered w-[375px] h-[701px] bg-base-100  rounded-none rounded-t-[44px] shadow-sm"> -->
 	<div class="card-body ">
-		<button class="h-[5px] w-[73px] bg-[#E3E3E3] ml-[8.5rem] mt-2 rounded" />
+		<!-- <button class="h-[5px] w-[73px] bg-[#E3E3E3] ml-[8.5rem] mt-2 rounded" /> -->
 		<h2 class=" text-[#5B7AA3] flex  justify-center uppercase tracking-widest font-bold text-base">
 			Newsfeed
 		</h2>
@@ -153,5 +153,5 @@
 			<button class="">BACK TO NEWSFEED</button>
 		</div></a>
 	</div>
-</div>
+<!-- </div> -->
 

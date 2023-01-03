@@ -32,9 +32,9 @@
 
 </script>
 
-<div
+<!-- <div
 	class="card card-compact card-bordered w-[375px] h-[701px] border-slate-200 bg-base-100 rounded-none rounded-t-[44px] shadow-sm"
->
+> -->
 	<div class="card-body ">
         <!-- <input type="file" bind:value={file}> -->
         <!-- <button on:click={uploadFile}>Upload file</button> -->
@@ -107,4 +107,4 @@
     </form>
 
 	</div>
-</div>
+<!-- </div> -->
