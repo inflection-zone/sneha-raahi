@@ -2,22 +2,23 @@
 	import { onMount } from 'svelte';
 	import type { PageServerData } from './$types';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
-	import { personRolesStore, genderTypesStore } from '$lib/store/general.store';
-
-
+	import {
+		personRolesStore,
+		genderTypesStore,
+		splashCarouselImage
+	} from '$lib/store/general.store';
+	import Carousel from 'svelte-carousel';
 	export let data: PageServerData;
 	personRolesStore.set(data.roles);
 	genderTypesStore.set(data.genderTypes);
 	LocalStorageUtils.setItem('personRoles', JSON.stringify(data.roles));
 	LocalStorageUtils.setItem('genderTypes', JSON.stringify(data.genderTypes));
-
 	let showSplash = true;
 	const show = LocalStorageUtils.getItem('showSplash');
 	if (!show) {
 		showSplash = true;
-	}
-	else {
-		showSplash = show === 'true' ? true: false;
+	} else {
+		showSplash = show === 'true' ? true : false;
 	}
 
 	onMount(() => {
@@ -26,11 +27,10 @@
 			LocalStorageUtils.setItem('showSplash', 'false');
 		}, 3000);
 	});
-
 </script>
 
 {#if showSplash}
-	<div class="flex items-center justify-center mt-16">
+	<div class="flex items-center justify-center lg:mt-16 md:mt-16 sm:mt-16 mt-0">
 		<div
 			class="card card-compact rounded-none card-bordered border-slate-400 w-[375px]
         h-[812px] bg-base-100  shadow-none "
@@ -38,95 +38,41 @@
 			<div class="card-body ">
 				<img
 					class="mt-[17.6rem] mx-4 w-[300px] h-[170px]"
-					src="/assets/splash-screen/svg/logo.svg"
+					src="/assets/images/splash-screen/svg/logo.svg"
 					alt=""
 				/>
 			</div>
-			<img src="/assets/sign-in/svg/color-strip.svg" alt="" />
+			<img src="/assets/images/sign-in/svg/color-strip.svg" alt="" />
 		</div>
 	</div>
 {:else}
-	<div class="flex items-center justify-center mt-16">
+	<div class="flex items-center justify-center lg:mt-16 md:mt-16 sm:mt-16 mt-0">
 		<div class="card card-compact w-[375px] h-[812px] bg-base-100 border-2 rounded-none">
 			<div class="card-body">
 				<div class="flex flex-col items-center justify-center h">
 					<img
-						src="/assets/about-raahi/png/logo.png"
+						src="/assets/images/about-raahi/png/logo.png"
 						alt=""
 						class="w-[110px] h-[50px] mt-[10px] object-contain  "
 					/>
 				</div>
-				<div class="carousel slide relative" data-bs-ride="carousel" >
-					<!-- {#each Object.values($splashCarouselImage) as item}
-					<div id="item1" class="carousel-item ">
-						<div class="flex flex-col text-center justify-center">
-							<img src={item.Image} alt="" class="mt-[50px]" />
-						<h2 class=" text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
-							{item.Title}
-						</h2>
-						<p class=" font-normal overflow-auto text-[#000]">
-							{item.Description}
-						</p>
+				
+				<Carousel autoplay autoplayDuration={3000} arrows={false} dots={false} pauseOnFocus>
+					{#each Object.values($splashCarouselImage) as item}
+						<div>
+							<div class="flex flex-col text-center justify-center">
+								<img src={item.Image} alt="" class="mt-[50px]  h-[250px] " />
+								<h2 class=" text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
+									{item.Title}
+								</h2>
+								<p class=" font-normal overflow-auto h-[60px] text-[#000]">
+									{item.Description}
+								</p>
+							</div>
 						</div>
-					</div>
-					{/each} -->
-					<div id="item1" class=" slide carousel-item ">
-						<div class="flex flex-col text-center justify-center">
-							<img src="/assets/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px] h-[250px]  p-4" />
-						<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
-							Your Learning Journey
-						</h2>
-						<p class="w-[335px] mt- h-[64px]  font-normal  text-[#000]">
-							Learn about your physical, mental,sexual and reproductive health.
-						</p>
-						</div>
-					</div>
-					<div id="item2" class=" slide carousel-item ">
-						<div class="flex flex-col text-center justify-center">
-							<img src="/assets/home/svg/linkages.svg" alt="" class="mt-[50px] h-[250px]  p-4" />
-						<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
-							Linkages
-						</h2>
-						<p class="w-[335px] mt- h-[64px]  font-normal  text-[#000]">
-							Explore career and job opportunities
-						</p>
-						</div>
-					</div>
-					<div id="item3" class=" carousel-item ">
-						<div class="flex flex-col text-center justify-center">
-							<img src="/assets/home/svg/newsfeed.svg" alt="" class="mt-[50px] h-[250px] " />
-						<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
-							Newsfeed
-						</h2>
-						<p class="w-[335px] mt- h-[64px]  font-normal  text-[#000]">
-							Stay connected with SNEHA and your peers
-						</p>
-						</div>
-					</div>
-					<div id="item4" class="carousel-item ">
-						<div class="flex flex-col text-center justify-center">
-							<img src="/assets/about-raahi/png/splashscreen-raahi.png" alt="" class="mt-[50px]" />
-						<h2 class="text-[19px] text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
-							Ask SNEHA
-						</h2>
-						<p class="w-[335px] mt- h-[64px]  font-normal  text-[#000]">
-							Talk to a SNEHA representative
-						</p>
-						</div>
-					</div>
-				</div>
-				<div class="flex  justify-center w-full py-2 mt-2 gap-2 ">
-					<a href="#item1" class=" w-[10px] h-[10px] active:bg-[#5b7aa3] bg-[#dfe7fd] rounded-full"> </a>
-					<a href="#item2" class=" w-[10px] h-[10px] bg-[#dfe7fd] active:bg-[#5b7aa3] rounded-full" > </a>
-					<a href="#item3" class=" w-[10px] h-[10px] bg-[#dfe7fd] active:bg-[#5b7aa3] rounded-full"> </a>
-					<a href="#item4" class=" w-[10px] h-[10px] bg-[#dfe7fd] active:bg-[#5b7aa3] rounded-full"> </a>
-				</div>
-				<!-- <div class="flex flex-row items-center justify-center gap-1">
-					<div class="w-[10px] h-[10px] bg-[#5b7aa3]" />
-					<div class="w-[10px] h-[10px] bg-[#dfe7fd]" />
-					<div class="w-[10px] h-[10px] bg-[#dfe7fd]" />
-					<div class="w-[10px] h-[10px] bg-[#dfe7fd]" />
-				</div> -->
+					{/each}
+				</Carousel>
+				
 				<div class="flex flex-col text-center- justify-center mt-4">
 					<a href="/join-raahi">
 						<button
@@ -145,7 +91,7 @@
 				</div>
 			</div>
 			<img
-				src="/assets/about-raahi/png/colors-strip.png"
+				src="/assets/images/about-raahi/png/colors-strip.png"
 				alt=""
 				class="w-[375px] h-[10px] object-contain"
 			/>

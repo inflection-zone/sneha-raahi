@@ -1,17 +1,19 @@
 <script lang="ts">
 	import type { PageServerData } from './$types';
-	import { communityNewsFeeds, raahiNewsFeeds } from '$lib/store/general.store';
 	import { page } from '$app/stores';
-
 	export let data: PageServerData;
 	const userId = $page.params.userId;
-	let newsItems = data.newsItems;
+	let raahiFeedItems = data.raahiFeedItems;
+	let communityFeedItems = data.communityFeedItems;
 	let showRaahiUpdates = true;
+	console.log(JSON.stringify(raahiFeedItems, null, 2));
+	console.log(JSON.stringify(communityFeedItems, null, 2));
+
 </script>
 
-<div class="card card-compact card-bordered w-[375px] h-[680px] bg-base-100  rounded-none rounded-t-[44px] shadow-sm">
+<!-- <div class="card card-compact card-bordered w-[375px] h-[701px] bg-base-100 border-slate-200 rounded-none rounded-t-[44px] shadow-sm"> -->
 	<div class="card-body ">
-		<button class="h-[5px] w-[73px] bg-[#e3e3e3] ml-[8.5rem] mt-2 rounded" />
+		<!-- <button class="h-[5px] w-[73px] bg-[#e3e3e3] ml-[8.5rem] mt-2 rounded" /> -->
 		<h2 class=" text-[#5b7aa3] flex  justify-center uppercase tracking-widest font-bold text-base ">
 			Newsfeed
 		</h2>
@@ -30,7 +32,7 @@
 			</button>
 		</div>
 		{#if showRaahiUpdates}
-			<div class=" h-[590px] overflow-auto scrollbar-medium">
+			<div class=" h-[550px] overflow-auto scrollbar-medium">
 				<!-- {#each Object.values($newsFeeds) as news}
 					<h4 class="text-right pr-1 mt-3 mb-2 text-[13px] font-semibold">{news.Title}</h4>
 					<div class="w-[340px] h-[125px]  rounded-lg bg-[#f2e2da]">
@@ -40,34 +42,36 @@
 					</div>
 				{/each} -->
 
-				{#each Object.values($raahiNewsFeeds) as news}
-					<div class="mb-6 last:mb-10">
+				{#each Object.values(raahiFeedItems) as news}
+					<div class="mb-6 ">
 						<a href={`/users/${userId}/newsfeed/${news.id}`}>
-							<h4 class="text-right  text-[13px] font-semibold mb-1">{news.PubDate}</h4>
+							<h4 class="text-right  text-[13px] font-semibold mb-1">{news.pubDate}</h4>
 							<div class="w-[340px] h-[280px]  rounded-lg bg-[#f2e2da]">
 								<div class="flex flex-row p-1">
 									<div class="w-[70px] mt-2 ml-2 h-[40px] rounded-lg bg-[#fff]">
 										<img
-											src="/assets/newsfeed/png/logo.png"
+											src="/assets/images/newsfeed/png/logo.png"
 											alt=""
 											class="ml-1.5 mt-3 w-[28.8px] h-[14.3px]"
 										/>
 									</div>
 									<div class="ml-4 ">
 										<h2 class="text-left text-[15px] mt-2">
-											{news.Title}
+											{news.title?.length > 30
+												? news.title?.substring(0, 30) + '...'
+												: news.title}
 										</h2>
 										<p>
-											{news.Description.length > 50
-												? news.Description.substring(0, 50) + '...'
-												: news.Description}
+											{news.content?.length > 50
+												? news.content?.substring(0, 50) + '...'
+												: news.content}
 										</p>
 									</div>
 								</div>
 								<img
-									src={news.Image}
+									src={news.image}
 									alt=""
-									class="w-[324px] mx-2 px-2 mt-6 h-[146px]  rounded-lg "
+									class="w-[324px] mx-2 px-2 mt-4 h-[170px]  rounded-lg "
 								/>
 							</div></a
 						>
@@ -95,32 +99,34 @@
 				{/each}
 			</div> -->
 
-			<div class=" h-[590px] overflow-auto scrollbar-medium">
-				{#each Object.values($communityNewsFeeds) as news}
-					<div class="mb-6 last:mb-10">
-						<a href="/newsfeed/[newsfeedId]">
-							<h4 class="text-right  text-[13px] font-semibold mb-1">{news.PubDate}</h4>
+			<div class="h-[550px] overflow-auto scrollbar-medium">
+				{#each Object.values(communityFeedItems) as news}
+					<div class="mb-6">
+						<a href={`/users/${userId}/newsfeed/${news.id}`}>
+							<h4 class="text-right  text-[13px] font-semibold mb-1">{news.pubDate}</h4>
 							<div class="w-[340px] h-[280px]  rounded-lg bg-[#d7eaf7]">
 								<div class="flex flex-row p-1">
 									<div class="w-[70px] mt-2 ml-2 h-[40px] rounded-lg bg-[#fff]">
 										<img
-											src="/assets/newsfeed/png/logo.png"
+											src="/assets/images/newsfeed/png/logo.png"
 											alt=""
 											class="ml-1.5 mt-3 w-[28.8px] h-[14.3px]"
 										/>
 									</div>
 									<div class="ml-4 ">
 										<h2 class="text-left text-[15px] mt-2">
-											{news.Title}
+											{news.title?.length > 30
+												? news.title?.substring(0, 30) + '...'
+												: news.title}
 										</h2>
 										<p>
-											{news.Description.length > 50
-												? news.Description.substring(0, 50) + '...'
-												: news.Description}
+											{news.content?.length > 50
+												? news.content?.substring(0, 50) + '...'
+												: news.content}
 										</p>
 									</div>
 								</div>
-								<img src={news.Image} alt="" class="w-[324px] mx-2 px-2 mt-6 h-[146px] rounded-lg"/>
+								<img src={news.image} alt="" class="w-[324px] mx-2 px-2 mt-4 h-[170px] rounded-lg"/>
 							</div>
 						</a>
 					</div>
@@ -128,4 +134,4 @@
 			</div>
 		{/if}
 	</div>
-</div>
+<!-- </div> -->

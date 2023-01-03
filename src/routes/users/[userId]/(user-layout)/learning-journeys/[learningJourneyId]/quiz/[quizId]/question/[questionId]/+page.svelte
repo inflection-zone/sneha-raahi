@@ -85,9 +85,9 @@
 
 </script>
 
-<div class="card card-compact w-[375px] h-[700px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm">
+<!-- <div class="card card-compact w-[375px] h-[701px]  bg-base-100 card-bordered border-slate-200 rounded-none rounded-t-[44px] shadow-sm"> -->
 	<div class="card-body ">
-		<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
+		<!-- <button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" /> -->
 		<h3 class=" text-[#5b7aa3] flex tracking-widest justify-center font-bold text-base ">
 			QUIZ
 		</h3>
@@ -135,5 +135,5 @@
 			</button>
 		</div>
 	</div>
-</div>
+<!-- </div> -->
 

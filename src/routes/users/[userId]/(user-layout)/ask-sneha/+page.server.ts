@@ -1,6 +1,7 @@
 import type { PageServerLoad } from "./$types";
 import { getMyFavouriteConversations, getMyRecentConversations } from "../../../../api/services/chat";
 import hrt from 'human-readable-time';
+import { getUserById } from "../../../../../routes/api/services/user";
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -23,15 +24,18 @@ export const load: PageServerLoad = async (event) => {
     try {
         const sessionId = event.cookies.get('sessionId');
         const userId = event.params.userId;
+        const _user = await getUserById(sessionId, userId);
         const favouriteConversations_ = await getMyFavouriteConversations(sessionId, userId);
         const recentConversations_ = await getMyRecentConversations(sessionId, userId);
         const favouriteConversations = favouriteConversations_.Conversations.map(x => getConversationDetails(userId, x));
         const recentConversations = recentConversations_.Conversations.map(x => getConversationDetails(userId, x));
+        const user = _user.Patient;
         return {
             sessionId,
             userId,
             favouriteConversations,
             recentConversations,
+            user
         };
     }
     catch (error) {

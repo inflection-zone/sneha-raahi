@@ -102,14 +102,36 @@
 				showMessage(`Unable to start conversation!`, 'error', true, 3500);
 			}
 		}
-
 	}
+
+	 const handleDeleteChat = async (e, id) => {
+		const conversationId = id;
+		await deleteConversation({
+			sessionId: data.sessionId,
+		    conversationId
+		});
+	};
+
+
+	async function deleteConversation(model) {
+		console.log("model",model);
+		const response = await fetch(`/api/server/chat/delete-conversation`, {
+			method: 'DELETE',
+			body: JSON.stringify(model),
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+		console.log('response', response);
+		// window.location.href = '/';
+	}
+
 
 </script>
 
-<div class="card card-compact card-bordered w-[375px] h-[680px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm">
+<!-- <div class="card card-compact card-bordered w-[375px] h-[701px]  bg-base-100 border-slate-200 rounded-none rounded-t-[44px] shadow-sm"> -->
 	<div class="card-body ">
-		<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
+		<!-- <button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" /> -->
 		<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 			CHAT HOME
 		</h2>
@@ -119,14 +141,14 @@
 				id="search"
 				name="search"
 				bind:this={searchInput}
-				class=" text-[#5b7aa3] h-[40px] w-full px-3 border rounded-3xl my-5 text-lg bg-[#B6C6E0]  "
+				class=" text-[#5b7aa3] h-[40px] w-full px-3 border border-slate-400 rounded-3xl my-5 text-lg bg-[#ffffff]  "
 				on:keyup={onSearchEnter}
 			/>
+			<!-- class="right-48 pr-3 ml-3 w-2/12" -->
 			<img
 				id="searchButton"
-				name="searchButton"
-				class="right-48 pr-3 ml-3 w-2/12"
-				src="/assets/home-sidebar/png/search-icon.png"
+				class="absolute right-0 pr-3 w-2/9 "
+				src="/assets/images/home-sidebar/png/search-icon.png"
 				alt=""
 				on:click={onSearchClick}
 				on:keyup={onSearchEnter}
@@ -144,7 +166,7 @@
 									{#if searchedUser.profileImage != null}
 										<Image cls="rounded" h="58" w="58" source={searchedUser.profileImage} ></Image>
 									{:else}
-										<img src="/assets/chat/png/account-img-3.png" alt="" />
+										<img src="/assets/images/chat/png/account-img-3.png" alt="" />
 									{/if}
 									<h3 class=" mt-3 text-sm ">{searchedUser.firstName} <br />{searchedUser.lastName}</h3>
 								</div>
@@ -166,7 +188,7 @@
 								{#if favourite.profileImage != null}
 									<Image cls="rounded" h="58" w="58" source={favourite.profileImage} ></Image>
 								{:else}
-									<img src="/assets/chat/png/account-img-4.png" alt="" />
+									<img src="/assets/images/chat/png/account-img-4.png" alt="" />
 								{/if}
 								<h3 class="mt-3 text-sm">{favourite.firstName} <br />{favourite.lastName}</h3>
 							</div>
@@ -211,28 +233,37 @@
 				<h3 class="m-1">No recent conversations!</h3>
 			{:else}
 				{#each recentUsers as conversation}
-					<a href={`/users/${userId}/chat/${conversation.id}`}>
+
 						<div class="grid grid-flex-rows-6 mb-3 gap-2 mt-2">
 							<div class="grid grid-flow-col ">
+								<a href={`/users/${userId}/chat/${conversation.id}`}>
 								<!-- <img src="/assets/chat/png/account-img-1.png" alt="" /> -->
 								{#if conversation.profileImage != null}
 									<Image cls="rounded col-span-2" h="58" w="58" source={conversation.profileImage} ></Image>
 								{:else}
-									<img src="/assets/chat/png/account-img-1.png" alt="" />
+									<img src="/assets/images/chat/png/account-img-1.png" alt="" />
 								{/if}
-								<div class="grid grid-flow-rows-2 col-span-4 ml-2 mt-4">
+
+								</a>
+								<div class="grid grid-flow-rows-2 col-span-3 ml-2 mt-4">
 									<div class="flex relative">
+										<a href={`/users/${userId}/chat/${conversation.id}`}>
 										<h3 class="text-left">{conversation.displayName}</h3>
-										<br/>
-										<div class="text-base font-normal absolute right-0 pr-3 leading-5 ">
+										</a>
+										<!-- <br/> -->
+										<div class="text-base px-2 font-normal leading-5 ">
 											{conversation.lastChatDate}
 										</div>
+
+										<!-- svelte-ignore a11y-click-events-have-key-events -->
+										<img on:click = {(e) => handleDeleteChat(e , conversation.id)} class="absolute right-0 " src="/assets/images/chat/png/delete.png" alt="" />
+
 									</div>
-									<!-- <p class="">{otherUser.LastChatText}</p> -->
+
 								</div>
 							</div>
 						</div>
-					</a>
+
 				{/each}
 			{/if}
 
@@ -318,4 +349,4 @@
 			</a> -->
 		</div>
 	</div>
-</div>
+<!-- </div> -->

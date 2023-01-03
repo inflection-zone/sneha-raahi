@@ -70,3 +70,13 @@ export const getMyRecentConversations = async (sessionId: string, userId: string
     const url = BACKEND_API_URL + `/chats/users/${userId}/conversations/recent`;
     return await get_(sessionId, url);
 };
+
+export const deleteConversation = async (sessionId: string, conversationId: string) => {
+    const url = BACKEND_API_URL + `/chats/conversations/${conversationId}`;
+    return await delete_(sessionId, url);
+};
+
+export const searchUserConversations = async (sessionId: string, userId: string) => {
+    const url = BACKEND_API_URL + `/chats/users/${userId}/conversations/search`;
+    return await get_(sessionId, url);
+};

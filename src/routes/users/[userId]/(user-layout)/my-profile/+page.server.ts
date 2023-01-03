@@ -1,6 +1,7 @@
 import type { PageServerLoad } from "./$types";
 import { getAllCourseContents, getAllLearningPaths, getUserLearningPaths } from "../../../../api/services/learning";
 import { getUserById } from '../../../../../routes/api/services/my-profile';
+import { BACKEND_API_URL } from "$env/static/private";
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -12,7 +13,13 @@ export const load: PageServerLoad = async (event) => {
         const allLearningPaths = await getAllLearningPaths(sessionId);
         const userLearningPaths = await getUserLearningPaths(sessionId, userId);
         const allCourseContents = await getAllCourseContents(sessionId);
-        const user = _user.Patient
+        const user = _user.Patient;
+        if (user.User.Person.ImageResourceId) {
+            user['ProfileImageUrl'] = BACKEND_API_URL + `/file-resources/${user.User.Person.ImageResourceId}/download?disposition=inline`;
+          }
+          else {
+            user['ProfileImageUrl'] = null;
+          }
         return {
             sessionId,
             user,
