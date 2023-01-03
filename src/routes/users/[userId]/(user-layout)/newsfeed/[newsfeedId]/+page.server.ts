@@ -12,7 +12,7 @@ export const load: PageServerLoad = async (event: ServerLoadEvent) => {
         const sessionId = event.cookies.get('sessionId');
         const feedItem_ = await getFeedItemById(sessionId, rssFeedItemId);
         const feedItem = feedItem_.RssfeedItem;
-        console.log(feedItem)
+        //console.log(feedItem)
         return {
             feedItem,
         };
