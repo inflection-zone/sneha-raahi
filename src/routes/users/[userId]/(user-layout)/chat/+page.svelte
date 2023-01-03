@@ -106,26 +106,26 @@
 
 	 const handleDeleteChat = async (e, id) => {
 		const conversationId = id;
-		await Delete({
+		await deleteConversation({
 			sessionId: data.sessionId,
 		    conversationId
 		});
 	};
-	
 
-	async function Delete(model) {
+
+	async function deleteConversation(model) {
 		console.log("model",model);
 		const response = await fetch(`/api/server/chat/delete-conversation`, {
-		method: 'DELETE',
-		body: JSON.stringify(model),
-		headers: {
-			'content-type': 'application/json'
-		}
+			method: 'DELETE',
+			body: JSON.stringify(model),
+			headers: {
+				'content-type': 'application/json'
+			}
 		});
 		console.log('response', response);
 		// window.location.href = '/';
-		}
-	
+	}
+
 
 </script>
 
@@ -146,7 +146,6 @@
 			/>
 			<img
 				id="searchButton"
-				name="searchButton"
 				class="right-48 pr-3 ml-3 w-2/12"
 				src="/assets/images/home-sidebar/png/search-icon.png"
 				alt=""
@@ -233,7 +232,7 @@
 				<h3 class="m-1">No recent conversations!</h3>
 			{:else}
 				{#each recentUsers as conversation}
-					
+
 						<div class="grid grid-flex-rows-6 mb-3 gap-2 mt-2">
 							<div class="grid grid-flow-col ">
 								<a href={`/users/${userId}/chat/${conversation.id}`}>
@@ -254,16 +253,16 @@
 										<div class="text-base px-2 font-normal leading-5 ">
 											{conversation.lastChatDate}
 										</div>
-									
+
 										<!-- svelte-ignore a11y-click-events-have-key-events -->
 										<img on:click = {(e) => handleDeleteChat(e , conversation.id)} class="absolute right-0 " src="/assets/images/chat/png/delete.png" alt="" />
-										
+
 									</div>
-									
+
 								</div>
 							</div>
 						</div>
-					
+
 				{/each}
 			{/if}
 

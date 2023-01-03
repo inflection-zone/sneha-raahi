@@ -174,4 +174,10 @@ export class Helper {
         return parts.pop();
     };
 
+    static b64toBlob = async (base64Buffer, mimeType) => {
+        const res = await fetch(`data:${mimeType};base64,${base64Buffer}`);
+        const blob = await res.blob();
+        return blob;
+    };
+
 }

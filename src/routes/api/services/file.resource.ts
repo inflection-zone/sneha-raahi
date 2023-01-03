@@ -4,9 +4,6 @@ import { error } from "@sveltejs/kit";
 import { get_ } from "./common";
 import { ServerHelper } from "$lib/server/server.helper";
 import axios from 'axios';
-import FormData from "form-data";
-import fs from 'fs';
-import path from 'path';
 
 ////////////////////////////////////////////////////////////////
 
@@ -25,6 +22,7 @@ export const uploadBinary = async (sessionId: string, buffer: Buffer, filename: 
     headers['public'] = isPublic ? 'true' : 'false';
     headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
     headers['Authorization'] = `Bearer ${accessToken}`;
+    headers['size'] = buffer.length.toString();
 
     const config = {
         method: 'post',
@@ -47,53 +45,53 @@ export const uploadBinary = async (sessionId: string, buffer: Buffer, filename: 
     }
 
     console.log(`get_ response message: ${response['Message']}`);
-    return response['Data'];
+    return response;
 };
 
-export const upload = async (sessionId: string, filePath: string, filename: string, isPublic = true) => {
+// export const upload = async (sessionId: string, filePath: string, filename: string, isPublic = true) => {
 
-    const url = BACKEND_API_URL + `/file-resources/upload`;
-    const session = await SessionManager.getSession(sessionId);
-    const accessToken = session.accessToken;
+//     const url = BACKEND_API_URL + `/file-resources/upload`;
+//     const session = await SessionManager.getSession(sessionId);
+//     const accessToken = session.accessToken;
 
-	const mimeType = ServerHelper.getMimeTypeFromFileName(filename);
-	console.log(`mimeType = ${mimeType}`);
+// 	const mimeType = ServerHelper.getMimeTypeFromFileName(filename);
+// 	console.log(`mimeType = ${mimeType}`);
 
-    const p = path.join(process.cwd(), filePath);
-    const form = new FormData();
-    form.append("name", fs.readFileSync(p));
-    //form.append("IsPublicResource", isPublic ? "true" : "false");
-    console.log(filePath);
+//     const p = path.join(process.cwd(), filePath);
+//     const form = new FormData();
+//     form.append("name", fs.readFileSync(p));
+//     //form.append("IsPublicResource", isPublic ? "true" : "false");
+//     console.log(filePath);
 
-    const headers = {
-        ...form.getHeaders()
-    };
-    //headers['enc'] = 'multipart/form-data';
-    // headers['Content-Type'] = "application/x-www-form-urlencoded";
-    headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
-    headers['Authorization'] = `Bearer ${accessToken}`;
+//     const headers = {
+//         ...form.getHeaders()
+//     };
+//     //headers['enc'] = 'multipart/form-data';
+//     // headers['Content-Type'] = "application/x-www-form-urlencoded";
+//     headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
+//     headers['Authorization'] = `Bearer ${accessToken}`;
 
-    // const config = {
-    //     method: 'post',
-    //     url: url,
-    //     headers: headers,
-    // };
+//     // const config = {
+//     //     method: 'post',
+//     //     url: url,
+//     //     headers: headers,
+//     // };
 
-    console.log(JSON.stringify(headers, null, 2));
-    console.log(form);
+//     console.log(JSON.stringify(headers, null, 2));
+//     console.log(form);
 
-    const response = await axios.post(url, form, headers);
+//     const response = await axios.post(url, form, headers);
 
-    if (response['Status'] === 'failure') {
-        if(response['HttpCode'] !== 201 && response['HttpCode'] !== 200) {
-            console.log(`get_ response message: ${response['Message']}`);
-            throw error(response['HttpCode'], response['Message']);
-        }
-    }
+//     if (response['Status'] === 'failure') {
+//         if(response['HttpCode'] !== 201 && response['HttpCode'] !== 200) {
+//             console.log(`get_ response message: ${response['Message']}`);
+//             throw error(response['HttpCode'], response['Message']);
+//         }
+//     }
 
-    console.log(`get_ response message: ${response['Message']}`);
-    return response['Data'];
-};
+//     console.log(`get_ response message: ${response['Message']}`);
+//     return response['Data'];
+// };
 
 export const getFileResourceById = async (sessionId, fileResourceId) => {
     const url = BACKEND_API_URL + `file-resources/${fileResourceId}`;
