@@ -36,7 +36,7 @@
 	class="card card-compact card-bordered w-[375px] h-[701px] border-slate-200 bg-base-100 rounded-none rounded-t-[44px] shadow-sm"
 > -->
 	<div class="card-body ">
-        <input type="file" bind:value={file}>
+        <!-- <input type="file" bind:value={file}> -->
         <!-- <button on:click={uploadFile}>Upload file</button> -->
 
 		<button on:click={uploadFile} class=" h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
@@ -44,7 +44,7 @@
 			EDIT PROFILE
 		</h2>
         <form method="post" action="?/updateProfile">
-            <div name = userId  value={userId} class='hidden'></div>
+            <!-- <div name="userId"  value={userId} class='hidden'></div> -->
             <div class="text-[#5B7AA3] mx-2 mt-3 font-semibold">
                 <span>First Name</span>
             </div>

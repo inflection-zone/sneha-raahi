@@ -7,17 +7,70 @@
 	let sessionId = data.sessionId;
 	let userId = data.user.User.id;
 	let conversations = data.allConversations;
-	console.log('All conversations', conversations);
 	let avatar, fileinput;
 
-	const onFileSelected = (e) => {
-		let image = e.target.files[0];
-		let reader = new FileReader();
-		reader.readAsDataURL(image);
-		reader.onload = (e) => {
-			avatar = e.target.result;
-		};
+	const upload = async (imgBase64, filename) => {
+		const data = {}
+		//console.log(imgBase64);
+        const imgData = imgBase64.split(',');
+        data["image"] = imgData[1];
+        //console.log(JSON.stringify(data));
+        const res = await fetch(`/api/server/file-resources/upload?x=2`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+				filename: filename,
+            },
+            body: JSON.stringify(data)
+        });
+		console.log(Date.now().toString());
+		const x = await res.json();
+
+		//console.log(JSON.stringify(x));
 	};
+
+    const onFileSelected = async (e)=>{
+
+        let f = e.target.files[0];
+        const filename = f.name;
+        let reader = new FileReader();
+        reader.readAsDataURL(f);
+        reader.onload = async (e) => {
+            avatar = e.target.result;
+			await upload(e.target.result, filename);
+        };
+
+		// let bufferReader = new FileReader();
+		// const data = await Helper.toBase64(f);
+		// const blob = Helper.dataURLtoBlob(data);
+
+		// const buffer: string | ArrayBuffer = await new Promise((resolve, reject) => {
+		// 	bufferReader.onload = () => resolve(bufferReader.result);
+		// 	bufferReader.onerror = reject;
+		// });
+
+		//const blob = new Blob([buffer]);
+
+        //const formData = new FormData();
+  		//formData.append('file', f, filename);
+  		// formData.append('filename', filename);
+		//formData.append('isPublic', 'true');
+
+		//console.log(buffer)
+		// console.log(filename)
+
+        // let url = `/api/server/file-resources/upload`;
+        // const response = await fetch(url, {
+        //     method: 'POST',
+		// 	headers: {
+		// 		'Content-Type': "application/octet-stream",
+		// 		'filename': filename,
+		// 	},
+        //     body: data,
+        // });
+        // console.log(JSON.stringify(response, null, 2));
+    }
 
 	const onLogout = async () => {
 		const response = await fetch(`/api/server/logout`, {
@@ -69,8 +122,8 @@
 			}
 		});
 		console.log('response', response);
-		// window.location.href = '/';
 	}
+
 </script>
 
 <!-- <div
@@ -101,10 +154,11 @@
 			<input
 				style="display:none"
 				type="file"
-				accept=".jpg, .jpeg, .png"
-				on:change={(e) => onFileSelected(e)}
+				accept="image/png, image/jpeg"
+				on:change={async (e)=> await onFileSelected(e)}
 				bind:this={fileinput}
 			/>
+
 		</div>
 
 		<div class="  grid grid-flow-row items-center justify-center">
