@@ -2,12 +2,17 @@
 	import type { PageServerData } from './$types';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import Confirm from '$lib/components/modal/confirm.svelte';
+	import Image from '$lib/components/image.svelte';
+	import { showMessage } from '$lib/utils/message.utils';
 
 	export let data: PageServerData;
 	let sessionId = data.sessionId;
 	let userId = data.user.User.id;
+	let profileImageUrl = data.user.ProfileImageUrl ?? undefined;
 	let conversations = data.allConversations;
-	let avatar, fileinput;
+	let fileinput;
+
+	$: avatarSource = profileImageUrl;
 
 	const upload = async (imgBase64, filename) => {
 		const data = {}
@@ -15,7 +20,7 @@
         const imgData = imgBase64.split(',');
         data["image"] = imgData[1];
         //console.log(JSON.stringify(data));
-        const res = await fetch(`/api/server/file-resources/upload?x=2`, {
+        const res = await fetch(`/api/server/file-resources/upload`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -25,51 +30,47 @@
             body: JSON.stringify(data)
         });
 		console.log(Date.now().toString());
-		const x = await res.json();
-
-		//console.log(JSON.stringify(x));
+		const response = await res.json();
+		if (response.Status === 'success' && response.HttpCode === 201) {
+			const imageResourceId = response.Data.FileResources[0].id;
+			const profileImageUrl_ = response.Data.FileResources[0].Url;
+			if (profileImageUrl_) {
+				profileImageUrl = profileImageUrl_;
+			}
+			console.log(profileImageUrl);
+			await updateProfileImage(imageResourceId);
+		}
+		else {
+			showMessage(response.Message, 'error');
+		}
 	};
 
-    const onFileSelected = async (e)=>{
+	const updateProfileImage = async (imageResourceId) => {
+		const res = await fetch(`/api/server/user/update-profile-image`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+            body: JSON.stringify({
+				imageResourceId: imageResourceId,
+				userId: userId,
+				sessionId: sessionId
+			}),
+        });
+		const response = await res.json();
+		console.log(JSON.stringify(response, null, 2));
+	};
 
+    const onFileSelected = async (e) => {
         let f = e.target.files[0];
         const filename = f.name;
         let reader = new FileReader();
         reader.readAsDataURL(f);
         reader.onload = async (e) => {
-            avatar = e.target.result;
+            avatarSource = e.target.result;
 			await upload(e.target.result, filename);
         };
-
-		// let bufferReader = new FileReader();
-		// const data = await Helper.toBase64(f);
-		// const blob = Helper.dataURLtoBlob(data);
-
-		// const buffer: string | ArrayBuffer = await new Promise((resolve, reject) => {
-		// 	bufferReader.onload = () => resolve(bufferReader.result);
-		// 	bufferReader.onerror = reject;
-		// });
-
-		//const blob = new Blob([buffer]);
-
-        //const formData = new FormData();
-  		//formData.append('file', f, filename);
-  		// formData.append('filename', filename);
-		//formData.append('isPublic', 'true');
-
-		//console.log(buffer)
-		// console.log(filename)
-
-        // let url = `/api/server/file-resources/upload`;
-        // const response = await fetch(url, {
-        //     method: 'POST',
-		// 	headers: {
-		// 		'Content-Type': "application/octet-stream",
-		// 		'filename': filename,
-		// 	},
-        //     body: data,
-        // });
-        // console.log(JSON.stringify(response, null, 2));
     }
 
 	const onLogout = async () => {
@@ -86,7 +87,7 @@
 	};
 
 	const onDeleteAccount = async () => {
-		const response = await fetch(`/api/server/user`, {
+		const response = await fetch(`/api/server/user/delete-user`, {
 			method: 'DELETE',
 			body: JSON.stringify({
 				userId: userId,
@@ -105,14 +106,14 @@
 
 	const handleDeleteChat = async () => {
 		for (const conversation of conversations) {
-			await Delete({
+			await deleteConversation({
 				sessionId: data.sessionId,
 				conversationId: conversation.id
 			});
 		}
 	};
 
-	async function Delete(model) {
+	async function deleteConversation(model) {
 		console.log('model', model);
 		const response = await fetch(`/api/server/chat/delete-conversation`, {
 			method: 'DELETE',
@@ -136,8 +137,9 @@
 		</h2>
 
 		<div class=" flex items-center justify-center flex-col">
-			{#if avatar}
-				<img class="flex h-24 w-24 rounded-full" src={avatar} alt="d" />
+			{#if avatarSource}
+				<Image cls="flex h-24 w-24 rounded-full" source={avatarSource} w=24 h=24 />
+				<!-- <img class="flex h-24 w-24 rounded-full" src={avatarSource} alt="d" /> -->
 			{:else}
 				<img
 					class="h-24 w-24 rounded-full"

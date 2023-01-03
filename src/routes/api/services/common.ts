@@ -59,12 +59,12 @@ export const post_ = async (sessionId: string, url: string, bodyObj: unknown) =>
 export const put_ = async (sessionId: string, url: string, bodyObj: unknown) => {
     const session = await SessionManager.getSession(sessionId);
     const accessToken = session.accessToken;
-    //console.log(`accessToken = ${accessToken}`);
     const headers = {};
     headers['Content-Type'] = 'application/json';
     headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
     headers['Authorization'] = `Bearer ${accessToken}`;
-    const body = JSON.stringify(bodyObj)
+    const body = JSON.stringify(bodyObj);
+    console.log(`body = ${body}`);
     const res = await fetch(url, {
         method: 'PUT',
         body,
