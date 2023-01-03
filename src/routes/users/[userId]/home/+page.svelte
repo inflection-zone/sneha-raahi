@@ -89,11 +89,11 @@
 							adulthood.
 						</p>
 					</div>
-					<div class="flex flex-row   justify-center relative">
+					<div class="flex flex-row justify-center relative">
 						<a href={askSnehaLink}>
 							<img
-								class="h-[110px] w-[110px]"
-								src="/assets/images/home/png/profile-settings.png"
+								class="mr-2"
+								src="/assets/images/home/svg/ask-sneha.svg"
 								alt=""
 							/></a
 						>

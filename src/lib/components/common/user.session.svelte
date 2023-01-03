@@ -54,8 +54,8 @@
 			<div class="flex flex-row  justify-center relative">
 				<a href={askSnehaLink}>
 					<img
-						class="h-[94px] w-[94px]"
-						src="/assets/images/home/png/profile-settings.png"
+						class="mr-2"
+						src="/assets/images/home/svg/ask-sneha.svg"
 						alt=""
 					/></a
 				>
