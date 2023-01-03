@@ -3,35 +3,37 @@
 	import Image from '$lib/components/image.svelte';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import { showMessage} from '$lib/utils/message.utils';
+	import { showMessage } from '$lib/utils/message.utils';
+	import { slide } from 'svelte/transition';
 	import Youtube from '$lib/components/youtube-embed/youtube.svelte';
 	export let data: PageServerData;
-
+	import { fade, fly } from 'svelte/transition';
 	let learningJourney = data.learningPath;
 	let courseContents = data.courseContentsForLearningPath;
-	courseContents = courseContents.sort((a, b) => { return a.Sequence - b.Sequence; });
+	courseContents = courseContents.sort((a, b) => {
+		return a.Sequence - b.Sequence;
+	});
 	const userId = data.userId;
-	console.log(`${JSON.stringify(courseContents, null, 2)}`)
+	console.log(`${JSON.stringify(courseContents, null, 2)}`);
 
-	 courseContents = courseContents.map(x => {
+	courseContents = courseContents.map((x) => {
 		return {
 			...x,
-			showVedio: false,
-		}
-	})
+			showVedio: false
+		};
+	});
 
-	function getYouTubeId(url){
-	let id = '';
-		url = url.replace(/(>|<)/gi,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
-		if(url[2] !== undefined) {
+	function getYouTubeId(url) {
+		let id = '';
+		url = url.replace(/(>|<)/gi, '').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+		if (url[2] !== undefined) {
 			id = url[2].split(/[^0-9a-z_\-]/i);
 			id = id[0];
-		}
-		else {
+		} else {
 			id = url;
 		}
-			return id;
-		}
+		return id;
+	}
 
 	async function updateVideoProgress(model) {
 		await fetch(`/api/server/learning`, {
@@ -53,11 +55,12 @@
 		});
 	}
 
-	const handleCourseContentClick = async (e,
+	const handleCourseContentClick = async (
+		e,
 		resourceLink: string,
 		contentType: string,
-		actionTemplateId?: string) => {
-
+		actionTemplateId?: string
+	) => {
 		console.log(e.currentTarget);
 		const contentId = e.currentTarget.id;
 		console.log(`contentId = ${contentId}`);
@@ -71,15 +74,14 @@
 			await updateVideoProgress(videoModel);
 			//TODO: Please use video embedding rather than switching to different page
 			// window.location.href = resourceLink;
-		}
-		else if (contentType === 'Assessment') {
+		} else if (contentType === 'Assessment') {
 			const quizModel = {
 				sessionId: data.sessionId,
 				userId: data.userId,
 				assessmentTemplateId: actionTemplateId,
 				courseContentId: contentId,
 				learningJourneyId: $page.params.learningJourneyId,
-				scheduledDate: new Date(),
+				scheduledDate: new Date()
 			};
 			const response = await takeQuiz(quizModel);
 			const text = await response.text();
@@ -87,39 +89,38 @@
 			console.log(resp.action);
 			console.log(resp.content);
 			if (resp.action === 'message') {
-				showMessage(resp.content, "info", true, 3500);
-			}
-			else if (resp.action == 'redirect') {
+				showMessage(resp.content, 'info', true, 3500);
+			} else if (resp.action == 'redirect') {
 				goto(resp.content);
+			} else {
+				showMessage(resp.content, 'error', true, 3500);
 			}
-			else {
-				showMessage(resp.content, "error", true, 3500);
-			}
-		}
-		else {
+		} else {
 			const errmsg = `Content type is not yet handled!`;
-			showMessage(errmsg, "error", true, 3500);
+			showMessage(errmsg, 'error', true, 3500);
 			console.log(errmsg);
 		}
 	};
-
 </script>
 
-<div class="card card-compact w-[375px] h-[280px] card-bordered border-slate-200 bg-[#ffdbb2]  rounded-none rounded-t-[44px] shadow-sm">
-	<div class="card-body ">
-		<div class="flex flex-col text-center justify-center">
-			<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 rounded" />
+<!-- <div
+	class="card card-compact w-[375px] h-[280px] card-bordered border-slate-200 bg-[#ffdbb2]  rounded-none rounded-t-[44px] shadow-sm"
+> -->
+	<div class="card h-[280px] w-[375px] border-x border-slate-200 ">
+		<!-- <div class="flex flex-col text-center justify-center"> -->
+			<!-- <button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 rounded" /> -->
 			<!-- <img
 				class="h-[310px] w-[308px]"
 				src="/assets/learning-course/svg/growing-up-affect.svg"
 				alt=""
 			/> -->
-			<div class=" flex justify-center">
-			<Image cls="" source={learningJourney?.ImageUrl} w="200" h="200" /></div>
-		</div>
+			<div class=" flex justify-center mt-2">
+				<Image cls="" source={learningJourney?.ImageUrl} w="200" h="180" />
+			</div>
+		<!-- </div> -->
 	</div>
-</div>
-<div class=" card-body h-[421px] bg-base-100  card-bordered border-slate-200">
+<!-- </div> -->
+<div class=" card-body h-[421px] bg-base-100  border-slate-200 border-x border-b">
 	<h2 class="leading-4 text-lg mb-2">{learningJourney.Name}</h2>
 	<p class="h-auto">
 		{learningJourney.Description ? learningJourney.Description : ''}
@@ -150,58 +151,83 @@
 		{:else}
 			{#each courseContents as content}
 				<button
-					on:click|capture={async (e) =>
-					{content.showVedio = true; await handleCourseContentClick(e, content.ResourceLink, content.ContentType, content.ActionTemplateId)}}
+					on:click|capture={async (e) => {
+						content.showVedio = true;
+						await handleCourseContentClick(
+							e,
+							content.ResourceLink,
+							content.ContentType,
+							content.ActionTemplateId
+						);
+					}}
 					id={content.id}
 					name={content.id}
 					class="leading-4 tracking-normal font-bold"
 				>
 					<div class="grid grid-flow-col mb-4">
 						{#if content.ContentType == 'Video'}
-						{#if content.showVedio}
-						<!-- <div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
+							{#if content.showVedio}
+								<!-- <div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
 							<img class=" m-5 " src="/assets/images/learning-course/svg/video.svg" alt="" />
 						</div> -->
-						<div class="mx-4 grid grid-flow-row">
-							<h3 class="text-center mb-3">{content.Title}</h3>
-							<!-- svelte-ignore a11y-media-has-caption -->	
-							<!-- <div>  -->
-							  <Youtube id={getYouTubeId(content.ResourceLink)} on:closeVideo = {async (e) => content.showVedio = false} >
-								<button></button>
-							  </Youtube>
-							<!-- </div>	 -->
-							<!-- <div class="bg-[#e3e3e3] mt-3 rounded-full h-[10px] w-[211px]">
-								<div class="bg-[#70ae6e] rounded-full h-[10px]" style={"width:" + `${content.PercentageCompletion ? content?.PercentageCompletion?.toString() : '0'}` + "%"}/>
-							</div> -->
-						</div>
-						{:else}
-						<div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
-							<img class=" m-5 " src="/assets/images/learning-course/svg/video.svg" alt="" />
-						</div>
-						<div class="mx-4">
-							<h3 class="text-left mb-3">{content.Title}</h3>
-							<!-- svelte-ignore a11y-media-has-caption -->		 
-							  <!-- <Youtube id={"Y19kYh6k7ls"}>
-								<button></button>
-							  </Youtube> -->
-							
-							<div class="bg-[#e3e3e3] mt-3 rounded-full h-[10px] w-[211px]">
-								<div class="bg-[#70ae6e] rounded-full h-[10px]" style={"width:" + `${content.PercentageCompletion ? content?.PercentageCompletion?.toString() : '0'}` + "%"}/>
-							</div>
-						</div>
-						{/if}
+						<!-- <div class="" in:fly="{{ x: 100, duration: 3000 }}" out:fly = {{ x: 100, duration: 1000 }}> -->
+								<div class="" transition:slide={{ duration: 1000 }}>
+									<div class="mx-4 grid grid-flow-row">
+										<h3 class="text-center mb-3">{content.Title}</h3>
+										<!-- svelte-ignore a11y-media-has-caption -->
+										<!-- <div>  -->
+										<Youtube
+											id={getYouTubeId(content.ResourceLink)}
+											on:closeVideo={async (e) => (content.showVedio = false)}
+										>
+											<!-- <button /> -->
+										</Youtube>
+										<!-- </div>	 -->
+									
+									</div>
+								</div>
+							{:else}
+								<div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
+									<img class=" m-5 " src="/assets/images/learning-course/svg/video.svg" alt="" />
+								</div>
+								<div class="mx-4">
+									<h3 class="text-left mb-3">{content.Title}</h3>
+
+									<div class="bg-[#e3e3e3] mt-3 rounded-full h-[10px] w-[211px]">
+										<div
+											class="bg-[#70ae6e] rounded-full h-[10px]"
+											style={'width:' +
+												`${
+													content.PercentageCompletion
+														? content?.PercentageCompletion?.toString()
+														: '0'
+												}` +
+												'%'}
+										/>
+									</div>
+								</div>
+							{/if}
 						{:else if content.ContentType === 'Assessment'}
-						<!-- <div class=""> -->
+							<!-- <div class=""> -->
 							<div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
 								<img class=" m-4 " src="/assets/images/learning-course/svg/quiz.svg" alt="" />
 							</div>
 							<div class="mx-4">
 								<h3 class="text-left mb-5">{content.Title}</h3>
 								<div class="bg-[#e3e3e3]  rounded-full h-[10px] w-[211px]">
-									<div class="bg-[#70ae6e] rounded-full h-[10px]" style={"width:" + `${content.PercentageCompletion ? content?.PercentageCompletion?.toString() : '0'}` + "%"}/>
+									<div
+										class="bg-[#70ae6e] rounded-full h-[10px]"
+										style={'width:' +
+											`${
+												content.PercentageCompletion
+													? content?.PercentageCompletion?.toString()
+													: '0'
+											}` +
+											'%'}
+									/>
 								</div>
 							</div>
-						<!-- </div> -->
+							<!-- </div> -->
 						{:else}
 							<div class="h-16 w-16 bg-[#e3e3e3] rounded-lg ">
 								<img class=" m-4 " src="/assets/images/learning-course/svg/slides.svg" alt="" />
@@ -209,7 +235,16 @@
 							<div class="mx-4">
 								<h3 class="text-left mb-5">{content.Title}</h3>
 								<div class="bg-[#e3e3e3]  rounded-full h-[10px] w-[211px]">
-									<div class="bg-[#70ae6e] rounded-full h-[10px]" style={"width:" + `${content.PercentageCompletion ? content?.PercentageCompletion?.toString() : '0'}` + "%"}/>
+									<div
+										class="bg-[#70ae6e] rounded-full h-[10px]"
+										style={'width:' +
+											`${
+												content.PercentageCompletion
+													? content?.PercentageCompletion?.toString()
+													: '0'
+											}` +
+											'%'}
+									/>
 								</div>
 							</div>
 						{/if}
@@ -283,4 +318,3 @@
 		<a href="/users/{userId}/my-learnings"> BACK TO JOURNEY </a>
 	</button>
 </div>
-

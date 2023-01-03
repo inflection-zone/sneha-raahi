@@ -81,11 +81,11 @@
 	};
 </script>
 
-<div
+<!-- <div
 	class="card card-compact card-bordered w-[375px] h-[590px] bg-base-100 border-slate-200 rounded-none rounded-t-[44px] shadow-sm"
->
+> -->
 	<div class="card-body ">
-		<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
+		<!-- <button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded handle" /> -->
 		<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 			ASK SNEHA
 		</h2>
@@ -149,7 +149,7 @@
 			</div> -->
 		</div>
 	</div>
-</div>
+<!-- </div> -->
 <div class="h-[90px] w-[375px] bg-white">
 	<div class="h-20 w-[375px] mt-3 bg-[#dfe7fd] flex ">
 		<textarea

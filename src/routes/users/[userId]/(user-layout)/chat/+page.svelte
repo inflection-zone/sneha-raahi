@@ -129,9 +129,9 @@
 
 </script>
 
-<div class="card card-compact card-bordered w-[375px] h-[701px]  bg-base-100 border-slate-200 rounded-none rounded-t-[44px] shadow-sm">
+<!-- <div class="card card-compact card-bordered w-[375px] h-[701px]  bg-base-100 border-slate-200 rounded-none rounded-t-[44px] shadow-sm"> -->
 	<div class="card-body ">
-		<button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
+		<!-- <button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" /> -->
 		<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 			CHAT HOME
 		</h2>
@@ -141,12 +141,13 @@
 				id="search"
 				name="search"
 				bind:this={searchInput}
-				class=" text-[#5b7aa3] h-[40px] w-full px-3 border rounded-3xl my-5 text-lg bg-[#B6C6E0]  "
+				class=" text-[#5b7aa3] h-[40px] w-full px-3 border border-slate-400 rounded-3xl my-5 text-lg bg-[#ffffff]  "
 				on:keyup={onSearchEnter}
 			/>
+			<!-- class="right-48 pr-3 ml-3 w-2/12" -->
 			<img
 				id="searchButton"
-				class="right-48 pr-3 ml-3 w-2/12"
+				class="absolute right-0 pr-3 w-2/9 "
 				src="/assets/images/home-sidebar/png/search-icon.png"
 				alt=""
 				on:click={onSearchClick}
@@ -348,4 +349,4 @@
 			</a> -->
 		</div>
 	</div>
-</div>
+<!-- </div> -->
