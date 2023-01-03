@@ -127,23 +127,23 @@
 								<a href={learningHomeLink}>
 									<img
 										class=" h-[172px] w-[340px]"
-										src="/assets/images/home/svg/my-learning.svg"
+										src="/assets/images/home/png/my-learning.png"
 										alt=""
 									/>
 								</a>
 								<div class="columns-2 mt-2 ">
 									<a href={newsFeedLink}>
-										<img class=" mb-4 " src="/assets/images/home/svg/newsfeed.svg" alt="" /></a
+										<img class=" mb-4 " src="/assets/images/home/png/newsfeed.png" alt="" /></a
 									>
 									<a href={linkagesLink}>
-										<img src="/assets/images/home/svg/linkages.svg" alt="" /></a
+										<img src="/assets/images/home/png/linkages.png" alt="" /></a
 									>
 									<div>
 										<a href={chatLink}>
-											<img class=" mb-4 " src="/assets/images/home/svg/chat.svg" alt="" /></a
+											<img class=" mb-4 " src="/assets/images/home/png/chat.png" alt="" /></a
 										>
 										<a href={myProfileLink}>
-											<img src="/assets/images/home/svg/my-profile.svg" alt="" /></a
+											<img src="/assets/images/home/png/my-profile.png" alt="" /></a
 										>
 									</div>
 								</div>
@@ -152,7 +152,7 @@
 					</div>
 				</div>
 				{/if}
-			</div>	
+			</div>
 		</div>
 	</div>
 
