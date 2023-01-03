@@ -39,7 +39,7 @@
         <!-- <input type="file" bind:value={file}> -->
         <!-- <button on:click={uploadFile}>Upload file</button> -->
 
-		<button on:click={uploadFile} class=" h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" />
+		<!-- <button on:click={uploadFile} class=" h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" /> -->
 		<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 			EDIT PROFILE
 		</h2>

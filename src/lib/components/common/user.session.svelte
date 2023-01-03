@@ -54,7 +54,7 @@
 			<div class="flex flex-row  justify-center relative">
 				<a href={askSnehaLink}>
 					<img
-						class="h-[110px] w-[110px]"
+						class="h-[94px] w-[94px]"
 						src="/assets/images/home/png/profile-settings.png"
 						alt=""
 					/></a
