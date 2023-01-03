@@ -14,6 +14,7 @@ on:
     branches: [develop]
     
 jobs:
+  environment: dev
   # CodeScan-ESLint:
   #   runs-on: ubuntu-latest
   #   steps:
@@ -64,6 +65,9 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
+      
+      - name: Copy env file
+        run: aws s3 cp s3://${{ secrets.ENV_FILE_BUCKET_PATH }}/.env ./.env
 
       - name: Build
         id: docker_build
