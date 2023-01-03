@@ -14,7 +14,6 @@ on:
     branches: [develop]
     
 jobs:
-  environment: dev
   # CodeScan-ESLint:
   #   runs-on: ubuntu-latest
   #   steps:
@@ -34,6 +33,7 @@ jobs:
   #         DEFAULT_BRANCH: develop
 
   Build-Docker-Image:
+    environment: dev
     runs-on: ubuntu-latest
 
     steps:
