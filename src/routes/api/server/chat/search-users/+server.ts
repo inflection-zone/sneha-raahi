@@ -1,3 +1,4 @@
+import { BACKEND_API_URL } from "$env/static/private";
 import type { RequestEvent } from "@sveltejs/kit";
 import { searchUsersByName } from "../../../services/user";
 
@@ -22,7 +23,7 @@ export const GET = async (event: RequestEvent) => {
                     displayName: x.DisplayName,
                     firstName: x.FirstName,
                     lastName: x.LastName,
-                    profileImage: x.profileImage,
+                    profileImage: (BACKEND_API_URL + `/file-resources/${x.ImageResourceId}/download?disposition=inline`),
                 }
             });
         }

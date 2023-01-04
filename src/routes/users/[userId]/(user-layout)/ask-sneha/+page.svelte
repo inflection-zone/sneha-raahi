@@ -12,6 +12,7 @@
 	let messageInput; //Message input text area
 	let messageContainer; //Message holding container
 	let phone = data.user.User.Person.Phone;
+	console.log('phone',phone)
 	$: if (messageContainer && messageContainer.scrollTop < messageContainer.scrollHeight) {
 		messageContainer.scrollTop = messageContainer.scrollHeight;
 	}

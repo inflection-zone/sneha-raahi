@@ -1,11 +1,13 @@
 import type { PageServerLoad } from "./$types";
 import { getMyFavouriteConversations, getMyRecentConversations } from "../../../../api/services/chat";
 import hrt from 'human-readable-time';
+import { BACKEND_API_URL } from "$env/static/private";
 
 ////////////////////////////////////////////////////////////////////////
 
 const getConversationDetails = (userId, x) => {
-    const profileImage = userId === x.OtherUser.id ? x.InitiatingUser.ProfileImage : x.OtherUser.ProfileImage;
+    const profileImage = userId === x.OtherUser.id ? (BACKEND_API_URL + `/file-resources/${x.InitiatingUser.ImageResourceId}/download?disposition=inline`): (BACKEND_API_URL + `/file-resources/${x.OtherUser.ImageResourceId}/download?disposition=inline`);
+    // const profileImage = userId === x.OtherUser.id ? x.InitiatingUser.ProfileImage : x.OtherUser.ProfileImage;
     return {
         id: x.id,
         favourite: x.Marked,
