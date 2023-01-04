@@ -33,20 +33,23 @@
 			class={option.Selected ? selected : unselected}
 		>
 			<div class="flex relative font-normal">
+				<div class = "mr-4 space-y-2">
 				{option.Text}
+			</div>
 				{#if answerSubmitted}
 					{#if option.Sequence == correctSequence}
-						<img
-							class="absolute right-0 pr-3 "
-							src="/assets/quiz-wrong/svg/correct.svg"
+						<img 
+							class=" absolute right-0 pt-1 pr-3"
+							src="/assets/images/quiz-wrong/svg/correct.svg"
 							alt=""
 						/>
 					{:else}
 						<img
-							class="absolute right-0 pr-3"
-							src="/assets/quiz-wrong/svg/wrong.svg"
+							class="absolute right-0 pt-1 pr-3 "
+							src="/assets/images/quiz-wrong/svg/wrong.svg"
 							alt=""
 						/>
+
 					{/if}
 				{/if}
 			</div>
