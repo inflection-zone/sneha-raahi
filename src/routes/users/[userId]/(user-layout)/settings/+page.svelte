@@ -172,9 +172,11 @@
 			>
 
 			{#if conversations.length > 0}
-				<Confirm confirmTitle="Delete" cancelTitle="Cancel" let:confirm={confirmThis}>
+				<Confirm confirmTitle="Delete" cancelTitle="Cancel" let:confirm={confirmThis} on:delete = { ()=> {
+					handleDeleteChat();
+					}}>
 					<button
-						on:click={(e) => confirmThis(handleDeleteChat())}
+						on:click={() => confirmThis()}
 						class="leading-none w-[300px] h-[52px] rounded-[10px] justify-center bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal pl-3 mt-4"
 						>Delete Chat</button
 					>
@@ -201,9 +203,11 @@
 				>Logout</button
 			>
 
-			<Confirm confirmTitle="Delete" cancelTitle="Cancel" let:confirm={confirmThis}>
+			<Confirm confirmTitle="Delete" cancelTitle="Cancel" let:confirm={confirmThis} on:delete = { ()=> {
+				onDeleteAccount();
+				}} >
 				<button
-					on:click={() => confirmThis(onDeleteAccount)}
+					on:click={() => confirmThis()}
 					class="leading-none w-[300px] h-[52px] rounded-[10px]  bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal mt-5 "
 					>Delete Account</button
 				>
