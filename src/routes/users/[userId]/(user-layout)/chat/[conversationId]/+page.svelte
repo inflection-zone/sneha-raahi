@@ -11,9 +11,8 @@
 
 	export let data: PageServerData;
 	let conversation = data.conversation;
-	let srcUrl = 'http://localhost:7272/api/v1/file-resources/null/download?disposition=inline';
 	$: conversation = conversation;
-
+	let srcUrl = 'http://localhost:7272/api/v1/file-resources/null/download?disposition=inline';
 	let _messages = data.messages;
 	$: messages = _messages;
 
@@ -103,6 +102,7 @@
 				sessionId: data.sessionId,
 				conversationId: conversationId,
 				message: msg,
+				userId: userId,
 			}),
 			headers: {
 				'content-type': 'application/json'
@@ -208,7 +208,6 @@
 <div class="h-[90px] w-[375px] bg-white">
 	<div class="h-20 w-[375px] mt-3 bg-[#dfe7fd] flex ">
 		<textarea
-			type="text"
 			id="messageText"
 			name="messageText"
 			bind:this={messageInput}
