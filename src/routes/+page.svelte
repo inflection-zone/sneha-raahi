@@ -32,7 +32,7 @@
 {#if showSplash}
 	<div class="flex items-center justify-center lg:mt-16 md:mt-16 sm:mt-16 mt-0">
 		<div
-			class="card card-compact rounded-none card-bordered border-slate-400 w-[375px]
+			class="card card-compact rounded-none card-bordered border-slate-400 max-[375px]:w-full w-[375px]
         h-[812px] bg-base-100  shadow-none "
 		>
 			<div class="card-body ">
@@ -47,7 +47,7 @@
 	</div>
 {:else}
 	<div class="flex items-center justify-center lg:mt-16 md:mt-16 sm:mt-16 mt-0">
-		<div class="card card-compact w-[375px] h-[812px] bg-base-100 border-2 rounded-none">
+		<div class="card card-compact max-[375px]:w-full w-[375px] h-[812px] bg-base-100 border-2 rounded-none">
 			<div class="card-body">
 				<div class="flex flex-col items-center justify-center h">
 					<img
@@ -76,14 +76,14 @@
 				<div class="flex flex-col text-center- justify-center mt-4">
 					<a href="/join-raahi">
 						<button
-							class="w-[340px] h-[52px] rounded-[10px] bg-[#5b7aa3] uppercase text-[#fff] tracking-[3px] text-[17px]"
+							class="max-[375px]:w-full w-[340px] h-[52px] rounded-[10px] bg-[#5b7aa3] uppercase text-[#fff] tracking-[3px] text-[17px]"
 						>
 							join raahi
 						</button></a
 					>
 					<a href="/sign-in">
 						<button
-							class="w-[340px] h-[52px] rounded-[10px] mt-[40px] bg-[#d05591] uppercase text-[#fff] tracking-[3px] text-[17px]"
+							class="max-[375px]:w-full w-[340px] h-[52px] rounded-[10px] mt-[40px] bg-[#d05591] uppercase text-[#fff] tracking-[3px] text-[17px]"
 						>
 							sign to raahi
 						</button>

@@ -56,7 +56,7 @@
 </script>
 
 <div class="grid gird-cols justify-center items-center ">
-	<div class="w-[375px] h-[812px] ">
+	<div class="max-[375px]:w-full w-[375px] h-[812px] ">
 		<div class="flex  items-center justify-center">
 			{#if $navbarDisplay}
 			<Navbar
@@ -67,9 +67,9 @@
 			/>
 			{:else}
 			<div
-				class="card rounded-none w-[375px] h-[812px] bg-[#5b7aa3] shadow-none lg:mt-10 md:mt-10 sm:mt-10 mt-0"
+				class="card rounded-none max-[375px]:w-full w-[375px] h-[812px] bg-[#5b7aa3] shadow-none lg:mt-10 md:mt-10 sm:mt-10 mt-0"
 			>
-				<div class="card w-[375px] h-[406px] shadow-none rounded-none border-none">
+				<div class="card max-[375px]:w-full w-[375px] h-[406px] shadow-none rounded-none border-none">
 					<div class="card-body ">
 						<div class=" flex flex-row h-16 w-16">
 							<button on:click={toggleSidebar}>
@@ -120,7 +120,7 @@
 						<div class="card-body h-[450px] place-content-around ">
 							<div class="overflow-auto h-[550px] scrollbar  scrollbar-medium">
 								<h2
-									class="card-title text-[#5b7aa3] flex tracking-widest justify-center text-base "
+									class="card-title text-[#5b7aa3]  max-[320px]:tracking-wider flex tracking-widest justify-center text-base "
 								>
 									GET STARTED ON YOUR JOURNEY
 								</h2>

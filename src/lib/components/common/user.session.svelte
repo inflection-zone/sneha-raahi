@@ -30,9 +30,9 @@
 </script>
 
 <div
-	class="card rounded-none  bg-[#5b7aa3] w-[375px] h-[812px] shadow-none lg:mt-10 md:mt-10 sm:mt-10 mt-0"
+	class="card rounded-none  bg-[#5b7aa3] max-[375px]:w-full w-[375px] h-[812px] shadow-none lg:mt-10 md:mt-10 sm:mt-10 mt-0"
 >
-	<div class="card w-[375px] h-[130px] bg-[#5b7aa3] shadow-none rounded-none border-none">
+	<div class="card max-[375px]:w-full w-[375px] h-[130px] bg-[#5b7aa3] shadow-none rounded-none border-none">
 		<Toasts />
 		<div class="card-body">
 			<div class=" flex flex-row h-16 w-16">
@@ -85,7 +85,7 @@
 			// 	},
 			}}
 		
-		class="card card-compact card-bordered w-[375px] h-[690px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm"
+		class="card card-compact card-bordered h-[690px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm"
 	>
 		<div class="flex justify-center">
 			<button class=" h-[5px] w-[73px] bg-[#e3e3e3] mt-4 rounded handle" />

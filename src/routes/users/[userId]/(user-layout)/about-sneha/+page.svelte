@@ -5,7 +5,7 @@
 <!-- <div
 	class="card card-compact card-bordered w-[375px] h-[690px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm"
 > -->
-	<div class="card-body w-[375px] h-[690px] ">
+	<div class="card-body max-[375px]:w-full w-[375px] h-[690px] ">
 		<!-- <button class=" h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded handle" /> -->
 		<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 			ABOUT SNEHA
@@ -26,3 +26,5 @@
 		</div>
 	</div>
 <!-- </div> -->
+
+

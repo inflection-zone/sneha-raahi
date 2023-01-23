@@ -92,9 +92,9 @@
 </script>
 
 {#if show}
-    <div class="card rounded-none w-[855px]  h-[812px] bg-[#DFE7FD] lg:mt-10 md:mt-10 sm:mt-10 mt-0">
+    <div class="card rounded-none h-[812px] max-[375px]:w-full w-[375px] bg-[#DFE7FD] lg:mt-10 md:mt-10 sm:mt-10 mt-0">
         <div class="mt-10">
-            <ul class="p-4 overflow-y-auto  w-[370px] h-[750px] text-base-content bg-[#DFE7FD]">
+            <ul class="p-4 overflow-y-auto max-[320px]:w-80 w-[370px] h-[750px] text-base-content bg-[#DFE7FD]">
                 <!-- <div class="relative flex items-center ">
                     <input
                         placeholder="Search"
