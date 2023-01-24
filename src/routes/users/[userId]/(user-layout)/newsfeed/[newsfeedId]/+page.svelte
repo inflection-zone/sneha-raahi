@@ -41,7 +41,7 @@
 							Field trip to Nehru Science Centre
 						</h2>
 						<p>
-							"Learning visits has always been a key strategy in EHSAS to build assets, agency and self-awareness in young people. On the 24th of September, 2022, 43 young people from all three sites of Dharavi, Kandivali and Kalwa visited the Nehru Science Center.
+							Learning visits has always been a key strategy in EHSAS to build assets, agency and self-awareness in young people. On the 24th of September, 2022, 43 young people from all three sites of Dharavi, Kandivali and Kalwa visited the Nehru Science Center.
 						</p>
 					</div>
 				</div>
