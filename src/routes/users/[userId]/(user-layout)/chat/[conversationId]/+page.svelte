@@ -11,9 +11,8 @@
 
 	export let data: PageServerData;
 	let conversation = data.conversation;
-
 	$: conversation = conversation;
-
+	let srcUrl = 'http://localhost:7272/api/v1/file-resources/null/download?disposition=inline';
 	let _messages = data.messages;
 	$: messages = _messages;
 
@@ -103,6 +102,7 @@
 				sessionId: data.sessionId,
 				conversationId: conversationId,
 				message: msg,
+				userId: userId,
 			}),
 			headers: {
 				'content-type': 'application/json'
@@ -138,10 +138,10 @@
 	<div class="card-body ">
 		<!-- <button class=" h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded" /> -->
 		<div class="gap-2 flex items-center justify-center mb-2">
-			{#if conversation?.profileImage}
-				<Image cls="rounded justify-center align-middle" h="58" w="58" source={conversation.profileImage} ></Image>
+			{#if conversation.profileImage != srcUrl}
+				<Image cls="rounded-full justify-center align-middle" h="58" w="58" source={conversation.profileImage} ></Image>
 			{:else}
-				<img src="/assets/images/chat/png/account-img-4.png" width="54" height="54" class="justify-center col-span-1 align-middle" alt="" />
+				<img src="/assets/images/chat/png/account-img-1.png" width="54" height="54" class="justify-center col-span-1 align-middle" alt="" />
 			{/if}
 			<span class="items-center py-4 ">
 				<h2 class=" text-[#5b7aa3] font-bold text-base align-middle">
@@ -208,7 +208,6 @@
 <div class="h-[90px] w-[375px] bg-white">
 	<div class="h-20 w-[375px] mt-3 bg-[#dfe7fd] flex ">
 		<textarea
-			type="text"
 			id="messageText"
 			name="messageText"
 			bind:this={messageInput}

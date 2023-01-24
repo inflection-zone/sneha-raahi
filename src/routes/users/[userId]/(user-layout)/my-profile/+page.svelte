@@ -58,7 +58,7 @@
 						EDIT
 					</button>
 				</a>
-				<p class=" text-left ">{Age} <br /> , {location}</p>
+				<p class=" text-left ">{Age} ,<br /> {location}</p>
 			</div>
 		</div>
 	</div>
