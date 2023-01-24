@@ -1,4 +1,4 @@
-import { getAllNotifications } from '../../../../api/services/notification';
+import { getAllNotificationsForUser } from '../../../../api/services/notification';
 import type { PageServerLoad } from "./$types";
 
 ////////////////////////////////////////////////////////////////////////
@@ -6,7 +6,8 @@ import type { PageServerLoad } from "./$types";
 export const load: PageServerLoad = async (event) => {
     try {
         const sessionId = event.cookies.get('sessionId');
-        const allNotifications = await getAllNotifications(sessionId);
+        const userId = event.params.userId;
+        const allNotifications = await getAllNotificationsForUser(sessionId, userId);
         console.log(`\n All notifications = ${JSON.stringify(allNotifications, null, 2)}`);
         return {
             sessionId,
@@ -20,4 +21,3 @@ export const load: PageServerLoad = async (event) => {
         };
     }
 };
-

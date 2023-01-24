@@ -14,25 +14,8 @@ on:
     branches: [develop]
     
 jobs:
-  # CodeScan-ESLint:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout Code
-  #       uses: actions/checkout@v2.3.4
-  #       with:
-  #         fetch-depth: 0
-
-  #     - name: Lint Code Base
-  #       uses: docker://ghcr.io/github/super-linter:latest
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #         LINTER_RULES_PATH: /
-  #         TYPESCRIPT_ES_CONFIG_FILE: .eslintrc.json
-  #         VALIDATE_TYPESCRIPT_ES: true
-  #         VALIDATE_ALL_CODEBASE: false
-  #         DEFAULT_BRANCH: develop
-
   Build-Docker-Image:
+    environment: dev
     runs-on: ubuntu-latest
 
     steps:
@@ -64,6 +47,9 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
+      
+      - name: Copy env file
+        run: aws s3 cp s3://${{ secrets.ENV_FILE_BUCKET_PATH }}/.env ./.env
 
       - name: Build
         id: docker_build
