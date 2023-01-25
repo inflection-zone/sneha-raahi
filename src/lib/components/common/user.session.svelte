@@ -51,7 +51,7 @@
 				/>
 				<!-- </a> -->
 			</div>
-			<div class="flex flex-row  justify-center relative">
+			<div class="flex flex-row justify-center relative">
 				<a href={askSnehaLink}>
 					<img
 						class="mr-2"
@@ -60,10 +60,10 @@
 					/></a
 				>
 				<a href={chatLink}>
-					<img class="h-[94px] w-[94px]" src="/assets/images/home/svg/message.svg" alt="" /></a
+					<img class="" src="/assets/images/home/svg/message.svg" alt="" /></a
 				>
 				<a href={notificationsLink}>
-					<img class="h-[94px] w-[94px]" src="/assets/images/home/png/notification.png" alt="" /></a
+					<img class="" src="/assets/images/home/png/notification.png" alt="" /></a
 				>
 			</div>
 		</div>
