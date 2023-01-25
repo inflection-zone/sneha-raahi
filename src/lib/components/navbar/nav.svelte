@@ -92,9 +92,9 @@
 </script>
 
 {#if show}
-    <div class="card rounded-none h-[812px] max-[375px]:w-full w-[375px] bg-[#DFE7FD] lg:mt-10 md:mt-10 sm:mt-10 mt-0">
+    <div class="card rounded-none h-[812px] max-[425px]:w-screen w-[375px] max-[425px]:h-screen bg-[#DFE7FD] lg:mt-10 md:mt-10 sm:mt-10 mt-0">
         <div class="mt-10">
-            <ul class="p-4 overflow-y-auto max-[320px]:w-80 w-[370px] h-[750px] text-base-content bg-[#DFE7FD]">
+            <ul class="p-4 overflow-y-auto max-[425px]:w-full max-[425px]:h-full w-[375px] h-[750px] text-base-content bg-[#DFE7FD]">
                 <!-- <div class="relative flex items-center ">
                     <input
                         placeholder="Search"
@@ -114,7 +114,7 @@
                     />
                 </div>
                 <div class="grid grid-cols gap-2 ">
-                    <button class="flex flex-rows"  on:click={gotoHome}>
+                    <button class="flex flex-rows" on:click={gotoHome}>
                         <img src="/assets/images/home-sidebar/svg/home-sidebar.svg" alt="" class="my-2 mx-4" />
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">home</h3>
                     </button>

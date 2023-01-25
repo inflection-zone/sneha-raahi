@@ -32,7 +32,7 @@ export const load: PageServerLoad = async (event) => {
 };
 
 
-export const getConversationDetails = (userId, conversation) => {
+ const getConversationDetails = (userId, conversation) => {
     //console.log(`x = ${JSON.stringify(conversation, null, 2)}`);
 
     const profileImage = userId === conversation.OtherUser.id ? (BACKEND_API_URL + `/file-resources/${conversation.InitiatingUser.ImageResourceId}/download?disposition=inline`): (BACKEND_API_URL + `/file-resources/${conversation.OtherUser.ImageResourceId}/download?disposition=inline`);
