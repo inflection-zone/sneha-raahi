@@ -38,44 +38,44 @@
         $navbarDisplay = !$navbarDisplay;
 	}
 
-    const gotoHome = () => {
+    const gotoHome = async () => {
+        await goto(homeLink);
         toggleSidebar();
-        goto(homeLink);
     }
 
-    const gotoMyProfile = () => {
+    const gotoMyProfile = async () => {
+        await goto(myProfileLink);
         toggleSidebar();
-        goto(myProfileLink);
     }
 
-    const gotoLearningHome = () => {
+    const gotoLearningHome = async () => {
+        await goto(learningHomeLink);
         toggleSidebar();
-        goto(learningHomeLink);
     }
 
-    const gotoAskSneha = () => {
+    const gotoAskSneha = async () => {
+        await goto(askSnehaLink);
         toggleSidebar();
-        goto(askSnehaLink);
     }
 
-    const gotoNewsFeed = () => {
-        toggleSidebar();
-        goto(newsFeedLink);
+    const gotoNewsFeed = async () => {
+        await goto(newsFeedLink);
+        toggleSidebar(); 
     }
 
-    const gotoChat = () => {
+    const gotoChat = async () => {
         toggleSidebar();
         goto(chatLink);
     }
 
-    const gotoLinkages = () => {
+    const gotoLinkages = async () => {
+        await goto(linkagesLink);
         toggleSidebar();
-        goto(linkagesLink);
     }
 
-    const gotoSettings = () => {
+    const gotoSettings = async () => {
+        await goto(settingsLink);
         toggleSidebar();
-        goto(settingsLink);
     }
 
     const gotoLogout = async () => {
@@ -83,9 +83,9 @@
         dispatch("logout");
     }
 
-    const gotoAboutSneha = () => {
+    const gotoAboutSneha = async () => {
+       await goto(aboutSnehaLink);
         toggleSidebar();
-        goto(aboutSnehaLink);
     }
     onDestroy(unsubscribe);
 
