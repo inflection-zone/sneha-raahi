@@ -106,7 +106,7 @@
 <!-- <div
 	class="card card-compact w-[375px] h-[280px] card-bordered border-slate-200 bg-[#ffdbb2]  rounded-none rounded-t-[44px] shadow-sm"
 > -->
-	<div class="card h-[280px] w-[375px] border-x border-slate-200 ">
+	<div class="card h-[280px] w-[375px] max-[425px]:w-full border-x border-slate-200 ">
 		<!-- <div class="flex flex-col text-center justify-center"> -->
 			<!-- <button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 rounded" /> -->
 			<!-- <img
@@ -120,7 +120,7 @@
 		<!-- </div> -->
 	</div>
 <!-- </div> -->
-<div class=" card-body h-[421px] bg-base-100  border-slate-200 border-x border-b">
+<div class=" card-body h-[421px] bg-base-100  border-slate-200 border-x border-b max-[425px]:border-none">
 	<h2 class="leading-4 text-lg mb-2">{learningJourney.Name}</h2>
 	<p class="h-auto">
 		{learningJourney.Description ? learningJourney.Description : ''}

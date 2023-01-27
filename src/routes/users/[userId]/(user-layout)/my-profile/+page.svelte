@@ -68,9 +68,9 @@
 		<h3 class="mb-3 mt-3 font-semibold text-center">You have not yet started learning journey!</h3>
 	{:else}
 		<div class="flex flex-rows mt-2">
-			<p class="absolute right-4 top-[194px]">{(overallProgress * 100).toString()}%</p>
+			<p class="absolute right-4  top-[194px]">{(overallProgress * 100).toString()}%</p>
 
-			<div class=" bg-[#dfe7fd] rounded-full w-[294px] h-[10px]">
+			<div class=" bg-[#dfe7fd] rounded-full max-[375px]:w-[250px] w-[294px] h-[10px]">
 				<div
 					class="bg-[#5b7aa3] rounded-full h-[10px]"
 					style={'width:' + (overallProgress * 100).toString() + '%'}
@@ -78,7 +78,7 @@
 			</div>
 		</div>
 	{/if}
-	<div class="overflow-auto scrollbar-medium w-[350px]">
+	<div class="overflow-auto scrollbar-medium w-[350px] max-[425px]:w-full">
 		<div class="grid grid-flow-col auto-cols-max gap-3 mt-4">
 			<h3 class="text-center mt-2">Ongoing <br /> Courses</h3>
 			{#if myLearningJourneys.length == 0}
@@ -109,7 +109,7 @@
 		<button class="uppercase text-base text-[#d05591] mt-[6px] text-right">view all</button>
 	</div>
 
-	<div class="grid grid-flow-col place-content-evenly mt-2 gap-[20px]">
+	<div class="grid grid-flow-col mt-2 gap-[20px] overflow-auto scrollbar-medium w-[350px] max-[425px]:w-full">
 		<div class="grid grid-flow-row">
 			<div class="w-[99px] h-[99px] rounded bg-[#fcaf58]">
 				<img
@@ -143,10 +143,10 @@
 	</div>
 
 	<div class="grid grid-flow-col mt-2">
-		<h2 class="  justify-left   ">My Certificates</h2>
+		<h2 class=" justify-left ">My Certificates</h2>
 		<button class="uppercase text-base text-[#d05591] mt-[6px] text-right">view all</button>
 	</div>
-	<div class="overflow-auto scrollbar-medium w-[360px]">
+	<div class="overflow-auto scrollbar-medium w-[360px] max-[425px]:w-full">
 		<div class="grid grid-flow-col auto-cols-max  mt-1 gap-[20px]">
 			<div class="grid grid-flow-row">
 				<div class="w-[133px] h-[80px] rounded-lg bg-[#fff1e6]">
