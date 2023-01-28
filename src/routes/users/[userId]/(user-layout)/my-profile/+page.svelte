@@ -67,16 +67,16 @@
 	{#if myLearningJourneys.length == 0}
 		<h3 class="mb-3 mt-3 font-semibold text-center">You have not yet started learning journey!</h3>
 	{:else}
-		<div class="flex flex-rows mt-2">
-			<p class="absolute right-4  top-[194px]">{(overallProgress * 100).toString()}%</p>
-
-			<div class=" bg-[#dfe7fd] rounded-full max-[375px]:w-[250px] w-[294px] h-[10px]">
+		<div class="flex flex-rows max-[425px]:w-full w-[340px]">
+			<div class=" bg-[#dfe7fd] mt-2  rounded-full max-[425px]:w-full w-[340px] h-[10px]">
 				<div
 					class="bg-[#5b7aa3] rounded-full h-[10px]"
 					style={'width:' + (overallProgress * 100).toString() + '%'}
 				/>
 			</div>
+			<div class=" ml-4 ">{(overallProgress * 100).toString()}%</div>
 		</div>
+		
 	{/if}
 	<div class="overflow-auto scrollbar-medium w-[350px] max-[425px]:w-full">
 		<div class="grid grid-flow-col auto-cols-max gap-3 mt-4">
@@ -109,7 +109,7 @@
 		<button class="uppercase text-base text-[#d05591] mt-[6px] text-right">view all</button>
 	</div>
 
-	<div class="grid grid-flow-col mt-2 gap-[20px] overflow-auto scrollbar-medium w-[350px] max-[425px]:w-full">
+	<div class="grid grid-flow-col mt-2 gap-4 overflow-auto scrollbar-medium w-[350px] max-[425px]:w-full">
 		<div class="grid grid-flow-row">
 			<div class="w-[99px] h-[99px] rounded bg-[#fcaf58]">
 				<img
@@ -125,10 +125,10 @@
 				<img
 					src="/assets/images/my-profile/png/champion-medal.png"
 					alt=""
-					class="object-contain  my-7  mx-6"
+					class="object-contain my-7 mx-6"
 				/>
 			</div>
-			<h3 class="mt-1">Community Champion</h3>
+			<h3 class="mt-1">Community <br /> Champion</h3>
 		</div>
 		<div class="grid grid-flow-row">
 			<div class="w-[99px] h-[99px] rounded bg-[#70ae6e]">
