@@ -32,7 +32,7 @@
 {#if showSplash}
 	<div class="flex items-center justify-center lg:mt-16 md:mt-16 sm:mt-16 mt-0">
 		<div
-			class="card card-compact rounded-none card-bordered border-slate-400 max-[425px]:w-full w-[375px]
+			class="card card-compact rounded-none card-bordered max-[425px]:border-none border-slate-400 max-[425px]:w-full w-[375px]
         h-[812px] bg-base-100  shadow-none "
 		>
 			<div class="card-body ">
@@ -47,7 +47,7 @@
 	</div>
 {:else}
 	<div class="flex items-center justify-center lg:mt-16 md:mt-16 sm:mt-16 mt-0">
-		<div class="card card-compact max-[425px]:w-full w-[375px] h-[812px] bg-base-100 border-2 rounded-none">
+		<div class="card card-compact max-[425px]:w-full w-[375px] h-[812px] bg-base-100 border-2 max-[425px]:border-none rounded-none">
 			<div class="card-body">
 				<div class="flex flex-col items-center justify-center h">
 					<img
@@ -60,7 +60,7 @@
 				<Carousel autoplay autoplayDuration={3000} arrows={false} dots={false} pauseOnFocus>
 					{#each Object.values($splashCarouselImage) as item}
 						<div>
-							<div class="flex flex-col text-center justify-center">
+							<div class="flex flex-col text-center items-center justify-center">
 								<img src={item.Image} alt="" class="mt-[50px]  h-[250px] " />
 								<h2 class=" text-[#5b7aa3] font-bold w-[335px] h-[44px] mt-4 leading-[23px]">
 									{item.Title}

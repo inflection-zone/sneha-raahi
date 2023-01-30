@@ -28,6 +28,7 @@
 			count = count + 1;
 		}
 		overallProgress = (+sum / count).toFixed(2);
+		console.log(overallProgress);
 	}
 
 	console.log(`\nUser Information = ${JSON.stringify(data.user)}`);
@@ -74,7 +75,7 @@
 					style={'width:' + (overallProgress * 100).toString() + '%'}
 				/>
 			</div>
-			<div class=" ml-4 ">{(overallProgress * 100).toString()}%</div>
+			<div class=" ml-4 ">{(overallProgress * 100).toFixed().toString()}%</div>
 		</div>
 		
 	{/if}

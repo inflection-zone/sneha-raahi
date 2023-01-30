@@ -64,8 +64,8 @@
     }
 
     const gotoChat = async () => {
+        await goto(chatLink);
         toggleSidebar();
-        goto(chatLink);
     }
 
     const gotoLinkages = async () => {
@@ -114,41 +114,41 @@
                     />
                 </div>
                 <div class="grid grid-cols gap-2 ">
-                    <button class="flex flex-rows" on:click={gotoHome}>
+                    <button class="flex flex-rows" on:click|capture={gotoHome}>
                         <img src="/assets/images/home-sidebar/svg/home-sidebar.svg" alt="" class="my-2 mx-4" />
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">home</h3>
                     </button>
-                    <button class="flex flex-rows" on:click={gotoMyProfile}>
+                    <button class="flex flex-rows" on:click|capture={gotoMyProfile}>
                         <img src="/assets/images/home-sidebar/png/my-profile-sidebar.png" alt="" class="my-2 mx-4"/>
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">my profile</h3>
                     </button>
-                    <button class="flex flex-rows" on:click={gotoLearningHome}>
+                    <button class="flex flex-rows" on:click|capture={gotoLearningHome}>
                         <img src="/assets/images/home-sidebar/png/my-learning-sidebar.png" alt="" class="my-2 mx-4"/>
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">my learning</h3>
                     </button>
-                    <button class="flex flex-rows" on:click={gotoChat}>
+                    <button class="flex flex-rows" on:click|capture|capture={gotoChat}>
                         <img src="/assets/images/home-sidebar/png/chat-sidebar.png" alt="" class="my-2 mx-4" />
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">chat</h3>
                     </button>
-                    <button class="flex flex-rows" on:click={gotoNewsFeed}>
+                    <button class="flex flex-rows" on:click|capture={gotoNewsFeed}>
                         <img src="/assets/images/home-sidebar/png/newsfeed-sidebar.png" alt="" class="my-2 mx-4"/>
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">newsfeed</h3>
                     </button>
-                    <button class="flex flex-rows" on:click={gotoLinkages}>
+                    <button class="flex flex-rows" on:click|capture={gotoLinkages}>
                         <img src="/assets/images/home-sidebar/png/linkages-sidebar.png" alt="" class="my-2 mx-4"/>
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">linkages</h3>
                     </button>
-                    <button class="flex flex-rows" on:click={gotoAskSneha}>
+                    <button class="flex flex-rows" on:click|capture={gotoAskSneha}>
                         <img src="/assets/images/home-sidebar/png/ask-sneha-sidebar.png" alt="" class="my-2 mx-4"/>
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">ask sneha</h3>
                     </button>
-                    <button class="flex flex-rows" on:click={gotoSettings}>
+                    <button class="flex flex-rows" on:click|capture={gotoSettings}>
                         <img src="/assets/images/home-sidebar/png/settings-sidebar.png" alt="" class="my-2 mx-4"/>
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">settings</h3>
                     </button>
                     <div class="flex flex-col  text-[#5B7AA3] cursor-pointer">
-                        <button class="ml-4 mr-8 mt-24 text-start text-[#5B7AA3] text-base" on:click={async () => { await gotoLogout(); } }> LOGOUT</button>
-                        <button class="ml-4  mt-4 text-base text-start"  on:click={gotoAboutSneha}>ABOUT SNEHA</button>
+                        <button class="ml-4 mr-8 mt-24 text-start text-[#5B7AA3] text-base" on:click|capture={async () => { await gotoLogout(); } }> LOGOUT</button>
+                        <button class="ml-4  mt-4 text-base text-start"  on:click|capture={gotoAboutSneha}>ABOUT SNEHA</button>
                     </div>
                 </div>
             </ul>
