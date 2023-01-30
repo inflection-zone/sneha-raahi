@@ -25,7 +25,7 @@
 								<img class="w-[3.625rem] h-[3.625rem] bg-[#fde2e4] rounded-lg" src={notice.ImageUrl} alt=""/>
 								<div class="ml-3 ">
 									<div class="flex relative mb-1">
-										<h3 class="text-left">{notice.Title.length > 20 ? notice.Title.substring(0, 16) + '...': notice.Title}</h3>
+										<h3 class="text-left max-[375px]:w-[150px]">{notice.Title.length > 20 ? notice.Title.substring(0, 16) + '...': notice.Title}</h3>
 										<div class="text-right text-xs font-semibold ml-4 absolute max-[370px]:relative right-0 p-0 leading-3 ">{date.format(new Date(notice.PostDate), 'DD MMM YYYY')}</div>
 									</div>
 									<!-- <div class="text-right text-xs font-semibold ml-4 right-2 p-0 leading-5 ">{timeAgo(new Date(notice.PostDate))}</div> -->

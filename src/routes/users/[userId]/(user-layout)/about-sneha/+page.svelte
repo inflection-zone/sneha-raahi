@@ -21,7 +21,7 @@
 				centers offer a non-judgemental and safe space for adolescents and youth to come and share
 				their questions and concerns. We make follow a gender-transformative approach through
 				experiential eduction, community mobilization and health services. <br /> <br /> For more
-				information about the organisation visit <a class="text-[#5b7aa3]" href="https://snehamumbai.org/">snehamumbai.org</a>
+				information about the organisation visit <a class="text-[#5b7aa3] underline" href="https://snehamumbai.org/">snehamumbai.org</a>
 			</p>
 		</div>
 	</div>
