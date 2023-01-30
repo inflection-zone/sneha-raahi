@@ -126,7 +126,7 @@
                         <img src="/assets/images/home-sidebar/png/my-learning-sidebar.png" alt="" class="my-2 mx-4"/>
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">my learning</h3>
                     </button>
-                    <button class="flex flex-rows" on:click|capture|capture={gotoChat}>
+                    <button class="flex flex-rows" on:click|capture={gotoChat}>
                         <img src="/assets/images/home-sidebar/png/chat-sidebar.png" alt="" class="my-2 mx-4" />
                         <h3 class="text-center justify-center my-4 uppercase text-[#5B7AA3] ">chat</h3>
                     </button>
