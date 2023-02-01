@@ -4,6 +4,7 @@
 	import Confirm from '$lib/components/modal/confirm.svelte';
 	import Image from '$lib/components/image.svelte';
 	import { showMessage } from '$lib/utils/message.utils';
+	import { goto } from '$app/navigation';
 
 	export let data: PageServerData;
 	let sessionId = data.sessionId;
@@ -60,6 +61,8 @@
         });
 		const response = await res.json();
 		console.log(JSON.stringify(response, null, 2));
+		window.location.href = `/users/${userId}/settings`;
+
 	};
 
     const onFileSelected = async (e) => {
@@ -99,9 +102,14 @@
 			}
 		});
 		console.log('response', response);
-		const resp = await response.text();
-		console.log(`resp: ${JSON.stringify(resp, null, 2)}`);
-		window.location.href = '/';
+		// const resp = await response.text();
+		if (response.status === 200) {
+			showMessage(`Acount deteted successfully!`, 'success');
+			goto(`/`);
+		}
+		else {
+			showMessage(`Unable to delete account!`, 'error');
+		}
 	};
 
 	const handleDeleteChat = async () => {
@@ -123,7 +131,14 @@
 			}
 		});
 		console.log('response', response);
-	}
+		if (response.status === 200) {
+			showMessage(`Chats deteted successfully!`, 'success');
+			goto(`/users/${userId}/chat`);
+		}
+		else {
+			showMessage(`Unable to delete chats!`, 'error');
+		}
+	};
 
 </script>
 
@@ -166,18 +181,18 @@
 		<div class="  grid grid-flow-row items-center justify-center">
 			<a class="mt-5 " href="/users/{userId}/edit-profile">
 				<button
-					class="leading-none w-[300px] h-[52px] rounded-[10px]  bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal pl-3 pr-1 "
+					class="leading-none w-[300px] max-[375px]:w-64 h-[52px] rounded-[10px]  bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal pl-3 pr-1 "
 					>Edit Profile</button
 				></a
 			>
 
 			{#if conversations.length > 0}
-				<Confirm confirmTitle="Delete" cancelTitle="Cancel" let:confirm={confirmThis} on:delete = { ()=> {
-					handleDeleteChat();
+				<Confirm confirmTitle="Delete" cancelTitle="Cancel" let:confirm={confirmThis} on:delete = {async ()=> {
+					await handleDeleteChat();
 					}}>
 					<button
 						on:click={() => confirmThis()}
-						class="leading-none w-[300px] h-[52px] rounded-[10px] justify-center bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal pl-3 mt-4"
+						class="leading-none w-[300px] max-[375px]:w-64 h-[52px] rounded-[10px] justify-center bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal pl-3 mt-4"
 						>Delete Chat</button
 					>
 
@@ -188,7 +203,7 @@
 				<Confirm confirmTitle="Delete" cancelTitle="Cancel" let:confirm={confirmThis}>
 					<button
 						on:click={(e) => confirmThis()}
-						class="leading-none w-[300px] h-[52px] rounded-[10px] justify-center bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal pl-3 mt-4"
+						class="leading-none w-[300px] max-[375px]:w-64 h-[52px] rounded-[10px] justify-center bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal pl-3 mt-4"
 						>Delete Chat</button
 					>
 
@@ -199,7 +214,7 @@
 
 			<button
 				on:click={onLogout}
-				class="leading-none w-[300px] h-[52px] rounded-[10px]  bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal  mt-5 "
+				class="leading-none w-[300px] max-[375px]:w-64 h-[52px] rounded-[10px]  bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal  mt-5 "
 				>Logout</button
 			>
 
@@ -208,7 +223,7 @@
 				}} >
 				<button
 					on:click={() => confirmThis()}
-					class="leading-none w-[300px] h-[52px] rounded-[10px]  bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal mt-5 "
+					class="leading-none w-[300px] max-[375px]:w-64 h-[52px] rounded-[10px]  bg-[#5B7AA3] tracking-[1px] text-base text-white font-normal mt-5 "
 					>Delete Account</button
 				>
 				<span slot="title"> Delete </span>

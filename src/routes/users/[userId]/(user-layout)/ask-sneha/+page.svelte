@@ -17,7 +17,6 @@
 	// let conversation = data.conversation;
 	// console.log("conversation", conversation)
 	$: conversation = conversation;
-	let srcUrl = 'http://localhost:7272/api/v1/file-resources/null/download?disposition=inline';
 	let message_ = '';
 	let queryResponseMsg = '';
 	let messageInput; //Message input text area
@@ -142,7 +141,7 @@
 <!-- <div
 	class="card card-compact card-bordered w-[375px] h-[590px] bg-base-100 border-slate-200 rounded-none rounded-t-[44px] shadow-sm"
 > -->
-<div class="card-body ">
+<div class="card-body max-[425px]:w-full w-[375px]">
 	<!-- <button class="h-[5px] w-[73px] bg-[#e3e3e3] flex ml-36 mt-2 rounded handle" /> -->
 	<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 		ASK SNEHA
@@ -190,15 +189,15 @@
 								</p>
 								<!-- <p class="text-right text-slate-600 text-xs">{(new Date(message.UpdatedAt)).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p> -->
 							</div>
-							{#if profileImage != srcUrl}
+							{#if profileImage.includes(null)}
+							   <img class="absolute right-2 " src="/assets/images/ask-sneha/png/mask.png" alt="" />
+							{:else}
 								<Image
 									cls="rounded-full absolute right-2"
 									h="40"
 									w="40"
 									source={profileImage}
 								/>
-							{:else}
-								<img class="absolute right-2 " src="/assets/images/ask-sneha/png/mask.png" alt="" />
 							{/if}
 						</div>
 					{:else}
@@ -265,17 +264,17 @@
 	</div>
 </div>
 <!-- </div> -->
-<div class="h-[90px] w-[375px] bg-white">
-	<div class="h-20 w-[375px] mt-3 bg-[#dfe7fd] flex ">
+<div class="h-[90px] max-[425px]:w-full w-[375px] bg-white">
+	<div class="h-20 max-[425px]:w-full w-[375px] mt-3 bg-[#dfe7fd] flex ">
 		<textarea
 			id="messageText"
 			name="messageText"
 			bind:this={messageInput}
-			class="h-[52px] p-3 ml-3 mt-3  w-[277px] rounded-lg bg-white"
+			class="h-[52px] p-3 ml-3 mt-3 w-[277px] max-[425px]:w-full rounded-lg bg-white"
 			placeholder="Start typing here…"
 		/>
 		<div
-			class="relative h-[50px] w-[50px] bg-[#5b7aa3] rounded-lg ml-3 mt-3"
+			class="relative h-[50px] w-[50px] max-[425px]:w-[60px] max-[425px]:mr-3 bg-[#5b7aa3] rounded-lg ml-3 mt-3"
 			on:click={onSendMessageClick}
 			on:keypress={async (e) => onSendMessageKeyPressed(e)}
 		>
