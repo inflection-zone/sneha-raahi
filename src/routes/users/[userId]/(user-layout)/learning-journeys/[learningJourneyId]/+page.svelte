@@ -103,7 +103,7 @@
 		}
 	};
 
-	const handleCourceCloseClick = async () => {
+	const handleCourseCloseClick = async () => {
 		await courseContents
 		window.location.href = `/users/${userId}/learning-journeys/${learningJourneyId}`
 	};
@@ -189,7 +189,7 @@
 										<!-- <div>  -->
 										<Youtube
 											id={getYouTubeId(content.ResourceLink)}
-											on:closeVideo={handleCourceCloseClick}
+											on:closeVideo={handleCourseCloseClick}
 										>
 											<!-- <button /> -->
 										</Youtube>

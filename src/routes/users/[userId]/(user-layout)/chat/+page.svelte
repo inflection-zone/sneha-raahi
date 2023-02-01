@@ -7,7 +7,6 @@
 	export let data: PageServerData;
 	let favourites = data.favouriteConversations;
 	let recentUsers = data.recentConversations;
-	let srcUrl = 'http://localhost:7272/api/v1/file-resources/null/download?disposition=inline';
 	console.log('Favourites users',`${JSON.stringify(favourites, null, 2)}`);
 	console.log('Recent users',`${JSON.stringify(recentUsers, null, 2)}`);
 
@@ -16,8 +15,6 @@
 	let searchInput;
 	let searchResults = [];
 	let searchPeformed = false;
-	// let imageResourceId = undefined;
-
 	//Make it reactive
 	$: searchedUsers = searchResults;
 
@@ -163,10 +160,10 @@
 						{#each searchedUsers as searchedUser}
 							<button on:click={async (e) => onSearchedCoversationClick(e, searchedUser.userId)} class="tracking-normal font-sm">
 								<div class="grid grid-rows-2 ">
-									{#if searchedUser.profileImage != srcUrl}
-										<Image cls="rounded-full" h="58" w="58" source={searchedUser.profileImage} ></Image>
-									{:else}
+									{#if searchedUser.profileImage.includes(null)}
 										<img src="/assets/images/chat/png/account-img-1.png" alt="" />
+									{:else}
+										<Image cls="rounded-full" h="58" w="58" source={searchedUser.profileImage} ></Image>
 									{/if}
 									<h3 class=" mt-3 text-sm ">{searchedUser.firstName} <br />{searchedUser.lastName}</h3>
 								</div>
@@ -185,10 +182,10 @@
 					{#each favourites as favourite}
 						<a href={`/users/${userId}/chat/${favourite.id}`}>
 							<div class="grid grid-rows-2 ">
-								{#if favourite.profileImage != srcUrl}
-									<Image cls="rounded-full" h="58" w="58" source={favourite.profileImage} ></Image>
-								{:else}
+								{#if favourite.profileImage.includes(null)}
 									<img src="/assets/images/chat/png/account-img-1.png" alt="" />
+								{:else}	
+									<Image cls="rounded-full" h="58" w="58" source={favourite.profileImage} ></Image>
 								{/if}
 								<h3 class="mt-3 text-sm">{favourite.firstName} <br />{favourite.lastName}</h3>
 							</div>
@@ -238,7 +235,9 @@
 							<div class="grid grid-flow-col ">
 								<a href={`/users/${userId}/chat/${conversation.id}`}>
 								<!-- <img src="/assets/chat/png/account-img-1.png" alt="" /> -->
-								{#if conversation.profileImage != srcUrl}
+								{#if conversation.profileImage.includes(null)}
+									<img src="/assets/images/chat/png/account-img-1.png" alt="" />
+								{:else}
 									<Image cls="rounded-full col-span-2" h="58" w="58" source={conversation.profileImage} ></Image>
 								{/if}
 								</a>
