@@ -16,6 +16,7 @@
 	let searchInput;
 	let searchResults = [];
 	let searchPeformed = false;
+	// let imageResourceId = undefined;
 
 	//Make it reactive
 	$: searchedUsers = searchResults;
@@ -122,8 +123,8 @@
 			}
 		});
 		console.log('response', response);
-		// window.location.href = '/';
-	}
+		window.location.href = `/users/${userId}/chat`;
+	};
 
 
 </script>
@@ -239,8 +240,6 @@
 								<!-- <img src="/assets/chat/png/account-img-1.png" alt="" /> -->
 								{#if conversation.profileImage != srcUrl}
 									<Image cls="rounded-full col-span-2" h="58" w="58" source={conversation.profileImage} ></Image>
-								{:else}
-									<img src="/assets/images/chat/png/account-img-1.png" alt="" />
 								{/if}
 								</a>
 								<div class="grid grid-flow-rows-2 col-span-3 ml-2 mt-4">
