@@ -101,6 +101,7 @@
 			}
 		});
 		console.log('response', response);
+		// const resp = await response.text();
 		if (response.status === 200) {
 			showMessage(`Acount deteted successfully!`, 'success');
 			goto(`/`);
@@ -180,8 +181,8 @@
 			>
 
 			{#if conversations.length > 0}
-				<Confirm confirmTitle="Delete" cancelTitle="Cancel" let:confirm={confirmThis} on:delete = { ()=> {
-					handleDeleteChat();
+				<Confirm confirmTitle="Delete" cancelTitle="Cancel" let:confirm={confirmThis} on:delete = {async ()=> {
+					await handleDeleteChat();
 					}}>
 					<button
 						on:click={() => confirmThis()}

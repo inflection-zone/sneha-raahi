@@ -190,7 +190,7 @@
 								<!-- <p class="text-right text-slate-600 text-xs">{(new Date(message.UpdatedAt)).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p> -->
 							</div>
 							{#if profileImage.includes(null)}
-								<img class="absolute right-2 " src="/assets/images/ask-sneha/png/mask.png" alt="" />
+							   <img class="absolute right-2 " src="/assets/images/ask-sneha/png/mask.png" alt="" />
 							{:else}
 								<Image
 									cls="rounded-full absolute right-2"

@@ -15,7 +15,6 @@
 	let searchInput;
 	let searchResults = [];
 	let searchPeformed = false;
-
 	//Make it reactive
 	$: searchedUsers = searchResults;
 
@@ -122,7 +121,7 @@
 		});
 		console.log('response', response);
 		window.location.href = `/users/${userId}/chat`;
-	}
+	};
 
 </script>
 
@@ -184,7 +183,7 @@
 							<div class="grid grid-rows-2 ">
 								{#if favourite.profileImage.includes(null)}
 									<img src="/assets/images/chat/png/account-img-1.png" alt="" />
-								{:else}
+								{:else}	
 									<Image cls="rounded-full" h="58" w="58" source={favourite.profileImage} ></Image>
 								{/if}
 								<h3 class="mt-3 text-sm">{favourite.firstName} <br />{favourite.lastName}</h3>
@@ -238,7 +237,7 @@
 								{#if conversation.profileImage.includes(null)}
 									<img src="/assets/images/chat/png/account-img-1.png" alt="" />
 								{:else}
-									<Image cls="rounded-full col-span-2" h="58" w="58" source={conversation.profileImage} ></Image>	
+									<Image cls="rounded-full col-span-2" h="58" w="58" source={conversation.profileImage} ></Image>
 								{/if}
 								</a>
 								<div class="grid grid-flow-rows-2 col-span-3 ml-2 mt-4">
