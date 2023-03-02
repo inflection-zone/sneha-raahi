@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Siema from 'siema'
 	import { onMount, createEventDispatcher } from 'svelte'
+
 	export let perPage = 1
 	export let loop = true
 	export let autoplay = 0
@@ -13,6 +14,7 @@
 	export let controls = true
 	export let threshold = 20
 	export let rtl = false
+
 	let currentIndex = startIndex;
 	let siema
 	let controller
@@ -98,6 +100,7 @@
 	  }
   }
 </script>
+
 <div class="carousel">
 	<div class="slides" bind:this={siema}>
 		<slot></slot>
