@@ -1,5 +1,8 @@
 <script lang="ts">
 	import Image from '$lib/components/image.svelte';
+	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
+	import { showMessage } from '$lib/utils/message.utils';
+	import { onMount } from 'svelte';
 	import type { PageServerData } from './$types';
 
 	export let data: PageServerData;
@@ -28,6 +31,7 @@
 			count = count + 1;
 		}
 		overallProgress = (+sum / count).toFixed(2);
+		console.log(overallProgress);
 	}
 
 	console.log(`\nUser Information = ${JSON.stringify(data.user)}`);
@@ -35,6 +39,14 @@
 	console.log(`\nMy learning journeys = ${JSON.stringify(myLearningJourneys)}`);
 
 	$: avatarSource = profileImageUrl;
+	onMount(() => {
+		const prevUrl = LocalStorageUtils.getItem('prevUrl');
+		console.log(`prevUrl = ${JSON.stringify(LocalStorageUtils.getItem('prevUrl'))}`);
+		if (prevUrl.includes('edit-profile')) {
+			showMessage('User profile updated successfully!', 'success');
+		}
+	});
+	
 </script>
 
 <!-- <div class="card card-compact card-bordered border-slate-200 w-[375px] h-[701px]  bg-base-100  rounded-none rounded-t-[44px] shadow-sm"> -->
@@ -58,7 +70,7 @@
 						EDIT
 					</button>
 				</a>
-				<p class=" text-left ">{Age} <br /> , {location}</p>
+				<p class=" text-left ">{Age} ,<br /> {location}</p>
 			</div>
 		</div>
 	</div>
@@ -67,18 +79,18 @@
 	{#if myLearningJourneys.length == 0}
 		<h3 class="mb-3 mt-3 font-semibold text-center">You have not yet started learning journey!</h3>
 	{:else}
-		<div class="flex flex-rows mt-2">
-			<p class="absolute right-4 top-[194px]">{(overallProgress * 100).toString()}%</p>
-
-			<div class=" bg-[#dfe7fd] rounded-full w-[294px] h-[10px]">
+		<div class="flex flex-rows max-[425px]:w-full w-[340px]">
+			<div class=" bg-[#dfe7fd] mt-2  rounded-full max-[425px]:w-full w-[340px] h-[10px]">
 				<div
 					class="bg-[#5b7aa3] rounded-full h-[10px]"
 					style={'width:' + (overallProgress * 100).toString() + '%'}
 				/>
 			</div>
+			<div class=" ml-4 ">{(overallProgress * 100).toFixed().toString()}%</div>
 		</div>
+		
 	{/if}
-	<div class="overflow-auto scrollbar-medium w-[350px]">
+	<div class="overflow-auto scrollbar-medium w-[350px] max-[425px]:w-full">
 		<div class="grid grid-flow-col auto-cols-max gap-3 mt-4">
 			<h3 class="text-center mt-2">Ongoing <br /> Courses</h3>
 			{#if myLearningJourneys.length == 0}
@@ -109,7 +121,7 @@
 		<button class="uppercase text-base text-[#d05591] mt-[6px] text-right">view all</button>
 	</div>
 
-	<div class="grid grid-flow-col place-content-evenly mt-2 gap-[20px]">
+	<div class="grid grid-flow-col mt-2 gap-4 overflow-auto scrollbar-medium w-[350px] max-[425px]:w-full">
 		<div class="grid grid-flow-row">
 			<div class="w-[99px] h-[99px] rounded bg-[#fcaf58]">
 				<img
@@ -125,10 +137,10 @@
 				<img
 					src="/assets/images/my-profile/png/champion-medal.png"
 					alt=""
-					class="object-contain  my-7  mx-6"
+					class="object-contain my-7 mx-6"
 				/>
 			</div>
-			<h3 class="mt-1">Community Champion</h3>
+			<h3 class="mt-1">Community <br /> Champion</h3>
 		</div>
 		<div class="grid grid-flow-row">
 			<div class="w-[99px] h-[99px] rounded bg-[#70ae6e]">
@@ -143,10 +155,10 @@
 	</div>
 
 	<div class="grid grid-flow-col mt-2">
-		<h2 class="  justify-left   ">My Certificates</h2>
+		<h2 class=" justify-left ">My Certificates</h2>
 		<button class="uppercase text-base text-[#d05591] mt-[6px] text-right">view all</button>
 	</div>
-	<div class="overflow-auto scrollbar-medium w-[360px]">
+	<div class="overflow-auto scrollbar-medium w-[360px] max-[425px]:w-full">
 		<div class="grid grid-flow-col auto-cols-max  mt-1 gap-[20px]">
 			<div class="grid grid-flow-row">
 				<div class="w-[133px] h-[80px] rounded-lg bg-[#fff1e6]">
