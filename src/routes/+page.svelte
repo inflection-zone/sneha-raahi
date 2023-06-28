@@ -83,14 +83,14 @@
 						<button
 							class="max-[425px]:w-full w-[340px] h-[52px] rounded-[10px] bg-[#5b7aa3] uppercase text-[#fff] tracking-[3px] text-[17px]"
 						>
-							join raahi
+						SIGN UP
 						</button></a
 					>
 					<a href="/sign-in">
 						<button
 							class="max-[425px]:w-full w-[340px] h-[52px] rounded-[10px] mt-[40px] bg-[#d05591] uppercase text-[#fff] tracking-[3px] text-[17px]"
 						>
-							sign to raahi
+							LOGIN
 						</button>
 					</a>
 				</div>
