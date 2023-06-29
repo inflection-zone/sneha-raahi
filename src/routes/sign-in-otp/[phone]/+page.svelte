@@ -119,7 +119,7 @@
 	let shouldEnableSignIn = false;
 
 	let duration = 180; // Duration of the OTP timer in seconds
-	let timer = '00:00'; // Timer value
+	let timer = '03:00'; // Timer value
 	let isTimerExpired = false;
 
 	// Function to format time as MM:SS
@@ -182,9 +182,9 @@
 				An OTP has been sent to your registered mobile number. It will expire in 3 minutes.
 			</p>
 				{#if !isTimerExpired}
-					<div class="text-blue-500">OTP is expire in {timer}</div>
+					<div class="text-blue-500">OTP will expire in {timer}</div>
 				{:else}
-					<div>OTP is expired.<button on:click|preventDefault={resendOTP}>Resend OTP</button></div>
+					<div>OTP is expired. <button class="text-blue-500 hover:underline text-sm" on:click|preventDefault={resendOTP}>RESEND OTP</button></div>
 				{/if}
 			<form class="max-[375px]:w-full" method="post">
 				<div class="hidden">
@@ -198,7 +198,6 @@
 				</div>
 				<div class="flex flex-row mt-5">
 					<input
-						type="number"
 						name="otp1"
 						required
 						on:input={onOtpDigitEntered}
@@ -208,7 +207,6 @@
 						class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] max-[320px]:w-[2.75rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg"
 					/>
 					<input
-						type="number"
 						name="otp2"
 						required
 						on:input={onOtpDigitEntered}
@@ -218,7 +216,6 @@
 						class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] max-[320px]:w-[2.75rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg"
 					/>
 					<input
-						type="number"
 						name="otp3"
 						required
 						on:input={onOtpDigitEntered}
@@ -228,7 +225,6 @@
 						class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] max-[320px]:w-[2.75rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg"
 					/>
 					<input
-						type="number"
 						name="otp4"
 						required
 						on:input={onOtpDigitEntered}
@@ -238,7 +234,6 @@
 						class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] max-[320px]:w-[2.75rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg"
 					/>
 					<input
-						type="number"
 						name="otp5"
 						required
 						on:input={onOtpDigitEntered}
@@ -248,7 +243,6 @@
 						class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] max-[320px]:w-[2.75rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg"
 					/>
 					<input
-						type="number"
 						name="otp6"
 						required
 						on:input={onOtpDigitEntered}
