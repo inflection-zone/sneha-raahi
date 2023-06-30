@@ -22,6 +22,7 @@
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
 	});
+
 </script>
 
 <body>
@@ -67,10 +68,11 @@
 						class=" h-[52px] w-[340px] max-[425px]:w-full py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 					/>
 					<input
-						placeholder="Date of Birth in MM/DD/YYYY"
-						type="text"
+						placeholder="Date of Birth"
+						type="date"
 						name="birthDate"
-						class=" h-[52px] w-[340px] max-[425px]:w-full py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
+						required
+						class="h-[52px] w-[340px] max-[425px]:w-full py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 					/>
 					<input
 						placeholder="Phone Number"
@@ -84,10 +86,10 @@
 						name="address"
 						class=" h-[52px] w-[340px] max-[425px]:w-full py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 					/>
-					<div class="w-[340px] max-[425px]:w-full h-[52px] mt-[16px] mr-[17px] mb-4 pt-[15px] text-center pb-15px  rounded-[10px] bg-[#5B7AA3]">
+					<div class="w-[340px] max-[425px]:w-full h-[52px] mt-[16px] mb-4 pt-[15px] text-center pb-15px  rounded-[10px] bg-[#5B7AA3]">
 						<button type="submit"
 							class="w-[170px] h-[25px] text-[16px] not-italic text-center text-[#fff] tracking-[3px] font-bold"
-						>JOIN RAAHI</button>
+						>SIGN UP</button>
 					</div>
 				</form>
 				<div class="flex justify-center">
