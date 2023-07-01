@@ -78,8 +78,8 @@
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
 							<img
 								on:click={onLogout}
-								class="absolute right-0 h-[74px] w-[74px]"
-								src="/assets/images/home/png/ask.png"
+								class="absolute right-0  h-[60px] w-[60px]"
+								src="/assets/images/home/svg/shutdown-icon.svg"
 								alt=""
 							/>
 						</div>
