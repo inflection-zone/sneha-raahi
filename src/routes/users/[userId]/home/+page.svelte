@@ -52,11 +52,12 @@
 		if (prevUrl.includes('sign-in-otp')) {
 			showMessage('Login successful!', 'success');
 		}
+		
 	});
 </script>
 
 <div class="grid gird-cols justify-center items-center ">
-	<div class="max-[425px]:w-full max-[425px]:h-full w-[375px] h-[812px]">
+	<div class="max-[425px]:w-full max-[700px]:h-screen w-[375px] h-[812px]">
 		<div class="flex  items-center justify-center">
 			{#if $navbarDisplay}
 			<Navbar
@@ -67,9 +68,9 @@
 			/>
 			{:else}
 			<div
-				class="card rounded-none max-[425px]:w-full w-[375px] h-[812px] bg-[#5b7aa3] shadow-none lg:mt-10 md:mt-10 sm:mt-10 mt-0"
+				class="card rounded-none max-[425px]:w-full w-[375px] max-[425px]:h-screen h-[812px] bg-[#5b7aa3] shadow-none lg:mt-10 md:mt-10 sm:mt-10 mt-0"
 			>
-				<div class="card max-[425px]:w-full w-[375px] h-[406px] shadow-none rounded-none border-none">
+				<div class="card max-[425px]:w-full w-[375px] h-[406px] max-[425px]:h-full shadow-none rounded-none border-none">
 					<div class="card-body ">
 						<div class=" flex flex-row h-16 w-16">
 							<button on:click={toggleSidebar}>
