@@ -74,7 +74,7 @@ export const actions = {
 
         CookieUtils.setCookieHeader(event, 'sessionId', sessionId);
 
-        throw redirect(303, `/users/${userId}/home`, successMessage(`Login successfully!`), event);
+        throw redirect(303, `/users/${userId}/home`, successMessage(`Login successful!`), event);
     }
 
 };

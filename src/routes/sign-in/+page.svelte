@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
+	import { enhance } from "$app/forms";
+
 	let personRoles = [], loginRoleId = 2;
 
 	if (browser) {
@@ -29,10 +31,10 @@
 			<p class=" leading-tight text-base text-center">
 				The number you enter will be linked to your Raahi App account. Make sure you are able to access the OTP sent on this number.
 			</p>
-			<form method="post">
+			<form method="post"  use:enhance>
 			<input
 				placeholder="Phone Number"
-				type="tel"
+				type="number"
 				name="phone"
 				class=" h-[52px] w-[340px] max-[425px]:w-full py-2 px-3 border rounded-lg bg-[#fde2e4] mt-5 text-lg "
 			/>

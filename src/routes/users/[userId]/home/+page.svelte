@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { showMessage } from '$lib/utils/message.utils';
 	import { onMount } from 'svelte';
 	import type { PageServerData } from './$types';
 	import { page } from '$app/stores';
@@ -46,12 +45,6 @@
 		linkagesLink = `/users/${userId}/linkages`;
 		notificationsLink = `/users/${userId}/notifications`;
 
-		const prevUrl = LocalStorageUtils.getItem('prevUrl');
-		console.log(`prevUrl = ${JSON.stringify(LocalStorageUtils.getItem('prevUrl'))}`);
-		if (prevUrl.includes('sign-in-otp')) {
-			showMessage('Login successfully!', 'success');
-		}
-		LocalStorageUtils.removeItem('prevUrl');
 	});
 </script>
 
@@ -69,7 +62,7 @@
 			<div
 				class="card rounded-none max-[425px]:w-full w-[375px] max-[812px]:h-screen h-[812px] bg-[#5b7aa3] shadow-none lg:mt-10 md:mt-10 sm:mt-10 mt-0"
 			>
-				<div class="card max-[425px]:w-full w-[375px] h-[406px] max-[812px]:h-full shadow-none rounded-none border-none">
+				<div class="card max-[425px]:w-full w-[375px] h-[406px] shadow-none rounded-none border-none">
 					<div class="card-body ">
 						<div class=" flex flex-row h-16 w-16">
 							<button on:click={toggleSidebar}>
