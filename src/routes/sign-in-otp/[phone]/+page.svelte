@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { Helper } from '$lib/utils/helper';
 	import type { PageServerData } from './$types';
-	import { afterUpdate, onDestroy, onMount } from 'svelte';
+	import {onDestroy, onMount } from 'svelte';
 	import { selectTextOnFocus, blurOnEscape } from '$lib/utils/input.directives';
-	import { personRolesStore } from '$lib/store/general.store';
-	import type { Unsubscriber } from 'svelte/store';
 	import { show } from '$lib/utils/message.utils';
 
 	export let data: PageServerData;
@@ -18,19 +16,6 @@
 		loginButton,
 		loginRoleId = 2;
 	let otp = '';
-	let personRoles;
-	let roleUnsubscribe: Unsubscriber = personRolesStore.subscribe((value) => {
-		personRoles = value;
-	});
-	const patientRole = personRoles?.find((x) => x.RoleName === 'Patient');
-	if (patientRole) {
-		loginRoleId = patientRole.id;
-	}
-	onMount(() => {
-		otp1.focus();
-	});
-
-	onDestroy(roleUnsubscribe);
 
 	function getOtp() {
 		otp = otp1.value + otp2.value + otp3.value + otp4.value + otp5.value + otp6.value;
@@ -140,13 +125,16 @@
 			isTimerExpired = true;
 		}
 	}
-
+	let interval;
 	onMount (() => {
-		const interval = setInterval(updateTimer, 1000);
-		onDestroy(() => {
+		show(data);
+		otp1.focus();
+		 interval = setInterval(updateTimer, 1000);
+	});
+
+	onDestroy(() => {
 			clearInterval(interval);
 		});
-	});
 
 	const resendOTP = async () => {
 		await resend({
@@ -177,7 +165,7 @@
 			<img class="mt-12" src="/assets/images/sign-in/svg/logo.svg" alt="" />
 		</div>
 		<div class="card-body items-center justify-center ">
-			<h2 class="max-[612px]:mt-5 mt-40 text-center text-[#d05591] text-xl font-bold">Enter the 6-digit OTP</h2>
+			<h2 class="max-[400px]:mt-10 mt-40 text-center text-[#d05591] text-xl font-bold">Enter the 6-digit OTP</h2>
 			<p class="text-center leading-tight text-base ">
 				An OTP has been sent to your registered mobile number. It will expire in 3 minutes.
 			</p>
@@ -272,6 +260,6 @@
 				<a href="/"> <span class=" text-xl tracking-widest  font-bold"> BACK TO HOME </span></a>
 			</div>
 		</div>
-		<img src="/assets/images/sign-in/svg/rowor-strip.svg" alt="" />
+		<img src="/assets/images/sign-in/svg/color-strip.svg" alt="" />
 	</div>
 </div>
