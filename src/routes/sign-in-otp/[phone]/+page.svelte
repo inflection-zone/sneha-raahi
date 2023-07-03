@@ -4,6 +4,8 @@
 	import {onDestroy, onMount } from 'svelte';
 	import { selectTextOnFocus, blurOnEscape } from '$lib/utils/input.directives';
 	import { show } from '$lib/utils/message.utils';
+	import { browser } from '$app/environment';
+	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 
 	export let data: PageServerData;
 
@@ -16,6 +18,16 @@
 		loginButton,
 		loginRoleId = 2;
 	let otp = '';
+	let personRoles = [];
+
+	if (browser) {
+		const tmp = LocalStorageUtils.getItem('personRoles');
+		personRoles = JSON.parse(tmp);
+		const PersonRole = personRoles?.find((x) => x.RoleName === 'Patient');
+		if (PersonRole) {
+			loginRoleId = PersonRole.id;
+		}
+	}
 
 	function getOtp() {
 		otp = otp1.value + otp2.value + otp3.value + otp4.value + otp5.value + otp6.value;
@@ -129,7 +141,7 @@
 	onMount (() => {
 		show(data);
 		otp1.focus();
-		 interval = setInterval(updateTimer, 1000);
+		interval = setInterval(updateTimer, 1000);
 	});
 
 	onDestroy(() => {
