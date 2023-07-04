@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Helper } from '$lib/utils/helper';
 	import type { PageServerData } from './$types';
-	import {onDestroy, onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { selectTextOnFocus, blurOnEscape } from '$lib/utils/input.directives';
 	import { show } from '$lib/utils/message.utils';
 	import { browser } from '$app/environment';
@@ -138,15 +138,15 @@
 		}
 	}
 	let interval;
-	onMount (() => {
+	onMount(() => {
 		show(data);
 		otp1.focus();
 		interval = setInterval(updateTimer, 1000);
 	});
 
 	onDestroy(() => {
-			clearInterval(interval);
-		});
+		clearInterval(interval);
+	});
 
 	const resendOTP = async () => {
 		await resend({
@@ -177,15 +177,22 @@
 			<img class="mt-12" src="/assets/images/sign-in/svg/logo.svg" alt="" />
 		</div>
 		<div class="card-body items-center justify-center ">
-			<h2 class="max-[400px]:mt-10 mt-40 text-center text-[#d05591] text-xl font-bold">Enter the 6-digit OTP</h2>
+			<h2 class="max-[400px]:mt-10 mt-40 text-center text-[#d05591] text-xl font-bold">
+				Enter the 6-digit OTP
+			</h2>
 			<p class="text-center leading-tight text-base ">
 				An OTP has been sent to your registered mobile number. It will expire in 3 minutes.
 			</p>
-				{#if !isTimerExpired}
-					<div class="text-blue-500">OTP will expire in {timer}</div>
-				{:else}
-					<div>OTP is expired. <button class="text-blue-500 hover:underline text-sm" on:click|preventDefault={resendOTP}>RESEND OTP</button></div>
-				{/if}
+			{#if !isTimerExpired}
+				<div class="text-blue-500">OTP will expire in {timer}</div>
+			{:else}
+				<div>
+					OTP is expired. <button
+						class="text-blue-500 hover:underline text-sm"
+						on:click|preventDefault={resendOTP}>RESEND OTP</button
+					>
+				</div>
+			{/if}
 			<form class="max-[375px]:w-full" method="post">
 				<div class="hidden">
 					<input name="phone" class="hidden" value={data.phone} />
@@ -218,7 +225,7 @@
 						class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] max-[320px]:w-[2.75rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg"
 					/>
 					<input
-					  type="number"
+						type="number"
 						name="otp3"
 						required
 						on:input={onOtpDigitEntered}
@@ -238,7 +245,7 @@
 						class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] max-[320px]:w-[2.75rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg"
 					/>
 					<input
-					  type="number"
+						type="number"
 						name="otp5"
 						required
 						on:input={onOtpDigitEntered}
@@ -248,7 +255,7 @@
 						class=" bg-[#fde2e4] h-[3.25rem] w-[3.25rem] max-[320px]:w-[2.75rem] rounded-lg mr-[0.375rem]  text-center font-bold text-lg"
 					/>
 					<input
-					 type="number"
+						type="number"
 						name="otp6"
 						required
 						on:input={onOtpDigitEntered}
@@ -266,7 +273,7 @@
 					>SUBMIT</button
 				>
 			</form>
-	
+
 			<!-- </a> -->
 			<div class="flex justify-center">
 				<a href="/"> <span class=" text-xl tracking-widest  font-bold"> BACK TO HOME </span></a>
