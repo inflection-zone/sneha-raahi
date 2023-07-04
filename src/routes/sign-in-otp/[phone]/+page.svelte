@@ -8,7 +8,6 @@
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 
 	export let data: PageServerData;
-
 	let otp1,
 		otp2,
 		otp3,
@@ -114,10 +113,10 @@
 	}
 
 	let shouldEnableSignIn = false;
-
 	let duration = 180; // Duration of the OTP timer in seconds
 	let timer = '03:00'; // Timer value
 	let isTimerExpired = false;
+	let interval;
 
 	// Function to format time as MM:SS
 	function formatTime(seconds) {
@@ -137,7 +136,7 @@
 			isTimerExpired = true;
 		}
 	}
-	let interval;
+
 	onMount(() => {
 		show(data);
 		otp1.focus();
@@ -166,6 +165,7 @@
 		console.log('response', response);
 		const resp = await response.text();
 	}
+
 </script>
 
 <div class="flex items-center justify-center lg:mt-16 md:mt-16 sm:mt-16 mt-0">
