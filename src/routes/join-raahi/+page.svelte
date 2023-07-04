@@ -68,7 +68,7 @@
 						class=" h-[52px] w-[340px] max-[425px]:w-full py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 					/>
 					<input
-						placeholder="Date of Birth"
+					  placeholder="Date of Birth"
 						type="date"
 						name="birthDate"
 						required

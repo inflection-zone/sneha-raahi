@@ -29,6 +29,7 @@
 	button {
 		@apply text-xl leading-4 font-bold tracking-[3px] font-sans;
 	}
+
 	input[type='number']::-webkit-inner-spin-button,
 	input[type='number']::-webkit-outer-spin-button {
 		-webkit-appearance: none;
@@ -54,26 +55,7 @@
 	input[type='date']:valid::before {
 		content: '';
 	}
-	/* 
-	input[type="date"]::before {
-  content: attr(placeholder);
-  position: absolute;
-  color: #999999;
-}
 
-input[type="date"] {
-  color: #ffffff;
-}
-
-input[type="date"]:focus,
-input[type="date"]:valid {
-  color: #666666;
-}
-
-input[type="date"]:focus::before,
-input[type="date"]:valid::before {
-  content: "";
-} */
 }
 @layer utilities {
 	.scrollbar-medium::-webkit-scrollbar {
