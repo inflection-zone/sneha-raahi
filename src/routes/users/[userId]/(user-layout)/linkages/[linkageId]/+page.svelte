@@ -51,18 +51,21 @@
 		<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 			LINKAGE - JOB
 		</h2>
-		<div class="flex justify-center mt-5 mb-6 w-full">
+		<div class="flex justify-center mt-5 w-full">
 			<img class="w-1/4 h-[3.625rem] bg-[#fde2e4] rounded-lg" src={data.notice.ImageUrl} alt=""/>
 			<div class="ml-3 w-3/4 ">
 				<div id={data.notice.id} class="flex mb-4">
 					<h3 class="text-left leading-5" >{data.notice.Title}</h3>
 					<div class="text-base font-normal ml-4 leading-5 max-[320px]:leading-1">{date.format(postDate, 'DD MMM YYYY')}</div>
 				</div>
-				<p>
-					{data.notice.Description}
-				</p>
 			</div>
 		</div>
+		<div class="h-auto mb-4">
+			<p>
+				{data.notice.Description}
+			</p>
+		</div>
+		
 		<!-- <a href={`/users/${data.userId}/linkages`}> -->
 			{#if noticeAction == null}
 				<button
