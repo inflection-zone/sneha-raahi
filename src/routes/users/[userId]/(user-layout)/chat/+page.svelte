@@ -121,10 +121,10 @@
 		});
 		console.log('response', response);
 		if (response.status === 200) {
-			toast.success(`Message deteted successfully!`)
+			toast.success(`Chat deteted successfully!`)
 		}
 		else {
-			toast.error('Unable to delete message');
+			toast.error('Unable to delete chat');
 		}
 		window.location.href = `/users/${userId}/chat`;
 	};
