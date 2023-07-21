@@ -75,80 +75,24 @@
 						{(journey.PercentageCompletion * 100).toFixed().toString()}%
 					</div>
 				</div>
-				<!-- <div class="flex flex-row">
-				<img class="mb-2 " src="/assets/learning-home/svg/about-female-health.svg" alt="" />
-				<div class="mx-2">
-					<h3 class="mb-3 mt-1">Female reproductive health</h3>
-					<div class=" bg-[#c5e8c5] rounded-full h-[10px] w-[230px]">
-						<div class="bg-[#70ae6e] rounded-full h-[10px]" style="width:15%" />
-					</div>
-				</div>
-				<div class="mt-6 font-bold">15%</div>
-			</div> -->
 			{/each}
 		{/if}
 	</div>
-	<div>
+
+	<div class="w-[340px] max-[425px]:w-full">
 		<div class="flex mb-4 relative">
 			<h2 class="text-xl ">Learning Journeys</h2>
-			<a href={`/users/${data.userId}/learning-journeys`}>
-				<button class="text-[#d05591] text-base absolute right-0 pr-3">VIEW ALL</button>
-			</a>
 		</div>
-		<div class="overflow-x-scroll w-[340px] max-[425px]:w-full">
-			<div class="grid grid-flow-col auto-cols-max">
-				<!-- <div class=" flex-col justify-center  mb-4 ">
-						<img class="mb-3 mr-4" src="/assets/learning-home/svg/substance-abuse.svg" alt="" />
-						<h3>Substance Abuse</h3>
-					</div>
-					<div class="grid grid-row-2 justify-center  mb-4">
-						<img class=" mb-2 mr-4" src="/assets/learning-home/svg/growing-up.svg" alt="" />
-						<h3>Growing Up:I’m all <br /> grown up!</h3>
-					</div>
-					<div class=" flex-col justify-center  mb-4">
-						<img class=" mb-2 mr-4" src="/assets/learning-home/svg/child-abuse.svg" alt="" />
-						<h3 class="text-center">Child Sexual Abuse</h3>
-					</div> -->
+		<div class="overflow-auto scrollbar-medium h-[400px] w-[340px] max-[425px]:w-full">
+			<div class="grid grid-cols-2 gap-4">
 				{#each allLearningJourneys as learningJourney}
-					<div id={learningJourney.id} class="flex-col justify-center mb-4 mr-4">
-						<a href={`/users/${data.userId}/learning-journeys/${learningJourney.id}`}>
-							<Image
-								cls="mb-3 mr-1"
-								source={learningJourney.ImageUrl + '?disposition=inline'}
-								w="110"
-								h="132"
-							/>
-							<p class="font-semibold text-center overflow-hidden text-ellipsis">
-								{learningJourney.Name.length > 15
-									? learningJourney.Name.substring(0, 13) + '...'
-									: learningJourney.Name}
-							</p>
-						</a>
-					</div>
-				{/each}
-			</div>
-		</div>
-	</div>
-	<div class="mt-1 w-[340px] max-[425px]:w-full">
-		<div class="flex mb-4 relative">
-			<h2 class="text-xl ">Courses</h2>
-			<!-- <a href={`/users/${data.userId}/learning-journeys`}>
-					<button class=" text-[#d05591] text-base absolute right-0 pr-3">VIEW ALL</button>
-				</a> -->
-		</div>
-		<div class="overflow-auto scrollbar-medium h-[200px] w-[340px] max-[425px]:w-full">
-			<div class="columns-2">
-				{#each allCourses as course}
 					<button
-						on:click|capture={(e) => handleCourseClick(e, course.ResourceLink)}
-						id={course.id}
-						name={course.id}
+						on:click|capture={(e) => handleCourseClick(e, learningJourney.ResourceLink)}
+						id={learningJourney.id}
+						name={learningJourney.id}
 					>
-						{#if course.ContentType == 'Assessment'}
-							<div />
-						{:else}
 							<div class=" flex-col justify-center mb-6 ">
-								{#if course.ImageUrl == null}
+								{#if learningJourney.ImageUrl == null}
 									<img
 										class="mb-4 w-[162px] h-[162px] "
 										src="/assets/images/learning-home/svg/growing-up-affect.svg"
@@ -157,16 +101,15 @@
 								{:else}
 									<Image
 										cls="mt-2 mb-3 mr-1 rounded"
-										source={course.ImageUrl + '?disposition=inline'}
+										source={learningJourney.ImageUrl + '?disposition=inline'}
 										w="162"
 										h="162"
 									/>
 								{/if}
 								<h3 class="font-semibold text-center tracking-normal text-ellipsis">
-									{course.Title.length > 20 ? course.Title.substring(0, 18) + '...' : course.Title}
+									{learningJourney.Name.length > 20 ? learningJourney.Name.substring(0, 18) + '...' : learningJourney.Name}
 								</h3>
 							</div>
-						{/if}
 					</button>
 				{/each}
 				<!-- <a href="/course-home">
