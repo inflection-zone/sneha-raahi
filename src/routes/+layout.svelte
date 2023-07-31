@@ -4,6 +4,9 @@
 	import { page } from '$app/stores';
 	import { beforeNavigate } from '$app/navigation';
 	import toast, { Toaster } from 'svelte-french-toast';
+	import moengage from '@moengage/web-sdk';
+	import { onMount } from 'svelte';
+
 	const flash = initFlash(page);
 	beforeNavigate((nav) => {
 		if ($flash && nav.from?.url.toString() != nav.to?.url.toString()) {
@@ -20,7 +23,12 @@
 
 		flash.set(undefined);
 	});
-  
+
+	onMount(() => {
+		moengage.initialize({
+			app_id: 'XXXXXXXXXX' //replace this with app id from MoEngage dashboard
+		});
+	});
 </script>
 
 <Toaster />
