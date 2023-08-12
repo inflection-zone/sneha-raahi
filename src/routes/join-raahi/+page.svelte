@@ -8,11 +8,14 @@
 		genderTypesStore,
 		splashCarouselImage
 	} from '$lib/store/general.store';
+	import { selectedLanguage } from '$lib/store/general.store';;
+	import english from '$lib/localization/english.json';
+  import hinglish from '$lib/localization/hinglish.json'
 
-	///////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////
 
 	export let data: PageServerData;
-
+	let localizedContent = $selectedLanguage === 'hinglish' ? hinglish : english;
 	personRolesStore.set(data.roles);
 	genderTypesStore.set(data.genderTypes);
 	LocalStorageUtils.setItem('personRoles', JSON.stringify(data.roles));
@@ -40,13 +43,12 @@
 					<p
 						class="mx-[20px] mb-[6px] text-[19px] tracking-wide leading-5 font-bold text-center text-[#5B7AA3]"
 					>
-						Enter a phone number
+						{localizedContent.EnterPhoneNumber}
 					</p>
 					<p
 						class=" mt-[6px] mx-[20px] mb-[19px] text-[16px] font-normal not-italic leading-5 text-center text-[#000] tracking-wide"
 					>
-						The number you enter will be linked to your Raahi App account. Make sure you are able to
-						access the OTP sent on this number.
+						{localizedContent.SignUpDescription}
 					</p>
 				</div>
 				<form class="max-[425px]:w-full" method="post">

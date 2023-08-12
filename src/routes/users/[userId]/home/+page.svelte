@@ -6,7 +6,13 @@
 	import { navbarDisplay } from '$lib/components/navbar/navbar.display.store';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import { draggable } from '@neodrag/svelte';
+	import { selectedLanguage } from '$lib/store/general.store';
+	import english from '$lib/localization/english.json';
+  import hinglish from '$lib/localization/hinglish.json'
 
+	/////////////////////////////////////////////////////////////////
+
+  let localizedContent = $selectedLanguage === 'hinglish' ? hinglish : english;
 	let userId = $page.params.userId;
 	export let data: PageServerData;
 	let firstName = data.user.User.Person.FirstName;
@@ -78,8 +84,7 @@
 						</div>
 						<h1 class="card-title text-base-100 text-3xl">Hi {firstName}!</h1>
 						<p class=" text-base-100">
-							Welcome to Raahi, your friend, companion and guide as you navigate your journey into
-							adulthood.
+							{localizedContent.HomePageDescription}
 						</p>
 					</div>
 					<div class="flex flex-row gap-3 justify-center relative">
@@ -112,11 +117,11 @@
 					</div>
 						<div class="card-body h-[450px] max-[425px]:h-[550px] place-content-around ">
 							<div class="overflow-auto h-[550px] scrollbar scrollbar-medium">
-								<h2
+								<!-- <h2
 									class="card-title text-[#5b7aa3]  max-[320px]:tracking-wider flex tracking-widest justify-center text-base "
-								>
-									GET STARTED ON YOUR JOURNEY
-								</h2>
+								> -->
+									<!-- GET STARTED ON YOUR JOURNEY -->
+								<!-- </h2> -->
 								<a href={learningHomeLink}>
 									<img
 										class=" h-[172px] w-[340px] max-[425px]:w-full"

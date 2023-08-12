@@ -2,7 +2,13 @@
 	import { browser } from '$app/environment';
 	import { LocalStorageUtils } from '$lib/utils/local.storage.utils';
 	import { enhance } from "$app/forms";
+	import { selectedLanguage } from '$lib/store/general.store';
+	import english from '$lib/localization/english.json';
+  import hinglish from '$lib/localization/hinglish.json'
 
+	/////////////////////////////////////////////////////////////////
+
+	let localizedContent = $selectedLanguage === 'hinglish' ? hinglish : english;
 	let personRoles = [], loginRoleId = 2;
 
 	if (browser) {
@@ -26,10 +32,10 @@
 		</div>
 		<div class="card-body bg-white">
 			<h2 class="max-[425px]:mt-10 mt-30 text-center text-[#d05591] text-xl font-bold">
-				Enter a phone number
+				{localizedContent.EnterPhoneNumber}
 			</h2>
 			<p class=" leading-tight text-base text-center">
-				The number you enter will be linked to your Raahi App account. Make sure you are able to access the OTP sent on this number.
+				{localizedContent.LogInDescription}
 			</p>
 			<form method="post"  use:enhance>
 			<input

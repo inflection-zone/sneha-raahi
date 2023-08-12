@@ -47,7 +47,8 @@
 	<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 		MY LEARNING
 	</h2>
-	<div class="overflow-auto scrollbar-medium h-[200px]">
+	<!-- {#if myLearningJourneys.length > 0} -->
+	<div class="overflow-auto scrollbar-medium h-[200px] ">
 		{#if myLearningJourneys.length == 0}
 			<h3 class="mb-3 mt-1 font-semibold text-center">
 				You have not yet started learning journey!
@@ -76,21 +77,18 @@
 					</div>
 				</div>
 			{/each}
-		{/if}
+			{/if}
 	</div>
-
+	
 	<div class="w-[340px] max-[425px]:w-full">
 		<div class="flex mb-4 relative">
 			<h2 class="text-xl ">Learning Journeys</h2>
 		</div>
+		<!-- {#if myLearningJourneys.length > 0} -->
 		<div class="overflow-auto scrollbar-medium h-[400px] w-[340px] max-[425px]:w-full">
 			<div class="grid grid-cols-2 gap-4">
 				{#each allLearningJourneys as learningJourney}
-					<button
-						on:click|capture={(e) => handleCourseClick(e, learningJourney.ResourceLink)}
-						id={learningJourney.id}
-						name={learningJourney.id}
-					>
+					<a href={`/users/${data.userId}/learning-journeys/${learningJourney.id}`}>
 							<div class=" flex-col justify-center mb-6 ">
 								{#if learningJourney.ImageUrl == null}
 									<img
@@ -109,8 +107,8 @@
 								<h3 class="font-semibold text-center tracking-normal text-ellipsis">
 									{learningJourney.Name.length > 20 ? learningJourney.Name.substring(0, 18) + '...' : learningJourney.Name}
 								</h3>
-							</div>
-					</button>
+							</div>	
+				</a>
 				{/each}
 				<!-- <a href="/course-home">
 						<div class=" flex-col justify-center mb-6 ">
@@ -140,6 +138,7 @@
 					</div> -->
 			</div>
 		</div>
+		<!-- {/if} -->
 	</div>
 </div>
 <!-- </div> -->
