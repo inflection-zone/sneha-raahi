@@ -6,11 +6,10 @@
 	import {
 		personRolesStore,
 		genderTypesStore,
-		splashCarouselImage
 	} from '$lib/store/general.store';
-	import { selectedLanguage } from '$lib/store/general.store';;
+	import { selectedLanguage } from '$lib/store/general.store';
 	import english from '$lib/localization/english.json';
-  import hinglish from '$lib/localization/hinglish.json'
+	import hinglish from '$lib/localization/hinglish.json';
 
 	/////////////////////////////////////////////////////////////////
 
@@ -20,12 +19,36 @@
 	genderTypesStore.set(data.genderTypes);
 	LocalStorageUtils.setItem('personRoles', JSON.stringify(data.roles));
 	LocalStorageUtils.setItem('genderTypes', JSON.stringify(data.genderTypes));
+	let locations = [];
+	let organizations = data.organizations;
+	organizations = organizations.sort((a, b) => {
+		return a.Code - b.Code;
+	});
 
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
 	});
 
+	const onSelectOrganizationName = async (e) => {
+		let organizationId = e.currentTarget.value;
+		await searchLocation({
+			tenantId: organizationId
+		});
+	};
+
+	async function searchLocation(model) {
+		let url = `/api/server/user/search-location`;
+		const res = await fetch(url, {
+			method: 'POST',
+			body: JSON.stringify(model),
+			headers: { 'content-type': 'application/json' }
+		});
+		console.log('res', res);
+		const response = await res.json();
+		console.log('response', response);
+		locations = response;
+	}
 </script>
 
 <body>
@@ -37,7 +60,7 @@
 				<img
 					src="/assets/images/join-raahi/png/logo.png"
 					alt=""
-					class="w-[110px] h-[50px] mt-[10px] mr-[132px] mb-[32px] ml-[133px] object-contain "
+					class="w-[110px] h-[50px] mt-[8px] mr-[132px] mb-[10px] ml-[133px] object-contain "
 				/>
 				<div class="grid items-center w-[335px] max-[425px]:w-full justify-center">
 					<p
@@ -46,7 +69,7 @@
 						{localizedContent.EnterPhoneNumber}
 					</p>
 					<p
-						class=" mt-[6px] mx-[20px] mb-[19px] text-[16px] font-normal not-italic leading-5 text-center text-[#000] tracking-wide"
+						class=" mt-[6px] mx-[20px] mb-[10px] text-[16px] font-normal not-italic leading-5 text-center text-[#000] tracking-wide"
 					>
 						{localizedContent.SignUpDescription}
 					</p>
@@ -70,7 +93,7 @@
 						class=" h-[52px] w-[340px] max-[425px]:w-full py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 					/>
 					<input
-					  placeholder="Date of Birth"
+						placeholder="Date of Birth"
 						type="date"
 						name="birthDate"
 						required
@@ -83,15 +106,45 @@
 						required
 						class=" h-[52px] w-[340px] max-[425px]:w-full py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 					/>
-					<input
+					<!-- <input
 						placeholder="Location"
 						name="address"
 						class=" h-[52px] w-[340px] max-[425px]:w-full py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 					/>
-					<div class="w-[340px] max-[425px]:w-full h-[52px] mt-[16px] mb-4 pt-[15px] text-center pb-15px  rounded-[10px] bg-[#5B7AA3]">
-						<button type="submit"
+					<input
+						placeholder="NGO"
+						name="ngoName"
+						class=" h-[52px] w-[340px] max-[425px]:w-full py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
+					/> -->
+					<select
+						placeholder="select ngo name"
+						name="ngoName"
+						class="select h-[52px] w-[340px] max-[425px]:w-full py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
+						on:change={onSelectOrganizationName}
+					>
+						<option disabled selected>Select NGO Name</option>
+						{#each organizations as organization}
+							<option value={organization.id}>{organization.Name}</option>
+						{/each}
+					</select>
+					<select
+						placeholder="select location"
+						name="locationId"
+						class="select h-[52px] w-[340px] max-[425px]:w-full py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
+					>
+						<option disabled selected>Select Location</option>
+						{#each locations as location}
+							<option value={location.id}>{location.Name}</option>
+						{/each}
+					</select>
+					<div
+						class="w-[340px] max-[425px]:w-full h-[52px] mt-[16px] mb-4 pt-[15px] text-center pb-15px  rounded-[10px] bg-[#5B7AA3]"
+					>
+						<button
+							type="submit"
 							class="w-[170px] h-[25px] text-[16px] not-italic text-center text-[#fff] tracking-[3px] font-bold"
-						>SIGN UP</button>
+							>SIGN UP</button
+						>
 					</div>
 				</form>
 				<div class="flex justify-center">

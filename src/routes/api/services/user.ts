@@ -3,6 +3,7 @@ import { API_CLIENT_INTERNAL_KEY, BACKEND_API_URL } from "$env/static/private";
 import { Helper } from "$lib/utils/helper";
 //import type { UserModel } from "$lib/types/domain.models";
 import { delete_, get_, post_, put_ } from "./common";
+import { error } from "@sveltejs/kit";
 
 ////////////////////////////////////////////////////////////////
 
@@ -46,7 +47,9 @@ export const registerUser = async (
     lastName: string,
     birthDate: Date,
     phone: string,
-    address: string
+    // address: string,
+    locationId: string
+
 ) => {
 
     const model = {
@@ -54,11 +57,12 @@ export const registerUser = async (
         LastName: lastName,
         BirthDate: birthDate,
         Phone: phone,
-        Address: {
-            Type: "Home",
-            AddressLine: address,
-            Location: address
-        }
+        CohortId:locationId,
+        // Address: {
+        //     Type: "Home",
+        //     AddressLine: address,
+        //     Location: address
+        // }
     };
     if (Helper.isPhone(phone)) {
         model.Phone = Helper.sanitizePhone(phone);
@@ -211,3 +215,60 @@ export const deleteAccount = async (sessionId: string, userId: string) => {
     const url = BACKEND_API_URL + `/patients/${userId}`;
     return await delete_(sessionId, url);
 };
+
+////////////////////////////////////////////////////////////////
+
+export const getOrganizations = async () => {
+    try {
+        const headers = {};
+        headers['Content-Type'] = 'application/json';
+        headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
+        const url = BACKEND_API_URL + '/tenants/search';
+
+        const res = await fetch(url, {
+            method: 'GET',
+            headers
+        });
+        const response = await res.json();
+
+        if (response.Status === 'failure' || response.HttpCode !== 200) {
+            console.log(`status code: ${response.HttpCode}`);
+            console.log(`error message: ${response.Message}`);
+            return [];
+        }
+        return response.Data.TenantRecords.Items;
+    }
+    catch (err) {
+        const errmsg = `Error retrieving ngos: ${err.message}`;
+        console.log(errmsg);
+        throw error(500, errmsg);
+    }
+}
+
+export const getAllLocationForNgo = async (tenantId: string) => {
+    try {
+        const headers = {};
+        headers['Content-Type'] = 'application/json';
+        headers['x-api-key'] = API_CLIENT_INTERNAL_KEY;
+        const url = BACKEND_API_URL + `/cohorts/tenants/${tenantId}`;
+
+        const res = await fetch(url, {
+            method: 'GET',
+            headers
+        });
+        const response = await res.json();
+
+        if (response.Status === 'failure' || response.HttpCode !== 200) {
+            console.log(`status code: ${response.HttpCode}`);
+            console.log(`error message: ${response.Message}`);
+            return [];
+        }
+        console.log("Response",response.Data)
+        return response.Data.Cohorts;
+    }
+    catch (err) {
+        const errmsg = `Error retrieving locations: ${err.message}`;
+        console.log(errmsg);
+        throw error(500, errmsg);
+    }
+}

@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 import { error, type RequestEvent } from '@sveltejs/kit';
-import { registerUser } from '../api/services/user';
+import { getOrganizations, registerUser } from '../api/services/user';
 import { errorMessage, successMessage } from '$lib/utils/message.utils';
 import { redirect } from 'sveltekit-flash-message/server';
 import { getGenderTypes, getPersonRoles } from "../api/services/types";
@@ -13,10 +13,12 @@ export const load: PageServerLoad = async (event: RequestEvent) => {
 		console.log('Join Raahi ...' + JSON.stringify(event, null, 2));
 		const roles: PersonRole[] = await getPersonRoles();
 		const genderTypes: string[] = await getGenderTypes();
+		const organizations = await getOrganizations();
 		return {
 			message: 'Common data successfully retrieved!',
 			roles,
-			genderTypes
+			genderTypes,
+		  organizations
 		};
 	}
 	catch (error) {
@@ -37,8 +39,9 @@ export const actions = {
 		const firstName = data.has('firstName') ? data.get('firstName') : null;
 		const lastName = data.has('lastName') ? data.get('lastName') : null;
 		const birthDate = data.has('birthDate') ? data.get('birthDate') : null;
-		const address = data.has('address') ? data.get('address') : null;
+		// const address = data.has('address') ? data.get('address') : null;
 		const phone = data.has('phone') ? data.get('phone') : null;
+		const locationId = data.has('locationId') ? data.get('locationId') : null;
 
 		if (!phone && !countryCode) {
 			throw error(400, `Phone is not valid!`);
@@ -49,7 +52,8 @@ export const actions = {
 			lastName.valueOf() as string,
 			birthDate.valueOf() as Date,
 			phone.valueOf() as string,
-			address.valueOf() as string
+			// address.valueOf() as string,
+			locationId?.valueOf() as string
 		);
 
 		console.log(JSON.stringify(response, null, 2));
