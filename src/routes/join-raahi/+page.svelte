@@ -122,7 +122,7 @@
 						class="select h-[52px] w-[340px] max-[425px]:w-full py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 						on:change={onSelectOrganizationName}
 					>
-						<option disabled selected>Select NGO Name</option>
+						<option disabled selected>Select Organization</option>
 						{#each organizations as organization}
 							<option value={organization.id}>{organization.Name}</option>
 						{/each}
@@ -132,7 +132,7 @@
 						name="locationId"
 						class="select h-[52px] w-[340px] max-[425px]:w-full py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 					>
-						<option disabled selected>Select Location</option>
+						<option class="text-gray-500 opacity-50" disabled selected>Select Location</option>
 						{#each locations as location}
 							<option value={location.id}>{location.Name}</option>
 						{/each}
@@ -155,3 +155,9 @@
 		</div>
 	</div></body
 >
+<!-- <style>
+	option[disabled] {
+	color: #999; /* Change the text color */
+	opacity: 0.5; /* Change the opacity */
+}
+</style> -->
