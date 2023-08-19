@@ -77,13 +77,13 @@
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
 							<img
 								on:click={onLogout}
-								class="absolute right-0  h-[60px] w-[60px]"
+								class="absolute right-0 h-[60px] w-[60px]"
 								src="/assets/images/home/svg/shutdown-icon.svg"
 								alt=""
 							/>
 						</div>
 						<h1 class="card-title text-base-100 text-3xl">Hi {firstName}!</h1>
-						<p class=" text-base-100">
+						<p class="text-base-100">
 							{localizedContent.HomePageDescription}
 						</p>
 					</div>
