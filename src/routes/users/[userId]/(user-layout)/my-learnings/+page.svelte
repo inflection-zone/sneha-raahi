@@ -47,13 +47,13 @@
 	<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 		MY LEARNING
 	</h2>
-	<!-- {#if myLearningJourneys.length > 0} -->
-	<div class="overflow-auto scrollbar-medium h-[200px] ">
+	
 		{#if myLearningJourneys.length == 0}
 			<h3 class="mb-3 mt-1 font-semibold text-center">
 				You have not yet started learning journey!
 			</h3>
 		{:else}
+		<div class="overflow-auto scrollbar-medium h-[200px] ">
 			{#each myLearningJourneys as journey}
 				<div class="flex flex-row">
 					<Image
@@ -77,14 +77,14 @@
 					</div>
 				</div>
 			{/each}
-			{/if}
-	</div>
+		</div>
+	{/if}
 	
 	<div class="w-[340px] max-[425px]:w-full">
 		<div class="flex mb-4 relative">
 			<h2 class="text-xl ">Learning Journeys</h2>
 		</div>
-		<!-- {#if myLearningJourneys.length > 0} -->
+		{#if myLearningJourneys.length > 0}
 		<div class="overflow-auto scrollbar-medium h-[400px] w-[340px] max-[425px]:w-full">
 			<div class="grid grid-cols-2 gap-4">
 				{#each allLearningJourneys as learningJourney}
@@ -138,7 +138,35 @@
 					</div> -->
 			</div>
 		</div>
-		<!-- {/if} -->
+		{:else}
+		<div class="overflow-auto scrollbar-medium h-[500px] w-[340px] max-[425px]:w-full">
+			<div class="grid grid-cols-2 gap-4">
+				{#each allLearningJourneys as learningJourney}
+					<a href={`/users/${data.userId}/learning-journeys/${learningJourney.id}`}>
+							<div class=" flex-col justify-center mb-6 ">
+								{#if learningJourney.ImageUrl == null}
+									<img
+										class="mb-4 w-[162px] h-[162px] "
+										src="/assets/images/learning-home/svg/growing-up-affect.svg"
+										alt=""
+									/>
+								{:else}
+									<Image
+										cls="mt-2 mb-3 mr-1 rounded"
+										source={learningJourney.ImageUrl + '?disposition=inline'}
+										w="162"
+										h="162"
+									/>
+								{/if}
+								<h3 class="font-semibold text-center tracking-normal text-ellipsis">
+									{learningJourney.Name.length > 20 ? learningJourney.Name.substring(0, 18) + '...' : learningJourney.Name}
+								</h3>
+							</div>	
+				</a>
+				{/each}
+			</div>
+		</div>
+		{/if}
 	</div>
 </div>
 <!-- </div> -->
