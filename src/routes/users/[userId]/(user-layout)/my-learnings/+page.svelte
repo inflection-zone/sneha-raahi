@@ -6,10 +6,10 @@
 	let myLearningJourneys = data.userLearningPaths?.UserLearningPaths;
 	let allLearningJourneys = data.allLearningPaths?.LearningPaths.Items;
 	// allLearningJourneys = allLearningJourneys.sort((a, b) => { return a.Name - b.Name; });
-	let allCourses = data.allCourseContents?.CourseContents?.Items;
-	allCourses = allCourses.sort((a, b) => {
-		return a.Sequence - b.Sequence;
-	});
+	// let allCourses = data.allCourseContents?.CourseContents?.Items;
+	// allCourses = allCourses.sort((a, b) => {
+	// 	return a.Sequence - b.Sequence;
+	// });
 	allLearningJourneys = allLearningJourneys.sort((a, b) => {
 		return b.PreferenceWeight - a.PreferenceWeight;
 	});
@@ -47,7 +47,7 @@
 	<h2 class=" text-[#5b7aa3] flex  justify-center tracking-widest font-bold text-base ">
 		MY LEARNING
 	</h2>
-	
+
 		{#if myLearningJourneys.length == 0}
 			<h3 class="mb-3 mt-1 font-semibold text-center">
 				You have not yet started learning journey!
