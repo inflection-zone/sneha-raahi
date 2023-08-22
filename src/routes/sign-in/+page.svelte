@@ -27,8 +27,9 @@
 		class="card card-compact rounded-none card-bordered max-[425px]:border-none border-slate-400 max-[425px]:w-full w-[375px]
 	h-[812px] max-[812px]:h-screen bg-white shadow-none "
 	>
-		<div class="flex items-center justify-center">
+		<div class="flex flex-col items-center justify-center">
 			<img class="mt-12" src="/assets/images/sign-in/svg/logo.svg" alt="" />
+			<div class="text-center leading-tight text-xs font-semibold">Built on REAN Foundation's HealthGuru Platform</div>
 		</div>
 		<div class="card-body bg-white">
 			<h2 class="max-[425px]:mt-10 mt-30 text-center text-[#d05591] text-xl font-bold">

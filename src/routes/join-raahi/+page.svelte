@@ -19,36 +19,36 @@
 	genderTypesStore.set(data.genderTypes);
 	LocalStorageUtils.setItem('personRoles', JSON.stringify(data.roles));
 	LocalStorageUtils.setItem('genderTypes', JSON.stringify(data.genderTypes));
-	let locations = [];
-	let organizations = data.organizations;
-	organizations = organizations.sort((a, b) => {
-		return a.Code - b.Code;
-	});
+	// let locations = [];
+	// let organizations = data.organizations;
+	// organizations = organizations.sort((a, b) => {
+	// 	return a.Code - b.Code;
+	// });
 
 	onMount(() => {
 		show(data);
 		LocalStorageUtils.removeItem('prevUrl');
 	});
 
-	const onSelectOrganizationName = async (e) => {
-		let organizationId = e.currentTarget.value;
-		await searchLocation({
-			tenantId: organizationId
-		});
-	};
+	// const onSelectOrganizationName = async (e) => {
+	// 	let organizationId = e.currentTarget.value;
+	// 	await searchLocation({
+	// 		tenantId: organizationId
+	// 	});
+	// };
 
-	async function searchLocation(model) {
-		let url = `/api/server/user/search-location`;
-		const res = await fetch(url, {
-			method: 'POST',
-			body: JSON.stringify(model),
-			headers: { 'content-type': 'application/json' }
-		});
-		console.log('res', res);
-		const response = await res.json();
-		console.log('response', response);
-		locations = response;
-	}
+	// async function searchLocation(model) {
+	// 	let url = `/api/server/user/search-location`;
+	// 	const res = await fetch(url, {
+	// 		method: 'POST',
+	// 		body: JSON.stringify(model),
+	// 		headers: { 'content-type': 'application/json' }
+	// 	});
+	// 	console.log('res', res);
+	// 	const response = await res.json();
+	// 	console.log('response', response);
+	// 	locations = response;
+	// }
 </script>
 
 <body>
@@ -60,8 +60,9 @@
 				<img
 					src="/assets/images/join-raahi/png/logo.png"
 					alt=""
-					class="w-[110px] h-[50px] mt-[8px] mr-[132px] mb-[10px] ml-[133px] object-contain "
+					class="w-[110px] h-[50px] mt-[8px] mr-[132px] ml-[133px] object-contain "
 				/>
+				<div class="text-center leading-tight text-xs font-semibold">Built on REAN Foundation's HealthGuru Platform</div>
 				<div class="grid items-center w-[335px] max-[425px]:w-full justify-center">
 					<p
 						class="mx-[20px] mb-[6px] text-[19px] tracking-wide leading-5 font-bold text-center text-[#5B7AA3]"
@@ -106,17 +107,17 @@
 						required
 						class=" h-[52px] w-[340px] max-[425px]:w-full py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 					/>
-					<!-- <input
-						placeholder="Location"
-						name="address"
+					<input
+						placeholder="Enter Organization Name"
+						name="organization"
 						class=" h-[52px] w-[340px] max-[425px]:w-full py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
 					/>
 					<input
-						placeholder="NGO"
-						name="ngoName"
+						placeholder="Enter Location Name"
+						name="location"
 						class=" h-[52px] w-[340px] max-[425px]:w-full py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
-					/> -->
-					<select
+					/>
+					<!-- <select
 						placeholder="select ngo name"
 						name="ngoName"
 						class="select h-[52px] w-[340px] max-[425px]:w-full py-2 px-3 border rounded-lg bg-[#DFE7FD] mt-5 text-lg "
@@ -136,7 +137,7 @@
 						{#each locations as location}
 							<option value={location.id}>{location.Name}</option>
 						{/each}
-					</select>
+					</select> -->
 					<div
 						class="w-[340px] max-[425px]:w-full h-[52px] mt-[16px] mb-4 pt-[15px] text-center pb-15px  rounded-[10px] bg-[#5B7AA3]"
 					>
@@ -155,9 +156,3 @@
 		</div>
 	</div></body
 >
-<!-- <style>
-	option[disabled] {
-	color: #999; /* Change the text color */
-	opacity: 0.5; /* Change the opacity */
-}
-</style> -->

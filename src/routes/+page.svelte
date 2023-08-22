@@ -40,6 +40,7 @@
 					src="/assets/images/splash-screen/svg/logo.svg"
 					alt=""
 				/>
+				<div class="text-center leading-tight text-xs font-semibold">Built on REAN Foundation's HealthGuru Platform</div>
 			</div>
 			<img src="/assets/images/sign-in/svg/color-strip.svg" alt="" />
 		</div>

@@ -47,23 +47,26 @@ export const registerUser = async (
     lastName: string,
     birthDate: Date,
     phone: string,
-    // address: string,
-    locationId: string
+    organization: string,
+    location: string,
+    // locationId: string
 
 ) => {
 
+    const otherInformationData = {
+        Org: organization,
+        Location: location
+      };
+    const otherInformation  = JSON.stringify(otherInformationData);
     const model = {
         FirstName: firstName,
         LastName: lastName,
         BirthDate: birthDate,
         Phone: phone,
-        CohortId:locationId,
-        // Address: {
-        //     Type: "Home",
-        //     AddressLine: address,
-        //     Location: address
-        // }
+        // CohortId:locationId,
+        OtherInformation:otherInformation
     };
+    console.log("model-----", model);
     if (Helper.isPhone(phone)) {
         model.Phone = Helper.sanitizePhone(phone);
     }
@@ -178,18 +181,20 @@ export const updateProfile = async (
     lastName: string,
     birthDate: Date,
     phone: string,
-    address: string,
+    organization: string,
+    location: string
 ) => {
+    const otherInformationData = {
+        Org: organization,
+        Location: location
+      };
+    const otherInformation  = JSON.stringify(otherInformationData);
     const body = {
         FirstName: firstName,
         LastName: lastName,
         BirthDate: birthDate,
         Phone: phone,
-        Address: {
-            Type: "Home",
-            AddressLine: address,
-            City: address,
-        }
+        OtherInformation:otherInformation
     };
     console.log(JSON.stringify(body, null, 2));
     const url = BACKEND_API_URL + `/patients/${userId}`;
